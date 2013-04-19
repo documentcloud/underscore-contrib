@@ -131,4 +131,12 @@ $(document).ready(function() {
     deepEqual(_.repeat(0), [], 'should return an empty array if given zero and no repeat arg');
     deepEqual(_.repeat(0,9999), [], 'should return an empty array if given zero and some repeat arg');
   });
+
+  test("cycle", function() {
+    var a = [1,2,3];
+
+    deepEqual(_.cycle(3, a), [1,2,3,1,2,3,1,2,3], 'should build an array with the specified array contents repeated n times');
+    deepEqual(_.cycle(0, a), [], 'should return an empty array if told to repeat zero times');
+  });
+
 });

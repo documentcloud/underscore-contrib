@@ -115,7 +115,7 @@
     },
 
     cycle: function(t, elems) {
-      return _.mapcat(_.times(t, function() { return elems; }));
+      return _.flatten(_.times(t, function() { return elems; }), true);
     }
   });
 
