@@ -61,7 +61,25 @@
       };
 
       return p(array);
+    },
+
+    // Takes an array and parititions it some number of times into
+    // sub-arrays of size n.  If the array given cannot fill the size
+    // needs of the final partition then a smaller partition is used
+    // for the last.
+    partitionAll: function(array, n, step) {
+      step = (step != null) ? step : n;
+
+      var p = function(array, n, step) {
+        if (_.isEmpty(array)) return [];
+
+        return _.cons(_.take(array, n),
+                      p(_.drop(array, step), n, step));
+      };
+
+      return p(array, n, step);
     }
+
   });
 
 })(this);
