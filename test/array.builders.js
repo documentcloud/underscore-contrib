@@ -87,4 +87,18 @@ $(document).ready(function() {
 
     deepEqual(_.mapcat(a, commaize), [1, ",", 2, ",", 3, ","], 'should return an array with all intermediate mapped arrays concatenated');
   });
+
+  test("interpose", function() {
+    var a = [1,2,3];
+    var b = [1,2];
+    var c = [1];
+
+    deepEqual(_.interpose(a, 0), [1,0,2,0,3], 'should put the 2nd arg between the elements of the array given');
+    deepEqual(_.interpose(b, 0), [1,0,2], 'should put the 2nd arg between the elements of the array given');
+    deepEqual(_.interpose(c, 0), [1], 'should return the array given if nothing to interpose');
+    deepEqual(_.interpose([], 0), [], 'should return an empty array given an empty array');
+
+    var result = _.interpose(b,0);
+    deepEqual(b, [1,2], 'should not modify the original array');
+  });
 });
