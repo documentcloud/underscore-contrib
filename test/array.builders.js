@@ -80,4 +80,11 @@ $(document).ready(function() {
     deepEqual(_.partitionAll(b, 2, 4), [[0,1],[4,5],[8,9]], 'should partition into the size given, with skips');
     deepEqual(_.partitionAll(b, 3, 4), [[0,1,2],[4,5,6],[8,9]], 'should partition into the size given, with skips and a small end');
   });
+
+  test("mapcat", function() {
+    var a = [1,2,3];
+    var commaize = function(e) { return _.cons(e, [","]); };
+
+    deepEqual(_.mapcat(a, commaize), [1, ",", 2, ",", 3, ","], 'should return an array with all intermediate mapped arrays concatenated');
+  });
 });
