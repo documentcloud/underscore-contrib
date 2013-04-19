@@ -140,4 +140,13 @@ $(document).ready(function() {
     deepEqual(_.cycle(-1000, a), [], 'should return an empty array if told to repeat negative times');
   });
 
+  test("splitAt", function() {
+    var a = [1,2,3,4,5];
+
+    deepEqual(_.splitAt(a, 2), [[1,2],[3,4,5]], 'should bifurcate an array at a given index');
+    deepEqual(_.splitAt(a, 0), [[], [1,2,3,4,5]], 'should bifurcate an array at a given index');
+    deepEqual(_.splitAt(a, 5), [[1,2,3,4,5],[]], 'should bifurcate an array at a given index');
+    deepEqual(_.splitAt([], 5), [[],[]], 'should bifurcate an array at a given index');
+  });
+
 });
