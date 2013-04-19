@@ -51,4 +51,19 @@ $(document).ready(function() {
 
     deepEqual(a, [1,2,3], 'should not modify the original tail');
   });
+
+  test("partition", function() {
+    var a = _.range(4);
+    var b = _.range(5);
+    var c = _.range(7);
+
+    deepEqual(_.partition(a, 2), [[0,1],[2,3]], 'should partition into the size given');
+    deepEqual(_.partition(b, 2), [[0,1],[2,3]], 'should partition into the size given. Extras are dropped');
+
+    var result = _.partition(a, 2);
+    deepEqual(a, _.range(4), 'should not modify the original array');
+
+    deepEqual(_.partition(c, 3, [7,8]), [[0,1,2],[3,4,5],[6,7,8]], 'should allow one to specify a padding array');
+    deepEqual(_.partition(b, 3, 9), [[0,1,2],[3,4,9]], 'should allow one to specify a padding value');
+  });
 });
