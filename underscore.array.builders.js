@@ -81,9 +81,23 @@
     },
 
     // Maps a function over an array and concatenates all of the results.
-    mapcat: function(coll, fun) {
-      return _.cat.apply(null, _.map(coll, fun));
+    mapcat: function(array, fun) {
+      return _.cat.apply(null, _.map(array, fun));
+    },
+
+    // Returns an array with some item between each element
+    // of a given array.
+    interpose: function(array, inter) {
+      if (!_.isArray(array)) throw new TypeError;
+      var sz = _.size(array);
+      if (sz === 0) return array;
+      if (sz === 1) return array;
+
+      return slice(_.mapcat(array, function(elem) { 
+        return _.cons(elem, [inter]);
+      }), 0, -1);
     }
+
   });
 
 })(this);
