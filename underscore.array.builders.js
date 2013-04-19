@@ -40,6 +40,27 @@
     // 'Constructs' an array by putting an element at its front
     cons: function(head, tail) {
       return _.cat([head], tail);
+    },
+
+    // Takes an array and parititions it some number of times into
+    // sub-arrays of size n.  Allows and optional padding array as
+    // the third argument to fill in the tail partition when n is
+    // not sufficient to build paritions of the same size.
+    partition: function(array, n, pad) {
+      var p = function(array) {
+        if (array == null) return [];
+
+        var part = _.take(array, n);
+
+        if (n === _.size(part)) {
+          return L.cons(part, p(_.drop(array, n)));
+        }
+        else {
+          return pad ? [_.take(_.cat(part, pad), n)] : [];
+        }
+      };
+
+      return p(array);
     }
   });
 
