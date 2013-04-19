@@ -101,4 +101,28 @@ $(document).ready(function() {
     var result = _.interpose(b,0);
     deepEqual(b, [1,2], 'should not modify the original array');
   });
+
+  test("weave", function() {
+    var a = [1,2,3];
+    var b = [1,2];
+    var c = ['a', 'b', 'c'];
+    var d = [1, [2]];
+
+    // zero
+    deepEqual(_.weave(), [], 'should weave zero arrays');
+
+    // one
+    deepEqual(_.weave([]), [], 'should weave one array');
+    deepEqual(_.weave([1,[2]]), [1,[2]], 'should weave one array');
+
+    // two
+    deepEqual(_.weave(a,b), [1,1,2,2,3], 'should weave two arrays');
+    deepEqual(_.weave(a,a), [1,1,2,2,3,3], 'should weave two arrays');
+    deepEqual(_.weave(c,a), ['a',1,'b',2,'c',3], 'should weave two arrays');
+    deepEqual(_.weave(a,d), [1,1,2,[2],3], 'should weave two arrays');
+
+    // > 2
+    deepEqual(_.weave(a,b,c), [1,1,'a',2,2,'b',3,'c'], 'should weave more than two arrays');
+    deepEqual(_.weave(a,b,c,d), [1,1,'a',1,2,2,'b',[2],3,'c'], 'should weave more than two arrays');
+  });
 });
