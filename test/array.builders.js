@@ -149,5 +149,10 @@ $(document).ready(function() {
     deepEqual(_.splitAt([], 5), [[],[]], 'should bifurcate an array at a given index');
   });
 
+  test("iterateUntil", function() {
+    var dec = function(n) { return n - 1; };
+    var isPos = function(n) { return n > 0; };
 
+    deepEqual(_.iterateUntil(dec, isPos, 6), [5,4,3,2,1], 'should build an array, decrementing a number while positive.');
+  });
 });
