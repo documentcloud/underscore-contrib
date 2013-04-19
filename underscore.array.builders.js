@@ -78,8 +78,12 @@
       };
 
       return p(array, n, step);
-    }
+    },
 
+    // Maps a function over an array and concatenates all of the results.
+    mapcat: function(coll, fun) {
+      return _.cat.apply(null, _.map(coll, fun));
+    }
   });
 
 })(this);
