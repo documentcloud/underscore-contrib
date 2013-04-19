@@ -125,4 +125,10 @@ $(document).ready(function() {
     deepEqual(_.weave(a,b,c), [1,1,'a',2,2,'b',3,'c'], 'should weave more than two arrays');
     deepEqual(_.weave(a,b,c,d), [1,1,'a',1,2,2,'b',[2],3,'c'], 'should weave more than two arrays');
   });
+
+  test("repeat", function() {
+    deepEqual(_.repeat(3,1), [1,1,1], 'should build an array of size n with the specified element in each slot');
+    deepEqual(_.repeat(0), [], 'should return an empty array if given zero and no repeat arg');
+    deepEqual(_.repeat(0,9999), [], 'should return an empty array if given zero and some repeat arg');
+  });
 });
