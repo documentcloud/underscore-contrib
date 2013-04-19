@@ -137,6 +137,7 @@ $(document).ready(function() {
 
     deepEqual(_.cycle(3, a), [1,2,3,1,2,3,1,2,3], 'should build an array with the specified array contents repeated n times');
     deepEqual(_.cycle(0, a), [], 'should return an empty array if told to repeat zero times');
+    deepEqual(_.cycle(-1000, a), [], 'should return an empty array if told to repeat negative times');
   });
 
 });

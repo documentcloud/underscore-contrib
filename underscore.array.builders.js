@@ -116,7 +116,12 @@
 
     cycle: function(t, elems) {
       return _.flatten(_.times(t, function() { return elems; }), true);
+    },
+
+    splitAt: function(array, index) {
+      return [_.take(array, index), _.drop(array, index)];
     }
+
   });
 
 })(this);
