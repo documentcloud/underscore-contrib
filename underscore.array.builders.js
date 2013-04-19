@@ -99,11 +99,14 @@
     },
 
     // Weaves two or more arrays together
-    interleave: function(/* args */) {
+    weave: function(/* args */) {
+      if (!_.some(arguments)) return [];
+
       return _.filter(_.flatten(_.zip.apply(null, arguments)), function(elem) {
         return elem != null;
       });
-    }
+    },
+    interleave: _.weave
 
   });
 
