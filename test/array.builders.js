@@ -153,6 +153,15 @@ $(document).ready(function() {
     var dec = function(n) { return n - 1; };
     var isPos = function(n) { return n > 0; };
 
-    deepEqual(_.iterateUntil(dec, isPos, 6), [5,4,3,2,1], 'should build an array, decrementing a number while positive.');
+    deepEqual(_.iterateUntil(dec, isPos, 6), [5,4,3,2,1], 'should build an array, decrementing a number while positive');
   });
+
+  test("takeSkipping", function() {
+    deepEqual(_.takeSkipping(_.range(5), 0), [], 'should take nothing if told to skip by zero');
+    deepEqual(_.takeSkipping(_.range(5), -1), [], 'should take nothing if told to skip by negative');
+    deepEqual(_.takeSkipping(_.range(5), 100), [0], 'should take first element if told to skip by big number');
+    deepEqual(_.takeSkipping(_.range(5), 1), [0,1,2,3,4], 'should take every element in an array');
+    deepEqual(_.takeSkipping(_.range(10), 2), [0,2,4,6,8], 'should take every 2nd element in an array');
+  });
+
 });

@@ -146,6 +146,9 @@
       var ret = [];
       var sz = _.size(array);
 
+      if (n <= 0) return [];
+      if (n === 1) return array;
+
       for(var index = 0; index < sz; index += n) {
         ret.push(array[index]);
       }
