@@ -1,8 +1,6 @@
-//     Underscore-contrib
-//     underscore.array.builders.js 0.0.1
-//     http://underscorejs.org
-//     (c) 2013 Michael Fogus
-//     Underscore-contrib may be freely distributed under the MIT license.
+// Underscore-contrib (underscore.array.builders.js 0.0.1)
+// (c) 2013 Michael Fogus and DocumentCloud Inc.
+// Underscore-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -15,6 +13,7 @@
   // Helpers
   // -------
   
+  // Create quick reference variables for speed access to core prototypes.
   var slice   = Array.prototype.slice,
       concat  = Array.prototype.concat;
 
@@ -23,7 +22,10 @@
   // ----------------------------
 
   _.mixin({
-    // Concatenates one or more arrays given as arguments
+    // Concatenates one or more arrays given as arguments.  If given objects and
+    // scalars as arguments `cat` will plop them down in place in the result 
+    // array.  If given an `arguments` object, `cat` will treat it like an array
+    // and concatenate it likewise.
     cat: function() {
       return _.reduce(arguments, function(acc, elem) {
         if (_.isArguments(elem)) {
