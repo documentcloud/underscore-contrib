@@ -112,7 +112,7 @@
     // times.
     repeat: function(t, elem) {
       return _.times(t, function() { return elem; });
-    };
+    }
 
   });
 
