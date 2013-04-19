@@ -114,12 +114,30 @@
       return _.times(t, function() { return elem; });
     },
 
+    // Returns an array built from the contents of a given array repeated
+    // a certain number of times.
     cycle: function(t, elems) {
       return _.flatten(_.times(t, function() { return elems; }), true);
     },
 
+    // Returns an array with two internal arrays built from
+    // taking an original array and spliting it at an index.
     splitAt: function(array, index) {
       return [_.take(array, index), _.drop(array, index)];
+    },
+
+    // Call a function recursively f(f(f(args))) until a second
+    // given function goes falsey.  Expects a seed value to start.
+    iterateUntil: function(doit, checkit, seed) {
+      var ret = [];
+      var result = doit(seed);
+
+      while (checkit(result)) {
+        ret.push(result);
+        result = doit(result);
+      }
+
+      return ret;
     }
 
   });
