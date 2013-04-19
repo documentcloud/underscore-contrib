@@ -15,8 +15,8 @@
   // Helpers
   // -------
   
-  var slice   = ArrayProto.slice,
-      concat  = ArrayProto.concat;
+  var slice   = Array.prototype.slice,
+      concat  = Array.prototype.concat;
 
 
   // Mixing in the array builders
