@@ -39,7 +39,7 @@
 
     // 'Constructs' an array by putting an element at its front
     cons: function(head, tail) {
-      return _.cat(head, tail);
+      return _.cat([head], tail);
     }
   });
 

@@ -36,4 +36,19 @@ $(document).ready(function() {
     result = (function(){ return _.cat(arguments, 4,5,6); })(1,2,3);
     deepEqual(result, [1,2,3,4,5,6], 'should concatenate mixed types, including an arguments object');
   });
+
+  test("cons", function() {
+    deepEqual(_.cons(0, []), [0], 'should insert the first arg into the array given as the second arg');
+    deepEqual(_.cons(1, [2]), [1,2], 'should insert the first arg into the array given as the second arg');
+    deepEqual(_.cons([0], [1,2,3]), [[0],1,2,3], 'should insert the first arg into the array given as the second arg');
+    deepEqual(_.cons(1, 2), [1,2], 'should create a pair if the second is not an array');
+    deepEqual(_.cons([1], 2), [[1],2], 'should create a pair if the second is not an array');
+    result = (function(){ return _.cons(0, arguments); })(1,2,3);
+    deepEqual(result, [0,1,2,3], 'should construct an array given an arguments object as the tail');
+
+    var a = [1,2,3];
+    var result = _.cons(0,a);
+
+    deepEqual(a, [1,2,3], 'should not modify the original tail');
+  });
 });
