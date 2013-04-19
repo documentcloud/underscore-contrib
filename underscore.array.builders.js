@@ -53,7 +53,7 @@
         var part = _.take(array, n);
 
         if (n === _.size(part)) {
-          return L.cons(part, p(_.drop(array, n)));
+          return _.cons(part, p(_.drop(array, n)));
         }
         else {
           return pad ? [_.take(_.cat(part, pad), n)] : [];
