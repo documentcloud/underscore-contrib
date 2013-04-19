@@ -106,7 +106,13 @@
         return elem != null;
       });
     },
-    interleave: _.weave
+    interleave: _.weave,
+
+    // Returns an array of a value repeated a certain number of
+    // times.
+    repeat: function(t, elem) {
+      return _.times(t, function() { return elem; });
+    };
 
   });
 
