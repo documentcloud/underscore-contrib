@@ -112,8 +112,11 @@
     // times.
     repeat: function(t, elem) {
       return _.times(t, function() { return elem; });
-    }
+    },
 
+    cycle: function(t, elems) {
+      return _.mapcat(_.times(t, function() { return elems; }));
+    }
   });
 
 })(this);
