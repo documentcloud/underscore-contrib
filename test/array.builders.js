@@ -66,4 +66,18 @@ $(document).ready(function() {
     deepEqual(_.partition(c, 3, [7,8]), [[0,1,2],[3,4,5],[6,7,8]], 'should allow one to specify a padding array');
     deepEqual(_.partition(b, 3, 9), [[0,1,2],[3,4,9]], 'should allow one to specify a padding value');
   });
+
+  test("partitionAll", function() {
+    var a = _.range(4);
+    var b = _.range(10);
+
+    deepEqual(_.partitionAll(a, 2), [[0,1],[2,3]], 'should partition into the size given');
+    deepEqual(_.partitionAll(b, 4), [[0,1,2,3],[4,5,6,7],[8,9]], 'should partition into the size given, with a small end');
+
+    var result = _.partitionAll(a, 2);
+    deepEqual(a, _.range(4), 'should not modify the original array');
+
+    deepEqual(_.partitionAll(b, 2, 4), [[0,1],[4,5],[8,9]], 'should partition into the size given, with skips');
+    deepEqual(_.partitionAll(b, 3, 4), [[0,1,2],[4,5,6],[8,9]], 'should partition into the size given, with skips and a small end');
+  });
 });
