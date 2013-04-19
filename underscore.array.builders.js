@@ -138,6 +138,19 @@
       }
 
       return ret;
+    },
+
+    // Takes every nth item from an array, returning an array of
+    // the results.
+    takeSkipping: function(array, n) {
+      var ret = [];
+      var sz = _.size(array);
+
+      for(var index = 0; index < sz; index += n) {
+        ret.push(array[index]);
+      }
+
+      return ret;
     }
 
   });
