@@ -96,6 +96,13 @@
       return slice.call(_.mapcat(array, function(elem) { 
         return _.cons(elem, [inter]);
       }), 0, -1);
+    },
+
+    // Weaves two or more arrays together
+    interleave: function(/* args */) {
+      return _.filter(_.flatten(_.zip.apply(null, arguments)), function(elem) {
+        return elem != null;
+      });
     }
 
   });
