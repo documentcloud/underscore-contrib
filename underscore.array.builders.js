@@ -93,7 +93,7 @@
       if (sz === 0) return array;
       if (sz === 1) return array;
 
-      return slice(_.mapcat(array, function(elem) { 
+      return slice.call(_.mapcat(array, function(elem) { 
         return _.cons(elem, [inter]);
       }), 0, -1);
     }
