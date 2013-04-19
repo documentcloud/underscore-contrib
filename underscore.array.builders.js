@@ -25,14 +25,14 @@
   _.mixin({
     // Concatenates one or more arrays given as arguments
     cat: function() {
-      var head = _.first(arguments);
-      var args = _.rest(arguments);
-      if (head != null) {
-        return concat.apply(head, args);
-      }
-      else {
-        return [];
-      }
+      return _.reduce(arguments, function(acc, elem) {
+        if (_.isArguments(elem)) {
+          return concat.call(acc, slice.call(elem));
+        }
+        else {
+          return concat.call(acc, elem);
+        }
+      }, []);
     }
   });
 
