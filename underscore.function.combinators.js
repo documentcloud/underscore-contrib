@@ -43,6 +43,19 @@
         });
       };
     },
+
+    // Composes a bunch of predicates into a single predicate that
+    // checks all elements of an array for conformance to any of the
+    // original predicates.
+    disjoin: function(/* preds */) {
+      return function(coll) {
+        return _.some(coll, function(e) {
+          return _.some(arguments, function(p) {
+            return p(e);
+          });
+        });
+      };
+    },
     k: _.always,
     t: _.pipeline
   });
