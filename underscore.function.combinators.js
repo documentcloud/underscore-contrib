@@ -17,7 +17,10 @@
   // ----------------------------
 
   _.mixin({
-
+    always: function(value) {
+      return function() { return value; };
+    },
+    k: _.always
   });
 
 })(this);
