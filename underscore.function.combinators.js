@@ -17,13 +17,31 @@
   // ----------------------------
 
   _.mixin({
+    // Takes a value and returns a function that always returns
+    // said value.
     always: function(value) {
       return function() { return value; };
     },
+
+    // Takes some value as its first argument and runs it through a
+    // pipeline of functions given as the rest arguments.
     pipeline: function(seed /*, args */){
       return _.reduce(_.rest(arguments),
                       function(l,r) { return r(l); },
                       seed);
+    },
+
+    // Composes a bunch of predicates into a single predicate that
+    // checks all elements of an array for conformance to all of the
+    // original predicates.
+    conjoin: function(/* preds */) {
+      return function(coll) {
+        return _.every(coll, function(e) {
+          return _.every(arguments, function(p) {
+            return p(e);
+          });
+        });
+      };
     },
     k: _.always,
     t: _.pipeline
