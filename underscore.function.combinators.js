@@ -20,7 +20,13 @@
     always: function(value) {
       return function() { return value; };
     },
-    k: _.always
+    pipeline: function(seed /*, args */){
+      return _.reduce(_.rest(arguments),
+                      function(l,r) { return r(l); },
+                      seed);
+    },
+    k: _.always,
+    t: _.pipeline
   });
 
 })(this);
