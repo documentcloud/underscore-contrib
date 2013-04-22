@@ -58,4 +58,11 @@ $(document).ready(function() {
     equal(_.reduce(a, safeMult), 30, 'should fill in defaults for null');
     equal(_.reduce(b, safeMult), 30, 'should fill in defaults for undefined');
   });
+
+  test("juxt", function() {
+    var run = _.juxt(function(s) { return s.length; }, parseInt, _.always(108));
+
+    deepEqual(run('42'), [2, 42, 108], 'should return a function that returns an array of the originally supplied functions called');
+  });
+
 });
