@@ -20,4 +20,11 @@ $(document).ready(function() {
     equal(isPositiveEven([2,4,6,7,8]), false, 'should recognize when an element fails to satisfy a conjunction');
   });
 
+  test("disjoin", function() {
+    var orPositiveEven = _.disjoin(function(x) { return x > 0; }, function(x) { return (x & 1) === 0; });
+
+    equal(orPositiveEven([-1,2,3,4,5,6]), true, 'should recognize when all elements satisfy a disjunction');
+    equal(orPositiveEven([-1,-3]), false, 'should recognize when an element fails to satisfy a disjunction');
+  });
+
 });
