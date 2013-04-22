@@ -59,6 +59,7 @@
         });
       };
     },
+
     // Takes a predicate-like and returns a comparator (-1,0,1).
     comparator: function(fun) {
       return function(x, y) {
@@ -68,6 +69,13 @@
           return 1;
         else
           return 0;
+      };
+    },
+
+    // Returns a function that reverses the sense of a given predicate-like.
+    complement: function(pred) {
+      return function() {
+        return !pred.apply(null, arguments);
       };
     },
     k: _.always,
