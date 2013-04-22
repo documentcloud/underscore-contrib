@@ -106,6 +106,17 @@
       };
     },
 
+    // Returns a function that returns an array of the calls to each
+    // given function for some arguments.
+    juxt: function(/* funs */) {
+      var funs = arguments;
+
+      return function(arg) {
+        return _.map(funs, function(f) {
+          return f(arg);
+        });
+      };
+    },
     k: _.always,
     t: _.pipeline
   });
