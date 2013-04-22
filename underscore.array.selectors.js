@@ -81,8 +81,15 @@
       }));
 
       return concat.call([run], _.partitionBy(_.drop(array, _.size(run)), fun));
-    }
+    },
 
+    // Returns the 'best' value in an array based on the result of a
+    // given function.
+    best: function(array, fun) {
+      return _.reduce(array, function(x, y) {
+        return fun(x, y) ? x : y;
+      });
+    }
 
   });
 
