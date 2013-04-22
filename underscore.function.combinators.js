@@ -16,8 +16,8 @@
   var existy = function(x) { return x != null; };
   var truthy = function(x) { return (x !== false) && existy(x); };
   
-  // Mixing in the array builders
-  // ----------------------------
+  // Mixing in the combinator functions
+  // ----------------------------------
 
   _.mixin({
     // Takes a value and returns a function that always returns

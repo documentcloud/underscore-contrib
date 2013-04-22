@@ -14,8 +14,8 @@
   // -------
 
   
-  // Mixing in the array builders
-  // ----------------------------
+  // Mixing in the predicate functions
+  // ---------------------------------
 
   _.mixin({
     exists: function(x) { return x != null; },
