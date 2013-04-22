@@ -154,8 +154,21 @@
       }
 
       return ret;
-    }
+    },
 
+    // Returns an array of each intermediate stage of a call to
+    // a `reduce`-like function.
+    reductions: function(array, fun, init) {
+      var ret = [];
+      var acc = init;
+
+      _.each(array, function(v,k) {
+        acc = fun(acc, array[k]);
+        ret.push(acc);
+      });
+
+      return ret;
+    }
   });
 
 })(this);
