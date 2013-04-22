@@ -79,13 +79,22 @@
       };
     },
 
-    // Takes a function expecting regulars args and
+    // Takes a function expecting varargs and
     // returns a function that takes an array and
     // uses its elements as the args to  the original
     // function
     splat: function(fun) {
       return function(array) {
         return fun.apply(null, array);
+      };
+    },
+
+    // Takes a function expecting an array and returns
+    // a function that takes varargs and wraps all
+    // in an array that is passed to the original function.
+    unsplat: function(fun) {
+      return function() {
+        return fun.call(null, _.toArray(arguments));
       };
     },
     k: _.always,
