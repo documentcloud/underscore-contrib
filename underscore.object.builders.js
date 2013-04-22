@@ -35,6 +35,37 @@
       }
 
       return dest;
+    },
+
+    // Takes an object and another object of strings to strings where the second
+    // object describes the key renaming to occur in the first object.
+    renameKeys: function(obj, kobj) {
+      return _.reduce(kobj, function(o, nu, old) {
+        if (existy(obj[old])) {
+          o[nu] = obj[old];
+          return o;
+        }
+        else
+          return o;
+      },
+      _.omit.apply(null, concat.call([obj], _.keys(kobj))));
+    },
+
+    // Snapshots an object deeply. Based on the version by
+    // [Keith Devens](http://keithdevens.com/weblog/archive/2007/Jun/07/javascript.clone)
+    // until we can find a more efficient and robust way to do it.
+    snapshot: function(obj) {
+      if(obj == null || typeof(obj) != 'object') {
+        return obj;
+      }
+
+      var temp = new obj.constructor();
+
+      for(var key in obj) {
+        temp[key] = _.snapshot(obj[key]);
+      }
+
+      return temp;
     }
   });
 
