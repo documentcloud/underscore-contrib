@@ -19,6 +19,7 @@
 
   var existy = function(x) { return x != null; };
   var truthy = function(x) { return (x !== false) && existy(x); };
+  var isAssociative = function(x) { return _.isArray(x) || _.isObject(x); };
   
   // Mixing in the object builders
   // ----------------------------
@@ -66,6 +67,29 @@
       }
 
       return temp;
+    },
+
+    // Updates the value at any depth in a nested object based on the
+    // path described by the keys given.  The function provided is supplied
+    // the current value and is expected to return a value for use as the
+    // new value.  If no keys are provided, then the object itself is presented
+    // to the given function.
+    updatePath: function(obj, fun, ks) {
+      if (!isAssociative(obj)) throw new TypeError("Attempted to update a non-associative object.");
+      if (!existy(ks)) return fun(obj);
+
+      var deepness = _.isArray(ks);
+      var keys     = deepness ? ks : [ks];
+      var ret      = deepness ? _.snapshot(obj) : _.clone(obj);
+      var lastKey  = _.last(keys);
+      var target   = ret;
+
+      _.each(_.initial(keys), function(key) {
+        target = target[key];
+      });
+
+      target[lastKey] = fun(target[lastKey]);
+      return ret;
     }
   });
 
