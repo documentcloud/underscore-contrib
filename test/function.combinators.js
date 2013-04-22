@@ -9,8 +9,8 @@ $(document).ready(function() {
   });
 
   test("pipeline", function() {
-    var result = _.pipeline(42, function(n) { return -n; }, function(n) { return "" + n; });
-    equal(result, "-42", 'should apply a series of functions to an initial value');
+    var run = _.pipeline(function(n) { return -n; }, function(n) { return "" + n; });
+    equal(run(42), "-42", 'should apply a series of functions to an initial value');
   });
 
   test("conjoin", function() {

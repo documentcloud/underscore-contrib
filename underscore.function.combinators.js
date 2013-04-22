@@ -28,10 +28,14 @@
 
     // Takes some value as its first argument and runs it through a
     // pipeline of functions given as the rest arguments.
-    pipeline: function(seed /*, args */){
-      return _.reduce(_.rest(arguments),
-                      function(l,r) { return r(l); },
-                      seed);
+    pipeline: function(/*, funs */){
+      var funs = arguments;
+
+      return function(seed) {
+        return _.reduce(funs,
+                        function(l,r) { return r(l); },
+                        seed);
+      };
     },
 
     // Composes a bunch of predicates into a single predicate that
