@@ -27,6 +27,15 @@ $(document).ready(function() {
     equal(orPositiveEven([-1,-3]), false, 'should recognize when an element fails to satisfy a disjunction');
   });
 
+  test("comparator", function() {
+    var lessOrEqual = function(x, y) { return x <= y; };
+    var a = [0, 1, -2];
+    var b = [100, 1, 0, 10, -1, -2, -1];
+
+    deepEqual(a.sort(_.comparator(lessOrEqual)), [-2, 0, 1], 'should return a function to convert a predicate to a comparator');
+    deepEqual(b.sort(_.comparator(lessOrEqual)), [-2, -1, -1, 0, 1, 10, 100], 'should return a function to convert a predicate to a comparator');
+  });
+
   test("flip2", function() {
     var div = function(n, d) { return n/d; };
 
