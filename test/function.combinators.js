@@ -65,4 +65,10 @@ $(document).ready(function() {
     deepEqual(run('42'), [2, 42, 108], 'should return a function that returns an array of the originally supplied functions called');
   });
 
+  test("accessor", function() {
+    var f = _.accessor('a');
+
+    equal(f({a: 42}), 42, 'should retrieve a pluckable field');
+    equal(f({z: 42}), undefined, 'should fail to retrieve a field if not there');
+  });
 });
