@@ -44,8 +44,8 @@
     conjoin: function(/* preds */) {
       var preds = arguments;
 
-      return function(coll) {
-        return _.every(coll, function(e) {
+      return function(array) {
+        return _.every(array, function(e) {
           return _.every(preds, function(p) {
             return p(e);
           });
@@ -59,8 +59,8 @@
     disjoin: function(/* preds */) {
       var preds = arguments;
 
-      return function(coll) {
-        return _.some(coll, function(e) {
+      return function(array) {
+        return _.some(array, function(e) {
           return _.some(preds, function(p) {
             return p(e);
           });
