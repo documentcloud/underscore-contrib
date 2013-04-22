@@ -36,6 +36,13 @@ $(document).ready(function() {
     deepEqual(b.sort(_.comparator(lessOrEqual)), [-2, -1, -1, 0, 1, 10, 100], 'should return a function to convert a predicate to a comparator');
   });
 
+  test("complement", function() {
+    var notOdd = _.complement(function(n) { return (n & 1) === 1; });
+
+    equal(notOdd(2), true, 'should return a function that is the opposite of the function given');
+    equal(notOdd(3), false, 'should return a function that is the opposite of the function given');
+  });
+
   test("flip2", function() {
     var div = function(n, d) { return n/d; };
 
