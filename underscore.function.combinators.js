@@ -59,6 +59,17 @@
         });
       };
     },
+    // Takes a predicate-like and returns a comparator (-1,0,1).
+    comparator: function(fun) {
+      return function(x, y) {
+        if (truthy(fun(x, y)))
+          return -1;
+        else if (truthy(fun(y, x)))
+          return 1;
+        else
+          return 0;
+      };
+    },
     k: _.always,
     t: _.pipeline
   });
