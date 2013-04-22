@@ -137,6 +137,17 @@
         return fun.apply(null, args);
       };
     },
+
+    // Flips the first two args of a function
+    flip2: function(fun) {
+      return function(/* args */) {
+        var tmp = arguments[0];
+        arguments[0] = arguments[1];
+        arguments[1] = tmp;
+
+        return fun.apply(null, arguments);
+      };
+    },
     k: _.always,
     t: _.pipeline
   });
