@@ -90,6 +90,14 @@
 
       target[lastKey] = fun(target[lastKey]);
       return ret;
+    },
+
+    // Sets the value at any depth in a nested object based on the
+    // path described by the keys given.
+    setPath: function(obj, value, ks) {
+      if (!existy(ks)) throw new TypeError("Attempted to set a property at a null path.");
+
+      return _.updatePath(obj, function() { return value; }, ks);
     }
   });
 
