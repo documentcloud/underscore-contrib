@@ -22,7 +22,13 @@
   // ----------------------------
 
   _.mixin({
-
+    // Returns the second element of an array. Passing **n** will return all but 
+    // the first of the head N values in the array.  The **guard** check allows it
+    // to work with `_.map`.
+    second: function(array, n, guard) {
+      if (array == null) return void 0;
+      return (n != null) && !guard ? slice.call(array, 1, n) : array[1];
+    }
   });
 
 })(this);
