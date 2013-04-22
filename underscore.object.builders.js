@@ -20,6 +20,13 @@
   var existy = function(x) { return x != null; };
   var truthy = function(x) { return (x !== false) && existy(x); };
   var isAssociative = function(x) { return _.isArray(x) || _.isObject(x); };
+  var curry2 = function(fun) {
+    return function(last) {
+      return function(first) {
+        return fun(first, last);
+      };
+    };
+  };
   
   // Mixing in the object builders
   // ----------------------------
@@ -98,7 +105,11 @@
       if (!existy(ks)) throw new TypeError("Attempted to set a property at a null path.");
 
       return _.updatePath(obj, function() { return value; }, ks);
-    }
+    },
+
+    // Returns an object where each element of an array is keyed to
+    // the number of times that it occurred in said array.
+    frequencies: curry2(_.countBy)(_.identity)
   });
 
 })(this);
