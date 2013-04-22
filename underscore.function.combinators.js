@@ -78,6 +78,16 @@
         return !pred.apply(null, arguments);
       };
     },
+
+    // Takes a function expecting regulars args and
+    // returns a function that takes an array and
+    // uses its elements as the args to  the original
+    // function
+    splat: function(fun) {
+      return function(array) {
+        return fun.apply(null, array);
+      };
+    },
     k: _.always,
     t: _.pipeline
   });
