@@ -19,6 +19,7 @@
 
   var existy = function(x) { return x != null; };
   var truthy = function(x) { return (x !== false) && existy(x); };
+  var isSeq = function(x) { return (_.isArray(x)) || (_.isArguments(x)); };
 
   // Mixing in the array selectors
   // ----------------------------
@@ -33,8 +34,8 @@
     },
 
     // Takes all items in an array while a given predicate returns truthy.
-    takeWhile: function(pred, array) {
-      if (!_.isArray(array)) throw new TypeError;
+    takeWhile: function(array, pred) {
+      if (!isSeq(array)) throw new TypeError;
 
       var sz = _.size(array);
 
@@ -45,7 +46,29 @@
       }
 
       return _.take(array, index);
+    },
+
+    // Drops all items from an array while a given predicate returns truthy.
+    dropWhile: function(array, pred) {
+      if (!isSeq(array)) throw new TypeError;
+
+      var sz = _.size(array);
+
+      for (var index = 0; index < sz; index++) {
+        if(!truthy(pred(array[index])))
+          break;
+      }
+
+      return _.drop(array, index);
+    },
+
+    // Returns an array with two internal arrays built from
+    // taking an original array and spliting it at the index
+    // where a given function goes falsey.
+    splitWith: function(array, pred) {
+      return [_.takeWhile(pred, array), L.dropWhile(pred, array)];
     }
+
 
   });
 
