@@ -19,8 +19,8 @@
 
   _.mixin({
     exists: function(x) { return x != null; },
-    truthy: function(x) { return (x !== false) && L.existy(x); },
-    falsey: function(x) { return !L.truthy(x); }
+    truthy: function(x) { return (x !== false) && _.existy(x); },
+    falsey: function(x) { return !_.truthy(x); }
   });
 
 })(this);

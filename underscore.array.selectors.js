@@ -66,7 +66,7 @@
     // taking an original array and spliting it at the index
     // where a given function goes falsey.
     splitWith: function(array, pred) {
-      return [_.takeWhile(pred, array), L.dropWhile(pred, array)];
+      return [_.takeWhile(pred, array), _.dropWhile(pred, array)];
     },
 
     // Takes an array and partitions it as the given predicate changes
@@ -89,8 +89,16 @@
       return _.reduce(array, function(x, y) {
         return fun(x, y) ? x : y;
       });
-    }
+    },
 
+    // Returns an array of existy results of a function over an source array.
+    keep: function(array, fun) {
+      if (!isSeq(array)) throw new TypeError("expected an array as the first argument");
+
+      return _.filter(_.map(array, function(e) {
+        return fun(e);
+      }), existy);
+    }
   });
 
 })(this);
