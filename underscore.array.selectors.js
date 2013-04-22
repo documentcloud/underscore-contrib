@@ -67,6 +67,20 @@
     // where a given function goes falsey.
     splitWith: function(array, pred) {
       return [_.takeWhile(pred, array), L.dropWhile(pred, array)];
+    },
+
+    // Takes an array and partitions it as the given predicate changes
+    // truth sense.
+    partitionBy: function(array, fun){
+      if (_.isEmpty(array) || !existy(array)) return [];
+
+      var fst    = _.first(array);
+      var fstVal = fun(fst);
+      var run    = concat.call([fst], _.takeWhile(_.rest(array), function(e) {
+        return _.isEqual(fstVal, fun(e));
+      }));
+
+      return concat.call([run], _.partitionBy(_.drop(array, _.size(run)), fun));
     }
 
 
