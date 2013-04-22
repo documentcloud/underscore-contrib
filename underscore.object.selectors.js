@@ -14,13 +14,8 @@
   // -------
 
   // Create quick reference variables for speed access to core prototypes.
-  var slice   = Array.prototype.slice,
-      concat  = Array.prototype.concat;
+  var concat  = Array.prototype.concat;
 
-  var existy = function(x) { return x != null; };
-  var truthy = function(x) { return (x !== false) && existy(x); };
-  var isAssociative = function(x) { return _.isArray(x) || _.isObject(x); };
-  
   // Mixing in the object selectors
   // ------------------------------
 
@@ -31,8 +26,12 @@
       return function(obj) {
         return (obj && obj[field]);
       };
-    }
+    },
 
+    // Like `_.pick` except that it takes an array of keys to pick.
+    selectKeys: function (obj, ks) {
+      return _.pick.apply(null, concat.call([obj], ks));
+    }
   });
 
 })(this);
