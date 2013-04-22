@@ -12,6 +12,9 @@
 
   // Helpers
   // -------
+
+  var existy = function(x) { return x != null; };
+  var truthy = function(x) { return (x !== false) && existy(x); };
   
   // Mixing in the array builders
   // ----------------------------
