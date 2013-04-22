@@ -25,6 +25,13 @@
   // ------------------------------
 
   _.mixin({
+    // Returns a function that will attempt to look up a named field
+    // in any object that it's given.
+    accessor: function(field) {
+      return function(obj) {
+        return (obj && obj[field]);
+      };
+    }
 
   });
 
