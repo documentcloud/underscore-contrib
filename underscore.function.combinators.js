@@ -97,6 +97,15 @@
         return fun.call(null, _.toArray(arguments));
       };
     },
+
+    // Returns a function that will attempt to look up a named field
+    // in any object that it's given.
+    accessor: function(field) {
+      return function(obj) {
+        return (obj && obj[field]);
+      };
+    },
+
     k: _.always,
     t: _.pipeline
   });
