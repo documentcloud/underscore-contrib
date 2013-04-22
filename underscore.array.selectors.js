@@ -17,6 +17,8 @@
   var slice   = Array.prototype.slice,
       concat  = Array.prototype.concat;
 
+  var existy = function(x) { return x != null; };
+  var truthy = function(x) { return (x !== false) && existy(x); };
 
   // Mixing in the array selectors
   // ----------------------------
@@ -28,7 +30,23 @@
     second: function(array, n, guard) {
       if (array == null) return void 0;
       return (n != null) && !guard ? slice.call(array, 1, n) : array[1];
+    },
+
+    // Takes all items in an array while a given predicate returns truthy.
+    takeWhile: function(pred, array) {
+      if (!_.isArray(array)) throw new TypeError;
+
+      var sz = _.size(array);
+
+      for (var index = 0; index < sz; index++) {
+        if(!truthy(pred(array[index]))) {
+          break;
+        }
+      }
+
+      return _.take(array, index);
     }
+
   });
 
 })(this);
