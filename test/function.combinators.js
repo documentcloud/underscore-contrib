@@ -27,4 +27,10 @@ $(document).ready(function() {
     equal(orPositiveEven([-1,-3]), false, 'should recognize when an element fails to satisfy a disjunction');
   });
 
+  test("flip2", function() {
+    var div = function(n, d) { return n/d; };
+
+    equal(_.flip2(div)(10,2), 0.2, 'should return a function that flips the first two args to a function');
+  });
+
 });
