@@ -117,6 +117,26 @@
         });
       };
     },
+
+    // Returns a function that protects a given function from receiving
+    // non-existy values.  Each subsequent value provided to `fnull` acts
+    // as the default to the original function should a call receive non-existy
+    // values in the defaulted arg slots.
+    fnull: function(fun /*, defaults */) {
+      var defaults = _.rest(arguments);
+
+      return function(/*args*/) {
+        var args = _.toArray(arguments);
+        var sz = _.size(defaults);
+
+        for(var i = 0; i < sz; i++) {
+          if (!existy(args[i]))
+            args[i] = defaults[i];
+        }
+
+        return fun.apply(null, args);
+      };
+    },
     k: _.always,
     t: _.pipeline
   });
