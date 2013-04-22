@@ -38,9 +38,11 @@
     // checks all elements of an array for conformance to all of the
     // original predicates.
     conjoin: function(/* preds */) {
+      var preds = arguments;
+
       return function(coll) {
         return _.every(coll, function(e) {
-          return _.every(arguments, function(p) {
+          return _.every(preds, function(p) {
             return p(e);
           });
         });
@@ -51,9 +53,11 @@
     // checks all elements of an array for conformance to any of the
     // original predicates.
     disjoin: function(/* preds */) {
+      var preds = arguments;
+
       return function(coll) {
         return _.some(coll, function(e) {
-          return _.some(arguments, function(p) {
+          return _.some(preds, function(p) {
             return p(e);
           });
         });
