@@ -164,4 +164,11 @@ $(document).ready(function() {
     deepEqual(_.takeSkipping(_.range(10), 2), [0,2,4,6,8], 'should take every 2nd element in an array');
   });
 
+  test("reductions", function() {
+    var result = _.reductions([1,2,3,4,5], function(agg, n) {
+      return agg + n;
+    }, 0);
+
+    deepEqual(result, [1,3,6,10,15], 'should retain each intermediate step in a reduce');
+  });
 });
