@@ -25,4 +25,15 @@ $(document).ready(function() {
     deepEqual(_.dropWhile([], isNeg), [], 'should handle empty arrays');
   });
 
+  test("splitWith", function() {
+    var a = [1,2,3,4,5];
+    var lessEq3p = function(n) { return n <= 3; };
+    var lessEq3p$ = function(n) { return (n <= 3) ? true : null; };
+
+    deepEqual(_.splitWith(lessEq3p, a), [[1,2,3], [4,5]], 'should split an array when a function goes false');
+    deepEqual(_.splitWith(lessEq3p$, a), [[1,2,3], [4,5]], 'should split an array when a function goes false');
+    deepEqual(_.splitWith(lessEq3p$, []), [[],[]], 'should split an empty array into two empty arrays');
+  });
+
 });
+
