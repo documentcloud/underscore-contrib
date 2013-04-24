@@ -41,4 +41,22 @@ $(document).ready(function() {
     deepEqual(_.partitionBy(a, _.truthy), [[1,2], [null, false, undefined], [3,4]], 'should partition an array as a given predicate changes truth sense');
   });
 
+  test("best", function() {
+    var a = [1,2,3,4,5];
+
+    deepEqual(_.best(a, function(x,y) { return x > y; }), 5, 'should identify the best value based on criteria');
+  });
+
+  test("keep", function() {
+    var a = _.range(10);
+    var eveny = function(e) { return (_.isEven(e)) ? e : undefined; };
+
+    deepEqual(_.keep(a, eveny), [0,2,4,6,8], 'should keep only even numbers in a range tagged with null fails');
+    deepEqual(_.keep(a, _.isEven), [true, false, true, false, true, false, true, false, true, false], 'should keep all truthy values cooresponding to a predicate over a range');  });
+
+  test("remove", function() {
+    var a = [0,1,2,-1,3];
+
+    deepEqual(_.remove(a, _.isPositive), [0,-1], 'should remove all elements passing a predicate check.');
+  });
 });
