@@ -35,5 +35,10 @@ $(document).ready(function() {
     deepEqual(_.splitWith(lessEq3p$, []), [[],[]], 'should split an empty array into two empty arrays');
   });
 
-});
+  test("partitionBy", function() {
+    var a = [1, 2, null, false, undefined, 3, 4];
 
+    deepEqual(_.partitionBy(a, _.truthy), [[1,2], [null, false, undefined], [3,4]], 'should partition an array as a given predicate changes truth sense');
+  });
+
+});
