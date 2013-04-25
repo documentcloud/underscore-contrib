@@ -96,5 +96,28 @@ $(document).ready(function() {
     equal(_.isZero(1), false, 'should know non-zero');
     equal(_.isZero(-1), false, 'should know non-zero');
   });
+
+  test("isIncreasing", function() {
+    var inc = [1,2,3];
+    var incNM = [1,2,3,3,4];
+    var dec = [5,4,3,2,1];
+
+    equal(_.isIncreasing.apply(null, inc), true, 'should identify when its arguments monotonically increase');
+    equal(_.isIncreasing.apply(null, incNM), false, 'should identify when its arguments monotonically increase');
+    equal(_.isIncreasing.apply(null, dec), false, 'should identify when its arguments do not increase');
+  });
+
+  test("isDecreasing", function() {
+    var inc = [1,2,3];
+    var incNM = [1,2,3,3,4];
+    var dec = [5,4,3,2,1];
+    var decNM = [5,4,3,3,2,1];
+
+    equal(_.isDecreasing.apply(null, inc), false, 'should identify when its arguments monotonically decrease');
+    equal(_.isDecreasing.apply(null, incNM), false, 'should identify when its arguments monotonically decrease');
+    equal(_.isDecreasing.apply(null, dec), true, 'should identify when its arguments do not decrease');
+    equal(_.isDecreasing.apply(null, decNM), false, 'should identify when its arguments monotonically decrease');
+  });
+
 });
 
