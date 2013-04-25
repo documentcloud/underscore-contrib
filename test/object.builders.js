@@ -15,4 +15,13 @@ $(document).ready(function() {
 
     deepEqual(a, {'a': 1, 'b': 2}, 'should not modify the original');
   });
+
+  test("renameKeys", function() {
+    deepEqual(_.renameKeys({'a': 1, 'b': 2}, {'a': 'A'}), {'b': 2, 'A': 1}, 'should rename the keys in the first object to the mapping in the second object');
+
+    var a = {'a': 1, 'b': 2};
+    var $ = _.renameKeys(a, {'a': 'A'});
+
+    deepEqual(a, {'a': 1, 'b': 2}, 'should not modify the original');
+  });
 });
