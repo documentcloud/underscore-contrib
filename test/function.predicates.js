@@ -42,5 +42,23 @@ $(document).ready(function() {
     equal(_.isIndexed(false), false, 'should identify when something is not an indexed object');
     equal(_.isIndexed(function(){}), false, 'should identify when something is not an indexed object');
   });
+
+  test("isSequential", function() {
+    equal(_.isSequential(new Array(10)), true, 'should identify sequential objects');
+    equal(_.isSequential([1,2]), true, 'should identify sequential objects');
+    equal(_.isSequential(arguments), true, 'should identify sequential objects');
+
+    equal(_.isSequential({}), false, 'should identify when something is not sequential');
+    equal(_.isSequential(function(){}), false, 'should identify when something is not sequential');
+    equal(_.isSequential(1), false, 'should identify when something is not sequential');
+    equal(_.isSequential(0), false, 'should identify when something is not sequential');
+    equal(_.isSequential(-1), false, 'should identify when something is not sequential');
+    equal(_.isSequential(3.14), false, 'should identify when something is not sequential');
+    equal(_.isSequential('undefined'), false, 'should identify when something is not sequential');
+    equal(_.isSequential(''), false, 'should identify when something is not sequential');
+    equal(_.isSequential(NaN), false, 'should identify when something is not sequential');
+    equal(_.isSequential(Infinity), false, 'should identify when something is not sequential');
+    equal(_.isSequential(true), false, 'should identify when something is not sequential');
+  });
 });
 
