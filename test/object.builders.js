@@ -44,4 +44,21 @@ $(document).ready(function() {
     deepEqual(n, nSnap, 'should create a deep copy of an array');
     deepEqual(nSnap, [1,{a: 1, b: [1,2,3]},{},4], 'should allow changes to the original to not change copies');
   });
+
+  test("setPath", function() {
+    var obj = {a: {b: {c: 42, d: 108}}};
+    var ary = ['a', ['b', ['c', 'd'], 'e']];
+    var nest = [1, {a: 2, b: [3,4], c: 5}, 6];
+
+    deepEqual(_.setPath(obj, 9, ['a', 'b', 'c']), {a: {b: {c: 9, d: 108}}}, '');
+    deepEqual(_.setPath(ary, 9, [1, 1, 0]), ['a', ['b', [9, 'd'], 'e']], '');
+    deepEqual(_.setPath(nest, 9, [1, 'b', 1]), [1, {a: 2, b: [3,9], c: 5}, 6], ''); 
+
+    deepEqual(_.setPath(obj, 9, 'a'), {a: 9}, '');
+    deepEqual(_.setPath(ary, 9, 1), ['a', 9], '');
+
+    deepEqual(obj, {a: {b: {c: 42, d: 108}}}, 'should not modify the original object');
+    deepEqual(ary, ['a', ['b', ['c', 'd'], 'e']], 'should not modify the original array');
+    deepEqual(nest, [1, {a: 2, b: [3,4], c: 5}, 6], 'should not modify the original nested structure');
+  });
 });
