@@ -20,7 +20,7 @@
   _.mixin({
     isInstanceOf: function(x, t) { return (x instanceof t); },
     isAssociative: function(x) { return _.isArray(x) || _.isObject(x) || _.isArguments(x); },
-    isIndexed: function(x) { return _.isArray(data) || _.isString(data) || _.isArguments(x); },
+    isIndexed: function(x) { return _.isArray(x) || _.isString(x) || _.isArguments(x); },
     isSequential: function(x) { return (_.isArray(x)) || (_.isArguments(x)); },
     isZero: function(x) { return 0 === x; },
     isEven: function(x) { return (x & 1) === 0; },

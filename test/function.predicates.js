@@ -23,5 +23,24 @@ $(document).ready(function() {
     equal(_.isAssociative(Infinity), false, 'should identify non-associative things');
     equal(_.isAssociative(true), false, 'should identify non-associative things');
   });
+
+  test("isIndexed", function() {
+    equal(_.isIndexed([]), true, 'should identify indexed objects');
+    equal(_.isIndexed([1,2,3]), true, 'should identify indexed objects');
+    equal(_.isIndexed(new Array(10)), true, 'should identify indexed objects');
+    equal(_.isIndexed(""), true, 'should identify indexed objects');
+    equal(_.isIndexed("abc"), true, 'should identify indexed objects');
+
+    equal(_.isIndexed(1), false, 'should identify when something is not an indexed object');
+    equal(_.isIndexed(0), false, 'should identify when something is not an indexed object');
+    equal(_.isIndexed(-1), false, 'should identify when something is not an indexed object');
+    equal(_.isIndexed(3.14), false, 'should identify when something is not an indexed object');
+    equal(_.isIndexed(undefined), false, 'should identify when something is not an indexed object');
+    equal(_.isIndexed(NaN), false, 'should identify when something is not an indexed object');
+    equal(_.isIndexed(Infinity), false, 'should identify when something is not an indexed object');
+    equal(_.isIndexed(true), false, 'should identify when something is not an indexed object');
+    equal(_.isIndexed(false), false, 'should identify when something is not an indexed object');
+    equal(_.isIndexed(function(){}), false, 'should identify when something is not an indexed object');
+  });
 });
 
