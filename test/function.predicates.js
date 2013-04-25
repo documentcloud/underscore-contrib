@@ -119,5 +119,9 @@ $(document).ready(function() {
     equal(_.isDecreasing.apply(null, decNM), false, 'should identify when its arguments monotonically decrease');
   });
 
-});
+  test("isValidDate", function() {
+    equal(_.isValidDate(new Date), true, 'should recognize a fresh Date instance as valid');
+    equal(!_.isValidDate(new Date("bad date")), true, 'should recognize a Date constructed with gibberish');
+  });
 
+});
