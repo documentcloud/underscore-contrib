@@ -24,4 +24,24 @@ $(document).ready(function() {
 
     deepEqual(a, {'a': 1, 'b': 2}, 'should not modify the original');
   });
+
+  test("snapshot", function() {
+    var o = {'a': 1, 'b': 2};
+    var oSnap = _.snapshot(o);
+
+    var a = [1,2,3,4];
+    var aSnap = _.snapshot(a);
+
+    var n = [1,{a: 1, b: [1,2,3]},{},4];
+    var nSnap = _.snapshot(n);
+
+    var c = [1,{a: 1, b: [1,2,3]},{},4];
+    var cSnap = _.snapshot(c);
+    c[1].b = 42;
+
+    deepEqual(o, oSnap, 'should create a deep copy of an object');
+    deepEqual(a, aSnap, 'should create a deep copy of an array');
+    deepEqual(n, nSnap, 'should create a deep copy of an array');
+    deepEqual(nSnap, [1,{a: 1, b: [1,2,3]},{},4], 'should allow changes to the original to not change copies');
+  });
 });
