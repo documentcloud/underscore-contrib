@@ -18,10 +18,21 @@
   // ---------------------------------
 
   _.mixin({
+    // A wrapper around instanceof
     isInstanceOf: function(x, t) { return (x instanceof t); },
+
+    // An associative object is one where its elements are
+    // accessed via a key or index. (i.e. array and object)
     isAssociative: function(x) { return _.isArray(x) || _.isObject(x) || _.isArguments(x); },
+  
+    // An indexed object is anything that allows numerical index for
+    // accessing its elements (e.g. arrays and strings)
     isIndexed: function(x) { return _.isArray(x) || _.isString(x) || _.isArguments(x); },
+
+    // A seq is something considered a sequential composite type (i.e. arrays and `arguments`).
     isSequential: function(x) { return (_.isArray(x)) || (_.isArguments(x)); },
+
+    // These do what you think that they do
     isZero: function(x) { return 0 === x; },
     isEven: function(x) { return (x & 1) === 0; },
     isOdd: function(x) { return !_.isEven(x); },
