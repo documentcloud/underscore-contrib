@@ -98,14 +98,6 @@
       return _.filter(_.map(array, function(e) {
         return fun(e);
       }), existy);
-    },
-
-    // Removes all values from an array that result in a truthy
-    // check of a given predicate.
-    remove: function(array, pred) {
-      return _.keep(array, function(e) {
-        return (!pred(e)) ? e : undefined;
-      });
     }
   });
 

@@ -53,10 +53,4 @@ $(document).ready(function() {
 
     deepEqual(_.keep(a, eveny), [0,2,4,6,8], 'should keep only even numbers in a range tagged with null fails');
     deepEqual(_.keep(a, _.isEven), [true, false, true, false, true, false, true, false, true, false], 'should keep all truthy values cooresponding to a predicate over a range');  });
-
-  test("remove", function() {
-    var a = [0,1,2,-1,3];
-
-    deepEqual(_.remove(a, _.isPositive), [0,-1], 'should remove all elements passing a predicate check.');
-  });
 });
