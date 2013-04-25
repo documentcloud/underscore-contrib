@@ -21,7 +21,7 @@
     // ### Fixed arguments
 
     // Fixes the arguments to a function based on the parameter template defined by
-    // presence of values and the `_` placeholder.
+    // the presence of values and the `_` placeholder.
     fix: function(fun) {
       var args = _.rest(arguments);
 
