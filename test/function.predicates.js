@@ -75,6 +75,26 @@ $(document).ready(function() {
     equal(_.isOdd(10), false, 'should identify non-odd numbers');
   });
 
+  test("isPositive", function() {
+    equal(_.isPositive(1), true, 'should identify positive numbers');
+    equal(_.isPositive(-1), false, 'should identify non-positive numbers');
+    equal(_.isPositive(0), false, 'should identify non-positive numbers');
+    equal(_.isPositive(+0), false, 'should identify non-positive numbers');
+  });
 
+  test("isNegative", function() {
+    equal(_.isNegative(-1), true, 'should identify negative numbers');
+    equal(_.isNegative(0), false, 'should identify non-negative numbers');
+    equal(_.isNegative(110), false, 'should identify non-negative numbers');
+    equal(_.isNegative(-0), false, 'should identify non-negative numbers');
+  });
+
+  test("isZero", function() {
+    equal(_.isZero(0), true, 'should know zero');
+    equal(_.isZero(-0), true, 'should know zero');
+    equal(_.isZero(+0), true, 'should know zero');
+    equal(_.isZero(1), false, 'should know non-zero');
+    equal(_.isZero(-1), false, 'should know non-zero');
+  });
 });
 
