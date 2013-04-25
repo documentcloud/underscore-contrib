@@ -28,8 +28,7 @@
     isPositive: function(x) { return x > 0; },
     isNegative: function(x) { return x < 0; },
     isValidDate: function(x) { return _.isDate(x) && !_.isNaN(x.getTime()); },
-    isInvalidDate: function(x) { return !_.isValidDate(x); },
-    
+
     // Returns true if its arguments are monotonically
     // increaing values; false otherwise.
     isIncreasing: function() {

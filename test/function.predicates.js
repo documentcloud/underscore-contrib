@@ -7,9 +7,4 @@ $(document).ready(function() {
     ok(!_.isValidDate(new Date("bad date")));
   });
 
-  test("isInvalidDate", function() {
-    ok(_.isInvalidDate(new Date("bad date")));
-    ok(!_.isInvalidDate(new Date));
-  });
-
 });
