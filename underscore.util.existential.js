@@ -1,4 +1,4 @@
-// Underscore-contrib (underscore.util.truthiness.js 0.0.1)
+// Underscore-contrib (underscore.util.existential.js 0.0.1)
 // (c) 2013 Michael Fogus and DocumentCloud Inc.
 // Underscore-contrib may be freely distributed under the MIT license.
 
