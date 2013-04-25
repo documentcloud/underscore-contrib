@@ -60,5 +60,21 @@ $(document).ready(function() {
     equal(_.isSequential(Infinity), false, 'should identify when something is not sequential');
     equal(_.isSequential(true), false, 'should identify when something is not sequential');
   });
+
+  test("isEven", function() {
+    equal(_.isEven(0), true, 'should identify even numbers');
+    equal(_.isEven(2), true, 'should identify even numbers');
+    equal(_.isEven(-2), true, 'should identify even numbers');
+    equal(_.isEven(1), false, 'should identify non-even numbers');
+  });
+
+  test("isOdd", function() {
+    equal(_.isOdd(1), true, 'should identify odd numbers');
+    equal(_.isOdd(33), true, 'should identify odd numbers');
+    equal(_.isOdd(-55), true, 'should identify odd numbers');
+    equal(_.isOdd(10), false, 'should identify non-odd numbers');
+  });
+
+
 });
 
