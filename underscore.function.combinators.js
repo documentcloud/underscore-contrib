@@ -15,6 +15,7 @@
 
   var existy = function(x) { return x != null; };
   var truthy = function(x) { return (x !== false) && existy(x); };
+  var __reverse = [].reverse;
   
   // Mixing in the combinator functions
   // ----------------------------------
@@ -148,6 +149,16 @@
         return fun.apply(null, arguments);
       };
     },
+
+    // Flips an arbitrary number of args of a function
+    flip: function(fun) {
+      return function(/* args */) {
+        var reversed = __reverse.call(arguments);
+
+        return fun.apply(null, reversed);
+      };
+    },
+    
     k: _.always,
     t: _.pipeline
   });
