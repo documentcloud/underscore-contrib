@@ -49,6 +49,12 @@ $(document).ready(function() {
     equal(_.flip2(div)(10,2), 0.2, 'should return a function that flips the first two args to a function');
   });
 
+  test("flip", function() {
+    var echo = function() { return Array.prototype.slice.call(arguments, 0); };
+
+    deepEqual(_.flip(echo)(1, 2, 3, 4), [4, 3, 2, 1], 'should return a function that flips the first three or more args to a function');
+  });
+
   test("fnull", function() {
     var a = [1,2,3,null,5];
     var b = [1,2,3,undefined,5];
