@@ -21,7 +21,7 @@
     exists: function(x) { return x != null; },
     truthy: function(x) { return (x !== false) && _.exists(x); },
     falsey: function(x) { return !_.truthy(x); },
-    not:    function(b) { return !(!!b); }
+    not:    function(b) { return !b; }
   });
 
 })(this);
