@@ -26,7 +26,10 @@
     isAssociative: function(x) { return _.isArray(x) || _.isObject(x) || _.isArguments(x); },
   
     // An indexed object is anything that allows numerical index for
-    // accessing its elements (e.g. arrays and strings)
+    // accessing its elements (e.g. arrays and strings). NOTE: Underscore 
+    // does not support cross-browser consistent use of strings as array-like 
+    // objects, so be wary in IE 8 when using  String objects and IE<8.
+    // on string literals & objects.
     isIndexed: function(x) { return _.isArray(x) || _.isString(x) || _.isArguments(x); },
 
     // A seq is something considered a sequential composite type (i.e. arrays and `arguments`).
