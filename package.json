@@ -1,0 +1,12 @@
+{
+  "name": "underscore-contrib",
+  "version": "0.0.1",
+  "dependencies": {
+    "underscore": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/documentcloud/underscore-contrib.git"
+  },
+  "license": "MIT"
+}
