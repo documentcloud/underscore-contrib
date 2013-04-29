@@ -1,5 +1,5 @@
 // Underscore-contrib (underscore.function.predicates.js 0.0.1)
-// (c) 2013 Michael Fogus and DocumentCloud Inc.
+// (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
 (function(root) {
