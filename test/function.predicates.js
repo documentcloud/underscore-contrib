@@ -105,6 +105,21 @@ $(document).ready(function() {
     equal(_.isZero(-1), false, 'should know non-zero');
   });
 
+  test("isInteger", function() {
+    equal(_.isInteger(123), true, 'should identify integer literals');
+    equal(_.isInteger(-123), true, 'should identify negative integer literals');
+    equal(_.isInteger('123'), true, 'should identify integer strings');
+    equal(_.isInteger('-123'), true, 'should identify negative integer strings');
+    equal(_.isInteger(0), true, 'should identify 0');
+    equal(_.isInteger(1.23), false, 'should identify non-integer numeric literals');
+    equal(_.isInteger('1.23'), false, 'should identify non-integer strings');
+    equal(_.isInteger('abc'), false, 'should identify non-numeric strings');
+    equal(_.isInteger(undefined), false, 'should identify undefined');
+    equal(_.isInteger(NaN), false, 'should identify NaN');
+    equal(_.isInteger(null), false, 'should identify null');
+    equal(_.isInteger(Infinity), false, 'should identify Infinity');
+  });
+
   test("isIncreasing", function() {
     var inc = [1,2,3];
     var incNM = [1,2,3,3,4];
