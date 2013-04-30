@@ -37,8 +37,8 @@
 
     // These do what you think that they do
     isZero: function(x) { return 0 === x; },
-    isEven: function(x) { return _.isNumber(x) && (x & 1) === 0; },
-    isOdd: function(x) { return !_.isEven(x); },
+    isEven: function(x) { return _.isFinite(x) && (x & 1) === 0; },
+    isOdd: function(x) { return _.isFinite(x) && !_.isEven(x); },
     isPositive: function(x) { return x > 0; },
     isNegative: function(x) { return x < 0; },
     isValidDate: function(x) { return _.isDate(x) && !_.isNaN(x.getTime()); },

@@ -66,6 +66,10 @@ $(document).ready(function() {
     equal(_.isEven(2), true, 'should identify even numbers');
     equal(_.isEven(-2), true, 'should identify even numbers');
     equal(_.isEven(1), false, 'should identify non-even numbers');
+    equal(_.isEven(null), false, 'should return false for non-numbers');
+    equal(_.isEven(undefined), false, 'should return false for non-numbers');
+    equal(_.isEven([]), false, 'should return false for non-numbers');
+    equal(_.isEven(NaN), false, 'should return false for non-numbers');
   });
 
   test("isOdd", function() {
@@ -73,6 +77,10 @@ $(document).ready(function() {
     equal(_.isOdd(33), true, 'should identify odd numbers');
     equal(_.isOdd(-55), true, 'should identify odd numbers');
     equal(_.isOdd(10), false, 'should identify non-odd numbers');
+    equal(_.isOdd(null), false, 'should return false for non-numbers');
+    equal(_.isOdd(undefined), false, 'should return false for non-numbers');
+    equal(_.isOdd([]), false, 'should return false for non-numbers');
+    equal(_.isOdd(NaN), false, 'should return false for non-numbers');
   });
 
   test("isPositive", function() {
