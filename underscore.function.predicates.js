@@ -37,7 +37,7 @@
 
     // These do what you think that they do
     isZero: function(x) { return 0 === x; },
-    isEven: function(x) { return x && ((x & 1) === 0); },
+    isEven: function(x) { return (x != null) && ((x & 1) === 0); },
     isOdd: function(x) { return !_.isEven(x); },
     isPositive: function(x) { return x > 0; },
     isNegative: function(x) { return x < 0; },
