@@ -16,6 +16,7 @@
   var existy = function(x) { return x != null; };
   var truthy = function(x) { return (x !== false) && existy(x); };
   var __reverse = [].reverse;
+  var __slice = [].slice;
   
   // Mixing in the combinator functions
   // ----------------------------------
@@ -102,9 +103,27 @@
     // a function that takes varargs and wraps all
     // in an array that is passed to the original function.
     unsplat: function(fun) {
-      return function() {
-        return fun.call(null, _.toArray(arguments));
-      };
+      var funLength = fun.length;
+
+      if (funLength < 1) {
+        return fun;
+      }
+      else if (funLength === 1)  {
+        return function () {
+          return fun.call(this, __slice.call(arguments, 0))
+        }
+      }
+      else {
+        return function () {
+          var numberOfArgs = arguments.length,
+              namedArgs = __slice.call(arguments, 0, funLength - 1),
+              numberOfMissingNamedArgs = Math.max(funLength - numberOfArgs - 1, 0),
+              argPadding = new Array(numberOfMissingNamedArgs),
+              variadicArgs = __slice.call(arguments, fun.length - 1);
+
+          return fun.apply(this, namedArgs.concat(argPadding).concat([variadicArgs]))
+        }
+      }
     },
 
     // Returns a function that returns an array of the calls to each

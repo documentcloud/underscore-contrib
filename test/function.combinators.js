@@ -43,6 +43,24 @@ $(document).ready(function() {
     equal(notOdd(3), false, 'should return a function that is the opposite of the function given');
   });
 
+  test("unsplat", function() {
+    var echo  = _.unsplat(function (args) { return args; }),
+        echo2 = _.unsplat(function (first, rest) { return [first, rest]; }),
+        echo3 = _.unsplat(function (first, second, rest) { return [first, second, rest]; }),
+        undefined = void 0;
+
+    deepEqual(echo(), [], 'should return no arguments');
+    deepEqual(echo(1), [1], 'should return the arguments provded');
+    deepEqual(echo(1,2), [1,2], 'should return the arguments provded');
+    deepEqual(echo(1,2,3), [1,2,3], 'should return the arguments provded');
+
+    deepEqual(echo2(), [undefined, []], 'should return no arguments');
+    deepEqual(echo2(1), [1, []], 'should return the arguments provded');
+    deepEqual(echo2(1,2), [1,[2]], 'should return the arguments provded');
+    deepEqual(echo2(1,2,3), [1,[2,3]], 'should return the arguments provded');
+    deepEqual(echo2(1,2,3,4), [1,[2,3,4]], 'should return the arguments provded');
+  });
+
   test("flip2", function() {
     var div = function(n, d) { return n/d; };
 
