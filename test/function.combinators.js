@@ -59,6 +59,12 @@ $(document).ready(function() {
     deepEqual(echo2(1,2), [1,[2]], 'should return the arguments provded');
     deepEqual(echo2(1,2,3), [1,[2,3]], 'should return the arguments provded');
     deepEqual(echo2(1,2,3,4), [1,[2,3,4]], 'should return the arguments provded');
+
+    deepEqual(echo3(), [undefined, undefined, []], 'should return no arguments');
+    deepEqual(echo3(1), [1, undefined, []], 'should return the arguments provded');
+    deepEqual(echo3(1,2), [1,2,[]], 'should return the arguments provded');
+    deepEqual(echo3(1,2,3), [1,2,[3]], 'should return the arguments provded');
+    deepEqual(echo3(1,2,3,4), [1,2,[3,4]], 'should return the arguments provded');
   });
 
   test("flip2", function() {
