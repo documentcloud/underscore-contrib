@@ -14,4 +14,41 @@ $(document).ready(function() {
 
     equal(_.fix(parseInt, _, 10)('11'), 11, 'should "fix" common js foibles');
   });
+  
+  test("arity", function () {
+    function variadic () { return arguments.length; }
+    function unvariadic  (a, b, c) { return arguments.length; }
+  
+    equal( _.arity(unvariadic.length, variadic).length, unvariadic.length, "should set the length");
+    equal( _.arity(3, variadic)(1, 2, 3, 4, 5), unvariadic(1, 2, 3, 4, 5), "shouldn't trim arguments");   
+    equal( _.arity(3, variadic)(1), unvariadic(1), "shouldn't pad arguments");
+    
+    // this is the big use case for _.arity:
+  
+    function reverse (list) {
+      return [].reduce.call(list, function (acc, element) {
+        acc.unshift(element);
+        return acc;
+      }, []);
+    }
+    
+    function naiveFlip (fun) {
+      return function () {
+        return fun.apply(this, reverse(arguments));
+      }
+    }
+    
+    function echo (a, b, c) { return [a, b, c]; }
+    
+    deepEqual(naiveFlip(echo)(1, 2, 3), [3, 2, 1], "naive flip flips its arguments");
+    notEqual(naiveFlip(echo).length, echo.length, "naiveFlip gets its arity wrong");
+    
+    function flipWithArity (fun) {
+      return _.arity(fun.length, naiveFlip(fun));
+    }
+    
+    deepEqual(flipWithArity(echo)(1, 2, 3), [3, 2, 1], "flipWithArity flips its arguments");
+    equal(flipWithArity(echo).length, echo.length, "flipWithArity gets its arity correct");
+    
+  });
 });
