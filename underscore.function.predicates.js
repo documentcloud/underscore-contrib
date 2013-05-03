@@ -45,6 +45,7 @@
 
     // An integer contains an optional minus sign to begin and only the digits 0-9
     // Objects that can be parsed that way are also considered ints, e.g. "123"
+    // Floats that are mathematically equal to integers are considered integers, e.g. 1.0
     // See here for more discussion: http://stackoverflow.com/questions/1019515/javascript-test-for-an-integer
     isInteger: function(i) {
       return (/^(-?)\d+$/.test(i));

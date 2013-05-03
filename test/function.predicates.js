@@ -112,6 +112,7 @@ $(document).ready(function() {
     equal(_.isInteger('-123'), true, 'should identify negative integer strings');
     equal(_.isInteger(0), true, 'should identify 0');
     equal(_.isInteger(1.23), false, 'should identify non-integer numeric literals');
+    equal(_.isInteger(1.0), true, 'should identify float versions of integers');
     equal(_.isInteger('1.23'), false, 'should identify non-integer strings');
     equal(_.isInteger('abc'), false, 'should identify non-numeric strings');
     equal(_.isInteger(undefined), false, 'should identify undefined');
