@@ -2,7 +2,9 @@ $(document).ready(function() {
   
   var undefined = void 0;
   
-  function sum(x, y) { return x + y; }
+  function sum (x, y) { return x + y; }
+  function square (x) { return x * x; }
+  function odd (x) { return x % 2 === 1; }
 
   module("underscore.function.iterators");
 
@@ -99,5 +101,222 @@ $(document).ready(function() {
     equal(i(), undefined);
     
   });
+  
+  test("Map", function () {
+    var i = _.iterators.map(_.iterators.Tree([1, [2, 3, [4]], 5]), square);
+    equal(i(), 1, "should map an iterator with many elements");
+    equal(i(), 4), "should map an iterator with many elements";
+    equal(i(), 9, "should map an iterator with many elements");
+    equal(i(), 16, "should map an iterator with many elements");
+    equal(i(), 25, "should map an iterator with many elements");
+    equal(i(), undefined);
+  
+    i = _.iterators.map(_.iterators.Tree([[[4], []]]), square);
+    equal(i(), 16, "should map an iterator with one element");
+    equal(i(), undefined);
+  
+    i = _.iterators.map(_.iterators.Tree([[[], []]]), square);
+    equal(i(), undefined, "should map an empty iterator");
+  });
 
+  test("filter", function() {
+    var i = _.iterators.filter(_.iterators.Tree([1, [2, 3, [4]], 5]), odd);
+    equal(i(),1);
+    equal(i(),3);
+    equal(i(),5);
+    equal(i(),undefined);
+    
+    i = _.iterators.filter(_.iterators.Tree([[[4], []]]), odd);
+    equal(i(),undefined);
+    
+    i = _.iterators.filter(_.iterators.Tree([[[], []]]), odd);
+    equal(i(),undefined);
+    
+    i = _.iterators.filter(_.iterators.List([2, 4, 6, 8, 10]), odd);
+    equal(i(),undefined);
+  });
+
+  test("slice", function() {
+    expect(0);
+    test("with two parameter", function() {
+      expect(0);
+      test("should return an identity iterator", function() {
+        var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 0);
+        equal(i(),1);
+        equal(i(),2);
+        equal(i(),3);
+        equal(i(),4);
+        equal(i(),5);
+        equal(i(),undefined);
+      });
+      test("should return a trailing iterator", function() {
+        var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 1);
+        equal(i(),2);
+        equal(i(),3);
+        equal(i(),4);
+        equal(i(),5);
+        equal(i(),undefined);
+      });
+      test("should return an empty iterator when out of range", function() {
+        var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 5);
+        equal(i(),undefined);
+      });
+    });
+    test("with three parameters", function() {
+      expect(0);
+      test("should return an identity iterator", function() {
+        var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 0, 5);
+        equal(i(),1);
+        equal(i(),2);
+        equal(i(),3);
+        equal(i(),4);
+        equal(i(),5);
+        equal(i(),undefined);
+        i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 0, 99);
+        equal(i(),1);
+        equal(i(),2);
+        equal(i(),3);
+        equal(i(),4);
+        equal(i(),5);
+        equal(i(),undefined);
+      });
+      test("should return a leading iterator", function() {
+        var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 0, 4);
+        equal(i(),1);
+        equal(i(),2);
+        equal(i(),3);
+        equal(i(),4);
+        equal(i(),undefined);
+      });
+      test("should return a trailing iterator", function() {
+        var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 1, 4);
+        equal(i(),2);
+        equal(i(),3);
+        equal(i(),4);
+        equal(i(),5);
+        equal(i(),undefined);
+        i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 1, 99);
+        equal(i(),2);
+        equal(i(),3);
+        equal(i(),4);
+        equal(i(),5);
+        equal(i(),undefined);
+      });
+      test("should return an inner iterator", function() {
+        var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 1, 3);
+        equal(i(),2);
+        equal(i(),3);
+        equal(i(),4);
+        equal(i(),undefined);
+      });
+      test("should return an empty iterator when given a zero length", function() {
+        var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 1, 0);
+        equal(i(),undefined);
+      });
+      test("should return an empty iterator when out of range", function() {
+        var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 5, 1);
+        equal(i(),undefined);
+      });
+    });
+  });
+
+  test("drop", function() {
+    expect(0);
+    test("should drop the number of items dropped", function() {
+      var i = _.iterators.drop(_.iterators.List([1, 2, 3, 4, 5]), 2);
+      equal(i(),3);
+      equal(i(),4);
+      equal(i(),5);
+      equal(i(),undefined);
+    });
+    test("should handle overdropping", function() {
+      var i = _.iterators.drop(_.iterators.List([1, 2, 3, 4, 5]), 99);
+      equal(i(),undefined);
+    });
+    test("should handle underdropping", function() {
+      var i = _.iterators.drop(_.iterators.List([1, 2, 3, 4, 5]), 0);
+      equal(i(),1);
+      equal(i(),2);
+      equal(i(),3);
+      equal(i(),4);
+      equal(i(),5);
+      equal(i(),undefined);
+    });
+    test("should default to one", function() {
+      var i = _.iterators.drop(_.iterators.List([1, 2, 3, 4, 5]));
+      equal(i(),2);
+      equal(i(),3);
+      equal(i(),4);
+      equal(i(),5);
+      equal(i(),undefined);
+    });
+  });
+  
+  test("accumulateWithReturn", function() {
+    expect(0);
+    test("should pass the state and result in a pair", function() {
+      var i = _.iterators.accumulateWithReturn(_.iterators.List([1, 2, 3, 4, 5]), function(state, element) {
+        return [state + element, 'Total is ' + (state + element)];
+      }, 0);
+      equal(i(),'Total is 1');
+      equal(i(),'Total is 3');
+      equal(i(),'Total is 6');
+      equal(i(),'Total is 10');
+      equal(i(),'Total is 15');
+    });
+  });
+  
+  test("unfold", function() {
+    expect(0);
+    test("should unfold and include the seed", function() {
+      var i = _.iterators.unfold(0, function(n) {
+        return n + 1;
+      });
+      equal(i(),0);
+      equal(i(),1);
+      equal(i(),2);
+    });
+    test("should not unfold without a seed", function() {
+      var i = _.iterators.unfold(undefined, function(n) {
+        return n + 1;
+      });
+      equal(i(),undefined);
+      equal(i(),undefined);
+      equal(i(),undefined);
+      equal(i(),undefined);
+    });
+  });
+  
+  test("unfoldWithReturn", function() {
+    expect(0);
+    test("should unfold and throw off a value", function() {
+      var i = _.iterators.unfoldWithReturn(1, function(n) {
+        return [n + 1, n * n];
+      });
+      equal(i(),1);
+      equal(i(),4);
+      equal(i(),9);
+      equal(i(),16);
+    });
+    test("should halt if it returns undefined", function() {
+      var i = _.iterators.unfoldWithReturn(1, function(n) {
+        return [n + 1, n === 1 ? undefined : n * n];
+      });
+      equal(i(),undefined);
+      equal(i(),undefined);
+      equal(i(),undefined);
+      equal(i(),undefined);
+    });
+    test("should halt if the state becomes undefined", function() {
+      var i = _.iterators.unfoldWithReturn(1, function(n) {
+        return [(n === 3 ? undefined : n + 1), (n === undefined ? 100 : n * n)];
+      });
+      equal(i(),1);
+      equal(i(),4);
+      equal(i(),9);
+      equal(i(),undefined);
+    });
+  });
+  
 });
+
