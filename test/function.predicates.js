@@ -105,20 +105,94 @@ $(document).ready(function() {
     equal(_.isZero(-1), false, 'should know non-zero');
   });
 
-  test("isInteger", function() {
-    equal(_.isInteger(123), true, 'should identify integer literals');
-    equal(_.isInteger(-123), true, 'should identify negative integer literals');
-    equal(_.isInteger('123'), true, 'should identify integer strings');
-    equal(_.isInteger('-123'), true, 'should identify negative integer strings');
-    equal(_.isInteger(0), true, 'should identify 0');
-    equal(_.isInteger(1.23), false, 'should identify non-integer numeric literals');
-    equal(_.isInteger(1.0), true, 'should identify float versions of integers');
-    equal(_.isInteger('1.23'), false, 'should identify non-integer strings');
-    equal(_.isInteger('abc'), false, 'should identify non-numeric strings');
-    equal(_.isInteger(undefined), false, 'should identify undefined');
-    equal(_.isInteger(NaN), false, 'should identify NaN');
-    equal(_.isInteger(null), false, 'should identify null');
-    equal(_.isInteger(Infinity), false, 'should identify Infinity');
+  test("isNumeric", function() {
+    // Integer Literals
+    equal(_.isNumeric("-10"), true, "should identify Negative integer string");
+    equal(_.isNumeric("0"), true, "should identify Zero string");
+    equal(_.isNumeric("5"), true, "should identify Positive integer string");
+    equal(_.isNumeric(-16), true, "should identify Negative integer number");
+    equal(_.isNumeric(0), true, "should identify Zero integer number");
+    equal(_.isNumeric(32), true, "should identify Positive integer number");
+    equal(_.isNumeric("040"), true, "should identify Octal integer literal string");
+    equal(_.isNumeric(0144), true, "should identify Octal integer literal");
+    equal(_.isNumeric("0xFF"), true, "should identify Hexadecimal integer literal string");
+    equal(_.isNumeric(0xFFF), true, "should identify Hexadecimal integer literal");
+
+    // Foating-Point Literals
+    equal(_.isNumeric("-1.6"), true, "should identify Negative floating point string");
+    equal(_.isNumeric("4.536"), true, "should identify Positive floating point string");
+    equal(_.isNumeric(-2.6), true, "should identify Negative floating point number");
+    equal(_.isNumeric(3.1415), true, "should identify Positive floating point number");
+    equal(_.isNumeric(8e5), true, "should identify Exponential notation");
+    equal(_.isNumeric("123e-2"), true, "should identify Exponential notation string");
+
+    // Non-Numeric values
+    equal(_.isNumeric(""), false, "should identify Empty string");
+    equal(_.isNumeric("        "), false, "should identify Whitespace characters string");
+    equal(_.isNumeric("\t\t"), false, "should identify Tab characters string");
+    equal(_.isNumeric("abcdefghijklm1234567890"), false, "should identify Alphanumeric character string");
+    equal(_.isNumeric("xabcdefx"), false, "should identify Non-numeric character string");
+    equal(_.isNumeric(true), false, "should identify Boolean true literal");
+    equal(_.isNumeric(false), false, "should identify Boolean false literal");
+    equal(_.isNumeric("bcfed5.2"), false, "should identify Number with preceding non-numeric characters");
+    equal(_.isNumeric("7.2acdgs"), false, "should identify Number with trailling non-numeric characters");
+    equal(_.isNumeric(undefined), false, "should identify Undefined value");
+    equal(_.isNumeric(null), false, "should identify Null value");
+    equal(_.isNumeric(NaN), false, "should identify NaN value");
+    equal(_.isNumeric(Infinity), false, "should identify Infinity primitive");
+    equal(_.isNumeric(Number.POSITIVE_INFINITY), false, "should identify Positive Infinity");
+    equal(_.isNumeric(Number.NEGATIVE_INFINITY), false, "should identify Negative Infinity");
+    equal(_.isNumeric(new Date(2009,1,1)), false, "should identify Date object");
+    equal(_.isNumeric(new Object()), false, "should identify Empty object");
+    equal(_.isNumeric(function(){}), false, "should identify Instance of a function");
+  });
+
+  test("isInteger and isFloat", function() {
+    var integer_checks = [
+      {value: "-10", message: "should identify Negative integer string"},
+      {value: "0", message: "should identify Zero string"},
+      {value: "5", message: "should identify Positive integer string"},
+      {value: -16, message: "should identify Negative integer number"},
+      {value: 0, message: "should identify Zero integer number"},
+      {value: 32, message: "should identify Positive integer number"},
+      {value: "040", message: "should identify Octal integer literal string"},
+      {value: 0144, message: "should identify Octal integer literal"},
+      {value: "0xFF", message: "should identify Hexadecimal integer literal string"},
+      {value: 0xFFF, message: "should identify Hexadecimal integer literal"},
+      {value: 1.0, message: "should identify float versions of integers"},
+      {value: 8e5, message: "Exponential notation"}
+    ];
+
+    var float_checks = [
+      {value: "-1.6", message: "should identify Negative floating point string"},
+      {value: "4.536", message: "should identify Positive floating point string"},
+      {value: -2.6, message: "should identify Negative floating point number"},
+      {value: 3.1415, message: "should identify Positive floating point number"},
+      {value: 8.11e1, message: "should identify Exponential notation "},
+      {value: "123e-2", message: "should identify Exponential notation string"}
+    ];
+
+    var negative_checks = [
+      {value: "abc", message: "should identify non-numeric strings"},
+      {value: undefined, message: "should identify undefined"},
+      {value: NaN, message: "should identify NaN"},
+      {value: null, message: "should identify null"},
+      {value: Infinity, message: "should identify Infinity"}
+    ];
+
+    var test_multiple = function(cases, fn, result){
+      for (var i = 0; i < cases.length; i++) {
+        equal(fn(cases[i].value), result, cases[i].message);
+      }
+    };
+
+    test_multiple(integer_checks, _.isInteger, true);
+    test_multiple(float_checks, _.isInteger, false);
+    test_multiple(negative_checks, _.isInteger, false);
+
+    test_multiple(integer_checks, _.isFloat, false);
+    test_multiple(float_checks, _.isFloat, true);
+    test_multiple(negative_checks, _.isFloat, false);
   });
 
   test("isIncreasing", function() {
