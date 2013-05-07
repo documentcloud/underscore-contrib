@@ -58,6 +58,18 @@ $(document).ready(function() {
   test("nth", function() {
     var a = ['a','b','c'];
 
-    equal(_.nth(a,0), 'a', 'should return the element at a given index into an array')
+    equal(_.nth(a,0), 'a', 'should return the element at a given index into an array');
+  });
+
+  test("keepIndexed", function() {
+    var a = ['a', 'b', 'c', 'd', 'e'];
+    var b = [-9, 0, 29, -7, 45, 3, -8];
+    var oddy = function(k, v) { return _.isOdd(k) ? v : undefined; };
+    var posy = function(k, v) { return _.isPositive(v) ? k : undefined; };
+
+    deepEqual(_.keepIndexed(oddy, a), ['b', 'd'], 'keeps elements whose index passes a truthy test');
+    deepEqual(_.keepIndexed(posy, b), [2,4,5], 'keeps elements whose index passes a truthy test');
+    deepEqual(_.keepIndexed(oddy, _.range(10)), [1,3,5,7,9], 'keeps elements whose index passes a truthy test');
   });
 });
+
