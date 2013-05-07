@@ -205,5 +205,7 @@
     k: _.always,
     t: _.pipeline
   });
+  
+  _.unsplatr = _.unsplat;
 
 })(this);
