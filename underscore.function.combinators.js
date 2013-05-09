@@ -126,6 +126,30 @@
       }
     },
 
+    // Same as unsplat, but the rest of the arguments are collected in the
+    // first parameter, e.g. unsplatl( function (args, callback) { ... ]})
+    unsplatl: function(fun) {
+      var funLength = fun.length;
+
+      if (funLength < 1) {
+        return fun;
+      }
+      else if (funLength === 1)  {
+        return function () {
+          return fun.call(this, __slice.call(arguments, 0))
+        }
+      }
+      else {
+        return function () {
+          var numberOfArgs = arguments.length,
+              namedArgs = __slice.call(arguments, Math.max(numberOfArgs - funLength + 1, 0)),
+              variadicArgs = __slice.call(arguments, 0, Math.max(numberOfArgs - funLength + 1, 0));
+
+          return fun.apply(this, [variadicArgs].concat(namedArgs));
+        }
+      }
+    },
+
     // Returns a function that returns an array of the calls to each
     // given function for some arguments.
     juxt: function(/* funs */) {
@@ -181,5 +205,7 @@
     k: _.always,
     t: _.pipeline
   });
+  
+  _.unsplatr = _.unsplat;
 
 })(this);
