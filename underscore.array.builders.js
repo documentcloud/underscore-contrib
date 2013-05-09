@@ -168,6 +168,14 @@
       });
 
       return ret;
+    },
+
+    // Returns an array of values found in an original array whose indexes                                           // passed a truthy test by a given predicate.
+    keepIndexed: function(array, pred) {
+      return _.filter(_.map(_.range(_.size(array)), function(i) {
+        return pred(i, array[i]);
+      }),
+      existy);
     }
   });
 
