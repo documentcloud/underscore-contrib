@@ -39,6 +39,11 @@
               </a>
             
               
+              <a class="source" href="underscore.function.iterators.html">
+                underscore.function.iterators.js
+              </a>
+            
+              
               <a class="source" href="underscore.function.predicates.html">
                 underscore.function.predicates.js
               </a>
@@ -56,6 +61,11 @@
               
               <a class="source" href="underscore.util.existential.html">
                 underscore.util.existential.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.html">
+                underscore.util.strings.js
               </a>
             
               
@@ -84,7 +94,7 @@
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
               <p>Underscore-contrib (underscore.function.arity.js 0.0.1)
-(c) 2013 Michael Fogus and DocumentCloud Inc.
+(c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters &amp; Editors
 Underscore-contrib may be freely distributed under the MIT license.</p>
 
             </div>
@@ -198,8 +208,52 @@ the presence of values and the <code>_</code> placeholder.</p>
       <span class="nx">f</span><span class="p">.</span><span class="nx">_original</span> <span class="o">=</span> <span class="nx">fun</span><span class="p">;</span>
 
       <span class="k">return</span> <span class="nx">f</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">unary</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fun</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kd">function</span> <span class="nx">unary</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">fun</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="nx">binary</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fun</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kd">function</span> <span class="nx">binary</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">fun</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="nx">ternary</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fun</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kd">function</span> <span class="nx">ternary</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">fun</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="nx">quaternary</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fun</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kd">function</span> <span class="nx">quaternary</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">fun</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">);</span>
+      <span class="p">}</span>
     <span class="p">}</span>
+  
   <span class="p">});</span>
+  
+  <span class="nx">_</span><span class="p">.</span><span class="nx">arity</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">FUNCTIONS</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="k">return</span> <span class="kd">function</span> <span class="nx">arity</span> <span class="p">(</span><span class="nx">numberOfArgs</span><span class="p">,</span> <span class="nx">fun</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">FUNCTIONS</span><span class="p">[</span><span class="nx">numberOfArgs</span><span class="p">]</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">parameters</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">numberOfArgs</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numberOfArgs</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">parameters</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;__&quot;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kd">var</span> <span class="nx">pstr</span> <span class="o">=</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">join</span><span class="p">();</span>
+        <span class="kd">var</span> <span class="nx">code</span> <span class="o">=</span> <span class="s2">&quot;return function (&quot;</span><span class="o">+</span><span class="nx">pstr</span><span class="o">+</span><span class="s2">&quot;) { return fun.apply(this, arguments); };&quot;</span><span class="p">;</span>
+        <span class="nx">FUNCTIONS</span><span class="p">[</span><span class="nx">numberOfArgs</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Function</span><span class="p">([</span><span class="s1">&#39;fun&#39;</span><span class="p">],</span> <span class="nx">code</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">fun</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fun</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">arity</span><span class="p">(</span><span class="nx">numberOfArgs</span><span class="p">,</span> <span class="nx">fun</span><span class="p">);</span> <span class="p">};</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="k">return</span> <span class="nx">FUNCTIONS</span><span class="p">[</span><span class="nx">numberOfArgs</span><span class="p">](</span><span class="nx">fun</span><span class="p">);</span>
+    <span class="p">};</span>
+  <span class="p">})();</span>
 
 <span class="p">})(</span><span class="k">this</span><span class="p">);</span>
 

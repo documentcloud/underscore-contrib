@@ -39,6 +39,11 @@
               </a>
             
               
+              <a class="source" href="underscore.function.iterators.html">
+                underscore.function.iterators.js
+              </a>
+            
+              
               <a class="source" href="underscore.function.predicates.html">
                 underscore.function.predicates.js
               </a>
@@ -56,6 +61,11 @@
               
               <a class="source" href="underscore.util.existential.html">
                 underscore.util.existential.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.html">
+                underscore.util.strings.js
               </a>
             
               
@@ -84,7 +94,7 @@
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
               <p>Underscore-contrib (underscore.function.predicates.js 0.0.1)
-(c) 2013 Michael Fogus and DocumentCloud Inc.
+(c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters &amp; Editors
 Underscore-contrib may be freely distributed under the MIT license.</p>
 
             </div>
@@ -182,8 +192,7 @@ accessed via a key or index. (i.e. array and object)</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">isAssociative</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">||</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">||</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isArguments</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">},</span>
-  </pre></div></div>
+            <div class="content"><div class="highlight"><pre>    <span class="nx">isAssociative</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">||</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">||</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isArguments</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">},</span></pre></div></div>
             
         </li>
         
@@ -196,7 +205,10 @@ accessed via a key or index. (i.e. array and object)</p>
               </div>
               
 <p>An indexed object is anything that allows numerical index for
-accessing its elements (e.g. arrays and strings)</p>
+accessing its elements (e.g. arrays and strings). NOTE: Underscore
+does not support cross-browser consistent use of strings as array-like
+objects, so be wary in IE 8 when using  String objects and IE&lt;8.
+on string literals &amp; objects.</p>
 
             </div>
             
@@ -233,11 +245,11 @@ accessing its elements (e.g. arrays and strings)</p>
             </div>
             
             <div class="content"><div class="highlight"><pre>    <span class="nx">isZero</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">0</span> <span class="o">===</span> <span class="nx">x</span><span class="p">;</span> <span class="p">},</span>
-    <span class="nx">isEven</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">;</span> <span class="p">},</span>
-    <span class="nx">isOdd</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">isEven</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">},</span>
+    <span class="nx">isEven</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nb">isFinite</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">;</span> <span class="p">},</span>
+    <span class="nx">isOdd</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nb">isFinite</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">isEven</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">},</span>
     <span class="nx">isPositive</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="p">},</span>
     <span class="nx">isNegative</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span> <span class="p">},</span>
-    </pre></div></div>
+    <span class="nx">isValidDate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isDate</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">getTime</span><span class="p">());</span> <span class="p">},</span></pre></div></div>
             
         </li>
         
@@ -247,6 +259,65 @@ accessing its elements (e.g. arrays and strings)</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              
+<p>A numeric is a variable that contains a numeric value, regardless its type
+It can be a String containing a numeric value, exponential notation, or a Number object
+See here for more discussion: <a href="http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844">http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844</a></p>
+
+            </div>
+            
+            <div class="content"><div class="highlight"><pre>    <span class="nx">isNumeric</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="o">!</span><span class="nb">isNaN</span><span class="p">(</span><span class="nb">parseFloat</span><span class="p">(</span><span class="nx">n</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nb">isFinite</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+    <span class="p">},</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              
+<p>An integer contains an optional minus sign to begin and only the digits 0-9
+Objects that can be parsed that way are also considered ints, e.g. &quot;123&quot;
+Floats that are mathematically equal to integers are considered integers, e.g. 1.0
+See here for more discussion: <a href="http://stackoverflow.com/questions/1019515/javascript-test-for-an-integer">http://stackoverflow.com/questions/1019515/javascript-test-for-an-integer</a></p>
+
+            </div>
+            
+            <div class="content"><div class="highlight"><pre>    <span class="nx">isInteger</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isNumeric</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">===</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">},</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              
+<p>A float is a numbr that is not an integer.</p>
+
+            </div>
+            
+            <div class="content"><div class="highlight"><pre>    <span class="nx">isFloat</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isNumeric</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">isInteger</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+    <span class="p">},</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               
 <p>Returns true if its arguments are monotonically
@@ -271,11 +342,11 @@ increaing values; false otherwise.</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               
 <p>Returns true if its arguments are monotonically

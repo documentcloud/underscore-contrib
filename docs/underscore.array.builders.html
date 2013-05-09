@@ -39,6 +39,11 @@
               </a>
             
               
+              <a class="source" href="underscore.function.iterators.html">
+                underscore.function.iterators.js
+              </a>
+            
+              
               <a class="source" href="underscore.function.predicates.html">
                 underscore.function.predicates.js
               </a>
@@ -56,6 +61,11 @@
               
               <a class="source" href="underscore.util.existential.html">
                 underscore.util.existential.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.html">
+                underscore.util.strings.js
               </a>
             
               
@@ -84,7 +94,7 @@
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
               <p>Underscore-contrib (underscore.array.builders.js 0.0.1)
-(c) 2013 Michael Fogus and DocumentCloud Inc.
+(c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters &amp; Editors
 Underscore-contrib may be freely distributed under the MIT license.</p>
 
             </div>
@@ -145,8 +155,14 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               
+<p>Create quick reference variables for speed access to core prototypes.</p>
 
             </div>
+            
+            <div class="content"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">slice</span>   <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">,</span>
+      <span class="nx">concat</span>  <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">concat</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">existy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">;</span> <span class="p">};</span></pre></div></div>
             
         </li>
         
@@ -154,41 +170,11 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
         <li id="section-6">
             <div class="annotation">
               
-              <div class="pilwrap ">
+              <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               
-<p>Create quick reference variables for speed access to core prototypes.</p>
-
-            </div>
-            
-            <div class="content"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">slice</span>   <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">,</span>
-      <span class="nx">concat</span>  <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">concat</span><span class="p">;</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-7">
-            <div class="annotation">
-              
-              <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-7">&#182;</a>
-              </div>
-              
 <h2>Mixing in the array builders</h2>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-8">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
-              </div>
-              
 
             </div>
             
@@ -197,11 +183,11 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
         </li>
         
         
-        <li id="section-9">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               
 <p>Concatenates one or more arrays given as arguments.  If given objects and
@@ -225,11 +211,11 @@ and concatenate it likewise.</p>
         </li>
         
         
-        <li id="section-10">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               
 <p>&#39;Constructs&#39; an array by putting an element at its front</p>
@@ -243,11 +229,11 @@ and concatenate it likewise.</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               
 <p>Takes an array and parititions it some number of times into
@@ -277,11 +263,11 @@ not sufficient to build paritions of the same size.</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               
 <p>Takes an array and parititions it some number of times into
@@ -307,11 +293,11 @@ for the last.</p>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               
 <p>Maps a function over an array and concatenates all of the results.</p>
@@ -325,11 +311,11 @@ for the last.</p>
         </li>
         
         
-        <li id="section-14">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               
 <p>Returns an array with some item between each element
@@ -351,11 +337,11 @@ of a given array.</p>
         </li>
         
         
-        <li id="section-15">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               
 <p>Weaves two or more arrays together</p>
@@ -374,11 +360,11 @@ of a given array.</p>
         </li>
         
         
-        <li id="section-16">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               
 <p>Returns an array of a value repeated a certain number of
@@ -393,11 +379,11 @@ times.</p>
         </li>
         
         
-        <li id="section-17">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               
 <p>Returns an array built from the contents of a given array repeated
@@ -412,11 +398,11 @@ a certain number of times.</p>
         </li>
         
         
-        <li id="section-18">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               
 <p>Returns an array with two internal arrays built from
@@ -431,11 +417,11 @@ taking an original array and spliting it at an index.</p>
         </li>
         
         
-        <li id="section-19">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               
 <p>Call a function recursively f(f(f(args))) until a second
@@ -458,11 +444,11 @@ given function goes falsey.  Expects a seed value to start.</p>
         </li>
         
         
-        <li id="section-20">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               
 <p>Takes every nth item from an array, returning an array of
@@ -487,11 +473,11 @@ the results.</p>
         </li>
         
         
-        <li id="section-21">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               
 <p>Returns an array of each intermediate stage of a call to
@@ -509,6 +495,28 @@ a <code>reduce</code>-like function.</p>
       <span class="p">});</span>
 
       <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
+    <span class="p">},</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              
+<p>Runs its given function on the index of the elements rather than 
+the elements themselves, keeping all of the truthy values in the end.</p>
+
+            </div>
+            
+            <div class="content"><div class="highlight"><pre>    <span class="nx">keepIndexed</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">pred</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">size</span><span class="p">(</span><span class="nx">array</span><span class="p">)),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">pred</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+      <span class="p">}),</span>
+      <span class="nx">existy</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">});</span>
 

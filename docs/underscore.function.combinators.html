@@ -39,6 +39,11 @@
               </a>
             
               
+              <a class="source" href="underscore.function.iterators.html">
+                underscore.function.iterators.js
+              </a>
+            
+              
               <a class="source" href="underscore.function.predicates.html">
                 underscore.function.predicates.js
               </a>
@@ -56,6 +61,11 @@
               
               <a class="source" href="underscore.util.existential.html">
                 underscore.util.existential.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.html">
+                underscore.util.strings.js
               </a>
             
               
@@ -84,7 +94,7 @@
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
               <p>Underscore-contrib (underscore.function.combinators.js 0.0.1)
-(c) 2013 Michael Fogus and DocumentCloud Inc.
+(c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters &amp; Editors
 Underscore-contrib may be freely distributed under the MIT license.</p>
 
             </div>
@@ -137,6 +147,8 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
             
             <div class="content"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">existy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">;</span> <span class="p">};</span>
   <span class="kd">var</span> <span class="nx">truthy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="nx">x</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">existy</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">};</span>
+  <span class="kd">var</span> <span class="nx">__reverse</span> <span class="o">=</span> <span class="p">[].</span><span class="nx">reverse</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">__slice</span> <span class="o">=</span> <span class="p">[].</span><span class="nx">slice</span><span class="p">;</span>
   </pre></div></div>
             
         </li>
@@ -340,9 +352,27 @@ in an array that is passed to the original function.</p>
             </div>
             
             <div class="content"><div class="highlight"><pre>    <span class="nx">unsplat</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fun</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">fun</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span><span class="nx">arguments</span><span class="p">));</span>
-      <span class="p">};</span>
+      <span class="kd">var</span> <span class="nx">funLength</span> <span class="o">=</span> <span class="nx">fun</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="nx">funLength</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">fun</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">funLength</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span>  <span class="p">{</span>
+        <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">fun</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">__slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">numberOfArgs</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
+              <span class="nx">namedArgs</span> <span class="o">=</span> <span class="nx">__slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">funLength</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+              <span class="nx">numberOfMissingNamedArgs</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">funLength</span> <span class="o">-</span> <span class="nx">numberOfArgs</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+              <span class="nx">argPadding</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">numberOfMissingNamedArgs</span><span class="p">),</span>
+              <span class="nx">variadicArgs</span> <span class="o">=</span> <span class="nx">__slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="nx">fun</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+
+          <span class="k">return</span> <span class="nx">fun</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">namedArgs</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">argPadding</span><span class="p">).</span><span class="nx">concat</span><span class="p">([</span><span class="nx">variadicArgs</span><span class="p">]))</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
     <span class="p">},</span></pre></div></div>
             
         </li>
@@ -425,7 +455,30 @@ values in the defaulted arg slots.</p>
 
         <span class="k">return</span> <span class="nx">fun</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
       <span class="p">};</span>
+    <span class="p">},</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              
+<p>Flips an arbitrary number of args of a function</p>
+
+            </div>
+            
+            <div class="content"><div class="highlight"><pre>    <span class="nx">flip</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fun</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/* args */</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">reversed</span> <span class="o">=</span> <span class="nx">__reverse</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">fun</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">reversed</span><span class="p">);</span>
+      <span class="p">};</span>
     <span class="p">},</span>
+    
     <span class="nx">k</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">always</span><span class="p">,</span>
     <span class="nx">t</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pipeline</span>
   <span class="p">});</span>

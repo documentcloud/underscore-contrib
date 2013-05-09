@@ -39,6 +39,11 @@
               </a>
             
               
+              <a class="source" href="underscore.function.iterators.html">
+                underscore.function.iterators.js
+              </a>
+            
+              
               <a class="source" href="underscore.function.predicates.html">
                 underscore.function.predicates.js
               </a>
@@ -56,6 +61,11 @@
               
               <a class="source" href="underscore.util.existential.html">
                 underscore.util.existential.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.html">
+                underscore.util.strings.js
               </a>
             
               
@@ -84,7 +94,7 @@
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
               <p>Underscore-contrib (underscore.util.existential.js 0.0.1)
-(c) 2013 Michael Fogus and DocumentCloud Inc.
+(c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters &amp; Editors
 Underscore-contrib may be freely distributed under the MIT license.</p>
 
             </div>
@@ -152,7 +162,8 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
             <div class="content"><div class="highlight"><pre>  <span class="nx">_</span><span class="p">.</span><span class="nx">mixin</span><span class="p">({</span>
     <span class="nx">exists</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">;</span> <span class="p">},</span>
     <span class="nx">truthy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="nx">x</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">_</span><span class="p">.</span><span class="nx">exists</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">},</span>
-    <span class="nx">falsey</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">truthy</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">}</span>
+    <span class="nx">falsey</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">truthy</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">},</span>
+    <span class="nx">not</span><span class="o">:</span>    <span class="kd">function</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">!</span><span class="nx">b</span><span class="p">;</span> <span class="p">}</span>
   <span class="p">});</span>
 
 <span class="p">})(</span><span class="k">this</span><span class="p">);</span>

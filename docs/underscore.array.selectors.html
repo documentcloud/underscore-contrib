@@ -39,6 +39,11 @@
               </a>
             
               
+              <a class="source" href="underscore.function.iterators.html">
+                underscore.function.iterators.js
+              </a>
+            
+              
               <a class="source" href="underscore.function.predicates.html">
                 underscore.function.predicates.js
               </a>
@@ -56,6 +61,11 @@
               
               <a class="source" href="underscore.util.existential.html">
                 underscore.util.existential.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.html">
+                underscore.util.strings.js
               </a>
             
               
@@ -84,7 +94,7 @@
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
               <p>Underscore-contrib (underscore.array.selectors.js 0.0.1)
-(c) 2013 Michael Fogus and DocumentCloud Inc.
+(c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters &amp; Editors
 Underscore-contrib may be freely distributed under the MIT license.</p>
 
             </div>
@@ -145,19 +155,6 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-6">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
-              </div>
-              
 <p>Create quick reference variables for speed access to core prototypes.</p>
 
             </div>
@@ -172,27 +169,14 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
         </li>
         
         
-        <li id="section-7">
+        <li id="section-6">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               
 <h2>Mixing in the array selectors</h2>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-8">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
-              </div>
-              
 
             </div>
             
@@ -201,14 +185,14 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
         </li>
         
         
-        <li id="section-9">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               
-<p>Returns the second element of an array. Passing <strong>n</strong> will return all but 
+<p>Returns the second element of an array. Passing <strong>n</strong> will return all but
 the first of the head N values in the array.  The <strong>guard</strong> check allows it
 to work with <code>_.map</code>.</p>
 
@@ -222,11 +206,31 @@ to work with <code>_.map</code>.</p>
         </li>
         
         
-        <li id="section-10">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              
+<p>A function to get at an index into an array</p>
+
+            </div>
+            
+            <div class="content"><div class="highlight"><pre>    <span class="nx">nth</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">((</span><span class="nx">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">index</span> <span class="o">&gt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Attempting to index outside the bounds of the array.&quot;</span><span class="p">);</span>
+
+      <span class="k">return</span> <span class="nx">array</span><span class="p">[</span><span class="nx">index</span><span class="p">];</span>
+    <span class="p">},</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               
 <p>Takes all items in an array while a given predicate returns truthy.</p>
@@ -250,11 +254,11 @@ to work with <code>_.map</code>.</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               
 <p>Drops all items from an array while a given predicate returns truthy.</p>
@@ -277,11 +281,11 @@ to work with <code>_.map</code>.</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               
 <p>Returns an array with two internal arrays built from
@@ -297,11 +301,11 @@ where a given function goes falsey.</p>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               
 <p>Takes an array and partitions it as the given predicate changes
@@ -324,11 +328,11 @@ truth sense.</p>
         </li>
         
         
-        <li id="section-14">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               
 <p>Returns the &#39;best&#39; value in an array based on the result of a
@@ -345,11 +349,11 @@ given function.</p>
         </li>
         
         
-        <li id="section-15">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               
 <p>Returns an array of existy results of a function over an source array.</p>
@@ -362,27 +366,6 @@ given function.</p>
       <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="nx">fun</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
       <span class="p">}),</span> <span class="nx">existy</span><span class="p">);</span>
-    <span class="p">},</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-16">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
-              </div>
-              
-<p>Removes all values from an array that result in a truthy
-check of a given predicate.</p>
-
-            </div>
-            
-            <div class="content"><div class="highlight"><pre>    <span class="nx">remove</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">pred</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">keep</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="o">!</span><span class="nx">pred</span><span class="p">(</span><span class="nx">e</span><span class="p">))</span> <span class="o">?</span> <span class="nx">e</span> <span class="o">:</span> <span class="kc">undefined</span><span class="p">;</span>
-      <span class="p">});</span>
     <span class="p">}</span>
   <span class="p">});</span>
 
