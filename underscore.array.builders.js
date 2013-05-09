@@ -171,7 +171,8 @@
       return ret;
     },
 
-    // Returns an array of values found in an original array whose indexes                                           // passed a truthy test by a given predicate.
+    // Runs its given function on the index of the elements rather than 
+    // the elements themselves, keeping all of the truthy values in the end.
     keepIndexed: function(array, pred) {
       return _.filter(_.map(_.range(_.size(array)), function(i) {
         return pred(i, array[i]);
