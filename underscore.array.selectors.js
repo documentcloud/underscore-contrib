@@ -105,14 +105,6 @@
       return _.filter(_.map(array, function(e) {
         return fun(e);
       }), existy);
-    },
-
-    // Returns an array of values found in an original array whose indexes                                           // passed a truthy test by a given predicate.
-    keepIndexed: function(pred, coll) {
-      return _.filter(_.map(_.range(_.size(coll)), function(i) {
-        return pred(i, coll[i]);
-      }),
-      existy);
     }
   });
 
