@@ -171,4 +171,17 @@ $(document).ready(function() {
 
     deepEqual(result, [1,3,6,10,15], 'should retain each intermediate step in a reduce');
   });
+
+  test("keepIndexed", function() {
+    var a = ['a', 'b', 'c', 'd', 'e'];
+    var b = [-9, 0, 29, -7, 45, 3, -8];
+    var oddy = function(k, v) { return _.isOdd(k) ? v : undefined; };
+    var posy = function(k, v) { return _.isPositive(v) ? k : undefined; };
+
+    deepEqual(_.keepIndexed(a, _.isOdd), [false,true,false,true,false], 'runs the predciate on the index, and not the element');
+
+    deepEqual(_.keepIndexed(a, oddy), ['b', 'd'], 'keeps elements whose index passes a truthy test');
+    deepEqual(_.keepIndexed(b, posy), [2,4,5], 'keeps elements whose index passes a truthy test');
+    deepEqual(_.keepIndexed(_.range(10), oddy), [1,3,5,7,9], 'keeps elements whose index passes a truthy test');
+  });
 });
