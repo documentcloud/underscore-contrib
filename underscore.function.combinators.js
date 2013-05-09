@@ -110,8 +110,8 @@
       }
       else if (funLength === 1)  {
         return function () {
-          return fun.call(this, __slice.call(arguments, 0))
-        }
+          return fun.call(this, __slice.call(arguments, 0));
+        };
       }
       else {
         return function () {
@@ -121,8 +121,8 @@
               argPadding = new Array(numberOfMissingNamedArgs),
               variadicArgs = __slice.call(arguments, fun.length - 1);
 
-          return fun.apply(this, namedArgs.concat(argPadding).concat([variadicArgs]))
-        }
+          return fun.apply(this, namedArgs.concat(argPadding).concat([variadicArgs]));
+        };
       }
     },
 

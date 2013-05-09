@@ -74,7 +74,7 @@
           value = pair[1];
           state = value != null
                   ? pair[0]
-                  : void 0
+                  : void 0;
           return value;
         }
         else return void 0;
@@ -94,7 +94,7 @@
           }
           else return (state = binaryFn.call(element, state, element));
         }
-      }
+      };
     };
   
     function accumulateWithReturn (iter, binaryFn, initial) {
@@ -115,7 +115,7 @@
             return stateAndReturnValue[1];
           }
         }
-      }
+      };
     };
   
     function map (iter, unaryFn) {
@@ -248,7 +248,7 @@
           from = from - by;
           return was;
         }
-      }
+      };
     };
   
     function range (from, to, by) {

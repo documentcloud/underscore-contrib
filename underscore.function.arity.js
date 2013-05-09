@@ -45,25 +45,25 @@
     unary: function (fun) {
       return function unary (a) {
         return fun.call(this, a);
-      }
+      };
     },
 
     binary: function (fun) {
       return function binary (a, b) {
         return fun.call(this, a, b);
-      }
+      };
     },
 
     ternary: function (fun) {
       return function ternary (a, b, c) {
         return fun.call(this, a, b, c);
-      }
+      };
     },
 
     quaternary: function (fun) {
       return function quaternary (a, b, c, d) {
         return fun.call(this, a, b, c, d);
-      }
+      };
     }
   
   });
