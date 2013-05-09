@@ -67,6 +67,30 @@ $(document).ready(function() {
     deepEqual(echo3(1,2,3,4), [1,2,[3,4]], 'should return the arguments provded');
   });
 
+  test("unsplatl", function() {
+    var echo  = _.unsplatl(function (args) { return args; }),
+        echo2 = _.unsplatl(function (rest, ultimate) { return [rest, ultimate]; }),
+        echo3 = _.unsplatl(function (rest, penultimate, ultimate) { return [rest, penultimate, ultimate]; }),
+        undefined = void 0;
+
+    deepEqual(echo(), [], 'should return no arguments');
+    deepEqual(echo(1), [1], 'should return the arguments provded');
+    deepEqual(echo(1,2), [1,2], 'should return the arguments provded');
+    deepEqual(echo(1,2,3), [1,2,3], 'should return the arguments provded');
+
+    deepEqual(echo2(), [[], undefined], 'should return no arguments');
+    deepEqual(echo2(1), [[], 1], 'should return the arguments provded');
+    deepEqual(echo2(1,2), [[1], 2], 'should return the arguments provded');
+    deepEqual(echo2(1,2,3), [[1, 2], 3], 'should return the arguments provded');
+    deepEqual(echo2(1,2,3,4), [[1, 2, 3], 4], 'should return the arguments provded');
+
+    deepEqual(echo3(), [[], undefined, undefined], 'should return no arguments');
+    deepEqual(echo3(1), [[], 1, undefined], 'should return the arguments provded');
+    deepEqual(echo3(1,2), [[], 1, 2], 'should return the arguments provded');
+    deepEqual(echo3(1,2,3), [[1], 2, 3], 'should return the arguments provded');
+    deepEqual(echo3(1,2,3,4), [[1, 2], 3, 4], 'should return the arguments provded');
+  });
+
   test("flip2", function() {
     var div = function(n, d) { return n/d; };
 
