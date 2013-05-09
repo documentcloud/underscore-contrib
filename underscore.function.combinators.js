@@ -126,7 +126,7 @@
       }
     },
 
-    // Same as unsplat, but the rest of teh arguments are collected in the
+    // Same as unsplat, but the rest of the arguments are collected in the
     // first parameter, e.g. unsplatl( function (args, callback) { ... ]})
     unsplatl: function(fun) {
       var funLength = fun.length;
