@@ -17,6 +17,7 @@
   var slice   = Array.prototype.slice,
       concat  = Array.prototype.concat;
 
+  var existy = function(x) { return x != null; };
 
   // Mixing in the array builders
   // ----------------------------
