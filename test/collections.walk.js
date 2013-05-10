@@ -19,23 +19,23 @@ $(document).ready(function() {
     };
 
     var tree = getTestTree();
-    _.bottomup(tree, visitor);
+    _.walk.postorder(tree, visitor);
     equal(tree.val, 16, 'should visit subtrees first');
     
     tree = getTestTree();
-    _.topdown(tree, visitor);
+    _.walk.preorder(tree, visitor);
     equal(tree.val, 5, 'should visit subtrees after the node itself');
   });
   
   test("circularRefs", function() {
     tree = getTestTree();
     tree.l.l.r = tree;
-    throws(function() { _.topdown(tree, _.identity) }, TypeError, 'topdown throws an exception');
-    throws(function() { _.bottomup(tree, _.identity) }, TypeError, 'bottomup throws an exception');
+    throws(function() { _.walk.preorder(tree, _.identity) }, TypeError, 'preorder throws an exception');
+    throws(function() { _.walk.postrder(tree, _.identity) }, TypeError, 'postorder throws an exception');
 
     tree = getTestTree();
     tree.r.l = tree.r;
-    throws(function() { _.topdown(tree, _.identity) }, TypeError, 'exception for a self-referencing node');
+    throws(function() { _.walk.preorder(tree, _.identity) }, TypeError, 'exception for a self-referencing node');
   });
 
   test("map", function() {
@@ -44,26 +44,26 @@ $(document).ready(function() {
       if (key !== 'val') throw Error('Leaf node with incorrect key');
       return this.leafChar || '-';
     };
-    var visited = _.walk.map(getTestTree(), _.topdown, visitor).join('');
-    equal(visited, '0-1-2-3-4-5-6-', 'top down map');
+    var visited = _.walk.map(getTestTree(), _.walk.preorder, visitor).join('');
+    equal(visited, '0-1-2-3-4-5-6-', 'pre-order map');
 
-    visited = _.walk.map(getTestTree(), _.bottomup, visitor).join('');
-    equal(visited, '---2-31--5-640', 'bottom up map');
+    visited = _.walk.map(getTestTree(), _.walk.postorder, visitor).join('');
+    equal(visited, '---2-31--5-640', 'post-order map');
 
     var context = { leafChar: '*' };
-    visited = _.walk.map(getTestTree(), _.topdown, visitor, context).join('');
-    equal(visited, '0*1*2*3*4*5*6*', 'top down with context');
+    visited = _.walk.map(getTestTree(), _.walk.preorder, visitor, context).join('');
+    equal(visited, '0*1*2*3*4*5*6*', 'pre-order with context');
 
-    visited = _.walk.map(getTestTree(), _.bottomup, visitor, context).join('');
-    equal(visited, '***2*31**5*640', 'bottom up with context');
+    visited = _.walk.map(getTestTree(), _.walk.postorder, visitor, context).join('');
+    equal(visited, '***2*31**5*640', 'post-order with context');
 
     if (document.querySelector) {
       var root = document.querySelector('#map-test');
-      var ids = _.walk.map(root, _.topdown, function(el) { return el.id; });
-      deepEqual(ids, ['map-test', 'id1', 'id2'], 'top-down map with DOM elements');
+      var ids = _.walk.map(root, _.walk.preorder, function(el) { return el.id; });
+      deepEqual(ids, ['map-test', 'id1', 'id2'], 'preorder map with DOM elements');
 
-      ids = _.walk.map(root, _.bottomup, function(el) { return el.id; });
-      deepEqual(ids, ['id1', 'id2', 'map-test'], 'bottom-up map with DOM elements');
+      ids = _.walk.map(root, _.walk.postorder, function(el) { return el.id; });
+      deepEqual(ids, ['id1', 'id2', 'map-test'], 'postorder map with DOM elements');
     }
   });
 

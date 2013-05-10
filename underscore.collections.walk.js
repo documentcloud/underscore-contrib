@@ -1,4 +1,4 @@
-// Underscore-contrib (underscore.tree.traverse.js 0.0.1)
+// Underscore-contrib (underscore.collections.walk.js 0.0.1)
 // (c) 2013 Patrick Dubroy
 // Underscore-contrib may be freely distributed under the MIT license.
 
@@ -45,7 +45,7 @@
 
   function pluck(obj, propertyName, recursive) {
     var results = [];
-    _.topdown(obj, function(value, key) {
+    _.walk.preorder(obj, function(value, key) {
       if (key === propertyName) {
         results[results.length] = value;
         if (!recursive) return breaker;
@@ -54,30 +54,26 @@
     return results;
   }
 
-  // Mixing in the traversal functions
-  // ---------------------------------
+  // Add the `walk` namespace
+  // ------------------------
 
-  _.mixin({
-    // Recursively traverses `obj` in a depth-first, bottom-up fashion,
-    // invoking the `visitor` function for each object only after traversing
-    // its children.
-    bottomup: function(obj, visitor, context) {
+  _.walk = {
+    // Recursively traverses `obj` in a depth-first fashion, invoking the
+    // `visitor` function for each object only after traversing its children.
+    postorder: function(obj, visitor, context) {
       walk(obj, null, visitor, context);
     },
-    preorder: _.bottomup,
 
     // Recursively traverses `obj` in a depth-first fashion, invoking the
     // `visitor` function for each object before traversing its children.
-    topdown: function(obj, visitor, context) {
+    preorder: function(obj, visitor, context) {
       walk(obj, visitor, null, context)
     },
-    postorder: _.topdown
-  });
 
-  _.walk = {
     // Produces a new array of values by recursively traversing `obj` and
     // mapping each value through the transformation function `visitor`.
-    // `strategy` is the traversal function to use, e.g. `bottomup` or `topdown`.
+    // `strategy` is the traversal function to use, e.g. `preorder` or
+    // `postorder`.
     map: function(obj, strategy, visitor, context) {
       var results = [];
       strategy.call(null, obj, function(value, key, parent) {
