@@ -114,9 +114,9 @@ $(document).ready(function() {
   });
 
   test("juxt", function() {
-    var run = _.juxt(function(s) { return s.length; }, parseInt, _.always(108));
+    var run = _.juxt(function(s, n) { return s.length + n; }, parseInt, _.always(108));
 
-    deepEqual(run('42'), [2, 42, 108], 'should return a function that returns an array of the originally supplied functions called');
+    deepEqual(run('42', 10), [12, 42, 108], 'should return a function that returns an array of the originally supplied functions called');
   });
 
   test("accessor", function() {
