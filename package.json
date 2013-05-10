@@ -1,6 +1,7 @@
 {
   "name": "underscore-contrib",
   "version": "0.0.1",
+  "main": "index.js",
   "dependencies": {
     "underscore": "*"
   },
