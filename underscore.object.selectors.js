@@ -27,6 +27,14 @@
         return (obj && obj[field]);
       };
     },
+    
+    // Given an object, returns a function that will attempt to look up a field
+    // that it's given.
+    dictionary: function (obj) {
+      return function(field) {
+        return (obj && field && obj[field]);
+      };
+    },
 
     // Like `_.pick` except that it takes an array of keys to pick.
     selectKeys: function (obj, ks) {
