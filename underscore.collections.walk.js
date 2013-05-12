@@ -13,11 +13,11 @@
   // Helpers
   // -------
 
-  var circularReferenceError = 'Circular reference found';
-
   // An internal object that can be returned from a visitor function to
   // prevent a top-down walk from walking subtrees of a node.
   var breaker = {};
+
+  var notTreeError = 'Not a tree: same object found in two different branches';
 
   // Walk the tree recursively beginning with `root`, calling `beforeFunc`
   // before visiting an objects descendents, and `afterFunc` afterwards.
@@ -30,8 +30,7 @@
       if (_.isObject(value) || _.isArray(value)) {
         // Keep track of objects that have been visited, and throw an exception
         // when trying to visit the same object twice.
-        if (visited.indexOf(value) >= 0)
-          throw new TypeError(circularReferenceError);
+        if (visited.indexOf(value) >= 0) throw new TypeError(notTreeError);
         visited.push(value);
 
         // Recursively walk this object's descendents. If it's a DOM node, walk
