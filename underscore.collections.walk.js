@@ -19,26 +19,39 @@
 
   var notTreeError = 'Not a tree: same object found in two different branches';
 
+  // A version of `collect` which, when called on an object, returns an object
+  // rather than a list. The keys in the returned object are the same as the
+  // original object, and the values are the result of invoking `visitor` on
+  // each of the original object's values.
+  function collectWithKeys(obj, visitor, context) {
+    if (_.isArray(obj)) return _.collect(obj, visitor, context);
+
+    var results = {};
+    _.each(obj, function(value, key) {
+      results[key] = visitor.call(context, value, key, obj);
+    });
+    return results;
+  }
+
   // Walk the tree recursively beginning with `root`, calling `beforeFunc`
   // before visiting an objects descendents, and `afterFunc` afterwards.
-  function walk(root, beforeFunc, afterFunc, context) {
+  function walk(root, beforeFunc, afterFunc, context, iterStrategy) {
     var visited = [];
-    (function _walk(value, key, parent) {
+    return (function _walk(value, key, parent) {
       if (beforeFunc && beforeFunc.call(context, value, key, parent) === breaker)
         return;
 
+      var subResults;
       if (_.isObject(value) || _.isArray(value)) {
         // Keep track of objects that have been visited, and throw an exception
         // when trying to visit the same object twice.
         if (visited.indexOf(value) >= 0) throw new TypeError(notTreeError);
         visited.push(value);
 
-        // Recursively walk this object's descendents. If it's a DOM node, walk
-        // its DOM children.
-        _.each(_.isElement(value) ? value.children : value, _walk, context);
+        var target = _.isElement(value) ? value.children : value;
+        subResults = iterStrategy.call(null, target, _walk, context);
       }
-
-      if (afterFunc) afterFunc.call(context, value, key, parent);
+      if (afterFunc) return afterFunc.call(context, value, key, parent, subResults);
     })(root);
   }
 
@@ -61,13 +74,13 @@
     // Recursively traverses `obj` in a depth-first fashion, invoking the
     // `visitor` function for each object only after traversing its children.
     postorder: function(obj, visitor, context) {
-      walk(obj, null, visitor, context);
+      walk(obj, null, visitor, context, _.each);
     },
 
     // Recursively traverses `obj` in a depth-first fashion, invoking the
     // `visitor` function for each object before traversing its children.
     preorder: function(obj, visitor, context) {
-      walk(obj, visitor, null, context)
+      walk(obj, visitor, null, context, _.each);
     },
 
     // Produces a new array of values by recursively traversing `obj` and
@@ -93,6 +106,17 @@
     // with a property named `propertyName`.
     pluckRec: function(obj, propertyName) {
       return pluck(obj, propertyName, true);
+    },
+
+    // Builds up a single value by doing a pre-order traversal of `obj` and
+    // calling the `visitor` function on each object in the tree. The `memo`
+    // argument to `visitor` is a collection of the results of invoking
+    // `visitor` on each of the subtrees.
+    reduce: function(obj, visitor, context) {
+      var reducer = function(value, key, parent, memo) {
+        return visitor(memo, value, key, parent);
+      };
+      return walk(obj, null, reducer, context, collectWithKeys);
     }
   });
   _.walk.collect = _.walk.map;  // Alias `map` as `collect`.

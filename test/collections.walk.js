@@ -118,4 +118,13 @@ $(document).ready(function() {
     tree = [tree, { city: 'Loserville', population: 'you' }];
     deepEqual(_.walk.pluck(tree, 'population'), [1378000, 812826, 2615000, 'you'], 'pluck from a list of trees');
   });
+
+  test("reduce", function() {
+    var sum = function(memo, node, key, parent) {
+      if (_.isUndefined(memo))
+        return node;
+      return _.reduce(memo, function(total, value) { return total + value; });
+    };
+    equal(_.walk.reduce(getSimpleTestTree(), sum), 21);
+  });
 });
