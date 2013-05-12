@@ -155,9 +155,10 @@
     juxt: function(/* funs */) {
       var funs = arguments;
 
-      return function(arg) {
+      return function(/* args */) {
+        var args = arguments;
         return _.map(funs, function(f) {
-          return f(arg);
+          return f.apply(null, args);
         });
       };
     },
