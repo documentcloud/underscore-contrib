@@ -120,11 +120,25 @@ $(document).ready(function() {
   });
 
   test("reduce", function() {
-    var sum = function(memo, node, key, parent) {
-      if (_.isUndefined(memo))
-        return node;
+    var sum = function(memo, node) {
+      if (_.isUndefined(memo)) return node;
       return _.reduce(memo, function(total, value) { return total + value; });
     };
-    equal(_.walk.reduce(getSimpleTestTree(), sum), 21);
+    var tree = getSimpleTestTree();
+    equal(_.walk.reduce(tree, sum), 21);
+
+    // A more useful example: transforming a tree.
+
+    // Returns a new node where the left and right subtrees are swapped.
+    var mirror = function(memo, node) {
+      if (!_.has(node, 'r')) return node;
+      return _.extend(_.clone(node), { l: memo.r, r: memo.l });
+    };
+    // Returns the '-' for internal nodes, and the value itself for leaves.
+    var toString =  function(node) { return _.has(node, 'val') ? '-' : node; };
+
+    tree = _.walk.reduce(getSimpleTestTree(), mirror);
+    equal(_.walk.reduce(tree, sum), 21);
+    equal(_.walk.map(tree, _.walk.preorder, toString).join(''), '-0-4-6-5-1-3-2', 'pre-order map');
   });
 });
