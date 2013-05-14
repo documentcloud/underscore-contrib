@@ -56,7 +56,8 @@
   // Add the `walk` namespace
   // ------------------------
 
-  _.walk = {
+  _.walk = walk;
+  _.extend(walk, {
     // Recursively traverses `obj` in a depth-first fashion, invoking the
     // `visitor` function for each object only after traversing its children.
     postorder: function(obj, visitor, context) {
@@ -93,6 +94,6 @@
     pluckRec: function(obj, propertyName) {
       return pluck(obj, propertyName, true);
     }
-  };
+  });
   _.walk.collect = _.walk.map;  // Alias `map` as `collect`.
 })(this);
