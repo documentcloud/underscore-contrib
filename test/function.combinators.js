@@ -13,6 +13,13 @@ $(document).ready(function() {
     equal(run(42), "-42", 'should apply a series of functions to an initial value');
   });
 
+  test("partialRight", function() {
+    var subtractRightFromLeft = function (a, b) { return a - b; };
+    var subtractFiveFromLeft  = _.partialRight(subtractRightFromLeft, 5);
+
+    equal(subtractFiveFromLeft(8), 3, 'should return a partial function with arguments appended to');
+  })
+
   test("conjoin", function() {
     var isPositiveEven = _.conjoin(function(x) { return x > 0; }, function(x) { return (x & 1) === 0; });
 

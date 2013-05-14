@@ -40,6 +40,18 @@
       };
     },
 
+    // Returns a partial function that when invoked will have
+    // the partial arguments appended to it.
+    partialRight: function(fun /*, args */) {
+      var partialArgs = __slice.call(arguments, 1)
+
+      return function(/* args */) {
+        var variadicArgs = __slice.call(arguments);
+
+        return fun.apply(null, variadicArgs.concat(partialArgs));
+      }
+    },
+
     // Composes a bunch of predicates into a single predicate that
     // checks all elements of an array for conformance to all of the
     // original predicates.
