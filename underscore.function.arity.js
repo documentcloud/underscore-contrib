@@ -64,8 +64,52 @@
       return function quaternary (a, b, c, d) {
         return fun.call(this, a, b, c, d);
       };
+    },
+    
+    // swiss-army-knife currying and partial application function
+    // for functions taking two arguments
+    //
+    // if you provide an argument, it partially applies it.
+    // if you do not provide an argument, performs a "greedy"
+    // curry.
+    call2: function (fun, optionalFirst, optionalLast) {
+      if (arguments.length === 3) {
+        return fun(optionalFirst, optionalLast);
+      }
+      else if (arguments.length === 1) {
+        return function call2 (first, optionalLast) {
+          if (arguments.length === 1) {
+            return function (last) {
+              return fun(first, last);
+            };
+          }
+          else return fun(first, optionalLast);
+        };
+      }
+      else return function call2 (last) {
+        return fun(optionalFirst, last);
+      };
+    },
+    
+    call2flipped: function (fun, optionalLast, optionalFirst) {
+      if (arguments.length === 3) {
+        return fun(optionalFirst, optionalLast);
+      }
+      else if (arguments.length === 1) {
+        return function call2flipped (last, optionalFirst) {
+          if (arguments.length === 1) {
+            return function (first) {
+              return fun(first, last);
+            };
+          }
+          else return fun(optionalFirst, last);
+        };
+      }
+      else return function call2flipped (first) {
+        return fun(first, optionalLast);
+      };
     }
-  
+    
   });
   
   _.arity = (function () {
