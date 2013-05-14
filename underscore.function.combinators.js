@@ -17,7 +17,7 @@
   var truthy = function(x) { return (x !== false) && existy(x); };
   var __reverse = [].reverse;
   var __slice = [].slice;
-  
+
   // Mixing in the combinator functions
   // ----------------------------------
 
@@ -202,11 +202,11 @@
         return fun.apply(null, reversed);
       };
     },
-    
+
     k: _.always,
     t: _.pipeline
   });
-  
+
   _.unsplatr = _.unsplat;
 
 })(this);
