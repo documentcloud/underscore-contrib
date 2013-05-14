@@ -1,5 +1,6 @@
 ['array.builders',
  'array.selectors',
+ 'collections.walk',
  'function.arity',
  'function.combinators',
  'function.iterators',
