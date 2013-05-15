@@ -22,4 +22,16 @@ $(document).ready(function() {
     deepEqual(_.selectKeys({'a': 1, 'b': 2}, ['z']), {}, 'shold return an empty map if the desired keys are not present');
   });
 
+  test("getPath", function() {
+    var deepObject = { a: { b: { c: "c" } }, falseVal: false, nullVal: null, undefinedVal: undefined };
+
+    equal(_.getPath(deepObject, ["a", "b", "c"]), "c", "should get a deep property's value");
+
+    equal(_.getPath(deepObject, ["undefinedVal"]), undefined, "should return undefined for undefined properties");
+    equal(_.getPath(deepObject, ["nullVal"]), undefined, "should return undefined for null properties");
+    equal(_.getPath(deepObject, ["a", "notHere"]), undefined, "should return undefined for non-existent properties");
+
+    equal(_.getPath(deepObject, ["undefinedVal"], "myDefault"), "myDefault", "should return a default value instead of undefined if one is provided");
+  });
+
 });
