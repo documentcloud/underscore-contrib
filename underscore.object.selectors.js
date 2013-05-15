@@ -43,21 +43,17 @@
 
     // Gets the value at any depth in a nested object based on the
     // path described by the keys given.
-    getPath: function(obj, ks, defaultValue) {
-      var g = function(obj, ks, defaultValue) {
-        // If we have reached an undefined/null property
-        // then stop executing and return the default value.
-        // If no default was provided it will be undefined.
-        if (obj == null) return defaultValue;
+    getPath: function getPath (obj, ks, defaultValue) {
+      // If we have reached an undefined/null property
+      // then stop executing and return the default value.
+      // If no default was provided it will be undefined.
+      if (obj == null) return defaultValue;
 
-        // If the path array has no more elements, we've reached
-        // the intended property and return its value
-        if (ks.length === 0) return obj;
+      // If the path array has no more elements, we've reached
+      // the intended property and return its value
+      if (ks.length === 0) return obj;
 
-        return g(obj[[].shift.call(ks)], ks, defaultValue);
-      };
-
-      return g(obj, ks, defaultValue);
+      return getPath(obj[[].shift.call(ks)], ks, defaultValue);
     }
   });
 
