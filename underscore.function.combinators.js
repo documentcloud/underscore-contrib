@@ -28,10 +28,11 @@
       return function() { return value; };
     },
 
-    // Takes some value as its first argument and runs it through a
-    // pipeline of functions given as the rest arguments.
+    // Takes some number of functions, either as an array or variadically
+    // and returns a function that takes some value as its first argument 
+    // and runs it through a pipeline of the original functions given.
     pipeline: function(/*, funs */){
-      var funs = arguments;
+      var funs = (_.isArray(arguments[0])) ? arguments[0] : arguments;
 
       return function(seed) {
         return _.reduce(funs,
@@ -137,7 +138,7 @@
       else if (funLength === 1)  {
         return function () {
           return fun.call(this, __slice.call(arguments, 0))
-        }
+        };
       }
       else {
         return function () {
@@ -146,7 +147,7 @@
               variadicArgs = __slice.call(arguments, 0, Math.max(numberOfArgs - funLength + 1, 0));
 
           return fun.apply(this, [variadicArgs].concat(namedArgs));
-        }
+        };
       }
     },
 
