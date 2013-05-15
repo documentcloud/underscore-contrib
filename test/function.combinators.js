@@ -9,8 +9,10 @@ $(document).ready(function() {
   });
 
   test("pipeline", function() {
-    var run = _.pipeline(function(n) { return -n; }, function(n) { return "" + n; });
-    equal(run(42), "-42", 'should apply a series of functions to an initial value');
+    var run  = _.pipeline(function(n) { return -n; }, function(n) { return "" + n; });
+    var run2 = _.pipeline([function(n) { return -n; }, function(n) { return "" + n; }]);
+    equal(run(42), "-42", 'should apply a series of functions, originall given variadically to an initial value');
+    equal(run2(42), "-42", 'should apply a series of functions, originally given in an array to an initial value');
   });
 
   test("conjoin", function() {
