@@ -62,14 +62,4 @@ $(document).ready(function() {
     
   });
   
-  test("curry2flipped", function () {
-    
-    function echo () { return [].slice.call(arguments, 0); }
-    
-    deepEqual(_.flip2(echo)(1, 2), [2, 1], "Control test");
-    deepEqual(_.curry2flipped(echo)(1, 2), [2, 1], "Accepts arguments greedily");
-    deepEqual(_.curry2flipped(echo)(1)(2), [2, 1], "Accepts curried arguments");
-    
-  });
-  
 });

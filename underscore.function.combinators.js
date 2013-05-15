@@ -163,10 +163,6 @@
     
     // map the arguments of a function
     mapArgs: _.curry2(baseMapArgs),
-    
-    // map the arguments of a function, takes the mapping function
-    // first so it can be used as a combinator
-    mapArgsWith: _.curry2flipped(baseMapArgs),
 
     // Returns a function that returns an array of the calls to each
     // given function for some arguments.
@@ -226,6 +222,10 @@
   });
   
   _.unsplatr = _.unsplat;
+    
+  // map the arguments of a function, takes the mapping function
+  // first so it can be used as a combinator
+  _.mapArgsWith = _.curry2(_.flip(baseMapArgs));
   
   
 

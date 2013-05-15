@@ -1,6 +1,6 @@
 {
   "name": "underscore-contrib",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "index.js",
   "dependencies": {
     "underscore": "*"
@@ -10,7 +10,7 @@
     "url": "https://github.com/documentcloud/underscore-contrib.git"
   },
   "license": "MIT",
-  "author": {"name": "Fogus", 
-             "email": "me@fogus.me", 
+  "author": {"name": "Fogus",
+             "email": "me@fogus.me",
              "url": "http://www.fogus.me"}
 }
