@@ -22,4 +22,8 @@ $(document).ready(function() {
     deepEqual(_.selectKeys({'a': 1, 'b': 2}, ['z']), {}, 'shold return an empty map if the desired keys are not present');
   });
 
+  test("kv", function() {
+    deepEqual(_.kv({'a': 1, 'b': 2}, 'a'), ['a', 1], 'should return the key/value pair at the desired key');
+    equal(_.kv({'a': 1, 'b': 2}, 'z'), undefined, 'shold return undefined if the desired key is not present');
+  });
 });
