@@ -27,7 +27,7 @@
         return (obj && obj[field]);
       };
     },
-    
+
     // Given an object, returns a function that will attempt to look up a field
     // that it's given.
     dictionary: function (obj) {
@@ -39,6 +39,13 @@
     // Like `_.pick` except that it takes an array of keys to pick.
     selectKeys: function (obj, ks) {
       return _.pick.apply(null, concat.call([obj], ks));
+    },
+
+    // Returns the key/value pair for a given property in an object, undefined if not found.
+    kv: function(obj, key) {
+      if (_.has(obj, key)) {
+        return [key, obj[key]]
+      }
     }
   });
 
