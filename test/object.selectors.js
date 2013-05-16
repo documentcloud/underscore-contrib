@@ -23,9 +23,12 @@ $(document).ready(function() {
   });
 
   test("getPath", function() {
-    var deepObject = { a: { b: { c: "c" } }, falseVal: false, nullVal: null, undefinedVal: undefined };
+    var deepObject = { a: { b: { c: "c" } }, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ["arr"] };
+    var deepArr = [[["thirdLevel"]]];
 
-    equal(_.getPath(deepObject, ["a", "b", "c"]), "c", "should get a deep property's value");
+    equal(_.getPath(deepObject, ["a", "b", "c"]), "c", "should get a deep property's value from objects");
+    strictEqual(_.getPath(deepArr, [0, 0, 0]), "thirdLevel", "should get a deep property's value from arrays");
+    strictEqual(_.getPath(deepObject, ["arrayVal", 0]), "arr", "should get a deep property's value from nested arrays and objects");
 
     equal(_.getPath(deepObject, ["undefinedVal"]), undefined, "should return undefined for undefined properties");
     equal(_.getPath(deepObject, ["nullVal"]), undefined, "should return undefined for null properties");
