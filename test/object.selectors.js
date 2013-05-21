@@ -26,15 +26,14 @@ $(document).ready(function() {
     var deepObject = { a: { b: { c: "c" } }, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ["arr"] };
     var deepArr = [[["thirdLevel"]]];
 
-    equal(_.getPath(deepObject, ["a", "b", "c"]), "c", "should get a deep property's value from objects");
+    strictEqual(_.getPath(deepObject, ["a", "b", "c"]), "c", "should get a deep property's value from objects");
     strictEqual(_.getPath(deepArr, [0, 0, 0]), "thirdLevel", "should get a deep property's value from arrays");
     strictEqual(_.getPath(deepObject, ["arrayVal", 0]), "arr", "should get a deep property's value from nested arrays and objects");
 
-    equal(_.getPath(deepObject, ["undefinedVal"]), undefined, "should return undefined for undefined properties");
-    equal(_.getPath(deepObject, ["nullVal"]), undefined, "should return undefined for null properties");
-    equal(_.getPath(deepObject, ["a", "notHere"]), undefined, "should return undefined for non-existent properties");
-
-    equal(_.getPath(deepObject, ["undefinedVal"], "myDefault"), "myDefault", "should return a default value instead of undefined if one is provided");
+    strictEqual(_.getPath(deepObject, ["undefinedVal"]), undefined, "should return undefined for undefined properties");
+    strictEqual(_.getPath(deepObject, ["a", "notHere"]), undefined, "should return undefined for non-existent properties");
+    strictEqual(_.getPath(deepObject, ["nullVal"]), null, "should return null for null properties");
+    strictEqual(_.getPath(deepObject, ["nullVal", "notHere", "notHereEither"]), undefined, "should return undefined for non-existent descendents of null properties");
   });
 
 });
