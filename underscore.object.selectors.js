@@ -72,7 +72,7 @@
     // at the path described by the keys given
     hasPath: function hasPath (obj, ks) {
       var numKeys = ks.length;
-      console.log(obj, ks[0], numKeys);
+
       if (obj == null && numKeys > 0) return false;
 
       if (!(ks[0] in obj)) return false;
