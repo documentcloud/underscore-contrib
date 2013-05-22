@@ -51,4 +51,15 @@ $(document).ready(function() {
     equal(flipWithArity(echo).length, echo.length, "flipWithArity gets its arity correct");
     
   });
+  
+  test("curry2", function () {
+    
+    function echo () { return [].slice.call(arguments, 0); }
+    
+    deepEqual(echo(1, 2), [1, 2], "Control test");
+    deepEqual(_.curry2(echo)(1, 2), [1, 2], "Accepts arguments greedily");
+    deepEqual(_.curry2(echo)(1)(2), [1, 2], "Accepts curried arguments");
+    
+  });
+  
 });

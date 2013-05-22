@@ -17,6 +17,17 @@
   var truthy = function(x) { return (x !== false) && existy(x); };
   var __reverse = [].reverse;
   var __slice = [].slice;
+  var __map = [].map;
+  
+  // n.b. depends on underscore.function.arity.js
+    
+  // Takes a target function and a mapping function. Returns a function
+  // that applies the mapper to its arguments before evaluating the body.
+  function baseMapArgs (fun, mapFun) {
+    return _.arity(fun.length, function () {
+      return fun.apply(this, __map.call(arguments, mapFun));
+    });
+  };
   
   // Mixing in the combinator functions
   // ----------------------------------
@@ -150,6 +161,9 @@
         };
       }
     },
+    
+    // map the arguments of a function
+    mapArgs: _.curry2(baseMapArgs),
 
     // Returns a function that returns an array of the calls to each
     // given function for some arguments.
@@ -209,5 +223,11 @@
   });
   
   _.unsplatr = _.unsplat;
+    
+  // map the arguments of a function, takes the mapping function
+  // first so it can be used as a combinator
+  _.mapArgsWith = _.curry2(_.flip(baseMapArgs));
+  
+  
 
 })(this);
