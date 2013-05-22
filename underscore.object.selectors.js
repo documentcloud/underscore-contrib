@@ -44,8 +44,26 @@
     // Returns the key/value pair for a given property in an object, undefined if not found.
     kv: function(obj, key) {
       if (_.has(obj, key)) {
-        return [key, obj[key]]
+        return [key, obj[key]];
       }
+    },
+
+    // Gets the value at any depth in a nested object based on the
+    // path described by the keys given.
+    getPath: function getPath (obj, ks) {
+      // If we have reached an undefined property
+      // then stop executing and return undefined
+      if (obj === undefined) return;
+
+      // If the path array has no more elements, we've reached
+      // the intended property and return its value
+      if (ks.length === 0) return obj;
+
+      // If we still have elements in the path array and the current
+      // value is null, stop executing and return undefined
+      if (obj === null) return;
+
+      return getPath(obj[[].shift.call(ks)], ks);
     }
   });
 
