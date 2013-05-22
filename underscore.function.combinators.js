@@ -18,6 +18,16 @@
   var __reverse = [].reverse;
   var __slice = [].slice;
   var __map = [].map;
+  var curry2 = function (fun) {
+    return function curried (first, optionalLast) {
+      if (arguments.length === 1) {
+        return function (last) {
+          return fun(first, last);
+        };
+      }
+      else return fun(first, optionalLast);
+    };
+  };
   
   // n.b. depends on underscore.function.arity.js
     
@@ -163,7 +173,7 @@
     },
     
     // map the arguments of a function
-    mapArgs: _.curry2(baseMapArgs),
+    mapArgs: curry2(baseMapArgs),
 
     // Returns a function that returns an array of the calls to each
     // given function for some arguments.
@@ -226,7 +236,7 @@
     
   // map the arguments of a function, takes the mapping function
   // first so it can be used as a combinator
-  _.mapArgsWith = _.curry2(_.flip(baseMapArgs));
+  _.mapArgsWith = curry2(_.flip(baseMapArgs));
   
   
 
