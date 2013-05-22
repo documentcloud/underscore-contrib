@@ -41,4 +41,21 @@ $(document).ready(function() {
     strictEqual(_.getPath(deepObject, ["nullVal", "notHere", "notHereEither"]), undefined, "should return undefined for non-existent descendents of null properties");
   });
 
+  test("hasPath", function() {
+    var deepObject = { a: { b: { c: "c" } }, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ["arr"] };
+    var deepArr = [[["thirdLevel"]]];
+
+    strictEqual(_.hasPath(deepObject, ["notHere", "notHereEither"]), false, "should return false if the path doesn't exist");
+    strictEqual(_.hasPath(deepObject, ["a", "b", "c"]), true, "should return true if the path exists");
+
+    strictEqual(_.hasPath(deepObject, ["arrayVal", 0]), true, "should return true for an array's index if it is defined");
+    strictEqual(_.hasPath(deepObject, ["arrayVal", 999]), false, "should return false for an array's index if it is not defined");
+
+    strictEqual(_.hasPath(deepObject, ["nullVal"]), true, "should return true for null properties");
+    strictEqual(_.hasPath(deepObject, ["undefinedVal"]), true, "should return true for properties that were explicitly assigned undefined");
+
+    strictEqual(_.hasPath(deepObject, ["nullVal", "notHere"]), false, "should return false for descendants of null properties");
+    strictEqual(_.hasPath(deepObject, ["undefinedVal", "notHere"]), false, "should return false for descendants of undefined properties");
+  });
+
 });

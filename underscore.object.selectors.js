@@ -66,6 +66,20 @@
       if (obj === null) return void 0;
 
       return getPath(obj[[].shift.call(ks)], ks);
+    },
+
+    // Returns a boolean indicating whether there is a property
+    // at the path described by the keys given
+    hasPath: function hasPath (obj, ks) {
+      var numKeys = ks.length;
+      console.log(obj, ks[0], numKeys);
+      if (obj == null && numKeys > 0) return false;
+
+      if (!(ks[0] in obj)) return false;
+
+      if (numKeys === 1) return true;
+
+      return hasPath(obj[[].shift.call(ks)], ks);
     }
   });
 
