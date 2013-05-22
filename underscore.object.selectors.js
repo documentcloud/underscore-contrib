@@ -46,6 +46,8 @@
       if (_.has(obj, key)) {
         return [key, obj[key]];
       }
+
+      return void 0;
     },
 
     // Gets the value at any depth in a nested object based on the
@@ -53,7 +55,7 @@
     getPath: function getPath (obj, ks) {
       // If we have reached an undefined property
       // then stop executing and return undefined
-      if (obj === undefined) return;
+      if (obj === undefined) return void 0;
 
       // If the path array has no more elements, we've reached
       // the intended property and return its value
@@ -61,7 +63,7 @@
 
       // If we still have elements in the path array and the current
       // value is null, stop executing and return undefined
-      if (obj === null) return;
+      if (obj === null) return void 0;
 
       return getPath(obj[[].shift.call(ks)], ks);
     }
