@@ -43,7 +43,6 @@ $(document).ready(function() {
 
   test("hasPath", function() {
     var deepObject = { a: { b: { c: "c" } }, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ["arr"] };
-    var deepArr = [[["thirdLevel"]]];
 
     strictEqual(_.hasPath(deepObject, ["notHere", "notHereEither"]), false, "should return false if the path doesn't exist");
     strictEqual(_.hasPath(deepObject, ["a", "b", "c"]), true, "should return true if the path exists");
