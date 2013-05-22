@@ -17,7 +17,7 @@
   var truthy = function(x) { return (x !== false) && existy(x); };
   var __reverse = [].reverse;
   var __slice = [].slice;
-  
+
   // Mixing in the combinator functions
   // ----------------------------------
 
@@ -39,6 +39,18 @@
                         function(l,r) { return r(l); },
                         seed);
       };
+    },
+
+    // Returns a partial function that when invoked will have
+    // the partial arguments appended to it.
+    partialRight: function(fun /*, args */) {
+      var partialArgs = __slice.call(arguments, 1)
+
+      return function(/* args */) {
+        var variadicArgs = __slice.call(arguments);
+
+        return fun.apply(null, variadicArgs.concat(partialArgs));
+      }
     },
 
     // Composes a bunch of predicates into a single predicate that
@@ -203,11 +215,11 @@
         return fun.apply(null, reversed);
       };
     },
-    
+
     k: _.always,
     t: _.pipeline
   });
-  
+
   _.unsplatr = _.unsplat;
 
 })(this);
