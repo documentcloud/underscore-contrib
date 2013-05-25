@@ -1,4 +1,4 @@
-// Underscore-contrib (underscore.array.builders.js 0.0.1)
+// Underscore-contrib (underscore.util.strings.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
@@ -13,7 +13,7 @@
   // Helpers
   // -------
 
-  // Mixing in the array builders
+  // Mixing in the string utils
   // ----------------------------
 
   _.mixin({
