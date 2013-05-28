@@ -66,7 +66,8 @@ $(document).ready(function() {
     var func = function (x, y, z) {
         return x + y + z;
       },
-      curried = _.curry(func);
+      curried = _.curry(func),
+      curriedflipped = _.curryflipped(func);
 
     equal(func(1, 2, 3), 6, "Test pure function");
     equal(typeof curried, 'function', "Curry returns a function");
@@ -74,6 +75,7 @@ $(document).ready(function() {
     equal(curried(1)(2)(3), 6, "Curry returns a value after total application");
     equal(curried(1)(2)(3), 6, "Curry invocations have no side effects and do not interact with each other");
     equal(curried(2)(4)(8), 14, "Curry invocations have no side effects and do not interact with each other");
+    equal(curriedflipped('a')('b')('c'), 'cba', "Flipped curry applies arguments in reverse.");
 
     var addyz = curried(1);
     equal(addyz(2)(3), 6, "Partial applications can be used multiple times");

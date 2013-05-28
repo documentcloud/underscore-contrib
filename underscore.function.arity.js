@@ -98,26 +98,36 @@
           throw new RangeError('Only a single argument may be accepted.');
         }
       }
-      function collectArgs(func, that, argCount, args, newArg) {
-        args.push(newArg);
+      function collectArgs(func, that, argCount, args, newArg, flipped) {
+        if (flipped == true) {
+            args.unshift(newArg);
+        } else {
+            args.push(newArg);
+        }
         if (args.length == argCount) {
           return func.apply(that, args);
         } else {
           return function () {
             checkArguments(arguments.length);
-            return collectArgs(func, that, argCount, args.slice(0), arguments[0]);
+            return collectArgs(func, that, argCount, args.slice(0), arguments[0], flipped);
           };
         }
       }
-      return function curry (func) {
+      return function curry (func, flipped) {
         var that = this;
         return function () {
           checkArguments(arguments.length);
-          return collectArgs(func, that, func.length, [], arguments[0]);
+          return collectArgs(func, that, func.length, [], arguments[0], flipped);
         };
       };
-    }())
+    }()),
+
+    // Flexible left right curry with strict arity
+    curryflipped: function (func) {
+        return this.curry(func, true);
+    }
   });
+
   _.arity = (function () {
     var FUNCTIONS = {};
     return function arity (numberOfArgs, fun) {
