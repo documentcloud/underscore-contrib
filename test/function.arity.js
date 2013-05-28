@@ -69,8 +69,8 @@ $(document).ready(function() {
       curried = _.curry(func);
 
     equal(func(1, 2, 3), 6, "Test pure function");
-    equal(typeof curried === 'function', true, "Curry returns a function");
-    equal(typeof curried(1) === 'function', true, "Curry returns a function after partial application");
+    equal(typeof curried, 'function', "Curry returns a function");
+    equal(typeof curried(1), 'function', "Curry returns a function after partial application");
     equal(curried(1)(2)(3), 6, "Curry returns a value after total application");
     equal(curried(1)(2)(3), 6, "Curry invocations have no side effects and do not interact with each other");
     equal(curried(2)(4)(8), 14, "Curry invocations have no side effects and do not interact with each other");
