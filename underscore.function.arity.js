@@ -122,7 +122,7 @@
       };
     }()),
 
-    // Flexible left right curry with strict arity
+    // Flexible right to left curry with strict arity
     curryflipped: function (func) {
         return this.curry(func, true);
     }
