@@ -13,6 +13,38 @@
   // Helpers
   // -------
 
+
+  // Curry
+  // -------
+  var curry = (function () {
+    function checkArguments (argsCount) {
+      if (argsCount !== 1) {
+        throw new RangeError('Only a single argument may be accepted.');
+      }
+    }
+    function collectArgs(func, that, argCount, args, newArg, flipped) {
+      if (flipped == true) {
+          args.unshift(newArg);
+      } else {
+          args.push(newArg);
+      }
+      if (args.length == argCount) {
+        return func.apply(that, args);
+      } else {
+        return function () {
+          checkArguments(arguments.length);
+          return collectArgs(func, that, argCount, args.slice(0), arguments[0], flipped);
+        };
+      }
+    }
+    return function curry (func, flipped) {
+      var that = this;
+      return function () {
+        checkArguments(arguments.length);
+        return collectArgs(func, that, func.length, [], arguments[0], flipped);
+      };
+    };
+  }());
   
   // Mixing in the arity functions
   // -----------------------------
@@ -92,39 +124,11 @@
     
     // Flexible curry function with strict arity.
     // source: https://github.com/eborden/js-curry
-    curry: (function () {
-      function checkArguments (argsCount) {
-        if (argsCount !== 1) {
-          throw new RangeError('Only a single argument may be accepted.');
-        }
-      }
-      function collectArgs(func, that, argCount, args, newArg, flipped) {
-        if (flipped == true) {
-            args.unshift(newArg);
-        } else {
-            args.push(newArg);
-        }
-        if (args.length == argCount) {
-          return func.apply(that, args);
-        } else {
-          return function () {
-            checkArguments(arguments.length);
-            return collectArgs(func, that, argCount, args.slice(0), arguments[0], flipped);
-          };
-        }
-      }
-      return function curry (func, flipped) {
-        var that = this;
-        return function () {
-          checkArguments(arguments.length);
-          return collectArgs(func, that, func.length, [], arguments[0], flipped);
-        };
-      };
-    }()),
+    curry: curry,
 
     // Flexible right to left curry with strict arity
     curryflipped: function (func) {
-        return this.curry(func, true);
+        return curry.call(this, func, true);
     }
   });
 
