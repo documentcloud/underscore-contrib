@@ -19,6 +19,11 @@
           <div id="jump_page">
             
               
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
               <a class="source" href="underscore.array.builders.html">
                 underscore.array.builders.js
               </a>
@@ -26,6 +31,11 @@
               
               <a class="source" href="underscore.array.selectors.html">
                 underscore.array.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.html">
+                underscore.collections.walk.js
               </a>
             
               
@@ -99,7 +109,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span> <span class="p">{</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>(<span class="keyword">function</span>(root) {</pre></div></div>
             
         </li>
         
@@ -110,8 +120,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              
-<h2>Baseline setup</h2>
+              <h2>Baseline setup</h2>
 
             </div>
             
@@ -124,12 +133,11 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              
-<p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
+              <p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">_</span> <span class="o">||</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;underscore&#39;</span><span class="p">);</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> _ = root._ || require(<span class="string">'underscore'</span>);</pre></div></div>
             
         </li>
         
@@ -140,8 +148,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              
-<h2>Helpers</h2>
+              <h2>Helpers</h2>
 
             </div>
             
@@ -154,12 +161,9 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              
-<h2>Mixing in the predicate functions</h2>
+              <h2>Mixing in the predicate functions</h2>
 
             </div>
-            
-            <div class="content"><div class="highlight"><pre>  <span class="nx">_</span><span class="p">.</span><span class="nx">mixin</span><span class="p">({</span></pre></div></div>
             
         </li>
         
@@ -171,11 +175,9 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               
-<p>A wrapper around instanceof</p>
-
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">isInstanceOf</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="nx">x</span> <span class="k">instanceof</span> <span class="nx">t</span><span class="p">);</span> <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  _.mixin({</pre></div></div>
             
         </li>
         
@@ -186,13 +188,11 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              
-<p>An associative object is one where its elements are
-accessed via a key or index. (i.e. array and object)</p>
+              <p>A wrapper around instanceof</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">isAssociative</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">||</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">||</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isArguments</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    isInstanceOf: <span class="keyword">function</span>(x, t) { <span class="keyword">return</span> (x <span class="keyword">instanceof</span> t); },</pre></div></div>
             
         </li>
         
@@ -203,16 +203,12 @@ accessed via a key or index. (i.e. array and object)</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              
-<p>An indexed object is anything that allows numerical index for
-accessing its elements (e.g. arrays and strings). NOTE: Underscore
-does not support cross-browser consistent use of strings as array-like
-objects, so be wary in IE 8 when using  String objects and IE&lt;8.
-on string literals &amp; objects.</p>
+              <p>An associative object is one where its elements are
+accessed via a key or index. (i.e. array and object)</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">isIndexed</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">||</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">||</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isArguments</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    isAssociative: <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isArray(x) || _.isObject(x) || _.isArguments(x); },</pre></div></div>
             
         </li>
         
@@ -223,12 +219,15 @@ on string literals &amp; objects.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              
-<p>A seq is something considered a sequential composite type (i.e. arrays and <code>arguments</code>).</p>
+              <p>An indexed object is anything that allows numerical index for
+accessing its elements (e.g. arrays and strings). NOTE: Underscore
+does not support cross-browser consistent use of strings as array-like
+objects, so be wary in IE 8 when using  String objects and IE&lt;8.
+on string literals &amp; objects.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">isSequential</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">x</span><span class="p">))</span> <span class="o">||</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">isArguments</span><span class="p">(</span><span class="nx">x</span><span class="p">));</span> <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    isIndexed: <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isArray(x) || _.isString(x) || _.isArguments(x); },</pre></div></div>
             
         </li>
         
@@ -239,17 +238,11 @@ on string literals &amp; objects.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              
-<p>These do what you think that they do</p>
+              <p>A seq is something considered a sequential composite type (i.e. arrays and <code>arguments</code>).</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">isZero</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">0</span> <span class="o">===</span> <span class="nx">x</span><span class="p">;</span> <span class="p">},</span>
-    <span class="nx">isEven</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nb">isFinite</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">;</span> <span class="p">},</span>
-    <span class="nx">isOdd</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nb">isFinite</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">isEven</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">},</span>
-    <span class="nx">isPositive</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="p">},</span>
-    <span class="nx">isNegative</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span> <span class="p">},</span>
-    <span class="nx">isValidDate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isDate</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">getTime</span><span class="p">());</span> <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    isSequential: <span class="keyword">function</span>(x) { <span class="keyword">return</span> (_.isArray(x)) || (_.isArguments(x)); },</pre></div></div>
             
         </li>
         
@@ -260,16 +253,16 @@ on string literals &amp; objects.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
-              
-<p>A numeric is a variable that contains a numeric value, regardless its type
-It can be a String containing a numeric value, exponential notation, or a Number object
-See here for more discussion: <a href="http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844">http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844</a></p>
+              <p>These do what you think that they do</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">isNumeric</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="o">!</span><span class="nb">isNaN</span><span class="p">(</span><span class="nb">parseFloat</span><span class="p">(</span><span class="nx">n</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nb">isFinite</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    isZero: <span class="keyword">function</span>(x) { <span class="keyword">return</span> <span class="number">0</span> === x; },
+    isEven: <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isFinite(x) &amp;&amp; (x &amp; <span class="number">1</span>) === <span class="number">0</span>; },
+    isOdd: <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isFinite(x) &amp;&amp; !_.isEven(x); },
+    isPositive: <span class="keyword">function</span>(x) { <span class="keyword">return</span> x &gt; <span class="number">0</span>; },
+    isNegative: <span class="keyword">function</span>(x) { <span class="keyword">return</span> x &lt; <span class="number">0</span>; },
+    isValidDate: <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isDate(x) &amp;&amp; !_.isNaN(x.getTime()); },</pre></div></div>
             
         </li>
         
@@ -280,17 +273,15 @@ See here for more discussion: <a href="http://stackoverflow.com/questions/18082/
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
-              
-<p>An integer contains an optional minus sign to begin and only the digits 0-9
-Objects that can be parsed that way are also considered ints, e.g. &quot;123&quot;
-Floats that are mathematically equal to integers are considered integers, e.g. 1.0
-See here for more discussion: <a href="http://stackoverflow.com/questions/1019515/javascript-test-for-an-integer">http://stackoverflow.com/questions/1019515/javascript-test-for-an-integer</a></p>
+              <p>A numeric is a variable that contains a numeric value, regardless its type
+It can be a String containing a numeric value, exponential notation, or a Number object
+See here for more discussion: <a href="http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844">http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844</a></p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">isInteger</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isNumeric</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">===</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    isNumeric: <span class="keyword">function</span>(n) {
+      <span class="keyword">return</span> !isNaN(parseFloat(n)) &amp;&amp; isFinite(n);
+    },</pre></div></div>
             
         </li>
         
@@ -301,14 +292,16 @@ See here for more discussion: <a href="http://stackoverflow.com/questions/101951
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
-              
-<p>A float is a numbr that is not an integer.</p>
+              <p>An integer contains an optional minus sign to begin and only the digits 0-9
+Objects that can be parsed that way are also considered ints, e.g. &quot;123&quot;
+Floats that are mathematically equal to integers are considered integers, e.g. 1.0
+See here for more discussion: <a href="http://stackoverflow.com/questions/1019515/javascript-test-for-an-integer">http://stackoverflow.com/questions/1019515/javascript-test-for-an-integer</a></p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">isFloat</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isNumeric</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">isInteger</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    isInteger: <span class="keyword">function</span>(i) {
+      <span class="keyword">return</span> _.isNumeric(i) &amp;&amp; i % <span class="number">1</span> === <span class="number">0</span>;
+    },</pre></div></div>
             
         </li>
         
@@ -319,25 +312,13 @@ See here for more discussion: <a href="http://stackoverflow.com/questions/101951
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
-              
-<p>Returns true if its arguments are monotonically
-increaing values; false otherwise.</p>
+              <p>A float is a numbr that is not an integer.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">isIncreasing</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">size</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">count</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">count</span> <span class="o">===</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-
-      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">count</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-
-      <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    isFloat: <span class="keyword">function</span>(n) {
+      <span class="keyword">return</span> _.isNumeric(n) &amp;&amp; !_.isInteger(n);
+    },</pre></div></div>
             
         </li>
         
@@ -348,30 +329,55 @@ increaing values; false otherwise.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
+              <p>Returns true if its arguments are monotonically
+increaing values; false otherwise.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    isIncreasing: <span class="keyword">function</span>() {
+      <span class="keyword">var</span> count = _.size(arguments);
+      <span class="keyword">if</span> (count === <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;
+      <span class="keyword">if</span> (count === <span class="number">2</span>) <span class="keyword">return</span> arguments[<span class="number">0</span>] &lt; arguments[<span class="number">1</span>];
+
+      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; count; i++) {
+        <span class="keyword">if</span> (arguments[i-<span class="number">1</span>] &gt;= arguments[i]) {
+          <span class="keyword">return</span> <span class="literal">false</span>;
+        }
+      }
+
+      <span class="keyword">return</span> <span class="literal">true</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
               
-<p>Returns true if its arguments are monotonically
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Returns true if its arguments are monotonically
 decreaing values; false otherwise.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">isDecreasing</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">size</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">count</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">count</span> <span class="o">===</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+            <div class="content"><div class='highlight'><pre>    isDecreasing: <span class="keyword">function</span>() {
+      <span class="keyword">var</span> count = _.size(arguments);
+      <span class="keyword">if</span> (count === <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;
+      <span class="keyword">if</span> (count === <span class="number">2</span>) <span class="keyword">return</span> arguments[<span class="number">0</span>] &gt; arguments[<span class="number">1</span>];
 
-      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">count</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
+      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; count; i++) {
+        <span class="keyword">if</span> (arguments[i-<span class="number">1</span>] &lt;= arguments[i]) {
+          <span class="keyword">return</span> <span class="literal">false</span>;
+        }
+      }
 
-      <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">});</span>
+      <span class="keyword">return</span> <span class="literal">true</span>;
+    }
+  });
 
-<span class="p">})(</span><span class="k">this</span><span class="p">);</span>
-
-</pre></div></div>
+})(<span class="keyword">this</span>);</pre></div></div>
             
         </li>
         
