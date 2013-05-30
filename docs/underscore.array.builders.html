@@ -19,6 +19,11 @@
           <div id="jump_page">
             
               
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
               <a class="source" href="underscore.array.builders.html">
                 underscore.array.builders.js
               </a>
@@ -26,6 +31,11 @@
               
               <a class="source" href="underscore.array.selectors.html">
                 underscore.array.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.html">
+                underscore.collections.walk.js
               </a>
             
               
@@ -99,7 +109,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span> <span class="p">{</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>(<span class="keyword">function</span>(root) {</pre></div></div>
             
         </li>
         
@@ -110,8 +120,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              
-<h2>Baseline setup</h2>
+              <h2>Baseline setup</h2>
 
             </div>
             
@@ -124,12 +133,11 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              
-<p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
+              <p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">_</span> <span class="o">||</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;underscore&#39;</span><span class="p">);</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> _ = root._ || require(<span class="string">'underscore'</span>);</pre></div></div>
             
         </li>
         
@@ -140,8 +148,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              
-<h2>Helpers</h2>
+              <h2>Helpers</h2>
 
             </div>
             
@@ -155,14 +162,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               
-<p>Create quick reference variables for speed access to core prototypes.</p>
-
             </div>
-            
-            <div class="content"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">slice</span>   <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">,</span>
-      <span class="nx">concat</span>  <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">concat</span><span class="p">;</span>
-
-  <span class="kd">var</span> <span class="nx">existy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">;</span> <span class="p">};</span></pre></div></div>
             
         </li>
         
@@ -170,15 +170,17 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
         <li id="section-6">
             <div class="annotation">
               
-              <div class="pilwrap for-h2">
+              <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              
-<h2>Mixing in the array builders</h2>
+              <p>Create quick reference variables for speed access to core prototypes.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>  <span class="nx">_</span><span class="p">.</span><span class="nx">mixin</span><span class="p">({</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> slice   = Array.prototype.slice,
+      concat  = Array.prototype.concat;
+
+  <span class="keyword">var</span> existy = <span class="keyword">function</span>(x) { <span class="keyword">return</span> x != <span class="literal">null</span>; };</pre></div></div>
             
         </li>
         
@@ -186,27 +188,12 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
         <li id="section-7">
             <div class="annotation">
               
-              <div class="pilwrap ">
+              <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              
-<p>Concatenates one or more arrays given as arguments.  If given objects and
-scalars as arguments <code>cat</code> will plop them down in place in the result 
-array.  If given an <code>arguments</code> object, <code>cat</code> will treat it like an array
-and concatenate it likewise.</p>
+              <h2>Mixing in the array builders</h2>
 
             </div>
-            
-            <div class="content"><div class="highlight"><pre>    <span class="nx">cat</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">acc</span><span class="p">,</span> <span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">isArguments</span><span class="p">(</span><span class="nx">elem</span><span class="p">))</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="nx">concat</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">acc</span><span class="p">,</span> <span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">elem</span><span class="p">));</span>
-        <span class="p">}</span>
-        <span class="k">else</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="nx">concat</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">acc</span><span class="p">,</span> <span class="nx">elem</span><span class="p">);</span>
-        <span class="p">}</span>
-      <span class="p">},</span> <span class="p">[]);</span>
-    <span class="p">},</span></pre></div></div>
             
         </li>
         
@@ -218,13 +205,9 @@ and concatenate it likewise.</p>
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               
-<p>&#39;Constructs&#39; an array by putting an element at its front</p>
-
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">cons</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">head</span><span class="p">,</span> <span class="nx">tail</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cat</span><span class="p">([</span><span class="nx">head</span><span class="p">],</span> <span class="nx">tail</span><span class="p">);</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  _.mixin({</pre></div></div>
             
         </li>
         
@@ -235,30 +218,23 @@ and concatenate it likewise.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              
-<p>Takes an array and parititions it some number of times into
-sub-arrays of size n.  Allows and optional padding array as
-the third argument to fill in the tail partition when n is
-not sufficient to build paritions of the same size.</p>
+              <p>Concatenates one or more arrays given as arguments.  If given objects and
+scalars as arguments <code>cat</code> will plop them down in place in the result 
+array.  If given an <code>arguments</code> object, <code>cat</code> will treat it like an array
+and concatenate it likewise.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">partition</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">pad</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">array</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="p">[];</span>
-
-        <span class="kd">var</span> <span class="nx">part</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">take</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">n</span><span class="p">);</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="nx">_</span><span class="p">.</span><span class="nx">size</span><span class="p">(</span><span class="nx">part</span><span class="p">))</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cons</span><span class="p">(</span><span class="nx">part</span><span class="p">,</span> <span class="nx">p</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">drop</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">n</span><span class="p">)));</span>
-        <span class="p">}</span>
-        <span class="k">else</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="nx">pad</span> <span class="o">?</span> <span class="p">[</span><span class="nx">_</span><span class="p">.</span><span class="nx">take</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">cat</span><span class="p">(</span><span class="nx">part</span><span class="p">,</span> <span class="nx">pad</span><span class="p">),</span> <span class="nx">n</span><span class="p">)]</span> <span class="o">:</span> <span class="p">[];</span>
-        <span class="p">}</span>
-      <span class="p">};</span>
-
-      <span class="k">return</span> <span class="nx">p</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    cat: <span class="keyword">function</span>() {
+      <span class="keyword">return</span> _.reduce(arguments, <span class="keyword">function</span>(acc, elem) {
+        <span class="keyword">if</span> (_.isArguments(elem)) {
+          <span class="keyword">return</span> concat.call(acc, slice.call(elem));
+        }
+        <span class="keyword">else</span> {
+          <span class="keyword">return</span> concat.call(acc, elem);
+        }
+      }, []);
+    },</pre></div></div>
             
         </li>
         
@@ -269,26 +245,13 @@ not sufficient to build paritions of the same size.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              
-<p>Takes an array and parititions it some number of times into
-sub-arrays of size n.  If the array given cannot fill the size
-needs of the final partition then a smaller partition is used
-for the last.</p>
+              <p>&#39;Constructs&#39; an array by putting an element at its front</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">partitionAll</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">step</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">step</span> <span class="o">=</span> <span class="p">(</span><span class="nx">step</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="o">?</span> <span class="nx">step</span> <span class="o">:</span> <span class="nx">n</span><span class="p">;</span>
-
-      <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">step</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">isEmpty</span><span class="p">(</span><span class="nx">array</span><span class="p">))</span> <span class="k">return</span> <span class="p">[];</span>
-
-        <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cons</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">take</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">n</span><span class="p">),</span>
-                      <span class="nx">p</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">drop</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">step</span><span class="p">),</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">step</span><span class="p">));</span>
-      <span class="p">};</span>
-
-      <span class="k">return</span> <span class="nx">p</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">step</span><span class="p">);</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    cons: <span class="keyword">function</span>(head, tail) {
+      <span class="keyword">return</span> _.cat([head], tail);
+    },</pre></div></div>
             
         </li>
         
@@ -299,14 +262,29 @@ for the last.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
-              
-<p>Maps a function over an array and concatenates all of the results.</p>
+              <p>Takes an array and parititions it some number of times into
+sub-arrays of size n.  Allows and optional padding array as
+the third argument to fill in the tail partition when n is
+not sufficient to build paritions of the same size.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">mapcat</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">fun</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cat</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">fun</span><span class="p">));</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    partition: <span class="keyword">function</span>(array, n, pad) {
+      <span class="keyword">var</span> p = <span class="keyword">function</span>(array) {
+        <span class="keyword">if</span> (array == <span class="literal">null</span>) <span class="keyword">return</span> [];
+
+        <span class="keyword">var</span> part = _.take(array, n);
+
+        <span class="keyword">if</span> (n === _.size(part)) {
+          <span class="keyword">return</span> _.cons(part, p(_.drop(array, n)));
+        }
+        <span class="keyword">else</span> {
+          <span class="keyword">return</span> pad ? [_.take(_.cat(part, pad), n)] : [];
+        }
+      };
+
+      <span class="keyword">return</span> p(array);
+    },</pre></div></div>
             
         </li>
         
@@ -317,22 +295,25 @@ for the last.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
-              
-<p>Returns an array with some item between each element
-of a given array.</p>
+              <p>Takes an array and parititions it some number of times into
+sub-arrays of size n.  If the array given cannot fill the size
+needs of the final partition then a smaller partition is used
+for the last.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">interpose</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">inter</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">array</span><span class="p">))</span> <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">;</span>
-      <span class="kd">var</span> <span class="nx">sz</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">size</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">sz</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">sz</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+            <div class="content"><div class='highlight'><pre>    partitionAll: <span class="keyword">function</span>(array, n, step) {
+      step = (step != <span class="literal">null</span>) ? step : n;
 
-      <span class="k">return</span> <span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">mapcat</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span> 
-        <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cons</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="p">[</span><span class="nx">inter</span><span class="p">]);</span>
-      <span class="p">}),</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-    <span class="p">},</span></pre></div></div>
+      <span class="keyword">var</span> p = <span class="keyword">function</span>(array, n, step) {
+        <span class="keyword">if</span> (_.isEmpty(array)) <span class="keyword">return</span> [];
+
+        <span class="keyword">return</span> _.cons(_.take(array, n),
+                      p(_.drop(array, step), n, step));
+      };
+
+      <span class="keyword">return</span> p(array, n, step);
+    },</pre></div></div>
             
         </li>
         
@@ -343,19 +324,13 @@ of a given array.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
-              
-<p>Weaves two or more arrays together</p>
+              <p>Maps a function over an array and concatenates all of the results.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">weave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/* args */</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">arguments</span><span class="p">))</span> <span class="k">return</span> <span class="p">[];</span>
-
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">flatten</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">zip</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">),</span> <span class="kc">true</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">elem</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">;</span>
-      <span class="p">});</span>
-    <span class="p">},</span>
-    <span class="nx">interleave</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">weave</span><span class="p">,</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    mapcat: <span class="keyword">function</span>(array, fun) {
+      <span class="keyword">return</span> _.cat.apply(<span class="literal">null</span>, _.map(array, fun));
+    },</pre></div></div>
             
         </li>
         
@@ -366,15 +341,21 @@ of a given array.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
-              
-<p>Returns an array of a value repeated a certain number of
-times.</p>
+              <p>Returns an array with some item between each element
+of a given array.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">repeat</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">times</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">elem</span><span class="p">;</span> <span class="p">});</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    interpose: <span class="keyword">function</span>(array, inter) {
+      <span class="keyword">if</span> (!_.isArray(array)) <span class="keyword">throw</span> <span class="keyword">new</span> TypeError;
+      <span class="keyword">var</span> sz = _.size(array);
+      <span class="keyword">if</span> (sz === <span class="number">0</span>) <span class="keyword">return</span> array;
+      <span class="keyword">if</span> (sz === <span class="number">1</span>) <span class="keyword">return</span> array;
+
+      <span class="keyword">return</span> slice.call(_.mapcat(array, <span class="keyword">function</span>(elem) { 
+        <span class="keyword">return</span> _.cons(elem, [inter]);
+      }), <span class="number">0</span>, -<span class="number">1</span>);
+    },</pre></div></div>
             
         </li>
         
@@ -385,15 +366,18 @@ times.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
-              
-<p>Returns an array built from the contents of a given array repeated
-a certain number of times.</p>
+              <p>Weaves two or more arrays together</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">cycle</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">elems</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">flatten</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">times</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">elems</span><span class="p">;</span> <span class="p">}),</span> <span class="kc">true</span><span class="p">);</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    weave: <span class="keyword">function</span>(<span class="comment">/* args */</span>) {
+      <span class="keyword">if</span> (!_.some(arguments)) <span class="keyword">return</span> [];
+
+      <span class="keyword">return</span> _.filter(_.flatten(_.zip.apply(<span class="literal">null</span>, arguments), <span class="literal">true</span>), <span class="keyword">function</span>(elem) {
+        <span class="keyword">return</span> elem != <span class="literal">null</span>;
+      });
+    },
+    interleave: _.weave,</pre></div></div>
             
         </li>
         
@@ -404,15 +388,14 @@ a certain number of times.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
-              
-<p>Returns an array with two internal arrays built from
-taking an original array and spliting it at an index.</p>
+              <p>Returns an array of a value repeated a certain number of
+times.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">splitAt</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="p">[</span><span class="nx">_</span><span class="p">.</span><span class="nx">take</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">index</span><span class="p">),</span> <span class="nx">_</span><span class="p">.</span><span class="nx">drop</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">index</span><span class="p">)];</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    repeat: <span class="keyword">function</span>(t, elem) {
+      <span class="keyword">return</span> _.times(t, <span class="keyword">function</span>() { <span class="keyword">return</span> elem; });
+    },</pre></div></div>
             
         </li>
         
@@ -423,23 +406,14 @@ taking an original array and spliting it at an index.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
-              
-<p>Call a function recursively f(f(f(args))) until a second
-given function goes falsey.  Expects a seed value to start.</p>
+              <p>Returns an array built from the contents of a given array repeated
+a certain number of times.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">iterateUntil</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">doit</span><span class="p">,</span> <span class="nx">checkit</span><span class="p">,</span> <span class="nx">seed</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span> <span class="p">[];</span>
-      <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">doit</span><span class="p">(</span><span class="nx">seed</span><span class="p">);</span>
-
-      <span class="k">while</span> <span class="p">(</span><span class="nx">checkit</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span> <span class="p">{</span>
-        <span class="nx">ret</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-        <span class="nx">result</span> <span class="o">=</span> <span class="nx">doit</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-      <span class="p">}</span>
-
-      <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    cycle: <span class="keyword">function</span>(t, elems) {
+      <span class="keyword">return</span> _.flatten(_.times(t, <span class="keyword">function</span>() { <span class="keyword">return</span> elems; }), <span class="literal">true</span>);
+    },</pre></div></div>
             
         </li>
         
@@ -450,25 +424,14 @@ given function goes falsey.  Expects a seed value to start.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
-              
-<p>Takes every nth item from an array, returning an array of
-the results.</p>
+              <p>Returns an array with two internal arrays built from
+taking an original array and spliting it at an index.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">takeSkipping</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span> <span class="p">[];</span>
-      <span class="kd">var</span> <span class="nx">sz</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">size</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="p">[];</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
-
-      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">index</span> <span class="o">&lt;</span> <span class="nx">sz</span><span class="p">;</span> <span class="nx">index</span> <span class="o">+=</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">ret</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">index</span><span class="p">]);</span>
-      <span class="p">}</span>
-
-      <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    splitAt: <span class="keyword">function</span>(array, index) {
+      <span class="keyword">return</span> [_.take(array, index), _.drop(array, index)];
+    },</pre></div></div>
             
         </li>
         
@@ -479,23 +442,22 @@ the results.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
-              
-<p>Returns an array of each intermediate stage of a call to
-a <code>reduce</code>-like function.</p>
+              <p>Call a function recursively f(f(f(args))) until a second
+given function goes falsey.  Expects a seed value to start.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">reductions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">fun</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span> <span class="p">[];</span>
-      <span class="kd">var</span> <span class="nx">acc</span> <span class="o">=</span> <span class="nx">init</span><span class="p">;</span>
+            <div class="content"><div class='highlight'><pre>    iterateUntil: <span class="keyword">function</span>(doit, checkit, seed) {
+      <span class="keyword">var</span> ret = [];
+      <span class="keyword">var</span> result = doit(seed);
 
-      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span><span class="nx">k</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">acc</span> <span class="o">=</span> <span class="nx">fun</span><span class="p">(</span><span class="nx">acc</span><span class="p">,</span> <span class="nx">array</span><span class="p">[</span><span class="nx">k</span><span class="p">]);</span>
-        <span class="nx">ret</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">acc</span><span class="p">);</span>
-      <span class="p">});</span>
+      <span class="keyword">while</span> (checkit(result)) {
+        ret.push(result);
+        result = doit(result);
+      }
 
-      <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
-    <span class="p">},</span></pre></div></div>
+      <span class="keyword">return</span> ret;
+    },</pre></div></div>
             
         </li>
         
@@ -506,23 +468,74 @@ a <code>reduce</code>-like function.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
+              <p>Takes every nth item from an array, returning an array of
+the results.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    takeSkipping: <span class="keyword">function</span>(array, n) {
+      <span class="keyword">var</span> ret = [];
+      <span class="keyword">var</span> sz = _.size(array);
+
+      <span class="keyword">if</span> (n &lt;= <span class="number">0</span>) <span class="keyword">return</span> [];
+      <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> array;
+
+      <span class="keyword">for</span>(<span class="keyword">var</span> index = <span class="number">0</span>; index &lt; sz; index += n) {
+        ret.push(array[index]);
+      }
+
+      <span class="keyword">return</span> ret;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
               
-<p>Runs its given function on the index of the elements rather than 
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Returns an array of each intermediate stage of a call to
+a <code>reduce</code>-like function.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    reductions: <span class="keyword">function</span>(array, fun, init) {
+      <span class="keyword">var</span> ret = [];
+      <span class="keyword">var</span> acc = init;
+
+      _.each(array, <span class="keyword">function</span>(v,k) {
+        acc = fun(acc, array[k]);
+        ret.push(acc);
+      });
+
+      <span class="keyword">return</span> ret;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Runs its given function on the index of the elements rather than 
 the elements themselves, keeping all of the truthy values in the end.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">keepIndexed</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">pred</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">size</span><span class="p">(</span><span class="nx">array</span><span class="p">)),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">pred</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-      <span class="p">}),</span>
-      <span class="nx">existy</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">});</span>
+            <div class="content"><div class='highlight'><pre>    keepIndexed: <span class="keyword">function</span>(array, pred) {
+      <span class="keyword">return</span> _.filter(_.map(_.range(_.size(array)), <span class="keyword">function</span>(i) {
+        <span class="keyword">return</span> pred(i, array[i]);
+      }),
+      existy);
+    }
+  });
 
-<span class="p">})(</span><span class="k">this</span><span class="p">);</span>
-
-</pre></div></div>
+})(<span class="keyword">this</span>);</pre></div></div>
             
         </li>
         

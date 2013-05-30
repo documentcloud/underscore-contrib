@@ -19,6 +19,11 @@
           <div id="jump_page">
             
               
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
               <a class="source" href="underscore.array.builders.html">
                 underscore.array.builders.js
               </a>
@@ -26,6 +31,11 @@
               
               <a class="source" href="underscore.array.selectors.html">
                 underscore.array.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.html">
+                underscore.collections.walk.js
               </a>
             
               
@@ -99,7 +109,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span> <span class="p">{</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>(<span class="keyword">function</span>(root) {</pre></div></div>
             
         </li>
         
@@ -110,8 +120,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              
-<h2>Baseline setup</h2>
+              <h2>Baseline setup</h2>
 
             </div>
             
@@ -124,12 +133,11 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              
-<p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
+              <p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">_</span> <span class="o">||</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;underscore&#39;</span><span class="p">);</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> _ = root._ || require(<span class="string">'underscore'</span>);</pre></div></div>
             
         </li>
         
@@ -140,8 +148,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              
-<h2>Helpers</h2>
+              <h2>Helpers</h2>
 
             </div>
             
@@ -154,12 +161,11 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              
-<p>Create quick reference variables for speed access to core prototypes.</p>
+              <p>Create quick reference variables for speed access to core prototypes.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">concat</span>  <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">concat</span><span class="p">;</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> concat  = Array.prototype.concat;</pre></div></div>
             
         </li>
         
@@ -170,12 +176,9 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              
-<h2>Mixing in the object selectors</h2>
+              <h2>Mixing in the object selectors</h2>
 
             </div>
-            
-            <div class="content"><div class="highlight"><pre>  <span class="nx">_</span><span class="p">.</span><span class="nx">mixin</span><span class="p">({</span></pre></div></div>
             
         </li>
         
@@ -187,16 +190,9 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               
-<p>Returns a function that will attempt to look up a named field
-in any object that it&#39;s given.</p>
-
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">accessor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">field</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="nx">obj</span> <span class="o">&amp;&amp;</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">field</span><span class="p">]);</span>
-      <span class="p">};</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  _.mixin({</pre></div></div>
             
         </li>
         
@@ -207,19 +203,170 @@ in any object that it&#39;s given.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              
-<p>Like <code>_.pick</code> except that it takes an array of keys to pick.</p>
+              <p>Returns a function that will attempt to look up a named field
+in any object that it&#39;s given.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">selectKeys</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">ks</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pick</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">concat</span><span class="p">.</span><span class="nx">call</span><span class="p">([</span><span class="nx">obj</span><span class="p">],</span> <span class="nx">ks</span><span class="p">));</span>
-    <span class="p">}</span>
-  <span class="p">});</span>
+            <div class="content"><div class='highlight'><pre>    accessor: <span class="keyword">function</span>(field) {
+      <span class="keyword">return</span> <span class="keyword">function</span>(obj) {
+        <span class="keyword">return</span> (obj &amp;&amp; obj[field]);
+      };
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Given an object, returns a function that will attempt to look up a field
+that it&#39;s given.</p>
 
-<span class="p">})(</span><span class="k">this</span><span class="p">);</span>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    dictionary: <span class="function"><span class="keyword">function</span> <span class="params">(obj)</span> {</span>
+      <span class="keyword">return</span> <span class="keyword">function</span>(field) {
+        <span class="keyword">return</span> (obj &amp;&amp; field &amp;&amp; obj[field]);
+      };
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Like <code>_.pick</code> except that it takes an array of keys to pick.</p>
 
-</pre></div></div>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    selectKeys: <span class="function"><span class="keyword">function</span> <span class="params">(obj, ks)</span> {</span>
+      <span class="keyword">return</span> _.pick.apply(<span class="literal">null</span>, concat.call([obj], ks));
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Returns the key/value pair for a given property in an object, undefined if not found.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    kv: <span class="keyword">function</span>(obj, key) {
+      <span class="keyword">if</span> (_.has(obj, key)) {
+        <span class="keyword">return</span> [key, obj[key]];
+      }
+
+      <span class="keyword">return</span> <span class="keyword">void</span> <span class="number">0</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Gets the value at any depth in a nested object based on the
+path described by the keys given.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    getPath: <span class="function"><span class="keyword">function</span> <span class="title">getPath</span> <span class="params">(obj, ks)</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>If we have reached an undefined property
+then stop executing and return undefined</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="keyword">if</span> (obj === <span class="literal">undefined</span>) <span class="keyword">return</span> <span class="keyword">void</span> <span class="number">0</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>If the path array has no more elements, we&#39;ve reached
+the intended property and return its value</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="keyword">if</span> (ks.length === <span class="number">0</span>) <span class="keyword">return</span> obj;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>If we still have elements in the path array and the current
+value is null, stop executing and return undefined</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="keyword">if</span> (obj === <span class="literal">null</span>) <span class="keyword">return</span> <span class="keyword">void</span> <span class="number">0</span>;
+
+      <span class="keyword">return</span> getPath(obj[[].shift.call(ks)], ks);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Returns a boolean indicating whether there is a property
+at the path described by the keys given</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    hasPath: <span class="function"><span class="keyword">function</span> <span class="title">hasPath</span> <span class="params">(obj, ks)</span> {</span>
+      <span class="keyword">var</span> numKeys = ks.length;
+
+      <span class="keyword">if</span> (obj == <span class="literal">null</span> &amp;&amp; numKeys &gt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;
+
+      <span class="keyword">if</span> (!(ks[<span class="number">0</span>] <span class="keyword">in</span> obj)) <span class="keyword">return</span> <span class="literal">false</span>;
+
+      <span class="keyword">if</span> (numKeys === <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;
+
+      <span class="keyword">return</span> hasPath(obj[[].shift.call(ks)], ks);
+    }
+  });
+
+})(<span class="keyword">this</span>);</pre></div></div>
             
         </li>
         
