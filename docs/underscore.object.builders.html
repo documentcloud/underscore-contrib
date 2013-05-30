@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>underscore.object.builders.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
+              <a class="source" href="underscore.array.builders.html">
+                underscore.array.builders.js
+              </a>
+            
+              
+              <a class="source" href="underscore.array.selectors.html">
+                underscore.array.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.html">
+                underscore.collections.walk.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.arity.html">
+                underscore.function.arity.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.combinators.html">
+                underscore.function.combinators.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.iterators.html">
+                underscore.function.iterators.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.predicates.html">
+                underscore.function.predicates.js
+              </a>
+            
+              
+              <a class="source" href="underscore.object.builders.html">
+                underscore.object.builders.js
+              </a>
+            
+              
+              <a class="source" href="underscore.object.selectors.html">
+                underscore.object.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.existential.html">
+                underscore.util.existential.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.html">
+                underscore.util.strings.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.trampolines.html">
+                underscore.util.trampolines.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>underscore.object.builders.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Underscore-contrib (underscore.object.builders.js 0.0.1)
+(c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters &amp; Editors
+Underscore-contrib may be freely distributed under the MIT license.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>(<span class="keyword">function</span>(root) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2>Baseline setup</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> _ = root._ || require(<span class="string">'underscore'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2>Helpers</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Create quick reference variables for speed access to core prototypes.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> slice   = Array.prototype.slice,
+      concat  = Array.prototype.concat;
+
+  <span class="keyword">var</span> existy = <span class="keyword">function</span>(x) { <span class="keyword">return</span> x != <span class="literal">null</span>; };
+  <span class="keyword">var</span> truthy = <span class="keyword">function</span>(x) { <span class="keyword">return</span> (x !== <span class="literal">false</span>) &amp;&amp; existy(x); };
+  <span class="keyword">var</span> isAssociative = <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isArray(x) || _.isObject(x); };
+  <span class="keyword">var</span> curry2 = <span class="keyword">function</span>(fun) {
+    <span class="keyword">return</span> <span class="keyword">function</span>(last) {
+      <span class="keyword">return</span> <span class="keyword">function</span>(first) {
+        <span class="keyword">return</span> fun(first, last);
+      };
+    };
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2>Mixing in the object builders</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  _.mixin({</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Merges two or more objects starting with the left-most and
+applying the keys right-word
+{any:any}* -&gt; {any:any}</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    merge: <span class="keyword">function</span>(<span class="comment">/* objs */</span>){
+      <span class="keyword">var</span> dest = _.some(arguments) ? {} : <span class="literal">null</span>;
+
+      <span class="keyword">if</span> (truthy(dest)) {
+        _.extend.apply(<span class="literal">null</span>, concat.call([dest], _.toArray(arguments)));
+      }
+
+      <span class="keyword">return</span> dest;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Takes an object and another object of strings to strings where the second
+object describes the key renaming to occur in the first object.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    renameKeys: <span class="keyword">function</span>(obj, kobj) {
+      <span class="keyword">return</span> _.reduce(kobj, <span class="keyword">function</span>(o, nu, old) {
+        <span class="keyword">if</span> (existy(obj[old])) {
+          o[nu] = obj[old];
+          <span class="keyword">return</span> o;
+        }
+        <span class="keyword">else</span>
+          <span class="keyword">return</span> o;
+      },
+      _.omit.apply(<span class="literal">null</span>, concat.call([obj], _.keys(kobj))));
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Snapshots an object deeply. Based on the version by
+<a href="http://keithdevens.com/weblog/archive/2007/Jun/07/javascript.clone">Keith Devens</a>
+until we can find a more efficient and robust way to do it.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    snapshot: <span class="keyword">function</span>(obj) {
+      <span class="keyword">if</span>(obj == <span class="literal">null</span> || <span class="keyword">typeof</span>(obj) != <span class="string">'object'</span>) {
+        <span class="keyword">return</span> obj;
+      }
+
+      <span class="keyword">var</span> temp = <span class="keyword">new</span> obj.constructor();
+
+      <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> obj) {
+        temp[key] = _.snapshot(obj[key]);
+      }
+
+      <span class="keyword">return</span> temp;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Updates the value at any depth in a nested object based on the
+path described by the keys given.  The function provided is supplied
+the current value and is expected to return a value for use as the
+new value.  If no keys are provided, then the object itself is presented
+to the given function.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    updatePath: <span class="keyword">function</span>(obj, fun, ks) {
+      <span class="keyword">if</span> (!isAssociative(obj)) <span class="keyword">throw</span> <span class="keyword">new</span> TypeError(<span class="string">"Attempted to update a non-associative object."</span>);
+      <span class="keyword">if</span> (!existy(ks)) <span class="keyword">return</span> fun(obj);
+
+      <span class="keyword">var</span> deepness = _.isArray(ks);
+      <span class="keyword">var</span> keys     = deepness ? ks : [ks];
+      <span class="keyword">var</span> ret      = deepness ? _.snapshot(obj) : _.clone(obj);
+      <span class="keyword">var</span> lastKey  = _.last(keys);
+      <span class="keyword">var</span> target   = ret;
+
+      _.each(_.initial(keys), <span class="keyword">function</span>(key) {
+        target = target[key];
+      });
+
+      target[lastKey] = fun(target[lastKey]);
+      <span class="keyword">return</span> ret;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Sets the value at any depth in a nested object based on the
+path described by the keys given.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    setPath: <span class="keyword">function</span>(obj, value, ks) {
+      <span class="keyword">if</span> (!existy(ks)) <span class="keyword">throw</span> <span class="keyword">new</span> TypeError(<span class="string">"Attempted to set a property at a null path."</span>);
+
+      <span class="keyword">return</span> _.updatePath(obj, <span class="keyword">function</span>() { <span class="keyword">return</span> value; }, ks);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Returns an object where each element of an array is keyed to
+the number of times that it occurred in said array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    frequencies: curry2(_.countBy)(_.identity)
+  });
+
+})(<span class="keyword">this</span>);</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

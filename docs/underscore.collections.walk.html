@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>underscore.collections.walk.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
+              <a class="source" href="underscore.array.builders.html">
+                underscore.array.builders.js
+              </a>
+            
+              
+              <a class="source" href="underscore.array.selectors.html">
+                underscore.array.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.html">
+                underscore.collections.walk.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.arity.html">
+                underscore.function.arity.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.combinators.html">
+                underscore.function.combinators.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.iterators.html">
+                underscore.function.iterators.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.predicates.html">
+                underscore.function.predicates.js
+              </a>
+            
+              
+              <a class="source" href="underscore.object.builders.html">
+                underscore.object.builders.js
+              </a>
+            
+              
+              <a class="source" href="underscore.object.selectors.html">
+                underscore.object.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.existential.html">
+                underscore.util.existential.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.html">
+                underscore.util.strings.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.trampolines.html">
+                underscore.util.trampolines.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>underscore.collections.walk.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Underscore-contrib (underscore.collections.walk.js 0.0.1)
+(c) 2013 Patrick Dubroy
+Underscore-contrib may be freely distributed under the MIT license.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>(<span class="keyword">function</span>(root) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2>Baseline setup</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> _ = root._ || require(<span class="string">'underscore'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2>Helpers</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>An internal object that can be returned from a visitor function to
+prevent a top-down walk from walking subtrees of a node.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> breaker = {};
+
+  <span class="keyword">var</span> notTreeError = <span class="string">'Not a tree: same object found in two different branches'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Walk the tree recursively beginning with <code>root</code>, calling <code>beforeFunc</code>
+before visiting an objects descendents, and <code>afterFunc</code> afterwards.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="function"><span class="keyword">function</span> <span class="title">walk</span><span class="params">(root, beforeFunc, afterFunc, context)</span> {</span>
+    <span class="keyword">var</span> visited = [];
+    (<span class="function"><span class="keyword">function</span> <span class="title">_walk</span><span class="params">(value, key, parent)</span> {</span>
+      <span class="keyword">if</span> (beforeFunc &amp;&amp; beforeFunc.call(context, value, key, parent) === breaker)
+        <span class="keyword">return</span>;
+
+      <span class="keyword">if</span> (_.isObject(value) || _.isArray(value)) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Keep track of objects that have been visited, and throw an exception
+when trying to visit the same object twice.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="keyword">if</span> (visited.indexOf(value) &gt;= <span class="number">0</span>) <span class="keyword">throw</span> <span class="keyword">new</span> TypeError(notTreeError);
+        visited.push(value);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Recursively walk this object&#39;s descendents. If it&#39;s a DOM node, walk
+its DOM children.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        _.each(_.isElement(value) ? value.children : value, _walk, context);
+      }
+
+      <span class="keyword">if</span> (afterFunc) afterFunc.call(context, value, key, parent);
+    })(root);
+  }
+
+  <span class="function"><span class="keyword">function</span> <span class="title">pluck</span><span class="params">(obj, propertyName, recursive)</span> {</span>
+    <span class="keyword">var</span> results = [];
+    _.walk.preorder(obj, <span class="keyword">function</span>(value, key) {
+      <span class="keyword">if</span> (key === propertyName) {
+        results[results.length] = value;
+        <span class="keyword">if</span> (!recursive) <span class="keyword">return</span> breaker;
+      }
+    });
+    <span class="keyword">return</span> results;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h2>Add the <code>walk</code> namespace</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  _.walk = walk;
+  _.extend(walk, {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Recursively traverses <code>obj</code> in a depth-first fashion, invoking the
+<code>visitor</code> function for each object only after traversing its children.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    postorder: <span class="keyword">function</span>(obj, visitor, context) {
+      walk(obj, <span class="literal">null</span>, visitor, context);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Recursively traverses <code>obj</code> in a depth-first fashion, invoking the
+<code>visitor</code> function for each object before traversing its children.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    preorder: <span class="keyword">function</span>(obj, visitor, context) {
+      walk(obj, visitor, <span class="literal">null</span>, context)
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Produces a new array of values by recursively traversing <code>obj</code> and
+mapping each value through the transformation function <code>visitor</code>.
+<code>strategy</code> is the traversal function to use, e.g. <code>preorder</code> or
+<code>postorder</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    map: <span class="keyword">function</span>(obj, strategy, visitor, context) {
+      <span class="keyword">var</span> results = [];
+      strategy.call(<span class="literal">null</span>, obj, <span class="keyword">function</span>(value, key, parent) {
+        results[results.length] = visitor.call(context, value, key, parent);
+      });
+      <span class="keyword">return</span> results;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Return the value of properties named <code>propertyName</code> reachable from the
+tree rooted at <code>obj</code>. Results are not recursively searched; use
+<code>pluckRec</code> for that.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    pluck: <span class="keyword">function</span>(obj, propertyName) {
+      <span class="keyword">return</span> pluck(obj, propertyName, <span class="literal">false</span>);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Version of <code>pluck</code> which recursively searches results for nested objects
+with a property named <code>propertyName</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    pluckRec: <span class="keyword">function</span>(obj, propertyName) {
+      <span class="keyword">return</span> pluck(obj, propertyName, <span class="literal">true</span>);
+    }
+  });
+  _.walk.collect = _.walk.map;  <span class="comment">// Alias `map` as `collect`.</span>
+})(<span class="keyword">this</span>);</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

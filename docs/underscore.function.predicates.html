@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>underscore.function.predicates.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
+              <a class="source" href="underscore.array.builders.html">
+                underscore.array.builders.js
+              </a>
+            
+              
+              <a class="source" href="underscore.array.selectors.html">
+                underscore.array.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.html">
+                underscore.collections.walk.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.arity.html">
+                underscore.function.arity.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.combinators.html">
+                underscore.function.combinators.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.iterators.html">
+                underscore.function.iterators.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.predicates.html">
+                underscore.function.predicates.js
+              </a>
+            
+              
+              <a class="source" href="underscore.object.builders.html">
+                underscore.object.builders.js
+              </a>
+            
+              
+              <a class="source" href="underscore.object.selectors.html">
+                underscore.object.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.existential.html">
+                underscore.util.existential.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.html">
+                underscore.util.strings.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.trampolines.html">
+                underscore.util.trampolines.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>underscore.function.predicates.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Underscore-contrib (underscore.function.predicates.js 0.0.1)
+(c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters &amp; Editors
+Underscore-contrib may be freely distributed under the MIT license.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>(<span class="keyword">function</span>(root) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2>Baseline setup</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> _ = root._ || require(<span class="string">'underscore'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2>Helpers</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2>Mixing in the predicate functions</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  _.mixin({</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>A wrapper around instanceof</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    isInstanceOf: <span class="keyword">function</span>(x, t) { <span class="keyword">return</span> (x <span class="keyword">instanceof</span> t); },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>An associative object is one where its elements are
+accessed via a key or index. (i.e. array and object)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    isAssociative: <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isArray(x) || _.isObject(x) || _.isArguments(x); },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>An indexed object is anything that allows numerical index for
+accessing its elements (e.g. arrays and strings). NOTE: Underscore
+does not support cross-browser consistent use of strings as array-like
+objects, so be wary in IE 8 when using  String objects and IE&lt;8.
+on string literals &amp; objects.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    isIndexed: <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isArray(x) || _.isString(x) || _.isArguments(x); },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>A seq is something considered a sequential composite type (i.e. arrays and <code>arguments</code>).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    isSequential: <span class="keyword">function</span>(x) { <span class="keyword">return</span> (_.isArray(x)) || (_.isArguments(x)); },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>These do what you think that they do</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    isZero: <span class="keyword">function</span>(x) { <span class="keyword">return</span> <span class="number">0</span> === x; },
+    isEven: <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isFinite(x) &amp;&amp; (x &amp; <span class="number">1</span>) === <span class="number">0</span>; },
+    isOdd: <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isFinite(x) &amp;&amp; !_.isEven(x); },
+    isPositive: <span class="keyword">function</span>(x) { <span class="keyword">return</span> x &gt; <span class="number">0</span>; },
+    isNegative: <span class="keyword">function</span>(x) { <span class="keyword">return</span> x &lt; <span class="number">0</span>; },
+    isValidDate: <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isDate(x) &amp;&amp; !_.isNaN(x.getTime()); },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>A numeric is a variable that contains a numeric value, regardless its type
+It can be a String containing a numeric value, exponential notation, or a Number object
+See here for more discussion: <a href="http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844">http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    isNumeric: <span class="keyword">function</span>(n) {
+      <span class="keyword">return</span> !isNaN(parseFloat(n)) &amp;&amp; isFinite(n);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>An integer contains an optional minus sign to begin and only the digits 0-9
+Objects that can be parsed that way are also considered ints, e.g. &quot;123&quot;
+Floats that are mathematically equal to integers are considered integers, e.g. 1.0
+See here for more discussion: <a href="http://stackoverflow.com/questions/1019515/javascript-test-for-an-integer">http://stackoverflow.com/questions/1019515/javascript-test-for-an-integer</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    isInteger: <span class="keyword">function</span>(i) {
+      <span class="keyword">return</span> _.isNumeric(i) &amp;&amp; i % <span class="number">1</span> === <span class="number">0</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>A float is a numbr that is not an integer.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    isFloat: <span class="keyword">function</span>(n) {
+      <span class="keyword">return</span> _.isNumeric(n) &amp;&amp; !_.isInteger(n);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Returns true if its arguments are monotonically
+increaing values; false otherwise.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    isIncreasing: <span class="keyword">function</span>() {
+      <span class="keyword">var</span> count = _.size(arguments);
+      <span class="keyword">if</span> (count === <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;
+      <span class="keyword">if</span> (count === <span class="number">2</span>) <span class="keyword">return</span> arguments[<span class="number">0</span>] &lt; arguments[<span class="number">1</span>];
+
+      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; count; i++) {
+        <span class="keyword">if</span> (arguments[i-<span class="number">1</span>] &gt;= arguments[i]) {
+          <span class="keyword">return</span> <span class="literal">false</span>;
+        }
+      }
+
+      <span class="keyword">return</span> <span class="literal">true</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Returns true if its arguments are monotonically
+decreaing values; false otherwise.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    isDecreasing: <span class="keyword">function</span>() {
+      <span class="keyword">var</span> count = _.size(arguments);
+      <span class="keyword">if</span> (count === <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;
+      <span class="keyword">if</span> (count === <span class="number">2</span>) <span class="keyword">return</span> arguments[<span class="number">0</span>] &gt; arguments[<span class="number">1</span>];
+
+      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; count; i++) {
+        <span class="keyword">if</span> (arguments[i-<span class="number">1</span>] &lt;= arguments[i]) {
+          <span class="keyword">return</span> <span class="literal">false</span>;
+        }
+      }
+
+      <span class="keyword">return</span> <span class="literal">true</span>;
+    }
+  });
+
+})(<span class="keyword">this</span>);</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

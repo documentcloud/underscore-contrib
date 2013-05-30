@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>underscore.function.iterators.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
+              <a class="source" href="underscore.array.builders.html">
+                underscore.array.builders.js
+              </a>
+            
+              
+              <a class="source" href="underscore.array.selectors.html">
+                underscore.array.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.html">
+                underscore.collections.walk.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.arity.html">
+                underscore.function.arity.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.combinators.html">
+                underscore.function.combinators.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.iterators.html">
+                underscore.function.iterators.js
+              </a>
+            
+              
+              <a class="source" href="underscore.function.predicates.html">
+                underscore.function.predicates.js
+              </a>
+            
+              
+              <a class="source" href="underscore.object.builders.html">
+                underscore.object.builders.js
+              </a>
+            
+              
+              <a class="source" href="underscore.object.selectors.html">
+                underscore.object.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.existential.html">
+                underscore.util.existential.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.html">
+                underscore.util.strings.js
+              </a>
+            
+              
+              <a class="source" href="underscore.util.trampolines.html">
+                underscore.util.trampolines.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>underscore.function.iterators.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Underscore-contrib (underscore.function.iterators.js 0.0.1)
+(c) 2013 Michael Fogus and DocumentCloud Inc.
+Underscore-contrib may be freely distributed under the MIT license.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>(<span class="keyword">function</span>(root) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2>Baseline setup</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> _ = root._ || require(<span class="string">'underscore'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2>Helpers</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  
+  <span class="keyword">var</span> HASNTBEENRUN = {};
+  
+  <span class="function"><span class="keyword">function</span> <span class="title">unary</span> <span class="params">(fun)</span> {</span>
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(first)</span> {</span>
+      <span class="keyword">return</span> fun.call(<span class="keyword">this</span>, first);
+    };
+  }
+  
+  <span class="function"><span class="keyword">function</span> <span class="title">binary</span> <span class="params">(fun)</span> {</span>
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(first, second)</span> {</span>
+      <span class="keyword">return</span> fun.call(<span class="keyword">this</span>, first, second);
+    };
+  }
+  
+  <span class="keyword">var</span> <span class="literal">undefined</span> = <span class="keyword">void</span> <span class="number">0</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2>Mixing in the iterator functions</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>     <span class="function"><span class="keyword">function</span> <span class="title">foldl</span> <span class="params">(iter, binaryFn, seed)</span> {</span>
+      <span class="keyword">var</span> state, element;
+      <span class="keyword">if</span> (seed !== <span class="keyword">void</span> <span class="number">0</span>) {
+        state = seed;
+      }
+      <span class="keyword">else</span> {
+        state = iter();
+      }
+      element = iter();
+      <span class="keyword">while</span> (element != <span class="literal">null</span>) {
+        state = binaryFn.call(element, state, element);
+        element = iter();
+      }
+      <span class="keyword">return</span> state;
+    };
+  
+    <span class="function"><span class="keyword">function</span> <span class="title">unfold</span> <span class="params">(seed, unaryFn)</span> {</span>
+      <span class="keyword">var</span> state = HASNTBEENRUN;
+      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        <span class="keyword">if</span> (state === HASNTBEENRUN) {
+          <span class="keyword">return</span> (state = seed);
+        }
+        <span class="keyword">else</span> <span class="keyword">if</span> (state != <span class="literal">null</span>) {
+          <span class="keyword">return</span> (state = unaryFn.call(state, state));
+        }
+        <span class="keyword">else</span> <span class="keyword">return</span> state;
+      };
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>note that the unfoldWithReturn behaves differently than
+unfold with respect to the first value returned</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="function"><span class="keyword">function</span> <span class="title">unfoldWithReturn</span> <span class="params">(seed, unaryFn)</span> {</span>
+      <span class="keyword">var</span> state = seed,
+          pair,
+          value;
+      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        <span class="keyword">if</span> (state != <span class="literal">null</span>) {
+          pair = unaryFn.call(state, state);
+          value = pair[<span class="number">1</span>];
+          state = value != <span class="literal">null</span>
+                  ? pair[<span class="number">0</span>]
+                  : <span class="keyword">void</span> <span class="number">0</span>;
+          <span class="keyword">return</span> value;
+        }
+        <span class="keyword">else</span> <span class="keyword">return</span> <span class="keyword">void</span> <span class="number">0</span>;
+      };
+    };
+
+    <span class="function"><span class="keyword">function</span> <span class="title">accumulate</span> <span class="params">(iter, binaryFn, initial)</span> {</span>
+      <span class="keyword">var</span> state = initial;
+      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        element = iter();
+        <span class="keyword">if</span> (element == <span class="literal">null</span>) {
+          <span class="keyword">return</span> element;
+        }
+        <span class="keyword">else</span> {
+          <span class="keyword">if</span> (state === <span class="keyword">void</span> <span class="number">0</span>) {
+            <span class="keyword">return</span> (state = element);
+          }
+          <span class="keyword">else</span> <span class="keyword">return</span> (state = binaryFn.call(element, state, element));
+        }
+      };
+    };
+  
+    <span class="function"><span class="keyword">function</span> <span class="title">accumulateWithReturn</span> <span class="params">(iter, binaryFn, initial)</span> {</span>
+      <span class="keyword">var</span> state = initial,
+          stateAndReturnValue;
+      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        element = iter();
+        <span class="keyword">if</span> (element == <span class="literal">null</span>) {
+          <span class="keyword">return</span> element;
+        }
+        <span class="keyword">else</span> {
+          <span class="keyword">if</span> (state === <span class="keyword">void</span> <span class="number">0</span>) {
+            <span class="keyword">return</span> (state = element);
+          }
+          <span class="keyword">else</span> {
+            stateAndReturnValue = binaryFn.call(element, state, element);
+            state = stateAndReturnValue[<span class="number">0</span>];
+            <span class="keyword">return</span> stateAndReturnValue[<span class="number">1</span>];
+          }
+        }
+      };
+    };
+  
+    <span class="function"><span class="keyword">function</span> <span class="title">map</span> <span class="params">(iter, unaryFn)</span> {</span>
+      <span class="keyword">return</span> <span class="keyword">function</span>() {
+        <span class="keyword">var</span> element;
+        element = iter();
+        <span class="keyword">if</span> (element != <span class="literal">null</span>) {
+          <span class="keyword">return</span> unaryFn.call(element, element);
+        } <span class="keyword">else</span> {
+          <span class="keyword">return</span> <span class="keyword">void</span> <span class="number">0</span>;
+        }
+      };
+    };
+
+    <span class="function"><span class="keyword">function</span> <span class="title">select</span> <span class="params">(iter, unaryPredicateFn)</span> {</span>
+      <span class="keyword">return</span> <span class="keyword">function</span>() {
+        <span class="keyword">var</span> element;
+        element = iter();
+        <span class="keyword">while</span> (element != <span class="literal">null</span>) {
+          <span class="keyword">if</span> (unaryPredicateFn.call(element, element)) {
+            <span class="keyword">return</span> element;
+          }
+          element = iter();
+        }
+        <span class="keyword">return</span> <span class="keyword">void</span> <span class="number">0</span>;
+      };
+    };
+  
+    <span class="function"><span class="keyword">function</span> <span class="title">reject</span> <span class="params">(iter, unaryPredicateFn)</span> {</span>
+      <span class="keyword">return</span> select(iter, <span class="function"><span class="keyword">function</span> <span class="params">(something)</span> {</span>
+        <span class="keyword">return</span> !unaryPredicateFn(something);
+      });
+    };
+  
+    <span class="function"><span class="keyword">function</span> <span class="title">find</span> <span class="params">(iter, unaryPredicateFn)</span> {</span>
+      <span class="keyword">return</span> select(iter, unaryPredicateFn)();
+    }
+
+    <span class="function"><span class="keyword">function</span> <span class="title">slice</span> <span class="params">(iter, numberToDrop, numberToTake)</span> {</span>
+      <span class="keyword">var</span> count = <span class="number">0</span>;
+      <span class="keyword">while</span> (numberToDrop-- &gt; <span class="number">0</span>) {
+        iter();
+      }
+      <span class="keyword">if</span> (numberToTake != <span class="literal">null</span>) {
+        <span class="keyword">return</span> <span class="keyword">function</span>() {
+          <span class="keyword">if</span> (++count &lt;= numberToTake) {
+            <span class="keyword">return</span> iter();
+          } <span class="keyword">else</span> {
+            <span class="keyword">return</span> <span class="keyword">void</span> <span class="number">0</span>;
+          }
+        };
+      }
+      <span class="keyword">else</span> <span class="keyword">return</span> iter;
+    };
+  
+    <span class="function"><span class="keyword">function</span> <span class="title">drop</span> <span class="params">(iter, numberToDrop)</span> {</span>
+      <span class="keyword">return</span> slice(iter, numberToDrop == <span class="literal">null</span> ? <span class="number">1</span> : numberToDrop);
+    }
+  
+    <span class="function"><span class="keyword">function</span> <span class="title">take</span> <span class="params">(iter, numberToTake)</span> {</span>
+      <span class="keyword">return</span> slice(iter, <span class="number">0</span>, numberToTake == <span class="literal">null</span> ? <span class="number">1</span> : numberToTake);
+    }
+
+    <span class="function"><span class="keyword">function</span> <span class="title">List</span> <span class="params">(array)</span> {</span>
+      <span class="keyword">var</span> index = <span class="number">0</span>;
+      <span class="keyword">return</span> <span class="keyword">function</span>() {
+        <span class="keyword">return</span> array[index++];
+      };
+    };
+  
+    <span class="function"><span class="keyword">function</span> <span class="title">Tree</span> <span class="params">(array)</span> {</span>
+      <span class="keyword">var</span> index, myself, state;
+      index = <span class="number">0</span>;
+      state = [];
+      myself = <span class="keyword">function</span>() {
+        <span class="keyword">var</span> element, tempState;
+        element = array[index++];
+        <span class="keyword">if</span> (element <span class="keyword">instanceof</span> Array) {
+          state.push({
+            array: array,
+            index: index
+          });
+          array = element;
+          index = <span class="number">0</span>;
+          <span class="keyword">return</span> myself();
+        } <span class="keyword">else</span> <span class="keyword">if</span> (element === <span class="keyword">void</span> <span class="number">0</span>) {
+          <span class="keyword">if</span> (state.length &gt; <span class="number">0</span>) {
+            tempState = state.pop(), array = tempState.array, index = tempState.index;
+            <span class="keyword">return</span> myself();
+          } <span class="keyword">else</span> {
+            <span class="keyword">return</span> <span class="keyword">void</span> <span class="number">0</span>;
+          }
+        } <span class="keyword">else</span> {
+          <span class="keyword">return</span> element;
+        }
+      };
+      <span class="keyword">return</span> myself;
+    };
+  
+    <span class="function"><span class="keyword">function</span> <span class="title">K</span> <span class="params">(value)</span> {</span>
+      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        <span class="keyword">return</span> value;
+      };
+    };
+
+    <span class="function"><span class="keyword">function</span> <span class="title">upRange</span> <span class="params">(from, to, by)</span> {</span>
+      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        <span class="keyword">var</span> was;
+      
+        <span class="keyword">if</span> (from &gt; to) {
+          <span class="keyword">return</span> <span class="keyword">void</span> <span class="number">0</span>;
+        }
+        <span class="keyword">else</span> {
+          was = from;
+          from = from + by;
+          <span class="keyword">return</span> was;
+        }
+      }
+    };
+
+    <span class="function"><span class="keyword">function</span> <span class="title">downRange</span> <span class="params">(from, to, by)</span> {</span>
+      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        <span class="keyword">var</span> was;
+      
+        <span class="keyword">if</span> (from &lt; to) {
+          <span class="keyword">return</span> <span class="keyword">void</span> <span class="number">0</span>;
+        }
+        <span class="keyword">else</span> {
+          was = from;
+          from = from - by;
+          <span class="keyword">return</span> was;
+        }
+      };
+    };
+  
+    <span class="function"><span class="keyword">function</span> <span class="title">range</span> <span class="params">(from, to, by)</span> {</span>
+      <span class="keyword">if</span> (from == <span class="literal">null</span>) {
+        <span class="keyword">return</span> upRange(<span class="number">1</span>, <span class="literal">Infinity</span>, <span class="number">1</span>);
+      }
+      <span class="keyword">else</span> <span class="keyword">if</span> (to == <span class="literal">null</span>) {
+        <span class="keyword">return</span> upRange(from, <span class="literal">Infinity</span>, <span class="number">1</span>);
+      }
+      <span class="keyword">else</span> <span class="keyword">if</span> (by == <span class="literal">null</span>) {
+        <span class="keyword">if</span> (from &lt;= to) {
+          <span class="keyword">return</span> upRange(from, to, <span class="number">1</span>);
+        }
+        <span class="keyword">else</span> <span class="keyword">return</span> downRange(from, to, <span class="number">1</span>)
+      }
+      <span class="keyword">else</span> <span class="keyword">if</span> (by &gt; <span class="number">0</span>) {
+        <span class="keyword">return</span> upRange(from, to, by);
+      }
+      <span class="keyword">else</span> <span class="keyword">if</span> (by &lt; <span class="number">0</span>) {
+        <span class="keyword">return</span> downRange(from, to, Math.abs(by))
+      }
+      <span class="keyword">else</span> <span class="keyword">return</span> k(from);
+    };
+  
+    <span class="keyword">var</span> numbers = unary(range);
+
+    _.iterators = {
+      accumulate: accumulate,
+      accumulateWithReturn: accumulateWithReturn,
+      foldl: foldl,
+      reduce: foldl,
+      unfold: unfold,
+      unfoldWithReturn: unfoldWithReturn,
+      map: map,
+      select: select,
+      reject: reject,
+      filter: select,
+      find: find,
+      slice: slice,
+      drop: drop,
+      take: take,
+      List: List,
+      Tree: Tree,
+      constant: K,
+      K: K,
+      numbers: numbers,
+      range: range
+    };
+
+})(<span class="keyword">this</span>);</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
