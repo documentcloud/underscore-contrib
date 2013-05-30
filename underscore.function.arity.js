@@ -98,30 +98,6 @@
       };
     },
     
-    // greedy currying for functions taking two arguments.
-    curry2: function (fun) {
-      return function curried (first, optionalLast) {
-        if (arguments.length === 1) {
-          return function (last) {
-            return fun(first, last);
-          };
-        }
-        else return fun(first, optionalLast);
-      };
-    },
-    
-    // greedy flipped currying for functions taking two arguments.
-    curry2flipped: function (fun) {
-      return function curried (last, optionalFirst) {
-        if (arguments.length === 1) {
-          return function (first) {
-            return fun(first, last);
-          };
-        }
-        else return fun(optionalFirst, last);
-      };
-    },
-    
     // Flexible curry function with strict arity.
     // Argument application left to right.
     // source: https://github.com/eborden/js-curry
