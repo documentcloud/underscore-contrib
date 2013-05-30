@@ -61,5 +61,33 @@ $(document).ready(function() {
     deepEqual(_.curry2(echo)(1)(2), [1, 2], "Accepts curried arguments");
     
   });
-  
+
+  test("curry", function() {
+    var func = function (x, y, z) {
+        return x + y + z;
+      },
+      curried = _.curry(func),
+      rCurried = _.rCurry(func);
+
+    equal(func(1, 2, 3), 6, "Test pure function");
+    equal(typeof curried, 'function', "Curry returns a function");
+    equal(typeof curried(1), 'function', "Curry returns a function after partial application");
+    equal(curried(1)(2)(3), 6, "Curry returns a value after total application");
+    equal(curried(1)(2)(3), 6, "Curry invocations have no side effects and do not interact with each other");
+    equal(curried(2)(4)(8), 14, "Curry invocations have no side effects and do not interact with each other");
+    equal(rCurried('a')('b')('c'), 'cba', "Flipped curry applies arguments in reverse.");
+
+    var addyz = curried(1);
+    equal(addyz(2)(3), 6, "Partial applications can be used multiple times");
+    equal(addyz(2)(4), 7, "Partial applications can be used multiple times");
+
+    var failure = false;
+    try {
+      curried(1, 2999);
+    } catch (e) {
+      failure = true;
+    } finally {
+      equal(failure, true, "Curried functions only accept one argument at a time");
+    }
+  });  
 });
