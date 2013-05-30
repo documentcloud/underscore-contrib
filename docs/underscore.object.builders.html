@@ -19,6 +19,11 @@
           <div id="jump_page">
             
               
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
               <a class="source" href="underscore.array.builders.html">
                 underscore.array.builders.js
               </a>
@@ -26,6 +31,11 @@
               
               <a class="source" href="underscore.array.selectors.html">
                 underscore.array.selectors.js
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.html">
+                underscore.collections.walk.js
               </a>
             
               
@@ -99,7 +109,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span> <span class="p">{</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>(<span class="keyword">function</span>(root) {</pre></div></div>
             
         </li>
         
@@ -110,8 +120,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              
-<h2>Baseline setup</h2>
+              <h2>Baseline setup</h2>
 
             </div>
             
@@ -124,12 +133,11 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              
-<p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
+              <p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">_</span> <span class="o">||</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;underscore&#39;</span><span class="p">);</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> _ = root._ || require(<span class="string">'underscore'</span>);</pre></div></div>
             
         </li>
         
@@ -140,8 +148,7 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              
-<h2>Helpers</h2>
+              <h2>Helpers</h2>
 
             </div>
             
@@ -154,25 +161,23 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              
-<p>Create quick reference variables for speed access to core prototypes.</p>
+              <p>Create quick reference variables for speed access to core prototypes.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">slice</span>   <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">,</span>
-      <span class="nx">concat</span>  <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">concat</span><span class="p">;</span>
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> slice   = Array.prototype.slice,
+      concat  = Array.prototype.concat;
 
-  <span class="kd">var</span> <span class="nx">existy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">;</span> <span class="p">};</span>
-  <span class="kd">var</span> <span class="nx">truthy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="nx">x</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">existy</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">};</span>
-  <span class="kd">var</span> <span class="nx">isAssociative</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">||</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">};</span>
-  <span class="kd">var</span> <span class="nx">curry2</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fun</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">last</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">first</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">fun</span><span class="p">(</span><span class="nx">first</span><span class="p">,</span> <span class="nx">last</span><span class="p">);</span>
-      <span class="p">};</span>
-    <span class="p">};</span>
-  <span class="p">};</span>
-  </pre></div></div>
+  <span class="keyword">var</span> existy = <span class="keyword">function</span>(x) { <span class="keyword">return</span> x != <span class="literal">null</span>; };
+  <span class="keyword">var</span> truthy = <span class="keyword">function</span>(x) { <span class="keyword">return</span> (x !== <span class="literal">false</span>) &amp;&amp; existy(x); };
+  <span class="keyword">var</span> isAssociative = <span class="keyword">function</span>(x) { <span class="keyword">return</span> _.isArray(x) || _.isObject(x); };
+  <span class="keyword">var</span> curry2 = <span class="keyword">function</span>(fun) {
+    <span class="keyword">return</span> <span class="keyword">function</span>(last) {
+      <span class="keyword">return</span> <span class="keyword">function</span>(first) {
+        <span class="keyword">return</span> fun(first, last);
+      };
+    };
+  };</pre></div></div>
             
         </li>
         
@@ -183,12 +188,9 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
               <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              
-<h2>Mixing in the object builders</h2>
+              <h2>Mixing in the object builders</h2>
 
             </div>
-            
-            <div class="content"><div class="highlight"><pre>  <span class="nx">_</span><span class="p">.</span><span class="nx">mixin</span><span class="p">({</span></pre></div></div>
             
         </li>
         
@@ -200,21 +202,9 @@ Underscore-contrib may be freely distributed under the MIT license.</p>
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               
-<p>Merges two or more objects starting with the left-most and
-applying the keys right-word
-{any:any}* -&gt; {any:any}</p>
-
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">merge</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/* objs */</span><span class="p">){</span>
-      <span class="kd">var</span> <span class="nx">dest</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)</span> <span class="o">?</span> <span class="p">{}</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="nx">truthy</span><span class="p">(</span><span class="nx">dest</span><span class="p">))</span> <span class="p">{</span>
-        <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">concat</span><span class="p">.</span><span class="nx">call</span><span class="p">([</span><span class="nx">dest</span><span class="p">],</span> <span class="nx">_</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)));</span>
-      <span class="p">}</span>
-
-      <span class="k">return</span> <span class="nx">dest</span><span class="p">;</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  _.mixin({</pre></div></div>
             
         </li>
         
@@ -225,23 +215,21 @@ applying the keys right-word
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              
-<p>Takes an object and another object of strings to strings where the second
-object describes the key renaming to occur in the first object.</p>
+              <p>Merges two or more objects starting with the left-most and
+applying the keys right-word
+{any:any}* -&gt; {any:any}</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">renameKeys</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">kobj</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">kobj</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span> <span class="nx">nu</span><span class="p">,</span> <span class="nx">old</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">existy</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">old</span><span class="p">]))</span> <span class="p">{</span>
-          <span class="nx">o</span><span class="p">[</span><span class="nx">nu</span><span class="p">]</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">old</span><span class="p">];</span>
-          <span class="k">return</span> <span class="nx">o</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">else</span>
-          <span class="k">return</span> <span class="nx">o</span><span class="p">;</span>
-      <span class="p">},</span>
-      <span class="nx">_</span><span class="p">.</span><span class="nx">omit</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">concat</span><span class="p">.</span><span class="nx">call</span><span class="p">([</span><span class="nx">obj</span><span class="p">],</span> <span class="nx">_</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">kobj</span><span class="p">))));</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    merge: <span class="keyword">function</span>(<span class="comment">/* objs */</span>){
+      <span class="keyword">var</span> dest = _.some(arguments) ? {} : <span class="literal">null</span>;
+
+      <span class="keyword">if</span> (truthy(dest)) {
+        _.extend.apply(<span class="literal">null</span>, concat.call([dest], _.toArray(arguments)));
+      }
+
+      <span class="keyword">return</span> dest;
+    },</pre></div></div>
             
         </li>
         
@@ -252,26 +240,22 @@ object describes the key renaming to occur in the first object.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              
-<p>Snapshots an object deeply. Based on the version by
-<a href="http://keithdevens.com/weblog/archive/2007/Jun/07/javascript.clone">Keith Devens</a>
-until we can find a more efficient and robust way to do it.</p>
+              <p>Takes an object and another object of strings to strings where the second
+object describes the key renaming to occur in the first object.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">snapshot</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">obj</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="k">typeof</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
-      <span class="p">}</span>
-
-      <span class="kd">var</span> <span class="nx">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">constructor</span><span class="p">();</span>
-
-      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">temp</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">snapshot</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
-      <span class="p">}</span>
-
-      <span class="k">return</span> <span class="nx">temp</span><span class="p">;</span>
-    <span class="p">},</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    renameKeys: <span class="keyword">function</span>(obj, kobj) {
+      <span class="keyword">return</span> _.reduce(kobj, <span class="keyword">function</span>(o, nu, old) {
+        <span class="keyword">if</span> (existy(obj[old])) {
+          o[nu] = obj[old];
+          <span class="keyword">return</span> o;
+        }
+        <span class="keyword">else</span>
+          <span class="keyword">return</span> o;
+      },
+      _.omit.apply(<span class="literal">null</span>, concat.call([obj], _.keys(kobj))));
+    },</pre></div></div>
             
         </li>
         
@@ -282,32 +266,25 @@ until we can find a more efficient and robust way to do it.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              
-<p>Updates the value at any depth in a nested object based on the
-path described by the keys given.  The function provided is supplied
-the current value and is expected to return a value for use as the
-new value.  If no keys are provided, then the object itself is presented
-to the given function.</p>
+              <p>Snapshots an object deeply. Based on the version by
+<a href="http://keithdevens.com/weblog/archive/2007/Jun/07/javascript.clone">Keith Devens</a>
+until we can find a more efficient and robust way to do it.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">updatePath</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">fun</span><span class="p">,</span> <span class="nx">ks</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isAssociative</span><span class="p">(</span><span class="nx">obj</span><span class="p">))</span> <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s2">&quot;Attempted to update a non-associative object.&quot;</span><span class="p">);</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">existy</span><span class="p">(</span><span class="nx">ks</span><span class="p">))</span> <span class="k">return</span> <span class="nx">fun</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+            <div class="content"><div class='highlight'><pre>    snapshot: <span class="keyword">function</span>(obj) {
+      <span class="keyword">if</span>(obj == <span class="literal">null</span> || <span class="keyword">typeof</span>(obj) != <span class="string">'object'</span>) {
+        <span class="keyword">return</span> obj;
+      }
 
-      <span class="kd">var</span> <span class="nx">deepness</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">ks</span><span class="p">);</span>
-      <span class="kd">var</span> <span class="nx">keys</span>     <span class="o">=</span> <span class="nx">deepness</span> <span class="o">?</span> <span class="nx">ks</span> <span class="o">:</span> <span class="p">[</span><span class="nx">ks</span><span class="p">];</span>
-      <span class="kd">var</span> <span class="nx">ret</span>      <span class="o">=</span> <span class="nx">deepness</span> <span class="o">?</span> <span class="nx">_</span><span class="p">.</span><span class="nx">snapshot</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">clone</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
-      <span class="kd">var</span> <span class="nx">lastKey</span>  <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">last</span><span class="p">(</span><span class="nx">keys</span><span class="p">);</span>
-      <span class="kd">var</span> <span class="nx">target</span>   <span class="o">=</span> <span class="nx">ret</span><span class="p">;</span>
+      <span class="keyword">var</span> temp = <span class="keyword">new</span> obj.constructor();
 
-      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">initial</span><span class="p">(</span><span class="nx">keys</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">target</span> <span class="o">=</span> <span class="nx">target</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
-      <span class="p">});</span>
+      <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> obj) {
+        temp[key] = _.snapshot(obj[key]);
+      }
 
-      <span class="nx">target</span><span class="p">[</span><span class="nx">lastKey</span><span class="p">]</span> <span class="o">=</span> <span class="nx">fun</span><span class="p">(</span><span class="nx">target</span><span class="p">[</span><span class="nx">lastKey</span><span class="p">]);</span>
-      <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
-    <span class="p">},</span></pre></div></div>
+      <span class="keyword">return</span> temp;
+    },</pre></div></div>
             
         </li>
         
@@ -318,17 +295,31 @@ to the given function.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
-              
-<p>Sets the value at any depth in a nested object based on the
-path described by the keys given.</p>
+              <p>Updates the value at any depth in a nested object based on the
+path described by the keys given.  The function provided is supplied
+the current value and is expected to return a value for use as the
+new value.  If no keys are provided, then the object itself is presented
+to the given function.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">setPath</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">ks</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">existy</span><span class="p">(</span><span class="nx">ks</span><span class="p">))</span> <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s2">&quot;Attempted to set a property at a null path.&quot;</span><span class="p">);</span>
+            <div class="content"><div class='highlight'><pre>    updatePath: <span class="keyword">function</span>(obj, fun, ks) {
+      <span class="keyword">if</span> (!isAssociative(obj)) <span class="keyword">throw</span> <span class="keyword">new</span> TypeError(<span class="string">"Attempted to update a non-associative object."</span>);
+      <span class="keyword">if</span> (!existy(ks)) <span class="keyword">return</span> fun(obj);
 
-      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">updatePath</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">value</span><span class="p">;</span> <span class="p">},</span> <span class="nx">ks</span><span class="p">);</span>
-    <span class="p">},</span></pre></div></div>
+      <span class="keyword">var</span> deepness = _.isArray(ks);
+      <span class="keyword">var</span> keys     = deepness ? ks : [ks];
+      <span class="keyword">var</span> ret      = deepness ? _.snapshot(obj) : _.clone(obj);
+      <span class="keyword">var</span> lastKey  = _.last(keys);
+      <span class="keyword">var</span> target   = ret;
+
+      _.each(_.initial(keys), <span class="keyword">function</span>(key) {
+        target = target[key];
+      });
+
+      target[lastKey] = fun(target[lastKey]);
+      <span class="keyword">return</span> ret;
+    },</pre></div></div>
             
         </li>
         
@@ -339,18 +330,35 @@ path described by the keys given.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
+              <p>Sets the value at any depth in a nested object based on the
+path described by the keys given.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    setPath: <span class="keyword">function</span>(obj, value, ks) {
+      <span class="keyword">if</span> (!existy(ks)) <span class="keyword">throw</span> <span class="keyword">new</span> TypeError(<span class="string">"Attempted to set a property at a null path."</span>);
+
+      <span class="keyword">return</span> _.updatePath(obj, <span class="keyword">function</span>() { <span class="keyword">return</span> value; }, ks);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
               
-<p>Returns an object where each element of an array is keyed to
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Returns an object where each element of an array is keyed to
 the number of times that it occurred in said array.</p>
 
             </div>
             
-            <div class="content"><div class="highlight"><pre>    <span class="nx">frequencies</span><span class="o">:</span> <span class="nx">curry2</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">countBy</span><span class="p">)(</span><span class="nx">_</span><span class="p">.</span><span class="nx">identity</span><span class="p">)</span>
-  <span class="p">});</span>
+            <div class="content"><div class='highlight'><pre>    frequencies: curry2(_.countBy)(_.identity)
+  });
 
-<span class="p">})(</span><span class="k">this</span><span class="p">);</span>
-
-</pre></div></div>
+})(<span class="keyword">this</span>);</pre></div></div>
             
         </li>
         
