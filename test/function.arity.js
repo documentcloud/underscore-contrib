@@ -80,4 +80,39 @@ $(document).ready(function() {
       equal(failure, true, "Curried functions only accept one argument at a time");
     }
   });  
+  
+  test("enforce", function () {
+    function binary (a, b) {
+      return a + b;
+    }
+    function ternary (a, b, c) {
+      return a + b + c;
+    }
+    function altTernary (a, b, c) {
+      return a - b - c;
+    }
+    var fBinary = _.enforce(binary),
+        fTernary = _.enforce(ternary),
+        fAltTernary = _.enforce(altTernary),
+        failure = false;
+    try {
+      fBinary(1);
+    } catch (e) {
+      failure = true;
+    } finally {
+      equal(failure, true, "Binary must have two arguments.");
+    }
+    equal(fBinary(1, 2), 3, "Function returns after proper application");
+    
+    failure = false;
+    try {
+      fTernary(1, 3);
+    } catch (e) {
+      failure = true;
+    } finally {
+      equal(failure, true, "Ternary must have three arguments.");
+    }
+    equal(fTernary(1, 2, 3), 6, "Function returns after proper application");
+    equal(fAltTernary(1, 2, 3), -4, "Function cache does not collide");
+  });
 });
