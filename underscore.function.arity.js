@@ -51,22 +51,21 @@
   var enforce = (function () {
     var CACHE = [];
     return function enforce (func) {
+      if (typeof func !== 'function') {
+        throw new Error('Argument 1 must be a function.');
+      }
       var funcLength = func.length;
       if (CACHE[funcLength] === undefined) {
         CACHE[funcLength] = function (enforceFunc) {
           return function () {
             if (arguments.length !== funcLength) {
-              throw new Error(funcLength + ' arguments must be applied.');
+              throw new RangeError(funcLength + ' arguments must be applied.');
             }
             return enforceFunc.apply(this, arguments);
           };
         };
       }
-      if (typeof func !== 'function') {
-        throw new Error('Argument 1 must be a function.');
-      } else {
-        return CACHE[funcLength](func);
-      }
+      return CACHE[funcLength](func);
     };
   }());
   
