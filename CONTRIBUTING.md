@@ -6,4 +6,4 @@
 
 * Use the same coding  [style as Underscore](https://github.com/documentcloud/underscore/blob/master/underscore.js).
 
-* In your pull request, do not add documentation or re-build the minified contrib files. We'll do those things before cutting a new release.
+* In your pull request, do not add documentation, edit the files in `dist/` or use grunt to re-build the files in `dist/`. We'll do those things before cutting a new release.

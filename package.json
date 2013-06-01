@@ -5,6 +5,11 @@
   "dependencies": {
     "underscore": "*"
   },
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-concat": "0.3.0",
+    "grunt-contrib-uglify": "0.2.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/documentcloud/underscore-contrib.git"
@@ -12,5 +17,6 @@
   "license": "MIT",
   "author": {"name": "Fogus",
              "email": "me@fogus.me",
-             "url": "http://www.fogus.me"}
+             "url": "http://www.fogus.me"},
+  "homepage": "https://github.com/documentcloud/underscore-contrib"
 }
