@@ -1,16 +1,14 @@
-['array.builders',
- 'array.selectors',
- 'collections.walk',
- 'function.arity',
- 'function.combinators',
- 'function.iterators',
- 'function.predicates',
- 'object.builders',
- 'object.selectors',
- 'util.existential',
- 'util.strings',
- 'util.trampolines'].forEach(function (lib) {
-   require('./underscore.'+lib);
- });
+require('./underscore.array.builders');
+require('./underscore.array.selectors');
+require('./underscore.collections.walk');
+require('./underscore.function.arity');
+require('./underscore.function.combinators');
+require('./underscore.function.iterators');
+require('./underscore.function.predicates');
+require('./underscore.object.builders');
+require('./underscore.object.selectors');
+require('./underscore.util.existential');
+require('./underscore.util.strings');
+require('./underscore.util.trampolines');
 
 module.exports = require('underscore');
