@@ -29,14 +29,38 @@
     mod: function(x, y) {
       return x % y;
     },
-    inc: function(x, y) {
+    inc: function(x) {
       return ++x;
     },
-    dec: function(x, y) {
+    dec: function(x) {
       return --x;
     },
-    neg: function(x, y) {
+    neg: function(x) {
       return -x;
+    },
+    eq: function(x, y) {
+      return x == y;
+    },
+    seq: function(x, y) {
+      return x === y;
+    },
+    neq: function(x, y) {
+      return x != y;
+    },
+    sneq: function(x, y) {
+      return x !== y;
+    },
+    gt: function(x, y) {
+      return x > y;
+    },
+    lt: function(x, y) {
+      return x < y;
+    },
+    gte: function(x, y) {
+      return x >= y;
+    },
+    lte: function(x, y) {
+      return x <= y;
     }
   });
 })(this);
