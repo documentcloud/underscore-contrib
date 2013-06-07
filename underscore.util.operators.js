@@ -50,6 +50,9 @@
     sneq: function(x, y) {
       return x !== y;
     },
+    not: function(x) {
+      return !x;
+    },
     gt: function(x, y) {
       return x > y;
     },
@@ -62,28 +65,25 @@
     lte: function(x, y) {
       return x <= y;
     },
-    phalse: function(x) {
-      return !x;
-    },
-    and: function(x, y) {
+    bitwiseAnd: function(x, y) {
       return x & y;
     },
-    or: function(x, y) {
+    bitwiseOr: function(x, y) {
       return x | y;
     },
-    xor: function(x, y) {
+    bitwiseXor: function(x, y) {
       return x ^ y;
     },
-    not: function(x) {
+    bitwiseNot: function(x) {
       return ~x;
     },
-    lshift: function(x, y) {
+    bitwiseLeft: function(x, y) {
       return x << y;
     },
-    rshift: function(x, y) {
+    bitwiseRight: function(x, y) {
       return x >> y;
     },
-    zshift: function(x, y) {
+    bitwiseZ: function(x, y) {
       return x >>> y;
     }
   });
