@@ -61,6 +61,30 @@
     },
     lte: function(x, y) {
       return x <= y;
+    },
+    phalse: function(x) {
+      return !x;
+    },
+    and: function(x, y) {
+      return x & y;
+    },
+    or: function(x, y) {
+      return x | y;
+    },
+    xor: function(x, y) {
+      return x ^ y;
+    },
+    not: function(x) {
+      return ~x;
+    },
+    lshift: function(x, y) {
+      return x << y;
+    },
+    rshift: function(x, y) {
+      return x >> y;
+    },
+    zshift: function(x, y) {
+      return x >>> y;
     }
   });
 })(this);
