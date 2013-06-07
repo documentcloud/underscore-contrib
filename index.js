@@ -9,7 +9,8 @@
  'object.selectors',
  'util.existential',
  'util.strings',
- 'util.trampolines'].forEach(function (lib) {
+ 'util.trampolines',
+ 'util.operators'].forEach(function (lib) {
    require('./underscore.'+lib);
  });
 
