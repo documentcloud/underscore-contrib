@@ -8,6 +8,7 @@ require('./underscore.function.predicates');
 require('./underscore.object.builders');
 require('./underscore.object.selectors');
 require('./underscore.util.existential');
+require('./underscore.util.operators');
 require('./underscore.util.strings');
 require('./underscore.util.trampolines');
 
