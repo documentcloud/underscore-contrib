@@ -79,5 +79,28 @@ $(document).ready(function() {
     } finally {
       equal(failure, true, "Curried functions only accept one argument at a time");
     }
-  });  
+  });
+  
+  test("curry2", function () {
+    
+    function echo () { return [].slice.call(arguments, 0); }
+    
+    deepEqual(echo(1, 2), [1, 2], "Control test");
+    deepEqual(_.curry2(echo)(1, 2), [1, 2], "Accepts arguments greedily");
+    deepEqual(_.curry2(echo)(1)(2), [1, 2], "Accepts curried arguments");
+    
+  });
+  
+  test("curry3", function () {
+    
+    function echo () { return [].slice.call(arguments, 0); }
+    
+    deepEqual(echo(1, 2, 3), [1, 2, 3], "Control test");
+    deepEqual(_.curry3(echo)(1, 2, 3), [1, 2, 3], "Accepts arguments greedily");
+    deepEqual(_.curry3(echo)(1, 2)(3), [1, 2, 3], "Accepts arguments greedily");
+    deepEqual(_.curry3(echo)(1)(2, 3), [1, 2, 3], "Accepts arguments greedily");
+    deepEqual(_.curry3(echo)(1)(2)(3), [1, 2, 3], "Accepts curried arguments");
+    
+  });
+  
 });

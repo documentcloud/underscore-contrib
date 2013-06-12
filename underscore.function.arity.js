@@ -106,7 +106,53 @@
     // Flexible right to left curry with strict arity.
     rCurry: function (func) {
         return curry.call(this, func, true);
-    }
+    },  
+
+
+    curry2: function (fun) {
+      return function curried (first, optionalLast) {
+        if (arguments.length === 1) {
+          return function (last) {
+            return fun.call(this, first, last);
+          };
+        }
+        else return fun.call(this, first, optionalLast);
+      };
+    },
+
+    curry3: function (fun) {
+      return function curried (first, optionalSecond, optionalLast) {
+        if (arguments.length === 1) {
+          return function (second, optionalLast) {
+            if (arguments.length === 1) {
+              return function (last) {
+                return fun.call(this, first, second, last);
+              };
+            }
+            else return fun.call(this, first, second, optionalLast);
+          };
+        }
+        if (arguments.length === 2) {
+          return function (last) {
+            return fun.call(this, first, optionalSecond, last);
+          };
+        }
+        else return fun.call(this, first, optionalSecond, optionalLast);
+      };
+    },
+    
+      // greedy reverse currying for functions taking two arguments.
+    rcurry2: function (fun) {
+      return function rcurried (last, optionalFirst) {
+        if (arguments.length === 1) {
+          return function (first) {
+            return fun(first, last);
+          };
+        }
+        else return fun(optionalFirst, last);
+      };
+    }    
+    
   });
 
   _.arity = (function () {
