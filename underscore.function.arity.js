@@ -13,15 +13,19 @@
   // Helpers
   // -------
 
+  function enforcesUnary (fn) {
+    return function mustBeUnary () {
+      if (arguments.length === 1) {
+        return fn.apply(this, arguments);
+      }
+      else throw new RangeError('Only a single argument may be accepted.');
+      
+    }
+  }
 
   // Curry
   // -------
   var curry = (function () {
-    function checkArguments (argsCount) {
-      if (argsCount !== 1) {
-        throw new RangeError('Only a single argument may be accepted.');
-      }
-    }
     function collectArgs(func, that, argCount, args, newArg, reverse) {
       if (reverse == true) {
           args.unshift(newArg);
@@ -31,18 +35,16 @@
       if (args.length == argCount) {
         return func.apply(that, args);
       } else {
-        return function () {
-          checkArguments(arguments.length);
+        return enforcesUnary(function () {
           return collectArgs(func, that, argCount, args.slice(0), arguments[0], reverse);
-        };
+        });
       }
     }
     return function curry (func, reverse) {
       var that = this;
-      return function () {
-        checkArguments(arguments.length);
+      return enforcesUnary(function () {
         return collectArgs(func, that, func.length, [], arguments[0], reverse);
-      };
+      });
     };
   }());
   
@@ -110,48 +112,41 @@
 
 
     curry2: function (fun) {
-      return function curried (first, optionalLast) {
-        if (arguments.length === 1) {
-          return function (last) {
-            return fun.call(this, first, last);
-          };
-        }
-        else return fun.call(this, first, optionalLast);
-      };
+      return enforcesUnary(function curried (first) {
+        return enforcesUnary(function (last) {
+          return fun.call(this, first, last);
+        });
+      })
     },
 
     curry3: function (fun) {
-      return function curried (first, optionalSecond, optionalLast) {
-        if (arguments.length === 1) {
-          return function (second, optionalLast) {
-            if (arguments.length === 1) {
-              return function (last) {
-                return fun.call(this, first, second, last);
-              };
-            }
-            else return fun.call(this, first, second, optionalLast);
-          };
-        }
-        if (arguments.length === 2) {
-          return function (last) {
-            return fun.call(this, first, optionalSecond, last);
-          };
-        }
-        else return fun.call(this, first, optionalSecond, optionalLast);
-      };
+      return enforcesUnary(function (first) {
+        return enforcesUnary(function (second) {
+          return enforcesUnary(function (last) {
+            return fun.call(this, first, second, last);
+          })
+        })
+      })
     },
     
-      // greedy reverse currying for functions taking two arguments.
+      // reverse currying for functions taking two arguments.
     rcurry2: function (fun) {
-      return function rcurried (last, optionalFirst) {
-        if (arguments.length === 1) {
-          return function (first) {
-            return fun(first, last);
-          };
-        }
-        else return fun(optionalFirst, last);
-      };
-    }    
+      return enforcesUnary(function (last) {
+        return enforcesUnary(function (first) {
+          return fun.call(this, first, last);
+        })
+      })
+    },
+
+    rcurry3: function (fun) {
+      return enforcesUnary(function (last) {
+        return enforcesUnary(function (second) {
+          return enforcesUnary(function (first) {
+            return fun.call(this, first, second, last);
+          })
+        })
+      })
+    }
     
   });
 
