@@ -148,12 +148,17 @@ $(document).ready(function() {
         return this.a + b;
       },
 
-      a: 'hello '
+      a: 'hello ',
+
+      nofun: null
     };
 
     var f = _.bound(obj, 'fun');
 
     equal(f('there'), 'hello there', 'should return concatenation of obj.a and string argument');
     equal(f.length, 1, 'f should have arity of 1');
+    throws(function() {
+      _.bound(obj, 'nofun');
+    }, TypeError, 'should throw for non-function properties');
   });
 });

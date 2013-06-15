@@ -240,7 +240,10 @@
   
   // Returns function property of object by name, bound to object
   _.bound = function(obj, fname) {
-    return _.bind(obj[fname], obj);
+    var fn = obj[fname];
+    if (!_.isFunction(fn))
+      throw new TypeError("Expected property to be a function");
+    return _.bind(fn, obj);
   };
 
 })(this);
