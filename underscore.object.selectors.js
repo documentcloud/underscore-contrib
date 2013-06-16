@@ -65,7 +65,7 @@
       // value is null, stop executing and return undefined
       if (obj === null) return void 0;
 
-      return getPath(obj[[].shift.call(ks)], ks);
+      return getPath(obj[_.first(ks)], _.rest(ks));
     },
 
     // Returns a boolean indicating whether there is a property
@@ -79,7 +79,7 @@
 
       if (numKeys === 1) return true;
 
-      return hasPath(obj[[].shift.call(ks)], ks);
+      return hasPath(obj[_.first(ks)], _.rest(ks));
     }
   });
 
