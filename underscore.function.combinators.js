@@ -238,6 +238,12 @@
   // first so it can be used as a combinator
   _.mapArgsWith = curry2(_.flip(baseMapArgs));
   
-  
+  // Returns function property of object by name, bound to object
+  _.bound = function(obj, fname) {
+    var fn = obj[fname];
+    if (!_.isFunction(fn))
+      throw new TypeError("Expected property to be a function");
+    return _.bind(fn, obj);
+  };
 
 })(this);
