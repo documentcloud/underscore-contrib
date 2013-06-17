@@ -1,4 +1,4 @@
-// underscore-contrib v0.1.1
+// underscore-contrib v0.1.4
 // =========================
 
 // > https://github.com/documentcloud/underscore-contrib
@@ -417,15 +417,19 @@
   // Helpers
   // -------
 
+  function enforcesUnary (fn) {
+    return function mustBeUnary () {
+      if (arguments.length === 1) {
+        return fn.apply(this, arguments);
+      }
+      else throw new RangeError('Only a single argument may be accepted.');
+
+    }
+  }
 
   // Curry
   // -------
   var curry = (function () {
-    function checkArguments (argsCount) {
-      if (argsCount !== 1) {
-        throw new RangeError('Only a single argument may be accepted.');
-      }
-    }
     function collectArgs(func, that, argCount, args, newArg, reverse) {
       if (reverse == true) {
           args.unshift(newArg);
@@ -435,21 +439,42 @@
       if (args.length == argCount) {
         return func.apply(that, args);
       } else {
-        return function () {
-          checkArguments(arguments.length);
+        return enforcesUnary(function () {
           return collectArgs(func, that, argCount, args.slice(0), arguments[0], reverse);
-        };
+        });
       }
     }
     return function curry (func, reverse) {
       var that = this;
-      return function () {
-        checkArguments(arguments.length);
+      return enforcesUnary(function () {
         return collectArgs(func, that, func.length, [], arguments[0], reverse);
-      };
+      });
     };
   }());
-  
+
+  // Enforce Arity
+  // --------------------
+  var enforce = (function () {
+    var CACHE = [];
+    return function enforce (func) {
+      if (typeof func !== 'function') {
+        throw new Error('Argument 1 must be a function.');
+      }
+      var funcLength = func.length;
+      if (CACHE[funcLength] === undefined) {
+        CACHE[funcLength] = function (enforceFunc) {
+          return function () {
+            if (arguments.length !== funcLength) {
+              throw new RangeError(funcLength + ' arguments must be applied.');
+            }
+            return enforceFunc.apply(this, arguments);
+          };
+        };
+      }
+      return CACHE[funcLength](func);
+    };
+  }());
+
   // Mixing in the arity functions
   // -----------------------------
 
@@ -501,7 +526,7 @@
         return fun.call(this, a, b, c, d);
       };
     },
-    
+
     // Flexible curry function with strict arity.
     // Argument application left to right.
     // source: https://github.com/eborden/js-curry
@@ -510,7 +535,47 @@
     // Flexible right to left curry with strict arity.
     rCurry: function (func) {
         return curry.call(this, func, true);
-    }
+    },
+
+
+    curry2: function (fun) {
+      return enforcesUnary(function curried (first) {
+        return enforcesUnary(function (last) {
+          return fun.call(this, first, last);
+        });
+      })
+    },
+
+    curry3: function (fun) {
+      return enforcesUnary(function (first) {
+        return enforcesUnary(function (second) {
+          return enforcesUnary(function (last) {
+            return fun.call(this, first, second, last);
+          })
+        })
+      })
+    },
+
+      // reverse currying for functions taking two arguments.
+    rcurry2: function (fun) {
+      return enforcesUnary(function (last) {
+        return enforcesUnary(function (first) {
+          return fun.call(this, first, last);
+        })
+      })
+    },
+
+    rcurry3: function (fun) {
+      return enforcesUnary(function (last) {
+        return enforcesUnary(function (second) {
+          return enforcesUnary(function (first) {
+            return fun.call(this, first, second, last);
+          })
+        })
+      })
+    },
+    // Dynamic decorator to enforce function arity and defeat varargs.
+    enforce: enforce
   });
 
   _.arity = (function () {
@@ -774,7 +839,13 @@
   // first so it can be used as a combinator
   _.mapArgsWith = curry2(_.flip(baseMapArgs));
   
-  
+  // Returns function property of object by name, bound to object
+  _.bound = function(obj, fname) {
+    var fn = obj[fname];
+    if (!_.isFunction(fn))
+      throw new TypeError("Expected property to be a function");
+    return _.bind(fn, obj);
+  };
 
 })(this);
 
@@ -1363,7 +1434,7 @@
       // value is null, stop executing and return undefined
       if (obj === null) return void 0;
 
-      return getPath(obj[[].shift.call(ks)], ks);
+      return getPath(obj[_.first(ks)], _.rest(ks));
     },
 
     // Returns a boolean indicating whether there is a property
@@ -1377,7 +1448,7 @@
 
       if (numKeys === 1) return true;
 
-      return hasPath(obj[[].shift.call(ks)], ks);
+      return hasPath(obj[_.first(ks)], _.rest(ks));
     }
   });
 
@@ -1409,6 +1480,97 @@
     not:    function(b) { return !b; }
   });
 
+})(this);
+
+// Underscore-contrib (underscore.function.arity.js 0.0.1)
+// (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
+// Underscore-contrib may be freely distributed under the MIT license.
+
+(function(root) {
+
+  // Baseline setup
+  // --------------
+
+  // Establish the root object, `window` in the browser, or `global` on the server.
+  var _ = root._ || require('underscore');
+  
+  // Mixing in the operator functions
+  // -----------------------------
+
+  _.mixin({
+    add: function(x, y) {
+      return x + y;
+    },
+    sub: function(x, y) {
+      return x - y;
+    },
+    mul: function(x, y) {
+      return x * y;
+    },
+    div: function(x, y) {
+      return x / y;
+    },
+    mod: function(x, y) {
+      return x % y;
+    },
+    inc: function(x) {
+      return ++x;
+    },
+    dec: function(x) {
+      return --x;
+    },
+    neg: function(x) {
+      return -x;
+    },
+    eq: function(x, y) {
+      return x == y;
+    },
+    seq: function(x, y) {
+      return x === y;
+    },
+    neq: function(x, y) {
+      return x != y;
+    },
+    sneq: function(x, y) {
+      return x !== y;
+    },
+    not: function(x) {
+      return !x;
+    },
+    gt: function(x, y) {
+      return x > y;
+    },
+    lt: function(x, y) {
+      return x < y;
+    },
+    gte: function(x, y) {
+      return x >= y;
+    },
+    lte: function(x, y) {
+      return x <= y;
+    },
+    bitwiseAnd: function(x, y) {
+      return x & y;
+    },
+    bitwiseOr: function(x, y) {
+      return x | y;
+    },
+    bitwiseXor: function(x, y) {
+      return x ^ y;
+    },
+    bitwiseNot: function(x) {
+      return ~x;
+    },
+    bitwiseLeft: function(x, y) {
+      return x << y;
+    },
+    bitwiseRight: function(x, y) {
+      return x >> y;
+    },
+    bitwiseZ: function(x, y) {
+      return x >>> y;
+    }
+  });
 })(this);
 
 // Underscore-contrib (underscore.util.strings.js 0.0.1)
