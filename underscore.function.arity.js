@@ -19,7 +19,7 @@
         return fn.apply(this, arguments);
       }
       else throw new RangeError('Only a single argument may be accepted.');
-      
+
     }
   }
 
@@ -47,7 +47,30 @@
       });
     };
   }());
-  
+
+  // Enforce Arity
+  // --------------------
+  var enforce = (function () {
+    var CACHE = [];
+    return function enforce (func) {
+      if (typeof func !== 'function') {
+        throw new Error('Argument 1 must be a function.');
+      }
+      var funcLength = func.length;
+      if (CACHE[funcLength] === undefined) {
+        CACHE[funcLength] = function (enforceFunc) {
+          return function () {
+            if (arguments.length !== funcLength) {
+              throw new RangeError(funcLength + ' arguments must be applied.');
+            }
+            return enforceFunc.apply(this, arguments);
+          };
+        };
+      }
+      return CACHE[funcLength](func);
+    };
+  }());
+
   // Mixing in the arity functions
   // -----------------------------
 
@@ -99,7 +122,7 @@
         return fun.call(this, a, b, c, d);
       };
     },
-    
+
     // Flexible curry function with strict arity.
     // Argument application left to right.
     // source: https://github.com/eborden/js-curry
@@ -108,7 +131,7 @@
     // Flexible right to left curry with strict arity.
     rCurry: function (func) {
         return curry.call(this, func, true);
-    },  
+    },
 
 
     curry2: function (fun) {
@@ -128,7 +151,7 @@
         })
       })
     },
-    
+
       // reverse currying for functions taking two arguments.
     rcurry2: function (fun) {
       return enforcesUnary(function (last) {
@@ -146,8 +169,9 @@
           })
         })
       })
-    }
-    
+    },
+    // Dynamic decorator to enforce function arity and defeat varargs.
+    enforce: enforce
   });
 
   _.arity = (function () {

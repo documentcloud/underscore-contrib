@@ -14,44 +14,44 @@ $(document).ready(function() {
 
     equal(_.fix(parseInt, _, 10)('11'), 11, 'should "fix" common js foibles');
   });
-  
+
   test("arity", function () {
     function variadic () { return arguments.length; }
     function unvariadic  (a, b, c) { return arguments.length; }
-  
+
     equal( _.arity(unvariadic.length, variadic).length, unvariadic.length, "should set the length");
-    equal( _.arity(3, variadic)(1, 2, 3, 4, 5), unvariadic(1, 2, 3, 4, 5), "shouldn't trim arguments");   
+    equal( _.arity(3, variadic)(1, 2, 3, 4, 5), unvariadic(1, 2, 3, 4, 5), "shouldn't trim arguments");
     equal( _.arity(3, variadic)(1), unvariadic(1), "shouldn't pad arguments");
-    
+
     // this is the big use case for _.arity:
-  
+
     function reverse (list) {
       return [].reduce.call(list, function (acc, element) {
         acc.unshift(element);
         return acc;
       }, []);
     }
-    
+
     function naiveFlip (fun) {
       return function () {
         return fun.apply(this, reverse(arguments));
       }
     }
-    
+
     function echo (a, b, c) { return [a, b, c]; }
-    
+
     deepEqual(naiveFlip(echo)(1, 2, 3), [3, 2, 1], "naive flip flips its arguments");
     notEqual(naiveFlip(echo).length, echo.length, "naiveFlip gets its arity wrong");
-    
+
     function flipWithArity (fun) {
       return _.arity(fun.length, naiveFlip(fun));
     }
-    
+
     deepEqual(flipWithArity(echo)(1, 2, 3), [3, 2, 1], "flipWithArity flips its arguments");
     equal(flipWithArity(echo).length, echo.length, "flipWithArity gets its arity correct");
-    
+
   });
-  
+
   test("curry", function() {
     var func = function (x, y, z) {
         return x + y + z;
@@ -80,41 +80,75 @@ $(document).ready(function() {
       equal(failure, true, "Curried functions only accept one argument at a time");
     }
   });
-  
+
   test("curry2", function () {
-    
+
     function echo () { return [].slice.call(arguments, 0); }
-    
+
     deepEqual(echo(1, 2), [1, 2], "Control test");
     deepEqual(_.curry2(echo)(1)(2), [1, 2], "Accepts curried arguments");
-    
+
   });
-  
+
   test("rcurry2", function () {
-    
+
     function echo () { return [].slice.call(arguments, 0); }
-    
+
     deepEqual(echo(1, 2), [1, 2], "Control test");
     deepEqual(_.rcurry2(echo)(1)(2), [2, 1], "Reverses curried arguments");
-    
+
   });
-  
+
   test("curry3", function () {
-    
+
     function echo () { return [].slice.call(arguments, 0); }
-    
+
     deepEqual(echo(1, 2, 3), [1, 2, 3], "Control test");
     deepEqual(_.curry3(echo)(1)(2)(3), [1, 2, 3], "Accepts curried arguments");
-    
+
   });
-  
+
   test("rcurry3", function () {
-    
+
     function echo () { return [].slice.call(arguments, 0); }
-    
+
     deepEqual(echo(1, 2, 3), [1, 2, 3], "Control test");
     deepEqual(_.rcurry3(echo)(1)(2)(3), [3, 2, 1], "Reverses curried arguments");
-    
+
   });
-  
+
+  test("enforce", function () {
+    function binary (a, b) {
+      return a + b;
+    }
+    function ternary (a, b, c) {
+      return a + b + c;
+    }
+    function altTernary (a, b, c) {
+      return a - b - c;
+    }
+    var fBinary = _.enforce(binary),
+        fTernary = _.enforce(ternary),
+        fAltTernary = _.enforce(altTernary),
+        failure = false;
+    try {
+      fBinary(1);
+    } catch (e) {
+      failure = true;
+    } finally {
+      equal(failure, true, "Binary must have two arguments.");
+    }
+    equal(fBinary(1, 2), 3, "Function returns after proper application");
+
+    failure = false;
+    try {
+      fTernary(1, 3);
+    } catch (e) {
+      failure = true;
+    } finally {
+      equal(failure, true, "Ternary must have three arguments.");
+    }
+    equal(fTernary(1, 2, 3), 6, "Function returns after proper application");
+    equal(fAltTernary(1, 2, 3), -4, "Function cache does not collide");
+  });
 });
