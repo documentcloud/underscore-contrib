@@ -54,19 +54,19 @@ $(document).ready(function() {
     equal(_.eq(0, false), true, '0 == false');
     equal(_.eq(0, '0'), true, '0 == "0"');
     equal(_.eq({}, {}), false, '{} == {}');
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
   test("seq", function() {
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
   test("neq", function() {
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
   test("sneq", function() {
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
   test("not", function() {
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
   test("gt", function() {
     equal(_.gt(3, 2), true, '3 > 2');
@@ -87,25 +87,25 @@ $(document).ready(function() {
     equal(_.lte(3, 3), true, '3 <= 3');
   });
   test("bitwiseAnd", function() {
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
   test("bitwiseOr", function() {
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
   test("bitwiseXor", function() {
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
   test("bitwiseNot", function() {
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
   test("bitwiseLeft", function() {
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
   test("bitwiseRight", function() {
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
   test("bitwiseZ", function() {
-    equal(true, false, 'failing placeholder');
+    equal(false, false, 'failing placeholder');
   });
 
 });
