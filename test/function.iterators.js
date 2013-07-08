@@ -5,10 +5,7 @@ $(document).ready(function() {
   function sum (x, y) { return x + y; }
   function square (x) { return x * x; }
   function odd (x) { return x % 2 === 1; }
-  function naturalSmallerThan (x)  {
-    console.error(x)
-    return _.iterators.List(_.range(0, x))
-  }
+  function naturalSmallerThan (x)  { return _.iterators.List(_.range(0, x)) }
 
 
   module("underscore.function.iterators");

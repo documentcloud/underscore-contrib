@@ -130,10 +130,6 @@
       };
     };
 
-    // Similar to :
-    // mapcat in clojure: http://clojuredocs.org/clojure_core/clojure.core/mapcat
-    // flat_map in ruby: http://ruby-doc.org/core-2.0/Enumerable.html#method-i-flat_map
-    // flatMap in scala: http://www.scala-lang.org/api/current/index.html#scala.collection.mutable.Map
     function flatMap(iter, unaryFn) {
       var lastIter = null;
       return function() {
