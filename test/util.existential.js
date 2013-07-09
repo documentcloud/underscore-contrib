@@ -53,4 +53,11 @@ $(document).ready(function() {
     equal(_.falsey(function(){}), false, 'should know that everything else is falsey');
   });
 
+  test('firstExisting', function() {
+    equal(_.firstExisting('first', 'second'), 'first', 'should return the first existing value');
+    equal(_.firstExisting(null, 'second'), 'second', 'should ignore null');
+    equal(_.firstExisting(void 0, 'second'), 'second', 'should ignore undefined');
+    equal(_.firstExisting(null, void 0, 'third'), 'third', 'should work with more arguments');
+  });
+
 });
