@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  module("underscore.util.existential");
+  module("underscore.util.operators");
 
   test("add", function() {
     equal(_.add(1, 1), 2, '1 + 1 = 2');
