@@ -1,131 +1,297 @@
-<!DOCTYPE html>
-
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>index.js</title>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-  <link rel="stylesheet" media="all" href="/docs/docco.css" />
+<title>index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
 </head>
 <body>
-  <div id="container">
-    <div id="background"></div>
-    
-      <ul id="jump_to">
-        <li>
-          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
-          <a class="small" href="javascript:void(0);">+</a>
-          <div id="jump_wrapper">
-          <div id="jump_page">
-            
-              
-              <a class="source" href="index.html">
-                index.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.array.builders.html">
-                underscore.array.builders.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.array.selectors.html">
-                underscore.array.selectors.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.collections.walk.html">
-                underscore.collections.walk.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.function.arity.html">
-                underscore.function.arity.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.function.combinators.html">
-                underscore.function.combinators.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.function.iterators.html">
-                underscore.function.iterators.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.function.predicates.html">
-                underscore.function.predicates.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.object.builders.html">
-                underscore.object.builders.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.object.selectors.html">
-                underscore.object.selectors.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.util.existential.html">
-                underscore.util.existential.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.util.strings.html">
-                underscore.util.strings.js
-              </a>
-            
-              
-              <a class="source" href="/docs/underscore.util.trampolines.html">
-                underscore.util.trampolines.js
-              </a>
-            
-          </div>
-        </li>
-      </ul>
-    
-    <ul class="sections">
-        
-          <li id="title">
-              <div class="annotation">
-                  <h1>index.js</h1>
-              </div>
-          </li>
-        
-        
-        
-        <li id="section-1">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-1">&#182;</a>
-              </div>
-              
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>[<span class="string">'array.builders'</span>,
- <span class="string">'array.selectors'</span>,
- <span class="string">'collections.walk'</span>,
- <span class="string">'function.arity'</span>,
- <span class="string">'function.combinators'</span>,
- <span class="string">'function.iterators'</span>,
- <span class="string">'function.predicates'</span>,
- <span class="string">'object.builders'</span>,
- <span class="string">'object.selectors'</span>,
- <span class="string">'util.existential'</span>,
- <span class="string">'util.strings'</span>,
- <span class="string">'util.trampolines'</span>].forEach(<span class="function"><span class="keyword">function</span> <span class="params">(lib)</span> {</span>
-   require(<span class="string">'./underscore.'</span>+lib);
- });
+<h2>Underscore-contrib</h2>
+<p>The brass buckles on Underscore's utility belt - a contributors' library for <a href="http://underscorejs.org/">Underscore</a>.</p>
+<h3>Table of contents</h3>
+<p>The _.contrib library currently contains a number of related capabilities, aggregated into the following files.</p>
+<ul>
+<li><a href="docs/underscore.array.builders.html">underscore.array.builders</a> - functions to build arrays</li>
+<li><a href="docs/underscore.array.selectors.html">underscore.array.selectors</a> - functions to take things from arrays</li>
+<li><a href="docs/underscore.collections.walk.html">underscore.collections.walk</a> - functions to walk and transform nested JavaScript objects</li>
+<li><a href="docs/underscore.function.arity.html">underscore.function.arity</a> - functions to manipulate and fix function argument arity</li>
+<li><a href="docs/underscore.function.combinators.html">underscore.function.combinators</a> - functions to combine functions to make new functions</li>
+<li><a href="docs/underscore.function.iterators.html">underscore.function.iterators</a> - functions to lazily produce, manipulate and consume sequence iterators</li>
+<li><a href="docs/underscore.function.predicates.html">underscore.function.predicates</a> - functions that return <code>true</code> or <code>false</code> based on some criteria</li>
+<li><a href="docs/underscore.object.builders.html">underscore.object.builders</a> - functions to build JavaScript objects</li>
+<li><a href="docs/underscore.object.selectors.html">underscore.object.selectors</a> - functions to pick things from JavaScript objects</li>
+<li><a href="docs/underscore.util.existential.html">underscore.util.existential</a> - functions that check for the existence or truthiness of JavaScript data types</li>
+<li><a href="docs/underscore.util.operators.html">underscore.util.operators</a> - functions that wrap common (or missing) JavaScript operators</li>
+<li><a href="docs/underscore.util.strings.html">underscore.util.strings</a> - functions to work with strings</li>
+<li><a href="docs/underscore.util.trampolines.html">underscore.util.trampolines</a> - functions to facilitate calling functions recursively without blowing the stack</li>
+</ul>
+<p>The links above are to the annotated source code.  Full-blown _.contrib documentation is in the works.  Contributors welcomed.</p>
+<h3>License</h3>
+<p>_.contrib is open sourced under the <a href="https://github.com/documentcloud/underscore-contrib/blob/master/LICENSE">MIT license</a>. </p>
 
-module.exports = require(<span class="string">'underscore'</span>);</pre></div></div>
-            
-        </li>
-        
-    </ul>
-  </div>
 </body>
 </html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
