@@ -2,7 +2,13 @@
 
 The brass buckles on Underscore's utility belt - a contributors' library for [Underscore](http://underscorejs.org/).
 
-### Table of contents
+### Places
+
+  * [Source repository](https://github.com/documentcloud/underscore-contrib)
+  * [Tickets and bug reports](https://github.com/documentcloud/underscore-contrib/issues?state=open)
+  * [Maintainer's website](http://www.fogus.me)
+
+### Sub-libraries
 
 The _.contrib library currently contains a number of related capabilities, aggregated into the following files.
 
