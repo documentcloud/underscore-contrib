@@ -61,6 +61,27 @@ $(document).ready(function() {
     equal(_.isSequential(true), false, 'should identify when something is not sequential');
   });
 
+  test("isPlainObject", function() {
+    equal(_.isPlainObject({}), true, 'should identify empty objects');
+    equal(_.isPlainObject({a: 1, b: 2}), true, 'should identify objects');
+    equal(_.isPlainObject(Object.create(null)), true, 'should identify objects with no prototype');
+    equal(_.isPlainObject(new (function() {})), true, 'should identify an instance as a plain object');
+
+    equal(_.isPlainObject([]), false, 'should identify when something is not a plain object');
+    equal(_.isPlainObject(function(){}), false, 'should identify when something is not a plain object');
+    equal(_.isPlainObject(null), false, 'should identify when something is not a plain object');
+    equal(_.isPlainObject(1), false, 'should identify when something is not a plain object');
+    equal(_.isPlainObject(0), false, 'should identify when something is not a plain object');
+    equal(_.isPlainObject(-1), false, 'should identify when something is not a plain object');
+    equal(_.isPlainObject(3.14), false, 'should identify when something is not a plain object');
+    equal(_.isPlainObject('undefined'), false, 'should identify when something is not a plain object');
+    equal(_.isPlainObject(''), false, 'should identify when something is not a plain object');
+    equal(_.isPlainObject(NaN), false, 'should identify when something is not a plain object');
+    equal(_.isPlainObject(Infinity), false, 'should identify when something is not a plain object');
+    equal(_.isPlainObject(true), false, 'should identify when something is not a plain object');
+  });
+
+
   test("isEven", function() {
     equal(_.isEven(0), true, 'should identify even numbers');
     equal(_.isEven(2), true, 'should identify even numbers');
