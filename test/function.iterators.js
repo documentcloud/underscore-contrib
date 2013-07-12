@@ -121,19 +121,19 @@ $(document).ready(function() {
     equal(i(), undefined, "should map an empty iterator");
   });
 
-  test("FlatMap", function () {
-    var i = _.iterators.flatMap(_.iterators.Tree([1, [2]]), naturalSmallerThan);
-    equal(i(), 0, "should flatMap an iterator with many elements");
-    equal(i(), 0, "should flatMap an iterator with many elements");
-    equal(i(), 1, "should flatMap an iterator with many elements");
+  test("mapcat", function () {
+    var i = _.iterators.mapcat(_.iterators.Tree([1, [2]]), naturalSmallerThan);
+    equal(i(), 0, "should mapcat an iterator with many elements");
+    equal(i(), 0, "should mapcat an iterator with many elements");
+    equal(i(), 1, "should mapcat an iterator with many elements");
     equal(i(), undefined);
 
-    i = _.iterators.flatMap(_.iterators.Tree([[[1], []]]), naturalSmallerThan);
-    equal(i(), 0, "should map an iterator with one element");
+    i = _.iterators.mapcat(_.iterators.Tree([[[1], []]]), naturalSmallerThan);
+    equal(i(), 0, "should mapcat an iterator with one element");
     equal(i(), undefined);
 
-    i = _.iterators.flatMap(_.iterators.Tree([[[], []]]), naturalSmallerThan);
-    equal(i(), undefined, "should map an empty iterator");
+    i = _.iterators.mapcat(_.iterators.Tree([[[], []]]), naturalSmallerThan);
+    equal(i(), undefined, "should mapcat an empty iterator");
   });
 
   test("filter", function() {

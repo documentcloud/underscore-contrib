@@ -130,7 +130,7 @@
       };
     };
 
-    function flatMap(iter, unaryFn) {
+    function mapcat(iter, unaryFn) {
       var lastIter = null;
       return function() {
         var element;
@@ -313,7 +313,7 @@
       unfold: unfold,
       unfoldWithReturn: unfoldWithReturn,
       map: map,
-      flatMap: flatMap,
+      mapcat: mapcat,
       select: select,
       reject: reject,
       filter: select,
