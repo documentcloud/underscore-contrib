@@ -63,6 +63,16 @@
       return _.isNumeric(n) && !_.isInteger(n);
     },
 
+    // checks if a string is a valid JSON
+    isJSON: function(str) {
+      try {
+          JSON.parse(str);
+      } catch (e) {
+          return false;
+      }
+      return true;
+    },
+
     // Returns true if its arguments are monotonically
     // increaing values; false otherwise.
     isIncreasing: function() {
