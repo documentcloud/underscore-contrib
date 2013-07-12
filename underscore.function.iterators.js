@@ -130,6 +130,36 @@
       };
     };
 
+    function mapcat(iter, unaryFn) {
+      var lastIter = null;
+      return function() {
+        var element;
+        var gen;
+        if (lastIter == null) {
+          gen = iter();
+          if (gen == null) {
+            lastIter = null;
+            return void 0;
+          }
+          lastIter = unaryFn.call(gen, gen)
+        }
+        while (element == null) {
+          element = lastIter();
+          if (element == null) {
+            gen = iter();
+            if (gen == null) {
+              lastIter = null;
+              return void 0;
+            }
+            else {
+              lastIter = unaryFn.call(gen, gen)
+            }
+          }
+        }
+        return element;
+      };
+    }
+
     function select (iter, unaryPredicateFn) {
       return function() {
         var element;
@@ -174,7 +204,7 @@
     function drop (iter, numberToDrop) {
       return slice(iter, numberToDrop == null ? 1 : numberToDrop);
     }
-  
+
     function take (iter, numberToTake) {
       return slice(iter, 0, numberToTake == null ? 1 : numberToTake);
     }
@@ -283,6 +313,7 @@
       unfold: unfold,
       unfoldWithReturn: unfoldWithReturn,
       map: map,
+      mapcat: mapcat,
       select: select,
       reject: reject,
       filter: select,

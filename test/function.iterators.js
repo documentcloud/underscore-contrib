@@ -5,6 +5,8 @@ $(document).ready(function() {
   function sum (x, y) { return x + y; }
   function square (x) { return x * x; }
   function odd (x) { return x % 2 === 1; }
+  function naturalSmallerThan (x)  { return _.iterators.List(_.range(0, x)) }
+
 
   module("underscore.function.iterators");
 
@@ -117,6 +119,21 @@ $(document).ready(function() {
   
     i = _.iterators.map(_.iterators.Tree([[[], []]]), square);
     equal(i(), undefined, "should map an empty iterator");
+  });
+
+  test("mapcat", function () {
+    var i = _.iterators.mapcat(_.iterators.Tree([1, [2]]), naturalSmallerThan);
+    equal(i(), 0, "should mapcat an iterator with many elements");
+    equal(i(), 0, "should mapcat an iterator with many elements");
+    equal(i(), 1, "should mapcat an iterator with many elements");
+    equal(i(), undefined);
+
+    i = _.iterators.mapcat(_.iterators.Tree([[[1], []]]), naturalSmallerThan);
+    equal(i(), 0, "should mapcat an iterator with one element");
+    equal(i(), undefined);
+
+    i = _.iterators.mapcat(_.iterators.Tree([[[], []]]), naturalSmallerThan);
+    equal(i(), undefined, "should mapcat an empty iterator");
   });
 
   test("filter", function() {
