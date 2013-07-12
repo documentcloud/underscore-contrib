@@ -25,6 +25,12 @@
     // Implodes and array of chars into a string
     implode: function(a) {
       return a.join('');
+    },
+
+    // converts a string to camel case
+    camelCase : function( string ){
+      return  string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase() });
     }
+
   });
 })(this);
