@@ -35,6 +35,9 @@
     // A seq is something considered a sequential composite type (i.e. arrays and `arguments`).
     isSequential: function(x) { return (_.isArray(x)) || (_.isArguments(x)); },
 
+    // Check if an object is an object literal, since _.isObject(function() {}) === _.isObject([]) === true
+    isPlainObject: function(x) { return (_.isObject(x) && !_.isFunction(x) && !_.isArray(x)); },
+
     // These do what you think that they do
     isZero: function(x) { return 0 === x; },
     isEven: function(x) { return _.isFinite(x) && (x & 1) === 0; },
