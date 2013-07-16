@@ -25,6 +25,19 @@
     // Implodes and array of chars into a string
     implode: function(a) {
       return a.join('');
+    },
+
+    // Converts a string to camel case
+    camelCase : function( string ){
+      return  string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase() });
+    },
+
+    // Converts camel case to dashed (opposite of _.camelCase)
+    toDash : function( string ){
+      string = string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
+      // remove first dash
+      return  ( string.charAt( 0 ) == '-' ) ? string.substr(1) : string;
     }
+
   });
 })(this);
