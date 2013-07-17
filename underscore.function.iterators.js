@@ -12,24 +12,24 @@
 
   // Helpers
   // -------
-  
+
   var HASNTBEENRUN = {};
-  
+
   function unary (fun) {
     return function (first) {
       return fun.call(this, first);
     };
   }
-  
+
   function binary (fun) {
     return function (first, second) {
       return fun.call(this, first, second);
     };
   }
-  
+
   var undefined = void 0;
 
-  
+
   // Mixing in the iterator functions
   // --------------------------------
 
@@ -48,7 +48,7 @@
       }
       return state;
     };
-  
+
     function unfold (seed, unaryFn) {
       var state = HASNTBEENRUN;
       return function () {
@@ -61,7 +61,7 @@
         else return state;
       };
     };
-  
+
     // note that the unfoldWithReturn behaves differently than
     // unfold with respect to the first value returned
     function unfoldWithReturn (seed, unaryFn) {
@@ -84,6 +84,7 @@
     function accumulate (iter, binaryFn, initial) {
       var state = initial;
       return function () {
+        var element;
         element = iter();
         if (element == null) {
           return element;
@@ -96,11 +97,12 @@
         }
       };
     };
-  
+
     function accumulateWithReturn (iter, binaryFn, initial) {
       var state = initial,
           stateAndReturnValue;
       return function () {
+        var element;
         element = iter();
         if (element == null) {
           return element;
@@ -117,7 +119,7 @@
         }
       };
     };
-  
+
     function map (iter, unaryFn) {
       return function() {
         var element;
@@ -173,13 +175,13 @@
         return void 0;
       };
     };
-  
+
     function reject (iter, unaryPredicateFn) {
       return select(iter, function (something) {
         return !unaryPredicateFn(something);
       });
     };
-  
+
     function find (iter, unaryPredicateFn) {
       return select(iter, unaryPredicateFn)();
     }
@@ -200,7 +202,7 @@
       }
       else return iter;
     };
-  
+
     function drop (iter, numberToDrop) {
       return slice(iter, numberToDrop == null ? 1 : numberToDrop);
     }
@@ -215,7 +217,7 @@
         return array[index++];
       };
     };
-  
+
     function Tree (array) {
       var index, myself, state;
       index = 0;
@@ -244,7 +246,7 @@
       };
       return myself;
     };
-  
+
     function K (value) {
       return function () {
         return value;
@@ -254,7 +256,7 @@
     function upRange (from, to, by) {
       return function () {
         var was;
-      
+
         if (from > to) {
           return void 0;
         }
@@ -269,7 +271,7 @@
     function downRange (from, to, by) {
       return function () {
         var was;
-      
+
         if (from < to) {
           return void 0;
         }
@@ -280,7 +282,7 @@
         }
       };
     };
-  
+
     function range (from, to, by) {
       if (from == null) {
         return upRange(1, Infinity, 1);
@@ -302,7 +304,7 @@
       }
       else return k(from);
     };
-  
+
     var numbers = unary(range);
 
     _.iterators = {

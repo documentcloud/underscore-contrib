@@ -92,16 +92,16 @@ $(document).ready(function() {
     deepEqual(echo3(1,2,3), [[1], 2, 3], 'should return the arguments provded');
     deepEqual(echo3(1,2,3,4), [[1, 2], 3, 4], 'should return the arguments provded');
   });
-  
+
   test("mapArgsWith", function () {
     var echo  = _.unsplatl(function (args) { return args; });
     function double (n) { return n * 2; }
     function plusOne (n) { return n + 1; }
-    
+
     deepEqual(_.mapArgsWith(double, echo)(), [], "should handle the empty case")
     deepEqual(_.mapArgsWith(double, echo)(42), [84], "should handle one arg")
     deepEqual(_.mapArgsWith(plusOne, echo)(1, 2, 3), [2, 3, 4], "should handle many args")
-    
+
     deepEqual(_.mapArgsWith(double)(echo)(), [], "should handle the empty case")
     deepEqual(_.mapArgsWith(double)(echo)(42), [84], "should handle one arg")
     deepEqual(_.mapArgsWith(plusOne)(echo)(1, 2, 3), [2, 3, 4], "should handle many args")
@@ -156,7 +156,10 @@ $(document).ready(function() {
     var f = _.bound(obj, 'fun');
 
     equal(f('there'), 'hello there', 'should return concatenation of obj.a and string argument');
-    equal(f.length, 1, 'f should have arity of 1');
+
+    // Without Function.bind the arity is incorrect.
+    if (Function.prototype.bind) equal(f.length, 1, 'f should have arity of 1');
+
     throws(function() {
       _.bound(obj, 'nofun');
     }, TypeError, 'should throw for non-function properties');
