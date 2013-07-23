@@ -2,7 +2,7 @@ Documentation should use [Journo](https://github.com/jashkenas/journo) formats a
 
 ### Array concatenation via `_.cat`
 
-Signature: `_.cat(array*)`
+Signature: `_.cat(... arrays:Array ...)`
 
 The `_.cat` function provides a way to concatenate zero or more heterogeneous arrays into one.
 
@@ -34,7 +34,9 @@ The `_.cat` function will also work with the `arguments` object as if it were an
 
 ## Array construction via `_.cons`
 
-    cons: function(head, tail) {
+Signature: `_.cons(head:Any, tail:Array)`
+
+The `_.cons` function provides a way to "construct" a new array by taking some element and putting it at the front of another array.
 
 ## Array partitioning via `_.partition` and `_.partitionAll`
 
