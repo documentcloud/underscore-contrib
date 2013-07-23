@@ -7,26 +7,26 @@ Signature: `_.cat(... arrays:Array ...)`
 The `_.cat` function provides a way to concatenate zero or more heterogeneous arrays into one.
 
 ```javascript
-_.cat()                    // 0-args
+_.cat();                    // 0-args
 //=> []
 
-_.cat([])                  // 1-arg, empty array
+_.cat([]);                  // 1-arg, empty array
 //=> []
 
-_.cat([1,2,3])             // 1-arg
+_.cat([1,2,3]);             // 1-arg
 //=> []
 
-_.cat([1,2,3],[4,5,6])     // 2-args
+_.cat([1,2,3],[4,5,6]);     // 2-args
 //=> [1,2,3,4,5,6]
 
-_.cat([1,2,3],[4,5,6],[7]) // 3+ args
+_.cat([1,2,3],[4,5,6],[7]); // 3+ args
 //=> [1,2,3,4,5,6,7]
 ```
 
 Not every argument to `_.cat` needs to be an array; other types are accepted:
 
 ```javascript
-_.cat(1,[2],3,4)           // mixed args
+_.cat(1,[2],3,4);           // mixed args
 //=> [1,2,3,4]
 ```
 
@@ -37,6 +37,18 @@ The `_.cat` function will also work with the `arguments` object as if it were an
 Signature: `_.cons(head:Any, tail:Array)`
 
 The `_.cons` function provides a way to "construct" a new array by taking some element and putting it at the front of another array.
+
+```javascript
+_.cons(0, []);
+//=> [0]
+
+_.cons(1, [2]);
+//=> [1,2]
+
+_.cons([0], [1,2,3]);
+//=> [0,1,2,3]
+```
+
 
 ## Array partitioning via `_.partition` and `_.partitionAll`
 
