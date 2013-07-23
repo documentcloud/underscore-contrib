@@ -23,7 +23,9 @@ _.cat([1,2,3],[4,5,6],[7]); // 3+ args
 //=> [1,2,3,4,5,6,7]
 ```
 
-Not every argument to `_.cat` needs to be an array; other types are accepted:
+Not every argument to `_.cat` needs to be an array; other types are accepted.
+
+Signature: `_.cat(... elems:Any ...)`
 
 ```javascript
 _.cat(1,[2],3,4);           // mixed args
@@ -31,6 +33,15 @@ _.cat(1,[2],3,4);           // mixed args
 ```
 
 The `_.cat` function will also work with the `arguments` object as if it were an array.
+
+Signature: `_.cat(... elems:Arguments ...)`
+
+```javascript
+function f(){ return _.cat(arguments, 4,5,6); }
+
+f(1,2,3);
+//=> [1,2,3,4,5,6]
+```
 
 ## Array construction via `_.cons`
 
