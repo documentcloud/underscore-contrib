@@ -61,6 +61,17 @@ _.cons([1], 2);
 //=> [[1],2]
 ```
 
+Finally, `_.cons` will operate with the `arguments` object.
+
+Signature: `_.cons(head:Any, tail:Arguments)`
+
+```javascript
+function f() { return _.cons(0, arguments) }
+
+f(1,2,3);
+//=> [0,1,2,3]
+```
+
 ## Array partitioning via `_.partition` and `_.partitionAll`
 
     partition: function(array, n, pad) {
