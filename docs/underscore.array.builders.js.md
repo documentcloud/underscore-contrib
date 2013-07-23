@@ -49,6 +49,17 @@ _.cons([0], [1,2,3]);
 //=> [0,1,2,3]
 ```
 
+The `_.cons` function also can be used to create pairs if the second argument is not an array.
+
+Signature: `_.cons(head:Any, tail:Any)`
+
+```javascript
+_.cons(1, 2);
+//=> [1,2]
+
+_.cons([1], 2);
+//=> [[1],2]
+```
 
 ## Array partitioning via `_.partition` and `_.partitionAll`
 
