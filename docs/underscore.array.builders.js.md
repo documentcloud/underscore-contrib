@@ -1,9 +1,37 @@
 Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
 
-## Array concatenation via `_.cat`
+### Array concatenation via `_.cat`
 
-    cat: function() {
-	
+Signature: `_.cat(array*)`
+
+The `_.cat` function provides a way to concatenate zero or more heterogeneous arrays into one.
+
+```javascript
+_.cat()                    // 0-args
+//=> []
+
+_.cat([])                  // 1-arg, empty array
+//=> []
+
+_.cat([1,2,3])             // 1-arg
+//=> []
+
+_.cat([1,2,3],[4,5,6])     // 2-args
+//=> [1,2,3,4,5,6]
+
+_.cat([1,2,3],[4,5,6],[7]) // 3+ args
+//=> [1,2,3,4,5,6,7]
+```
+
+Not every argument to `_.cat` needs to be an array; other types are accepted:
+
+```javascript
+_.cat(1,[2],3,4)           // mixed args
+//=> [1,2,3,4]
+```
+
+The `_.cat` function will also work with the `arguments` object as if it were an array.
+
 ## Array construction via `_.cons`
 
     cons: function(head, tail) {
