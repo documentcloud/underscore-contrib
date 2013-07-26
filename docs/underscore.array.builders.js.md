@@ -98,7 +98,10 @@ The `_.repeat` function takes an integer value used to build an array of that si
     _.repeat(5, 'a');
     //=> ['a','a','a','a','a']
 
-    cycle: function(t, elems) {
+The `_.cycle` function takes an integer value used to build an array of that size containing the number of iterations through the given array, strung end-to-end as many times as needed.  An example is probably more instructive:
+
+    _.cycle(5, [1,2,3]);
+    //=> [1,2,3,1,2]
 	
 ### Splitting an array with `_.splitAt`
 	
