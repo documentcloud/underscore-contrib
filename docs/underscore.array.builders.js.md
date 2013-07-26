@@ -102,8 +102,15 @@ f(1,2,3);
     interleave: _.weave,
 	
 ### Building arrays from repeated value with `_.repeat` and `_.cycle`
-	
-    repeat: function(t, elem) {
+
+Signature: `_.repeat(t:Integer, value:Any)`
+
+The `_.repeat` function takes an integer value used to build an array of that size containing the value given:
+
+```javascript
+_.repeat(5, 'a');
+//=> ['a','a','a','a','a']
+```
     cycle: function(t, elems) {
 	
 ### Splitting an array with `_.splitAt`
