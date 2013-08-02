@@ -3,6 +3,7 @@ require('./underscore.array.selectors');
 require('./underscore.collections.walk');
 require('./underscore.function.arity');
 require('./underscore.function.combinators');
+require('./underscore.function.dispatch');
 require('./underscore.function.iterators');
 require('./underscore.function.predicates');
 require('./underscore.object.builders');
