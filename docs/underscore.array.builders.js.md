@@ -73,7 +73,28 @@ Signature: `_.cons(head:Any, tail:Arguments)`
 
 ### Array partitioning via `_.partition` and `_.partitionAll`
 
-    partition: function(array, n, pad) {
+The `_.partition` function, by default, accepts an array and a number and splits and returns a new array representing the original array split into some number of arrays of the given size:
+
+    _.partition([0,1,2,3], 2);
+    //=> , [[0,1],[2,3]]
+
+If the original array cannot completely fulfill the partition scheme then the array returned will drop the undersized final partition:
+
+    _.partition([0,1,2,3,4], 2);
+    //=> , [[0,1],[2,3]]
+
+You can pass an optional third argument to `_.partition` to pad out the final array partition should it fall short.  If the value given as the third argument is *not* an array then it is repeated the needed number of times:
+
+    _.partition([0,1,2,3,4], 3, '_');
+    //=> , [[0,1,2],[3,'_','_']]
+
+If you given an array as the optional third argument then that array is used to pad in-place as needed:
+
+    _.partition([0,1,2,3,4], 3, ['a', 'b']);
+    //=> , [[0,1,2],[3,'a','b']]
+
+TODO
+
     partitionAll: function(array, n, step) {
 	
 ### Array flattening via `_.mapcat`
