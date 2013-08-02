@@ -95,7 +95,7 @@ If you given an array as the optional third argument then that array is used to 
 
 The `_.partitionAll` function is similar to `_.partition` except for the following.  First, `_.partionAll` will never drop short partitions from the end:
 
-    _.partition([0,1,2,3,4], 3);
+    _.partitionAll([0,1,2,3,4], 3);
     //=> , [[0,1,2],[3]]
 
 Also, `_.paritionAll` takes an optional third argument signifying that paritions should be built from skipped regions:
