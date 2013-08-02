@@ -93,9 +93,16 @@ If you given an array as the optional third argument then that array is used to 
     _.partition([0,1,2,3,4], 3, ['a', 'b']);
     //=> , [[0,1,2],[3,'a','b']]
 
-TODO
+The `_.partitionAll` function is similar to `_.partition` except for the following.  First, `_.partionAll` will never drop short partitions from the end:
 
-    partitionAll: function(array, n, step) {
+    _.partition([0,1,2,3,4], 3);
+    //=> , [[0,1,2],[3]]
+
+Also, `_.paritionAll` takes an optional third argument signifying that paritions should be built from skipped regions:
+
+    _.partitionAll(_.range(1), 2, 4);
+    //=> [[0,1],[4,5],[8,9]]
+
 	
 ### Array flattening via `_.mapcat`
 	
