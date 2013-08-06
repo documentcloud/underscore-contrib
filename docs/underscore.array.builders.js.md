@@ -237,6 +237,15 @@ If you return either `null` or `undefined` then the result is dropped from the r
     //=> ['b']
 
 ### Building an array until a condition fails via `_.iterateUntil`
-    
-    iterateUntil: function(doit, checkit, seed) {
 
+The `_.iterateUntil` function takes a function used as a result generator, a function used as a stop-check and a seed value and returns an array of each generated result.  The operation of `_.iterateUntil` is such that the result generator is passed the seed to start and each subsequent result which will continue **until** a result fails the check function (i.e. returns falsey).  An example is best:
+
+    var dec = function(n) { return n - 1; };
+    var isPos = function(n) { return n > 0; };
+
+The `dec` result generator takes a number and decrements it by one.  The `isPos` predicate takes a number and returns `true` if it's positive.  Using these two functions you can build an array of every number from `6` to `0`, inclusive:
+
+    _.iterateUntil(dec, isPos, 6);
+    //=> [5,4,3,2,1]
+
+That is, the array only contains every number from `5` down to `1` because when the result of `dec` got to `0` the `isPos` check failed (i.e. went falsey) thus terminating the execution.
