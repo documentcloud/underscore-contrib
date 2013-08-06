@@ -126,9 +126,21 @@ Inspecting the contents of `errors` shows:
 The `_.mapcat` function is equivalent to `_.cat.apply(array, _.map(array,fun))`.
 	
 ### Inserting elements into an array via `_.interpose`
-	
-    interpose: function(array, inter) {
-	
+
+The `_.interpose` function takes an array and an element and returns a new array with the given element inserted betwixt every element in the original array:
+
+    _.interpose([1,2,3], 0);
+    //=> [1,0,2,0,3]
+
+If there are no betweens (i.e. empty and single-element arrays), then the original array is returned:
+
+    _.interpose([1], 0);
+    //=> [1]
+
+    _.interpose([], 0);
+    //=> []
+
+
 ### Weaving arrays together via `_.weave` and `_.interleave`
 	
     weave: function(/* args */) {
