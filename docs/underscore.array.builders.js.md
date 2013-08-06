@@ -192,9 +192,20 @@ The operation of `_.splitAt` is safe if the index provided is outside the range 
 
 
 ### Taking skipped elements from an array with `_.takeSkipping`
-	
-    takeSkipping: function(array, n) {
-	
+
+The `_.takeSkipping` function takes an array and a number and returns a new array containing every nth element in the original array:
+
+    _.takeSkipping(_.range(10), 2);
+    //=> [0,2,4,6,8]
+
+The `_.takeSkipping` function is safe against numbers larger or smaller than the array size:
+
+    _.takeSkipping(_.range(10), 100000);
+    //=> [0]
+
+    _.takeSkipping(_.range(10), -100);
+    //=> []
+
 ### Storing every stage of a reduce with `_.reductions`
 	
     reductions: function(array, fun, init) {
