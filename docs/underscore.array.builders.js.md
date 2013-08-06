@@ -219,8 +219,22 @@ The `_.reductions` function is similar to Underscore's builtin `_.reduce` functi
 The last element in the array returned from `_.reductions` is the answer that you would get if you had just chosen to use `_.reduce`.
 
 ### Taking elements from an array based on properties of their keys
-	
-    keepIndexed: function(array, pred) {
+
+TODO
+
+    _.keepIndexed([1,2,3], function(k) { 
+      return i === 1 || i === 2;
+    });
+
+    //=> [false, true, true]
+
+TODO
+
+    _.keepIndexed(['a','b','c'], function(k, v) { 
+      if (k === 1) return v; 
+    });
+
+    //=> ['b']
 
 ### Building an array until a condition fails via `_.iterateUntil`
     
