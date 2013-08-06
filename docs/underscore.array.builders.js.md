@@ -170,9 +170,27 @@ The `_.cycle` function takes an integer value used to build an array of that siz
     //=> [1,2,3,1,2]
 	
 ### Splitting an array with `_.splitAt`
-	
-    splitAt: function(array, index) {
-	
+
+The `_.splitAt` function takes an array and a numeric index and returns a new array with two embedded arrays representing a split of the original array at the index provided:
+
+    _.splitAt([1,2,3,4,5], 2);
+    //=> [[1,2],[3,4,5]]
+
+    _.splitAt([1,2,3,4,5], 0);
+    //=> [[],[1,2,3,4,5]]    
+
+The operation of `_.splitAt` is safe if the index provided is outside the range of legal indices:
+
+    _.splitAt([1,2,3,4,5], 20000);
+    //=> [[1,2,3,4,5],[]]
+    
+    _.splitAt([1,2,3,4,5], -1000);
+    //=> [[],[1,2,3,4,5]]    
+    
+    _.splitAt([], 0);
+    //=> [[],[]]    
+
+
 ### Building an array until a condition fails via `_.iterateUntil`
 	
     iterateUntil: function(doit, checkit, seed) {
