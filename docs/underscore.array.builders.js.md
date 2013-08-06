@@ -142,9 +142,18 @@ If there are no betweens (i.e. empty and single-element arrays), then the origin
 
 
 ### Weaving arrays together via `_.weave` and `_.interleave`
-	
-    weave: function(/* args */) {
-    interleave: _.weave,
+
+The `_.weave` function works similarly to `_.interpose` (shown above) except that it accepts an array used as the interposition values.  In other words, `_.weave` takes two arrays and returns a new array with the original elements woven together.  An example would help:
+
+    _.weave(['a','b','c'], [1,2,3]);
+    //=> ['a',1,'b',2,'c',3]
+
+The array returned from `_.weave` will be as long as the longest array given with the woven entries stopping according to the shortest array:
+
+    _.weave(['a','b','c'], [1]);
+    //=> ['a',1,'b','c']
+
+The `_.interleave` function is an alias for `_.weave`.
 	
 ### Building arrays from repeated value with `_.repeat` and `_.cycle`
 
