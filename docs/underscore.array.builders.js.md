@@ -105,8 +105,25 @@ Also, `_.paritionAll` takes an optional third argument signifying that paritions
 
 	
 ### Array flattening via `_.mapcat`
-	
-    mapcat: function(array, fun) {
+
+There are times when a mapping operation produces results contained in arrays, but the final result should be flattened one level.  For these circumstances you can use `_.mapcat` to produce results:
+
+    var array = [1,2,null,4,undefined,6];
+
+    var errors = _.mapcat(array, function(e,i) {
+      if (e == null) {
+        return ["Element @" + i + " is bad"];
+      }
+      else {
+        return [];
+      }
+    });
+
+Inspecting the contents of `errors` shows:
+
+    ["Element @2 is bad", "Element @4 is bad"]
+
+The `_.mapcat` function is equivalent to `_.cat.apply(array, _.map(array,fun))`.
 	
 ### Inserting elements into an array via `_.interpose`
 	
