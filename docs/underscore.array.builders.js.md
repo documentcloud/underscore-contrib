@@ -207,9 +207,17 @@ The `_.takeSkipping` function is safe against numbers larger or smaller than the
     //=> []
 
 ### Storing every stage of a reduce with `_.reductions`
-	
-    reductions: function(array, fun, init) {
-	
+
+The `_.reductions` function is similar to Underscore's builtin `_.reduce` function except that it returns an array of every intermediate value in the folding operation:
+
+    _.reductions([1,2,3,4,5], function(agg, n) {
+      return agg + n;
+    }, 0);
+
+    //=> [1,3,6,10,15]
+
+The last element in the array returned from `_.reductions` is the answer that you would get if you had just chosen to use `_.reduce`.
+
 ### Taking elements from an array based on properties of their keys
 	
     keepIndexed: function(array, pred) {
