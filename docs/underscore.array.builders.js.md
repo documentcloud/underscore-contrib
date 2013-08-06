@@ -191,10 +191,6 @@ The operation of `_.splitAt` is safe if the index provided is outside the range 
     //=> [[],[]]    
 
 
-### Building an array until a condition fails via `_.iterateUntil`
-	
-    iterateUntil: function(doit, checkit, seed) {
-	
 ### Taking skipped elements from an array with `_.takeSkipping`
 	
     takeSkipping: function(array, n) {
@@ -207,4 +203,7 @@ The operation of `_.splitAt` is safe if the index provided is outside the range 
 	
     keepIndexed: function(array, pred) {
 
+### Building an array until a condition fails via `_.iterateUntil`
+    
+    iterateUntil: function(doit, checkit, seed) {
 
