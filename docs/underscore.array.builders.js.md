@@ -220,7 +220,7 @@ The last element in the array returned from `_.reductions` is the answer that yo
 
 ### Taking elements from an array based on properties of their keys
 
-TODO
+The `_.keepIndexed` function takes an array and a function and returns a new array filled with the *non-null* return results of the given function on the elements or keys in the given array:
 
     _.keepIndexed([1,2,3], function(k) { 
       return i === 1 || i === 2;
@@ -228,7 +228,7 @@ TODO
 
     //=> [false, true, true]
 
-TODO
+If you return either `null` or `undefined` then the result is dropped from the resulting array:
 
     _.keepIndexed(['a','b','c'], function(k, v) { 
       if (k === 1) return v; 
