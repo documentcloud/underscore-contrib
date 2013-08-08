@@ -19,16 +19,16 @@ You can also pass an optional number to the `_.second` function to take a number
 
 The `_.third` function is a convenience for the equivalent `array[2]`:
 
-    _.third(['a','b']);
-    //=> 'b'
+    _.third(['a','b','c']);
+    //=> 'c'
     
-    _.map([['a','b'], _.range(10,20)], _.third);
-    //=> ['b',11]
+    _.map([['a','b','c'], _.range(10,20)], _.third);
+    //=> ['c',12]
 
 You can also pass an optional number to the `_.third` function to take a number of elements from an array starting with the third element and ending at the given index:
 
     _.third(_.range(10), 5)
-	//=> [2, 3, 4, 5]
+	//=> [2, 3, 4]
 
 
     nth: function(array, index) {
