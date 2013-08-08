@@ -38,7 +38,7 @@
     // to work with `_.map`.
     third: function(array, n, guard) {
       if (array == null) return void 0;
-      return (n != null) && !guard ? slice.call(array, 1, n) : array[2];
+      return (n != null) && !guard ? slice.call(array, 2, n) : array[2];
     },
 
     // A function to get at an index into an array
