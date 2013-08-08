@@ -6,10 +6,16 @@ $(document).ready(function() {
     var a = [1,2,3,4,5];
 
     equal(_.second(a), 2, 'should retrieve the 2nd element in an array');
-
     deepEqual(_.second(a, 5), [2,3,4,5], 'should retrieve all but the first element in an array');
-
     deepEqual(_.map([a,_.rest(a)], _.second), [2,3], 'should be usable in _.map');
+  });
+
+  test("third", function() {
+    var a = [1,2,3,4,5];
+
+    equal(_.third(a), 3, 'should retrieve the 3rd element in an array');
+    deepEqual(_.third(a, 5), [3,4,5], 'should retrieve all but the first and second element in an array');
+    deepEqual(_.map([a,_.rest(a)], _.third), [3,4], 'should be usable in _.map');
   });
 
   test("takeWhile", function() {
