@@ -33,6 +33,14 @@
       return (n != null) && !guard ? slice.call(array, 1, n) : array[1];
     },
 
+    // Returns the third element of an array. Passing **n** will return all but
+    // the first two of the head N values in the array.  The **guard** check allows it
+    // to work with `_.map`.
+    third: function(array, n, guard) {
+      if (array == null) return void 0;
+      return (n != null) && !guard ? slice.call(array, 1, n) : array[2];
+    },
+
     // A function to get at an index into an array
     nth: function(array, index) {
       if ((index < 0) || (index > array.length - 1)) throw Error("Attempting to index outside the bounds of the array.");
