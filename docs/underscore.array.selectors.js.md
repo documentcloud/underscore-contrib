@@ -30,8 +30,14 @@ You can also pass an optional number to the `_.third` function to take a number 
     _.third(_.range(10), 5)
 	//=> [2, 3, 4]
 
+### Retrieving an element from an array by index
 
-    nth: function(array, index) {
+The `_.nth` function is a convenience for the equivalent `array[n]`:
+
+    _.nth(['a','b','c'], 2);
+    //=> 'c'
+
+
     takeWhile: function(array, pred) {
     dropWhile: function(array, pred) {
     splitWith: function(array, pred) {
