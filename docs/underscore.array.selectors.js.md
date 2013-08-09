@@ -37,9 +37,21 @@ The `_.nth` function is a convenience for the equivalent `array[n]`:
     _.nth(['a','b','c'], 2);
     //=> 'c'
 
+### Taking or dropping elements from an array while a function stays truthy
 
-    takeWhile: function(array, pred) {
-    dropWhile: function(array, pred) {
+The `_.takeWhile` function takes an array and a function and returns a new array containing the first n elements in the original array for which the given function returns a truthy value:
+
+    var isNeg = function(n) { return n < 0; };
+	
+	_.takeWhile([-2,-1,0,1,2], isNeg);
+	//=> [-2,-1]
+
+The `_.dropWhile` function works similarly except that it *drops* elements from the original array for which the given function returns a truthy value:
+
+    _.dropWhile([-2,-1,0,1,2], isNeg);
+	//=> [0,1,2]
+
+
     splitWith: function(array, pred) {
     partitionBy: function(array, fun){
     best: function(array, fun) {
