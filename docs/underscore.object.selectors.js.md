@@ -6,3 +6,5 @@ Documentation should use [Journo](https://github.com/jashkenas/journo) formats a
     kv: function(obj, key) {
     getPath: function getPath (obj, ks) {
     hasPath: function hasPath (obj, ks) {
+    pickWhen: function(obj, pred) {
+    omitWhen: function(obj, pred) {
