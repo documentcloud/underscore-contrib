@@ -43,8 +43,6 @@
 
     // A function to get at an index into an array
     nth: function(array, index) {
-      if ((index < 0) || (index > array.length - 1)) throw Error("Attempting to index outside the bounds of the array.");
-
       return array[index];
     },
 
