@@ -15,6 +15,8 @@
 
   // Create quick reference variables for speed access to core prototypes.
   var concat  = Array.prototype.concat;
+  var ArrayProto = Array.prototype;
+  var slice = ArrayProto.slice;
 
   // Mixing in the object selectors
   // ------------------------------
@@ -80,7 +82,19 @@
       if (numKeys === 1) return true;
 
       return hasPath(obj[_.first(ks)], _.rest(ks));
+    },
+
+    pickWhen: function(obj, pred) {
+      var copy = {};
+
+      _.each(obj, function(value, key) {
+        if (pred(obj[key])) copy[key] = obj[key];
+      });
+
+      return copy;      
     }
+
   });
 
 })(this);
+
