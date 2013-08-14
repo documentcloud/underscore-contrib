@@ -42,8 +42,8 @@
     },
 
     // A function to get at an index into an array
-    nth: function(array, index) {
-      return array[index];
+    nth: function(array, index, guard) {
+      if ((index != null) && !guard) return array[index];
     },
 
     // Takes all items in an array while a given predicate returns truthy.
