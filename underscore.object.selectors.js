@@ -91,10 +91,13 @@
         if (pred(obj[key])) copy[key] = obj[key];
       });
 
-      return copy;      
+      return copy;
+    },
+
+    omitWhen: function(obj, pred) {
+      return _.pickWhen(obj, function(e) { return !pred(e)} );
     }
 
   });
 
 })(this);
-
