@@ -49,7 +49,7 @@ The `_.nth` function can also be used in conjunction with `_.map` and `_.compact
     _.compact(_.map(b, function(e) { return _.nth(e,0) }));
     //=> ['a','b']
 
-If wrapping a function around `_.nth` is too tedious then Underscore-contrib offers any of `_.flip2`, `_.fix` or `rcurry2` to solve this.
+If wrapping a function around `_.nth` is too tedious or you'd like to partially apply the index then Underscore-contrib offers any of `_.flip2`, `_.fix` or `rcurry2` to solve this.
 
 ### Taking or dropping elements from an array while a function stays truthy
 
