@@ -37,6 +37,20 @@ The `_.nth` function is a convenience for the equivalent `array[n]`:
     _.nth(['a','b','c'], 2);
     //=> 'c'
 
+If given an index out of bounds then `_.nth` will return `undefined`:
+
+    _.nth(['a','b','c'], 2000);
+    //=> undefined
+
+The `_.nth` function can also be used in conjunction with `_.map` and `_.compact` like so:
+
+    var b = [['a'],['b'],[]];
+
+    _.compact(_.map(b, function(e) { return _.nth(e,0) }));
+    //=> ['a','b']
+
+If wrapping a function around `_.nth` is too tedious then Underscore-contrib offers any of `_.flip2`, `_.fix` or `rcurry2` to solve this.
+
 ### Taking or dropping elements from an array while a function stays truthy
 
 The `_.takeWhile` function takes an array and a function and returns a new array containing the first n elements in the original array for which the given function returns a truthy value:

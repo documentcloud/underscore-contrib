@@ -67,7 +67,7 @@ $(document).ready(function() {
 
   test("nth", function() {
     var a = ['a','b','c'];
-    var b = [['a'],['b'],[]]
+    var b = [['a'],['b'],[]];
 
     equal(_.nth(a,0), 'a', 'should return the element at a given index into an array');
     equal(_.nth(a,100), undefined, 'should return undefined if out of bounds');
