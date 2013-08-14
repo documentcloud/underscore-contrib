@@ -61,4 +61,15 @@ $(document).ready(function() {
     strictEqual(_.hasPath(deepObject, ["undefinedVal", "notHere"]), false, "should return false for descendants of undefined properties");
   });
 
+  test("pickWhen", function() {
+    var a = {foo: true, bar: false, baz: 42};
+
+    deepEqual(_.pickWhen(a, _.truthy), {foo: true, baz: 42}, "should return an object with kvs that return a truthy value for the given predicate");
+  });
+
+  test("omitWhen", function() {
+    var a = {foo: [], bar: "", baz: "something", quux: ['a']};
+
+    deepEqual(_.omitWhen(a, _.isEmpty), {baz: "something", quux: ['a']}, "should return an object with kvs that return a falsey value for the given predicate");
+  });
 });
