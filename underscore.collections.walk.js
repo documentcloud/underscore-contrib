@@ -108,13 +108,14 @@
       return pluck(obj, propertyName, true);
     },
 
-    // Builds up a single value by doing a pre-order traversal of `obj` and
-    // calling the `visitor` function on each object in the tree. The `memo`
-    // argument to `visitor` is a collection of the results of invoking
-    // `visitor` on each of the subtrees.
-    reduce: function(obj, visitor, context) {
-      var reducer = function(value, key, parent, memo) {
-        return visitor(memo, value, key, parent);
+    // Builds up a single value by doing a post-order traversal of `obj` and
+    // calling the `visitor` function on each object in the tree. For leaf
+    // objects, the `memo` argument to `visitor` is the value of the `leafMemo`
+    // argument to `reduce`. For non-leaf objects, `memo` is a collection of
+    // the results of calling `reduce` on the object's children.
+    reduce: function(obj, visitor, leafMemo, context) {
+      var reducer = function(value, key, parent, subResults) {
+        return visitor(subResults || leafMemo, value, key, parent);
       };
       return walk(obj, null, reducer, context, collectWithKeys);
     }

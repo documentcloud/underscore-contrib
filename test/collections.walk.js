@@ -120,12 +120,17 @@ $(document).ready(function() {
   });
 
   test("reduce", function() {
+    var add = function(a, b) { return a + b };
+    var leafMemo = [];
     var sum = function(memo, node) {
-      if (_.isUndefined(memo)) return node;
-      return _.reduce(memo, function(total, value) { return total + value; });
+      if (_.isObject(node))
+        return _.reduce(memo, add, 0)
+
+      strictEqual(memo, leafMemo);
+      return node;
     };
     var tree = getSimpleTestTree();
-    equal(_.walk.reduce(tree, sum), 21);
+    equal(_.walk.reduce(tree, sum, leafMemo), 21);
 
     // A more useful example: transforming a tree.
 
@@ -138,7 +143,7 @@ $(document).ready(function() {
     var toString =  function(node) { return _.has(node, 'val') ? '-' : node; };
 
     tree = _.walk.reduce(getSimpleTestTree(), mirror);
-    equal(_.walk.reduce(tree, sum), 21);
+    equal(_.walk.reduce(tree, sum, leafMemo), 21);
     equal(_.walk.map(tree, _.walk.preorder, toString).join(''), '-0-4-6-5-1-3-2', 'pre-order map');
   });
 });
