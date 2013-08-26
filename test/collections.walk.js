@@ -146,4 +146,23 @@ $(document).ready(function() {
     equal(_.walk.reduce(tree, sum, leafMemo), 21);
     equal(_.walk.map(tree, _.walk.preorder, toString).join(''), '-0-4-6-5-1-3-2', 'pre-order map');
   });
+
+  test("find", function() {
+    var tree = getSimpleTestTree();
+
+    // Returns a visitor function that will succeed when a node with the
+    // given value is found, and then will raise an exception if it is ever
+    // called again.
+    var findValue = function(value) {
+      var found = false;
+      return function(node) {
+        if (found) throw 'already found!';
+        return found = (node.val === value);
+      };
+    };
+
+    equal(_.walk.find(tree, findValue(0)).val, 0);
+    equal(_.walk.find(tree, findValue(6)).val, 6);
+    deepEqual(_.walk.find(tree, findValue(99)), undefined);
+  });
 });
