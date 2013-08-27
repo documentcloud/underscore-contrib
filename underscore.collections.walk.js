@@ -19,23 +19,11 @@
 
   var notTreeError = 'Not a tree: same object found in two different branches';
 
-  // A version of `collect` which, when called on an object, returns an object
-  // rather than a list. The keys in the returned object are the same as the
-  // original object, and the values are the result of invoking `visitor` on
-  // each of the original object's values.
-  function collectWithKeys(obj, visitor, context) {
-    if (_.isArray(obj)) return _.collect(obj, visitor, context);
-
-    var results = {};
-    _.each(obj, function(value, key) {
-      results[key] = visitor.call(context, value, key, obj);
-    });
-    return results;
-  }
-
   // Walk the tree recursively beginning with `root`, calling `beforeFunc`
   // before visiting an objects descendents, and `afterFunc` afterwards.
-  function walk(root, beforeFunc, afterFunc, context, iterStrategy) {
+  // If `collectResults` is true, the last argument to `afterFunc` will be a
+  // collection of the results of walking the node's subtrees.
+  function walk(root, beforeFunc, afterFunc, context, collectResults) {
     var visited = [];
     return (function _walk(value, key, parent) {
       if (beforeFunc && beforeFunc.call(context, value, key, parent) === breaker)
@@ -49,7 +37,15 @@
         visited.push(value);
 
         var target = _.isElement(value) ? value.children : value;
-        subResults = iterStrategy.call(null, target, _walk, context);
+
+        // If collecting results from subtrees, collect them in the same shape
+        // as the parent node.
+        if (collectResults) subResults = _.isArray(value) ? [] : {};
+
+        _.each(target, function(obj, key) {
+          var result = _walk(obj, key, value);
+          if (subResults) subResults[key] = result;
+        });
       }
       if (afterFunc) return afterFunc.call(context, value, key, parent, subResults);
     })(root);
@@ -117,7 +113,7 @@
       var reducer = function(value, key, parent, subResults) {
         return visitor(subResults || leafMemo, value, key, parent);
       };
-      return walk(obj, null, reducer, context, collectWithKeys);
+      return walk(obj, null, reducer, context, true);
     }
   });
   _.walk.collect = _.walk.map;  // Alias `map` as `collect`.
