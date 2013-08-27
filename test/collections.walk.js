@@ -118,4 +118,32 @@ $(document).ready(function() {
     tree = [tree, { city: 'Loserville', population: 'you' }];
     deepEqual(_.walk.pluck(tree, 'population'), [1378000, 812826, 2615000, 'you'], 'pluck from a list of trees');
   });
+
+  test("reduce", function() {
+    var add = function(a, b) { return a + b };
+    var leafMemo = [];
+    var sum = function(memo, node) {
+      if (_.isObject(node))
+        return _.reduce(memo, add, 0)
+
+      strictEqual(memo, leafMemo);
+      return node;
+    };
+    var tree = getSimpleTestTree();
+    equal(_.walk.reduce(tree, sum, leafMemo), 21);
+
+    // A more useful example: transforming a tree.
+
+    // Returns a new node where the left and right subtrees are swapped.
+    var mirror = function(memo, node) {
+      if (!_.has(node, 'r')) return node;
+      return _.extend(_.clone(node), { l: memo.r, r: memo.l });
+    };
+    // Returns the '-' for internal nodes, and the value itself for leaves.
+    var toString =  function(node) { return _.has(node, 'val') ? '-' : node; };
+
+    tree = _.walk.reduce(getSimpleTestTree(), mirror);
+    equal(_.walk.reduce(tree, sum, leafMemo), 21);
+    equal(_.walk.map(tree, _.walk.preorder, toString).join(''), '-0-4-6-5-1-3-2', 'pre-order map');
+  });
 });
