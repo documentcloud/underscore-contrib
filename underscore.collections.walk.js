@@ -15,7 +15,11 @@
 
   // An internal object that can be returned from a visitor function to
   // prevent a top-down walk from walking subtrees of a node.
-  var breaker = {};
+  var stopRecursion = {};
+
+  // An internal object that can be returned from a visitor function to
+  // cause the walk to immediately stop.
+  var stopWalk = {};
 
   var notTreeError = 'Not a tree: same object found in two different branches';
 
@@ -26,8 +30,11 @@
   function walk(root, beforeFunc, afterFunc, context, collectResults) {
     var visited = [];
     return (function _walk(value, key, parent) {
-      if (beforeFunc && beforeFunc.call(context, value, key, parent) === breaker)
-        return;
+      if (beforeFunc) {
+        var result = beforeFunc.call(context, value, key, parent);
+        if (result === stopWalk) return stopWalk;
+        if (result === stopRecursion) return;
+      }
 
       var subResults;
       if (_.isObject(value) || _.isArray(value)) {
@@ -42,13 +49,27 @@
         // as the parent node.
         if (collectResults) subResults = _.isArray(value) ? [] : {};
 
-        _.each(target, function(obj, key) {
+        var stop = _.any(target, function(obj, key) {
           var result = _walk(obj, key, value);
+          if (result === stopWalk) return true;
           if (subResults) subResults[key] = result;
         });
+        if (stop) return stopWalk;
       }
       if (afterFunc) return afterFunc.call(context, value, key, parent, subResults);
     })(root);
+  }
+
+  // Recursively traverses `obj` in a depth-first fashion, invoking the
+  // `visitor` function for each object only after traversing its children.
+  function postorder(obj, visitor, context) {
+    walk(obj, null, visitor, context);
+  }
+
+  // Recursively traverses `obj` in a depth-first fashion, invoking the
+  // `visitor` function for each object before traversing its children.
+  function preorder(obj, visitor, context) {
+    walk(obj, visitor, null, context);
   }
 
   function pluck(obj, propertyName, recursive) {
@@ -56,8 +77,20 @@
     _.walk.preorder(obj, function(value, key) {
       if (key === propertyName) {
         results[results.length] = value;
-        if (!recursive) return breaker;
+        if (!recursive) return stopRecursion;
       }
+    });
+    return results;
+  }
+
+  // Recursively traverses `obj` and returns all the elements that pass a
+  // truth test. `strategy` is the traversal function to use, e.g. `preorder`
+  // or `postorder`.
+  function filter(obj, strategy, visitor, context) {
+    var results = [];
+    if (obj == null) return results;
+    strategy.call(this, obj, function(value, key, parent) {
+      if (visitor.call(context, value, key, parent)) results.push(value);
     });
     return results;
   }
@@ -67,16 +100,27 @@
 
   _.walk = walk;
   _.extend(walk, {
-    // Recursively traverses `obj` in a depth-first fashion, invoking the
-    // `visitor` function for each object only after traversing its children.
-    postorder: function(obj, visitor, context) {
-      walk(obj, null, visitor, context, _.each);
+    // Performs a preorder traversal of `obj` and returns the first value
+    // which passes a truth test.
+    find: function(obj, visitor, context) {
+      var result;
+      preorder(obj, function(value, key, parent) {
+        if (visitor.call(context, value, key, parent)) {
+          result = value;
+          return stopWalk;
+        }
+      }, context);
+      return result;
     },
 
-    // Recursively traverses `obj` in a depth-first fashion, invoking the
-    // `visitor` function for each object before traversing its children.
-    preorder: function(obj, visitor, context) {
-      walk(obj, visitor, null, context, _.each);
+    filter: filter,
+
+    // Recursively traverses `obj` and returns all the elements for which a
+    // truth test fails.
+    reject: function(obj, strategy, visitor, context) {
+      return filter(obj, strategy, function(value, key, parent) {
+        return !visitor.call(context, value, key, parent);
+      });
     },
 
     // Produces a new array of values by recursively traversing `obj` and
@@ -85,7 +129,7 @@
     // `postorder`.
     map: function(obj, strategy, visitor, context) {
       var results = [];
-      strategy.call(null, obj, function(value, key, parent) {
+      strategy.call(this, obj, function(value, key, parent) {
         results[results.length] = visitor.call(context, value, key, parent);
       });
       return results;
@@ -104,6 +148,9 @@
       return pluck(obj, propertyName, true);
     },
 
+    preorder: preorder,
+    postorder: postorder,
+
     // Builds up a single value by doing a post-order traversal of `obj` and
     // calling the `visitor` function on each object in the tree. For leaf
     // objects, the `memo` argument to `visitor` is the value of the `leafMemo`
@@ -116,5 +163,8 @@
       return walk(obj, null, reducer, context, true);
     }
   });
-  _.walk.collect = _.walk.map;  // Alias `map` as `collect`.
+  // Set up aliases to match those in underscore.js.
+  _.walk.collect = _.walk.map;
+  _.walk.detect = _.walk.find;
+  _.walk.select = _.walk.filter;
 })(this);

@@ -146,4 +146,50 @@ $(document).ready(function() {
     equal(_.walk.reduce(tree, sum, leafMemo), 21);
     equal(_.walk.map(tree, _.walk.preorder, toString).join(''), '-0-4-6-5-1-3-2', 'pre-order map');
   });
+
+  test("find", function() {
+    var tree = getSimpleTestTree();
+
+    // Returns a visitor function that will succeed when a node with the given
+    // value is found, and then raise an exception the next time it's called.
+    var findValue = function(value) {
+      var found = false;
+      return function(node) {
+        if (found) throw 'already found!';
+        return found = (node.val === value);
+      };
+    };
+
+    equal(_.walk.find(tree, findValue(0)).val, 0);
+    equal(_.walk.find(tree, findValue(6)).val, 6);
+    deepEqual(_.walk.find(tree, findValue(99)), undefined);
+  });
+
+  test("filter", function() {
+    var tree = getSimpleTestTree();
+    tree.r.val = '.oOo.';  // Remove one of the numbers.
+    var isEvenNumber = function(x) {
+      return _.isNumber(x) && x % 2 == 0;
+    }
+
+    equal(_.walk.filter(tree, _.walk.preorder, _.isObject).length, 7, 'filter objects');
+    equal(_.walk.filter(tree, _.walk.preorder, _.isNumber).length, 6, 'filter numbers');
+    equal(_.walk.filter(tree, _.walk.postorder, _.isNumber).length, 6, 'postorder filter numbers');
+    equal(_.walk.filter(tree, _.walk.preorder, isEvenNumber).length, 3, 'filter even numbers');
+
+    // With the identity function, only the value '0' should be omitted.
+    equal(_.walk.filter(tree, _.walk.preorder, _.identity).length, 13, 'filter on identity function');
+  });
+
+  test("reject", function() {
+    var tree = getSimpleTestTree();
+    tree.r.val = '.oOo.';  // Remove one of the numbers.
+
+    equal(_.walk.reject(tree, _.walk.preorder, _.isObject).length, 7, 'reject objects');
+    equal(_.walk.reject(tree, _.walk.preorder, _.isNumber).length, 8, 'reject numbers');
+    equal(_.walk.reject(tree, _.walk.postorder, _.isNumber).length, 8, 'postorder reject numbers');
+
+    // With the identity function, only the value '0' should be kept.
+    equal(_.walk.reject(tree, _.walk.preorder, _.identity).length, 1, 'reject with identity function');
+  });
 });
