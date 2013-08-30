@@ -92,7 +92,7 @@
       var target   = ret;
 
       _.each(_.initial(keys), function(key) {
-        if (typeof target[key] === 'undefined' && typeof defaultValue !== 'undefined') {
+        if (defaultValue && !_.has(target, key)) {
           target[key] = _.clone(defaultValue);
         }
         target = target[key];
