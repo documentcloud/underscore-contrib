@@ -27,7 +27,7 @@
       };
     };
   };
-  
+
   // Mixing in the object builders
   // ----------------------------
 
@@ -81,7 +81,7 @@
     // the current value and is expected to return a value for use as the
     // new value.  If no keys are provided, then the object itself is presented
     // to the given function.
-    updatePath: function(obj, fun, ks) {
+    updatePath: function(obj, fun, ks, defaultValue) {
       if (!isAssociative(obj)) throw new TypeError("Attempted to update a non-associative object.");
       if (!existy(ks)) return fun(obj);
 
@@ -92,6 +92,9 @@
       var target   = ret;
 
       _.each(_.initial(keys), function(key) {
+        if (defaultValue && !_.has(target, key)) {
+          target[key] = _.clone(defaultValue);
+        }
         target = target[key];
       });
 
@@ -101,10 +104,10 @@
 
     // Sets the value at any depth in a nested object based on the
     // path described by the keys given.
-    setPath: function(obj, value, ks) {
+    setPath: function(obj, value, ks, defaultValue) {
       if (!existy(ks)) throw new TypeError("Attempted to set a property at a null path.");
 
-      return _.updatePath(obj, function() { return value; }, ks);
+      return _.updatePath(obj, function() { return value; }, ks, defaultValue);
     },
 
     // Returns an object where each element of an array is keyed to
