@@ -53,8 +53,11 @@
     },
 
     // Gets the value at any depth in a nested object based on the
-    // path described by the keys given.
+    // path described by the keys given. Keys may be given as an array
+    // or as a dot-separated string.
     getPath: function getPath (obj, ks) {
+      if (typeof ks == "string") ks = ks.split(".");
+
       // If we have reached an undefined property
       // then stop executing and return undefined
       if (obj === undefined) return void 0;
@@ -73,6 +76,8 @@
     // Returns a boolean indicating whether there is a property
     // at the path described by the keys given
     hasPath: function hasPath (obj, ks) {
+      if (typeof ks == "string") ks = ks.split(".");
+
       var numKeys = ks.length;
 
       if (obj == null && numKeys > 0) return false;
