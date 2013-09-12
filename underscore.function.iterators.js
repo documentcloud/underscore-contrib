@@ -84,7 +84,7 @@
     function accumulate (iter, binaryFn, initial) {
       var state = initial;
       return function () {
-        element = iter();
+        var element = iter();
         if (element == null) {
           return element;
         }
