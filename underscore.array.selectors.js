@@ -79,7 +79,7 @@
     // taking an original array and spliting it at the index
     // where a given function goes falsey.
     splitWith: function(array, pred) {
-      return [_.takeWhile(pred, array), _.dropWhile(pred, array)];
+      return [_.takeWhile(array, pred), _.dropWhile(array, pred)];
     },
 
     // Takes an array and partitions it as the given predicate changes
