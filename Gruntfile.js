@@ -1,6 +1,8 @@
 module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-uglify");
+  grunt.loadNpmTasks('grunt-contrib-qunit');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -24,6 +26,20 @@ module.exports = function(grunt) {
       all: {
         files: { "dist/underscore-contrib.min.js": "dist/underscore-contrib.js" },
         options: { banner: "<%= contribBanner %>" }
+      }
+    },
+
+    qunit: {
+      all: ['test/index.html']
+    },
+
+    watch: {
+      test: {
+        files: [
+            "underscore.*.js",
+            "test/*.js"
+        ],
+        tasks: ["qunit"]
       }
     }
   });
