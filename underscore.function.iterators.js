@@ -99,7 +99,8 @@
   
     function accumulateWithReturn (iter, binaryFn, initial) {
       var state = initial,
-          stateAndReturnValue;
+          stateAndReturnValue,
+          element;
       return function () {
         element = iter();
         if (element == null) {
