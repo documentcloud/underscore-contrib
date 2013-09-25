@@ -155,10 +155,6 @@ $(document).ready(function() {
 
     var f = _.bound(obj, 'fun');
 
-    // PhantomJS doesn't currently implement native bind, so this test will report arity of 0.
-    var isPhantom = /PhantomJS/.test(window.navigator.userAgent);
-    if (!isPhantom) equal(f.length, 1, 'f should have arity of 1');
-
     equal(f('there'), 'hello there', 'should return concatenation of obj.a and string argument');
     throws(function() {
       _.bound(obj, 'nofun');
