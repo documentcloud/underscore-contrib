@@ -3,6 +3,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -31,6 +32,16 @@ module.exports = function(grunt) {
 
     qunit: {
       all: ['test/index.html']
+    },
+
+    jshint: {
+      all: [
+        "*.js",
+        "test/*.js"
+      ],
+      options: {
+        eqnull: true
+      }
     },
 
     watch: {
