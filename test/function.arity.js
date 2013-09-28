@@ -12,7 +12,7 @@ $(document).ready(function() {
     var f = function () { 
       return _.map(arguments, function (arg) { 
         return typeof arg;
-      }).join(', ')
+      }).join(', ');
     };
     var g = _.fix(f, _, _, 3);
     equal(g(1), 'number, undefined, number', 'should fill "undefined" if argument not given');
@@ -42,7 +42,7 @@ $(document).ready(function() {
     function naiveFlip (fun) {
       return function () {
         return fun.apply(this, reverse(arguments));
-      }
+      };
     }
 
     function echo (a, b, c) { return [a, b, c]; }

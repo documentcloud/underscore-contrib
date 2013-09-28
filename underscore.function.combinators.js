@@ -158,7 +158,7 @@
       }
       else if (funLength === 1)  {
         return function () {
-          return fun.call(this, __slice.call(arguments, 0))
+          return fun.call(this, __slice.call(arguments, 0));
         };
       }
       else {

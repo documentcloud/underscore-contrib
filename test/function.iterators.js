@@ -5,7 +5,7 @@ $(document).ready(function() {
   function sum (x, y) { return x + y; }
   function square (x) { return x * x; }
   function odd (x) { return x % 2 === 1; }
-  function naturalSmallerThan (x)  { return _.iterators.List(_.range(0, x)) }
+  function naturalSmallerThan (x)  { return _.iterators.List(_.range(0, x)); }
 
 
   module("underscore.function.iterators");
@@ -19,16 +19,16 @@ $(document).ready(function() {
     equal(i(), 5, "should return the next element of the underlying array");
     equal(i(), undefined, "should return undefined when out of elements");
     
-    i = _.iterators.List([1, [2, 3, [4]], 5])
+    i = _.iterators.List([1, [2, 3, [4]], 5]);
     equal(i(), 1, "should return the first element of the underlying array");
     notEqual(i(), 2, "should not do a deep traverse");
     equal(i(), 5, "should return the next element of the underlying array");
     equal(i(), undefined, "should return undefined when out of elements");
     
-    i = _.iterators.List([])
+    i = _.iterators.List([]);
     equal(i(), undefined, "should return undefined when there are no elements");
   
-    i = _.iterators.List([[], [[]]])
+    i = _.iterators.List([[], [[]]]);
     notEqual(i(), undefined, "should have a values given an empty tree");
   });
 
@@ -72,7 +72,7 @@ $(document).ready(function() {
   });
   
   test("Accumulate", function () {
-    var i = _.iterators.accumulate(_.iterators.Tree([1, [2, 3, [4]], 5]), sum, 0)
+    var i = _.iterators.accumulate(_.iterators.Tree([1, [2, 3, [4]], 5]), sum, 0);
     equal(i(), 1, "should map an iterator with many elements");
     equal(i(), 3, "should map an iterator with many elements");
     equal(i(), 6, "should map an iterator with many elements");
@@ -82,7 +82,7 @@ $(document).ready(function() {
   
     i = _.iterators.accumulate(_.iterators.Tree([[[4], []]]), sum, 42);
     equal(i(), 46, "should map an iterator with one element");
-    equal(i(), undefined)
+    equal(i(), undefined);
   
     i = _.iterators.accumulate(_.iterators.Tree([[[], []]]), sum, 42);
     equal(i(), undefined, "should map an empty iterator");

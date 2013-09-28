@@ -142,7 +142,7 @@
             lastIter = null;
             return void 0;
           }
-          lastIter = unaryFn.call(gen, gen)
+          lastIter = unaryFn.call(gen, gen);
         }
         while (element == null) {
           element = lastIter();
@@ -153,7 +153,7 @@
               return void 0;
             }
             else {
-              lastIter = unaryFn.call(gen, gen)
+              lastIter = unaryFn.call(gen, gen);
             }
           }
         }
@@ -264,7 +264,7 @@
           from = from + by;
           return was;
         }
-      }
+      };
     };
 
     function downRange (from, to, by) {
@@ -293,13 +293,13 @@
         if (from <= to) {
           return upRange(from, to, 1);
         }
-        else return downRange(from, to, 1)
+        else return downRange(from, to, 1);
       }
       else if (by > 0) {
         return upRange(from, to, by);
       }
       else if (by < 0) {
-        return downRange(from, to, Math.abs(by))
+        return downRange(from, to, Math.abs(by));
       }
       else return k(from);
     };

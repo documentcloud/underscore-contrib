@@ -71,7 +71,7 @@ $(document).ready(function() {
 
     equal(_.nth(a,0), 'a', 'should return the element at a given index into an array');
     equal(_.nth(a,100), undefined, 'should return undefined if out of bounds');
-    deepEqual(_.map(b,function(e) { return _.nth(e,0) }), ['a','b',undefined], 'should be usable in _.map');
+    deepEqual(_.map(b,function(e) { return _.nth(e,0); }), ['a','b',undefined], 'should be usable in _.map');
   });
 });
 
