@@ -47,7 +47,7 @@
         element = iter();
       }
       return state;
-    };
+    }
   
     function unfold (seed, unaryFn) {
       var state = HASNTBEENRUN;
@@ -60,7 +60,7 @@
         }
         else return state;
       };
-    };
+    }
   
     // note that the unfoldWithReturn behaves differently than
     // unfold with respect to the first value returned
@@ -79,7 +79,7 @@
         }
         else return void 0;
       };
-    };
+    }
 
     function accumulate (iter, binaryFn, initial) {
       var state = initial;
@@ -95,7 +95,7 @@
           else return (state = binaryFn.call(element, state, element));
         }
       };
-    };
+    }
   
     function accumulateWithReturn (iter, binaryFn, initial) {
       var state = initial,
@@ -117,7 +117,7 @@
           }
         }
       };
-    };
+    }
   
     function map (iter, unaryFn) {
       return function() {
@@ -129,7 +129,7 @@
           return void 0;
         }
       };
-    };
+    }
 
     function mapcat(iter, unaryFn) {
       var lastIter = null;
@@ -173,13 +173,13 @@
         }
         return void 0;
       };
-    };
+    }
   
     function reject (iter, unaryPredicateFn) {
       return select(iter, function (something) {
         return !unaryPredicateFn(something);
       });
-    };
+    }
   
     function find (iter, unaryPredicateFn) {
       return select(iter, unaryPredicateFn)();
@@ -200,7 +200,7 @@
         };
       }
       else return iter;
-    };
+    }
   
     function drop (iter, numberToDrop) {
       return slice(iter, numberToDrop == null ? 1 : numberToDrop);
@@ -215,7 +215,7 @@
       return function() {
         return array[index++];
       };
-    };
+    }
   
     function Tree (array) {
       var index, myself, state;
@@ -244,13 +244,13 @@
         }
       };
       return myself;
-    };
+    }
   
     function K (value) {
       return function () {
         return value;
       };
-    };
+    }
 
     function upRange (from, to, by) {
       return function () {
@@ -265,7 +265,7 @@
           return was;
         }
       };
-    };
+    }
 
     function downRange (from, to, by) {
       return function () {
@@ -280,7 +280,7 @@
           return was;
         }
       };
-    };
+    }
   
     function range (from, to, by) {
       if (from == null) {
@@ -302,7 +302,7 @@
         return downRange(from, to, Math.abs(by));
       }
       else return k(from);
-    };
+    }
   
     var numbers = unary(range);
 

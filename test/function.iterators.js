@@ -66,7 +66,7 @@ $(document).ready(function() {
       
     equal( _.iterators.reduce(_.iterators.Tree([1, [2, 3, [4]], 5]), sum), 15, "should fold an array with two or more elements");
       
-    equal( _.iterators.reduce(_.iterators.Tree([[[4], []]]), sum), 4, "should fold an array with one element");;
+    equal( _.iterators.reduce(_.iterators.Tree([[[4], []]]), sum), 4, "should fold an array with one element");
       
     equal( _.iterators.reduce(_.iterators.Tree([[[], []]]), sum), undefined, "should fold an array with no elements");
   });
