@@ -37,7 +37,7 @@
     return _.arity(fun.length, function () {
       return fun.apply(this, __map.call(arguments, mapFun));
     });
-  };
+  }
   
   // Mixing in the combinator functions
   // ----------------------------------
@@ -158,7 +158,7 @@
       }
       else if (funLength === 1)  {
         return function () {
-          return fun.call(this, __slice.call(arguments, 0))
+          return fun.call(this, __slice.call(arguments, 0));
         };
       }
       else {

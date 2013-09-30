@@ -98,13 +98,13 @@ $(document).ready(function() {
     function double (n) { return n * 2; }
     function plusOne (n) { return n + 1; }
     
-    deepEqual(_.mapArgsWith(double, echo)(), [], "should handle the empty case")
-    deepEqual(_.mapArgsWith(double, echo)(42), [84], "should handle one arg")
-    deepEqual(_.mapArgsWith(plusOne, echo)(1, 2, 3), [2, 3, 4], "should handle many args")
+    deepEqual(_.mapArgsWith(double, echo)(), [], "should handle the empty case");
+    deepEqual(_.mapArgsWith(double, echo)(42), [84], "should handle one arg");
+    deepEqual(_.mapArgsWith(plusOne, echo)(1, 2, 3), [2, 3, 4], "should handle many args");
     
-    deepEqual(_.mapArgsWith(double)(echo)(), [], "should handle the empty case")
-    deepEqual(_.mapArgsWith(double)(echo)(42), [84], "should handle one arg")
-    deepEqual(_.mapArgsWith(plusOne)(echo)(1, 2, 3), [2, 3, 4], "should handle many args")
+    deepEqual(_.mapArgsWith(double)(echo)(), [], "should handle the empty case");
+    deepEqual(_.mapArgsWith(double)(echo)(42), [84], "should handle one arg");
+    deepEqual(_.mapArgsWith(plusOne)(echo)(1, 2, 3), [2, 3, 4], "should handle many args");
   });
 
   test("flip2", function() {

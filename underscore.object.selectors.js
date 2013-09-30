@@ -100,7 +100,7 @@
     },
 
     omitWhen: function(obj, pred) {
-      return _.pickWhen(obj, function(e) { return !pred(e)} );
+      return _.pickWhen(obj, function(e) { return !pred(e); });
     }
 
   });
