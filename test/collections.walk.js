@@ -41,12 +41,12 @@ $(document).ready(function() {
   test("circularRefs", function() {
     var tree = getSimpleTestTree();
     tree.l.l.r = tree;
-    throws(function() { _.walk.preorder(tree, _.identity) }, TypeError, 'preorder throws an exception');
-    throws(function() { _.walk.postrder(tree, _.identity) }, TypeError, 'postorder throws an exception');
+    throws(function() { _.walk.preorder(tree, _.identity); }, TypeError, 'preorder throws an exception');
+    throws(function() { _.walk.postrder(tree, _.identity); }, TypeError, 'postorder throws an exception');
 
     tree = getSimpleTestTree();
     tree.r.l = tree.r;
-    throws(function() { _.walk.preorder(tree, _.identity) }, TypeError, 'exception for a self-referencing node');
+    throws(function() { _.walk.preorder(tree, _.identity); }, TypeError, 'exception for a self-referencing node');
   });
 
   test("simpleMap", function() {
@@ -120,11 +120,11 @@ $(document).ready(function() {
   });
 
   test("reduce", function() {
-    var add = function(a, b) { return a + b };
+    var add = function(a, b) { return a + b; };
     var leafMemo = [];
     var sum = function(memo, node) {
       if (_.isObject(node))
-        return _.reduce(memo, add, 0)
+        return _.reduce(memo, add, 0);
 
       strictEqual(memo, leafMemo);
       return node;
@@ -170,7 +170,7 @@ $(document).ready(function() {
     tree.r.val = '.oOo.';  // Remove one of the numbers.
     var isEvenNumber = function(x) {
       return _.isNumber(x) && x % 2 == 0;
-    }
+    };
 
     equal(_.walk.filter(tree, _.walk.preorder, _.isObject).length, 7, 'filter objects');
     equal(_.walk.filter(tree, _.walk.preorder, _.isNumber).length, 6, 'filter numbers');

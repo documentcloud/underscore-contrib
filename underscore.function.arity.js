@@ -20,7 +20,7 @@
       }
       else throw new RangeError('Only a single argument may be accepted.');
 
-    }
+    };
   }
 
   // Curry
@@ -140,7 +140,7 @@
         return enforcesUnary(function (last) {
           return fun.call(this, first, last);
         });
-      })
+      });
     },
 
     curry3: function (fun) {
@@ -148,9 +148,9 @@
         return enforcesUnary(function (second) {
           return enforcesUnary(function (last) {
             return fun.call(this, first, second, last);
-          })
-        })
-      })
+          });
+        });
+      });
     },
 
       // reverse currying for functions taking two arguments.
@@ -158,8 +158,8 @@
       return enforcesUnary(function (last) {
         return enforcesUnary(function (first) {
           return fun.call(this, first, last);
-        })
-      })
+        });
+      });
     },
 
     rcurry3: function (fun) {
@@ -167,9 +167,9 @@
         return enforcesUnary(function (second) {
           return enforcesUnary(function (first) {
             return fun.call(this, first, second, last);
-          })
-        })
-      })
+          });
+        });
+      });
     },
     // Dynamic decorator to enforce function arity and defeat varargs.
     enforce: enforce
