@@ -46,6 +46,11 @@
       if ((index != null) && !guard) return array[index];
     },
 
+    // Returns array of all but the last element of an array.
+    init: function(array) {
+      return array.slice(0, array.length-1);
+    },
+
     // Takes all items in an array while a given predicate returns truthy.
     takeWhile: function(array, pred) {
       if (!isSeq(array)) throw new TypeError;

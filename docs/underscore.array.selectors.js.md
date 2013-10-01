@@ -51,6 +51,17 @@ The `_.nth` function can also be used in conjunction with `_.map` and `_.compact
 
 If wrapping a function around `_.nth` is too tedious or you'd like to partially apply the index then Underscore-contrib offers any of `_.flip2`, `_.fix` or `rcurry2` to solve this.
 
+### Retrieving all but the last element from an array
+
+The `_.init` function is a convenience for array.slice(0, array.length-1):
+
+    _.init([1, 2, 3, 4]);
+    //=> [1, 2, 3]
+    
+    _.map([[1, 2], [], [2, 3, 2, 3]], _.init);
+    //= [[1], [], [2, 3, 2]]
+    
+
 ### Taking or dropping elements from an array while a function stays truthy
 
 The `_.takeWhile` function takes an array and a function and returns a new array containing the first n elements in the original array for which the given function returns a truthy value:
