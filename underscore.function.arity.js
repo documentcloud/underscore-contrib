@@ -176,6 +176,9 @@
   });
 
   _.arity = (function () {
+    // Allow 'new Function', as that is currently the only reliable way
+    // to manipulate function.length
+    /* jshint -W054 */
     var FUNCTIONS = {};
     return function arity (numberOfArgs, fun) {
       if (FUNCTIONS[numberOfArgs] == null) {
