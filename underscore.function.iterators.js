@@ -53,12 +53,12 @@
       var state = HASNTBEENRUN;
       return function () {
         if (state === HASNTBEENRUN) {
-          return (state = seed);
+          state = seed;
+        } else if (state != null) {
+          state = unaryFn.call(state, state);
         }
-        else if (state != null) {
-          return (state = unaryFn.call(state, state));
-        }
-        else return state;
+
+        return state;
       };
     }
   
