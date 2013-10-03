@@ -90,9 +90,12 @@
         }
         else {
           if (state === void 0) {
-            return (state = element);
+            state = element;
+          } else {
+            state = binaryFn.call(element, state, element);
           }
-          else return (state = binaryFn.call(element, state, element));
+          
+          return state;
         }
       };
     }
