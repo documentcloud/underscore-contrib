@@ -27,7 +27,7 @@
   // -------
   var curry = (function () {
     function collectArgs(func, that, argCount, args, newArg, reverse) {
-      if (reverse == true) {
+      if (reverse === true) {
           args.unshift(newArg);
       } else {
           args.push(newArg);
