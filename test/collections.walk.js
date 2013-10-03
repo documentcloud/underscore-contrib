@@ -156,7 +156,8 @@ $(document).ready(function() {
       var found = false;
       return function(node) {
         if (found) throw 'already found!';
-        return found = (node.val === value);
+        found = (node.val === value);
+        return found;
       };
     };
 

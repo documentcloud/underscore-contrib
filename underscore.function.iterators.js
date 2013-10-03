@@ -111,7 +111,8 @@
         }
         else {
           if (state === void 0) {
-            return (state = element);
+            state = element;
+            return state;
           }
           else {
             stateAndReturnValue = binaryFn.call(element, state, element);
