@@ -69,9 +69,7 @@
         if (state != null) {
           pair = unaryFn.call(state, state);
           value = pair[1];
-          state = value != null
-                  ? pair[0]
-                  : void 0;
+          state = value != null ? pair[0] : void 0;
           return value;
         }
         else return void 0;
