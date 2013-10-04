@@ -235,7 +235,9 @@
           return myself();
         } else if (element === void 0) {
           if (state.length > 0) {
-            tempState = state.pop(), array = tempState.array, index = tempState.index;
+            tempState = state.pop();
+            array = tempState.array;
+            index = tempState.index;
             return myself();
           } else {
             return void 0;
