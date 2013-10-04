@@ -62,6 +62,7 @@ $(document).ready(function() {
   });
 
   test("isPlainObject", function() {
+    /* jshint -W057 */
     equal(_.isPlainObject({}), true, 'should identify empty objects');
     equal(_.isPlainObject({a: 1, b: 2}), true, 'should identify objects');
     equal(_.isPlainObject(Object.create(null)), true, 'should identify objects with no prototype');
