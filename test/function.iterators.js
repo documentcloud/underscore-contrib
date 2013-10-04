@@ -105,7 +105,7 @@ $(document).ready(function() {
   test("Map", function () {
     var i = _.iterators.map(_.iterators.Tree([1, [2, 3, [4]], 5]), square);
     equal(i(), 1, "should map an iterator with many elements");
-    equal(i(), 4), "should map an iterator with many elements";
+    equal(i(), 4, "should map an iterator with many elements");
     equal(i(), 9, "should map an iterator with many elements");
     equal(i(), 16, "should map an iterator with many elements");
     equal(i(), 25, "should map an iterator with many elements");
