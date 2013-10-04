@@ -2,7 +2,7 @@
 // (c) 2013 Michael Fogus and DocumentCloud Inc.
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function(root, undefined) {
 
   // Baseline setup
   // --------------
@@ -26,9 +26,6 @@
       return fun.call(this, first, second);
     };
   }
-  
-  var undefined = void 0;
-
   
   // Mixing in the iterator functions
   // --------------------------------
@@ -334,4 +331,4 @@
       range: range
     };
 
-})(this);
+})(this, void 0);
