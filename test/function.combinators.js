@@ -48,22 +48,21 @@ $(document).ready(function() {
   test("unsplat", function() {
     var echo  = _.unsplat(function (args) { return args; }),
         echo2 = _.unsplat(function (first, rest) { return [first, rest]; }),
-        echo3 = _.unsplat(function (first, second, rest) { return [first, second, rest]; }),
-        undefined = void 0;
+        echo3 = _.unsplat(function (first, second, rest) { return [first, second, rest]; });
 
     deepEqual(echo(), [], 'should return no arguments');
     deepEqual(echo(1), [1], 'should return the arguments provded');
     deepEqual(echo(1,2), [1,2], 'should return the arguments provded');
     deepEqual(echo(1,2,3), [1,2,3], 'should return the arguments provded');
 
-    deepEqual(echo2(), [undefined, []], 'should return no arguments');
+    deepEqual(echo2(), [void 0, []], 'should return no arguments');
     deepEqual(echo2(1), [1, []], 'should return the arguments provded');
     deepEqual(echo2(1,2), [1,[2]], 'should return the arguments provded');
     deepEqual(echo2(1,2,3), [1,[2,3]], 'should return the arguments provded');
     deepEqual(echo2(1,2,3,4), [1,[2,3,4]], 'should return the arguments provded');
 
-    deepEqual(echo3(), [undefined, undefined, []], 'should return no arguments');
-    deepEqual(echo3(1), [1, undefined, []], 'should return the arguments provded');
+    deepEqual(echo3(), [void 0, void 0, []], 'should return no arguments');
+    deepEqual(echo3(1), [1, void 0, []], 'should return the arguments provded');
     deepEqual(echo3(1,2), [1,2,[]], 'should return the arguments provded');
     deepEqual(echo3(1,2,3), [1,2,[3]], 'should return the arguments provded');
     deepEqual(echo3(1,2,3,4), [1,2,[3,4]], 'should return the arguments provded');
@@ -72,22 +71,21 @@ $(document).ready(function() {
   test("unsplatl", function() {
     var echo  = _.unsplatl(function (args) { return args; }),
         echo2 = _.unsplatl(function (rest, ultimate) { return [rest, ultimate]; }),
-        echo3 = _.unsplatl(function (rest, penultimate, ultimate) { return [rest, penultimate, ultimate]; }),
-        undefined = void 0;
+        echo3 = _.unsplatl(function (rest, penultimate, ultimate) { return [rest, penultimate, ultimate]; });
 
     deepEqual(echo(), [], 'should return no arguments');
     deepEqual(echo(1), [1], 'should return the arguments provded');
     deepEqual(echo(1,2), [1,2], 'should return the arguments provded');
     deepEqual(echo(1,2,3), [1,2,3], 'should return the arguments provded');
 
-    deepEqual(echo2(), [[], undefined], 'should return no arguments');
+    deepEqual(echo2(), [[], void 0], 'should return no arguments');
     deepEqual(echo2(1), [[], 1], 'should return the arguments provded');
     deepEqual(echo2(1,2), [[1], 2], 'should return the arguments provded');
     deepEqual(echo2(1,2,3), [[1, 2], 3], 'should return the arguments provded');
     deepEqual(echo2(1,2,3,4), [[1, 2, 3], 4], 'should return the arguments provded');
 
-    deepEqual(echo3(), [[], undefined, undefined], 'should return no arguments');
-    deepEqual(echo3(1), [[], 1, undefined], 'should return the arguments provded');
+    deepEqual(echo3(), [[], void 0, void 0], 'should return no arguments');
+    deepEqual(echo3(1), [[], 1, void 0], 'should return the arguments provded');
     deepEqual(echo3(1,2), [[], 1, 2], 'should return the arguments provded');
     deepEqual(echo3(1,2,3), [[1], 2, 3], 'should return the arguments provded');
     deepEqual(echo3(1,2,3,4), [[1, 2], 3, 4], 'should return the arguments provded');

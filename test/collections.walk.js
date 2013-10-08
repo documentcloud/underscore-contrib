@@ -156,7 +156,8 @@ $(document).ready(function() {
       var found = false;
       return function(node) {
         if (found) throw 'already found!';
-        return found = (node.val === value);
+        found = (node.val === value);
+        return found;
       };
     };
 
@@ -169,7 +170,7 @@ $(document).ready(function() {
     var tree = getSimpleTestTree();
     tree.r.val = '.oOo.';  // Remove one of the numbers.
     var isEvenNumber = function(x) {
-      return _.isNumber(x) && x % 2 == 0;
+      return _.isNumber(x) && x % 2 === 0;
     };
 
     equal(_.walk.filter(tree, _.walk.preorder, _.isObject).length, 7, 'filter objects');

@@ -62,6 +62,7 @@ $(document).ready(function() {
   });
 
   test("isPlainObject", function() {
+    /* jshint -W057 */
     equal(_.isPlainObject({}), true, 'should identify empty objects');
     equal(_.isPlainObject({a: 1, b: 2}), true, 'should identify objects');
     equal(_.isPlainObject(Object.create(null)), true, 'should identify objects with no prototype');
@@ -164,7 +165,7 @@ $(document).ready(function() {
     equal(_.isNumeric(Number.POSITIVE_INFINITY), false, "should identify Positive Infinity");
     equal(_.isNumeric(Number.NEGATIVE_INFINITY), false, "should identify Negative Infinity");
     equal(_.isNumeric(new Date(2009,1,1)), false, "should identify Date object");
-    equal(_.isNumeric(new Object()), false, "should identify Empty object");
+    equal(_.isNumeric({}), false, "should identify Empty object");
     equal(_.isNumeric(function(){}), false, "should identify Instance of a function");
   });
 

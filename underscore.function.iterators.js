@@ -2,7 +2,7 @@
 // (c) 2013 Michael Fogus and DocumentCloud Inc.
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function(root, undefined) {
 
   // Baseline setup
   // --------------
@@ -27,9 +27,6 @@
     };
   }
   
-  var undefined = void 0;
-
-  
   // Mixing in the iterator functions
   // --------------------------------
 
@@ -53,12 +50,12 @@
       var state = HASNTBEENRUN;
       return function () {
         if (state === HASNTBEENRUN) {
-          return (state = seed);
+          state = seed;
+        } else if (state != null) {
+          state = unaryFn.call(state, state);
         }
-        else if (state != null) {
-          return (state = unaryFn.call(state, state));
-        }
-        else return state;
+
+        return state;
       };
     }
   
@@ -72,9 +69,7 @@
         if (state != null) {
           pair = unaryFn.call(state, state);
           value = pair[1];
-          state = value != null
-                  ? pair[0]
-                  : void 0;
+          state = value != null ? pair[0] : void 0;
           return value;
         }
         else return void 0;
@@ -90,9 +85,12 @@
         }
         else {
           if (state === void 0) {
-            return (state = element);
+            state = element;
+          } else {
+            state = binaryFn.call(element, state, element);
           }
-          else return (state = binaryFn.call(element, state, element));
+          
+          return state;
         }
       };
     }
@@ -108,7 +106,8 @@
         }
         else {
           if (state === void 0) {
-            return (state = element);
+            state = element;
+            return state;
           }
           else {
             stateAndReturnValue = binaryFn.call(element, state, element);
@@ -234,7 +233,9 @@
           return myself();
         } else if (element === void 0) {
           if (state.length > 0) {
-            tempState = state.pop(), array = tempState.array, index = tempState.index;
+            tempState = state.pop();
+            array = tempState.array;
+            index = tempState.index;
             return myself();
           } else {
             return void 0;
@@ -330,4 +331,4 @@
       range: range
     };
 
-})(this);
+})(this, void 0);
