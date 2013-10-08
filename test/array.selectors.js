@@ -73,5 +73,18 @@ $(document).ready(function() {
     equal(_.nth(a,100), undefined, 'should return undefined if out of bounds');
     deepEqual(_.map(b,function(e) { return _.nth(e,0); }), ['a','b',undefined], 'should be usable in _.map');
   });
+
+  test("init", function() {
+    var a = ['a','b','c'];
+    var b = [1];
+      console.log(b);
+    var c = [];
+    var d = [[1,2,3,4], [2,3,4,2,3], []];
+
+    deepEqual(_.init(a), ['a', 'b'], 'should return all but the last element in the array');
+    deepEqual(_.init(b), [], 'should return [] if there is one element in the array');
+    deepEqual(_.init(c), [], 'should return [] if there are no elements in the array');
+    deepEqual(_.map(d,function(arr) { return _.init(arr); }), [[1,2,3],[2,3,4,2],[]], 'should be usable in _.map');
+  });
 });
 
