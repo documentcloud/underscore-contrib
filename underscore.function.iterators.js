@@ -2,7 +2,7 @@
 // (c) 2013 Michael Fogus and DocumentCloud Inc.
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function(root, undefined) {
 
   // Baseline setup
   // --------------
@@ -27,9 +27,6 @@
     };
   }
   
-  var undefined = void 0;
-
-  
   // Mixing in the iterator functions
   // --------------------------------
 
@@ -47,20 +44,20 @@
         element = iter();
       }
       return state;
-    };
+    }
   
     function unfold (seed, unaryFn) {
       var state = HASNTBEENRUN;
       return function () {
         if (state === HASNTBEENRUN) {
-          return (state = seed);
+          state = seed;
+        } else if (state != null) {
+          state = unaryFn.call(state, state);
         }
-        else if (state != null) {
-          return (state = unaryFn.call(state, state));
-        }
-        else return state;
+
+        return state;
       };
-    };
+    }
   
     // note that the unfoldWithReturn behaves differently than
     // unfold with respect to the first value returned
@@ -72,34 +69,36 @@
         if (state != null) {
           pair = unaryFn.call(state, state);
           value = pair[1];
-          state = value != null
-                  ? pair[0]
-                  : void 0;
+          state = value != null ? pair[0] : void 0;
           return value;
         }
         else return void 0;
       };
-    };
+    }
 
     function accumulate (iter, binaryFn, initial) {
       var state = initial;
       return function () {
-        element = iter();
+        var element = iter();
         if (element == null) {
           return element;
         }
         else {
           if (state === void 0) {
-            return (state = element);
+            state = element;
+          } else {
+            state = binaryFn.call(element, state, element);
           }
-          else return (state = binaryFn.call(element, state, element));
+          
+          return state;
         }
       };
-    };
+    }
   
     function accumulateWithReturn (iter, binaryFn, initial) {
       var state = initial,
-          stateAndReturnValue;
+          stateAndReturnValue,
+          element;
       return function () {
         element = iter();
         if (element == null) {
@@ -107,7 +106,8 @@
         }
         else {
           if (state === void 0) {
-            return (state = element);
+            state = element;
+            return state;
           }
           else {
             stateAndReturnValue = binaryFn.call(element, state, element);
@@ -116,7 +116,7 @@
           }
         }
       };
-    };
+    }
   
     function map (iter, unaryFn) {
       return function() {
@@ -128,7 +128,7 @@
           return void 0;
         }
       };
-    };
+    }
 
     function mapcat(iter, unaryFn) {
       var lastIter = null;
@@ -141,7 +141,7 @@
             lastIter = null;
             return void 0;
           }
-          lastIter = unaryFn.call(gen, gen)
+          lastIter = unaryFn.call(gen, gen);
         }
         while (element == null) {
           element = lastIter();
@@ -152,7 +152,7 @@
               return void 0;
             }
             else {
-              lastIter = unaryFn.call(gen, gen)
+              lastIter = unaryFn.call(gen, gen);
             }
           }
         }
@@ -172,13 +172,13 @@
         }
         return void 0;
       };
-    };
+    }
   
     function reject (iter, unaryPredicateFn) {
       return select(iter, function (something) {
         return !unaryPredicateFn(something);
       });
-    };
+    }
   
     function find (iter, unaryPredicateFn) {
       return select(iter, unaryPredicateFn)();
@@ -199,7 +199,7 @@
         };
       }
       else return iter;
-    };
+    }
   
     function drop (iter, numberToDrop) {
       return slice(iter, numberToDrop == null ? 1 : numberToDrop);
@@ -214,7 +214,7 @@
       return function() {
         return array[index++];
       };
-    };
+    }
   
     function Tree (array) {
       var index, myself, state;
@@ -233,7 +233,9 @@
           return myself();
         } else if (element === void 0) {
           if (state.length > 0) {
-            tempState = state.pop(), array = tempState.array, index = tempState.index;
+            tempState = state.pop();
+            array = tempState.array;
+            index = tempState.index;
             return myself();
           } else {
             return void 0;
@@ -243,13 +245,13 @@
         }
       };
       return myself;
-    };
+    }
   
     function K (value) {
       return function () {
         return value;
       };
-    };
+    }
 
     function upRange (from, to, by) {
       return function () {
@@ -263,8 +265,8 @@
           from = from + by;
           return was;
         }
-      }
-    };
+      };
+    }
 
     function downRange (from, to, by) {
       return function () {
@@ -279,7 +281,7 @@
           return was;
         }
       };
-    };
+    }
   
     function range (from, to, by) {
       if (from == null) {
@@ -292,16 +294,16 @@
         if (from <= to) {
           return upRange(from, to, 1);
         }
-        else return downRange(from, to, 1)
+        else return downRange(from, to, 1);
       }
       else if (by > 0) {
         return upRange(from, to, by);
       }
       else if (by < 0) {
-        return downRange(from, to, Math.abs(by))
+        return downRange(from, to, Math.abs(by));
       }
       else return k(from);
-    };
+    }
   
     var numbers = unary(range);
 
@@ -329,4 +331,4 @@
       range: range
     };
 
-})(this);
+})(this, void 0);

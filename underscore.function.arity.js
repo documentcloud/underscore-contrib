@@ -20,14 +20,14 @@
       }
       else throw new RangeError('Only a single argument may be accepted.');
 
-    }
+    };
   }
 
   // Curry
   // -------
   var curry = (function () {
     function collectArgs(func, that, argCount, args, newArg, reverse) {
-      if (reverse == true) {
+      if (reverse === true) {
           args.unshift(newArg);
       } else {
           args.push(newArg);
@@ -140,7 +140,7 @@
         return enforcesUnary(function (last) {
           return fun.call(this, first, last);
         });
-      })
+      });
     },
 
     curry3: function (fun) {
@@ -148,9 +148,9 @@
         return enforcesUnary(function (second) {
           return enforcesUnary(function (last) {
             return fun.call(this, first, second, last);
-          })
-        })
-      })
+          });
+        });
+      });
     },
 
       // reverse currying for functions taking two arguments.
@@ -158,8 +158,8 @@
       return enforcesUnary(function (last) {
         return enforcesUnary(function (first) {
           return fun.call(this, first, last);
-        })
-      })
+        });
+      });
     },
 
     rcurry3: function (fun) {
@@ -167,15 +167,18 @@
         return enforcesUnary(function (second) {
           return enforcesUnary(function (first) {
             return fun.call(this, first, second, last);
-          })
-        })
-      })
+          });
+        });
+      });
     },
     // Dynamic decorator to enforce function arity and defeat varargs.
     enforce: enforce
   });
 
   _.arity = (function () {
+    // Allow 'new Function', as that is currently the only reliable way
+    // to manipulate function.length
+    /* jshint -W054 */
     var FUNCTIONS = {};
     return function arity (numberOfArgs, fun) {
       if (FUNCTIONS[numberOfArgs] == null) {

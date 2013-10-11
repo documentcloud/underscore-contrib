@@ -40,9 +40,9 @@ $(document).ready(function() {
     var lessEq3p = function(n) { return n <= 3; };
     var lessEq3p$ = function(n) { return (n <= 3) ? true : null; };
 
-    deepEqual(_.splitWith(lessEq3p, a), [[1,2,3], [4,5]], 'should split an array when a function goes false');
-    deepEqual(_.splitWith(lessEq3p$, a), [[1,2,3], [4,5]], 'should split an array when a function goes false');
-    deepEqual(_.splitWith(lessEq3p$, []), [[],[]], 'should split an empty array into two empty arrays');
+    deepEqual(_.splitWith(a, lessEq3p), [[1,2,3], [4,5]], 'should split an array when a function goes false');
+    deepEqual(_.splitWith(a, lessEq3p$), [[1,2,3], [4,5]], 'should split an array when a function goes false');
+    deepEqual(_.splitWith([], lessEq3p$), [[],[]], 'should split an empty array into two empty arrays');
   });
 
   test("partitionBy", function() {
@@ -71,7 +71,7 @@ $(document).ready(function() {
 
     equal(_.nth(a,0), 'a', 'should return the element at a given index into an array');
     equal(_.nth(a,100), undefined, 'should return undefined if out of bounds');
-    deepEqual(_.map(b,function(e) { return _.nth(e,0) }), ['a','b',undefined], 'should be usable in _.map');
+    deepEqual(_.map(b,function(e) { return _.nth(e,0); }), ['a','b',undefined], 'should be usable in _.map');
   });
 });
 

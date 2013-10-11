@@ -29,7 +29,7 @@
 
     // Converts a string to camel case
     camelCase : function( string ){
-      return  string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase() });
+      return  string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
     },
 
     // Converts camel case to dashed (opposite of _.camelCase)

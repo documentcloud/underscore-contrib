@@ -41,6 +41,8 @@ $(document).ready(function() {
     strictEqual(_.getPath(deepObject, ["a", "notHere"]), undefined, "should return undefined for non-existent properties");
     strictEqual(_.getPath(deepObject, ["nullVal"]), null, "should return null for null properties");
     strictEqual(_.getPath(deepObject, ["nullVal", "notHere", "notHereEither"]), undefined, "should return undefined for non-existent descendents of null properties");
+
+    strictEqual(_.getPath(deepObject, "a.b.c"), "c", "should work with keys written in dot notation");
   });
 
   test("hasPath", function() {
@@ -59,6 +61,8 @@ $(document).ready(function() {
 
     strictEqual(_.hasPath(deepObject, ["nullVal", "notHere"]), false, "should return false for descendants of null properties");
     strictEqual(_.hasPath(deepObject, ["undefinedVal", "notHere"]), false, "should return false for descendants of undefined properties");
+
+    strictEqual(_.hasPath(deepObject, "a.b.c"), true, "should work with keys written in dot notation.");
   });
 
   test("pickWhen", function() {

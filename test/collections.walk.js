@@ -41,12 +41,12 @@ $(document).ready(function() {
   test("circularRefs", function() {
     var tree = getSimpleTestTree();
     tree.l.l.r = tree;
-    throws(function() { _.walk.preorder(tree, _.identity) }, TypeError, 'preorder throws an exception');
-    throws(function() { _.walk.postrder(tree, _.identity) }, TypeError, 'postorder throws an exception');
+    throws(function() { _.walk.preorder(tree, _.identity); }, TypeError, 'preorder throws an exception');
+    throws(function() { _.walk.postrder(tree, _.identity); }, TypeError, 'postorder throws an exception');
 
     tree = getSimpleTestTree();
     tree.r.l = tree.r;
-    throws(function() { _.walk.preorder(tree, _.identity) }, TypeError, 'exception for a self-referencing node');
+    throws(function() { _.walk.preorder(tree, _.identity); }, TypeError, 'exception for a self-referencing node');
   });
 
   test("simpleMap", function() {
@@ -120,11 +120,11 @@ $(document).ready(function() {
   });
 
   test("reduce", function() {
-    var add = function(a, b) { return a + b };
+    var add = function(a, b) { return a + b; };
     var leafMemo = [];
     var sum = function(memo, node) {
       if (_.isObject(node))
-        return _.reduce(memo, add, 0)
+        return _.reduce(memo, add, 0);
 
       strictEqual(memo, leafMemo);
       return node;
@@ -156,7 +156,8 @@ $(document).ready(function() {
       var found = false;
       return function(node) {
         if (found) throw 'already found!';
-        return found = (node.val === value);
+        found = (node.val === value);
+        return found;
       };
     };
 
@@ -169,8 +170,8 @@ $(document).ready(function() {
     var tree = getSimpleTestTree();
     tree.r.val = '.oOo.';  // Remove one of the numbers.
     var isEvenNumber = function(x) {
-      return _.isNumber(x) && x % 2 == 0;
-    }
+      return _.isNumber(x) && x % 2 === 0;
+    };
 
     equal(_.walk.filter(tree, _.walk.preorder, _.isObject).length, 7, 'filter objects');
     equal(_.walk.filter(tree, _.walk.preorder, _.isNumber).length, 6, 'filter numbers');
@@ -191,5 +192,25 @@ $(document).ready(function() {
 
     // With the identity function, only the value '0' should be kept.
     equal(_.walk.reject(tree, _.walk.preorder, _.identity).length, 1, 'reject with identity function');
+  });
+
+  test("customTraversal", function() {
+    var tree = getSimpleTestTree();
+
+    // Set up a walker that will not traverse the 'val' properties.
+    var walker = _.walk(function(node) {
+      return _.omit(node, 'val');
+    });
+    var visitor = function(node) {
+      if (!_.isObject(node)) throw Error("Leaf value visited when it shouldn't be")
+    };
+    equal(walker.pluck(tree, 'val').length, 7, 'pluck with custom traversal');/*
+    equal(walker.pluckRec(tree, 'val').length, 7, 'pluckRec with custom traversal');
+
+    equal(walker.map(tree, _.walk.postorder, _.identity).length, 7, 'traversal strategy is dynamically scoped');
+
+    // Check that the default walker is unaffected.
+    equal(_.walk.map(tree, _.walk.postorder, _.identity).length, 14, 'default map still works');
+    equal(_.walk.pluckRec(tree, 'val').join(''), '0123456', 'default pluckRec still works');*/
   });
 });

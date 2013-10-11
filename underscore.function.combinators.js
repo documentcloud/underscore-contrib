@@ -37,7 +37,7 @@
     return _.arity(fun.length, function () {
       return fun.apply(this, __map.call(arguments, mapFun));
     });
-  };
+  }
   
   // Mixing in the combinator functions
   // ----------------------------------
@@ -158,7 +158,7 @@
       }
       else if (funLength === 1)  {
         return function () {
-          return fun.call(this, __slice.call(arguments, 0))
+          return fun.call(this, __slice.call(arguments, 0));
         };
       }
       else {
@@ -211,11 +211,11 @@
     // Flips the first two args of a function
     flip2: function(fun) {
       return function(/* args */) {
-        var tmp = arguments[0];
-        arguments[0] = arguments[1];
-        arguments[1] = tmp;
+        var flipped = __slice.call(arguments);
+        flipped[0] = arguments[1];
+        flipped[1] = arguments[0];
 
-        return fun.apply(null, arguments);
+        return fun.apply(null, flipped);
       };
     },
 
