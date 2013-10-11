@@ -23,13 +23,26 @@
 
   var notTreeError = 'Not a tree: same object found in two different branches';
 
+  // Implements the default traversal strategy: if `obj` is a DOM node, walk
+  // its DOM children; otherwise, walk all the objects it references.
+  function defaultTraversal(obj) {
+    return _.isElement(obj) ? obj.children : obj;
+  }
+
   // Walk the tree recursively beginning with `root`, calling `beforeFunc`
   // before visiting an objects descendents, and `afterFunc` afterwards.
   // If `collectResults` is true, the last argument to `afterFunc` will be a
   // collection of the results of walking the node's subtrees.
-  function walk(root, beforeFunc, afterFunc, context, collectResults) {
+  function walkImpl(root, traversalStrategy, beforeFunc, afterFunc, context, collectResults) {
     var visited = [];
     return (function _walk(value, key, parent) {
+      // Keep track of objects that have been visited, and throw an exception
+      // when trying to visit the same object twice.
+      if (_.isObject(value)) {
+        if (visited.indexOf(value) >= 0) throw new TypeError(notTreeError);
+        visited.push(value);
+      }
+
       if (beforeFunc) {
         var result = beforeFunc.call(context, value, key, parent);
         if (result === stopWalk) return stopWalk;
@@ -37,14 +50,8 @@
       }
 
       var subResults;
-      if (_.isObject(value) || _.isArray(value)) {
-        // Keep track of objects that have been visited, and throw an exception
-        // when trying to visit the same object twice.
-        if (visited.indexOf(value) >= 0) throw new TypeError(notTreeError);
-        visited.push(value);
-
-        var target = _.isElement(value) ? value.children : value;
-
+      var target = traversalStrategy(value);
+      if (_.isObject(target) && !_.isEmpty(target)) {
         // If collecting results from subtrees, collect them in the same shape
         // as the parent node.
         if (collectResults) subResults = _.isArray(value) ? [] : {};
@@ -60,51 +67,24 @@
     })(root);
   }
 
-  // Recursively traverses `obj` in a depth-first fashion, invoking the
-  // `visitor` function for each object only after traversing its children.
-  function postorder(obj, visitor, context) {
-    walk(obj, null, visitor, context);
-  }
-
-  // Recursively traverses `obj` in a depth-first fashion, invoking the
-  // `visitor` function for each object before traversing its children.
-  function preorder(obj, visitor, context) {
-    walk(obj, visitor, null, context);
-  }
-
+  // Internal helper providing the implementation for `pluck` and `pluckRec`.
   function pluck(obj, propertyName, recursive) {
     var results = [];
-    _.walk.preorder(obj, function(value, key) {
-      if (key === propertyName) {
-        results[results.length] = value;
-        if (!recursive) return stopRecursion;
-      }
+    this.preorder(obj, function(value, key) {
+      if (!recursive && key == propertyName)
+        return stopRecursion;
+      if (_.has(value, propertyName))
+        results[results.length] = value[propertyName];
     });
     return results;
   }
 
-  // Recursively traverses `obj` and returns all the elements that pass a
-  // truth test. `strategy` is the traversal function to use, e.g. `preorder`
-  // or `postorder`.
-  function filter(obj, strategy, visitor, context) {
-    var results = [];
-    if (obj == null) return results;
-    strategy.call(this, obj, function(value, key, parent) {
-      if (visitor.call(context, value, key, parent)) results.push(value);
-    });
-    return results;
-  }
-
-  // Add the `walk` namespace
-  // ------------------------
-
-  _.walk = walk;
-  _.extend(walk, {
+  var exports = {
     // Performs a preorder traversal of `obj` and returns the first value
     // which passes a truth test.
     find: function(obj, visitor, context) {
       var result;
-      preorder(obj, function(value, key, parent) {
+      this.preorder(obj, function(value, key, parent) {
         if (visitor.call(context, value, key, parent)) {
           result = value;
           return stopWalk;
@@ -113,12 +93,22 @@
       return result;
     },
 
-    filter: filter,
+    // Recursively traverses `obj` and returns all the elements that pass a
+    // truth test. `strategy` is the traversal function to use, e.g. `preorder`
+    // or `postorder`.
+    filter: function(obj, strategy, visitor, context) {
+      var results = [];
+      if (obj == null) return results;
+      strategy.call(this, obj, function(value, key, parent) {
+        if (visitor.call(context, value, key, parent)) results.push(value);
+      });
+      return results;
+    },
 
     // Recursively traverses `obj` and returns all the elements for which a
     // truth test fails.
     reject: function(obj, strategy, visitor, context) {
-      return filter(obj, strategy, function(value, key, parent) {
+      return this.filter(obj, strategy, function(value, key, parent) {
         return !visitor.call(context, value, key, parent);
       });
     },
@@ -139,17 +129,26 @@
     // tree rooted at `obj`. Results are not recursively searched; use
     // `pluckRec` for that.
     pluck: function(obj, propertyName) {
-      return pluck(obj, propertyName, false);
+      return pluck.call(this, obj, propertyName, false);
     },
 
     // Version of `pluck` which recursively searches results for nested objects
     // with a property named `propertyName`.
     pluckRec: function(obj, propertyName) {
-      return pluck(obj, propertyName, true);
+      return pluck.call(this, obj, propertyName, true);
     },
 
-    preorder: preorder,
-    postorder: postorder,
+    // Recursively traverses `obj` in a depth-first fashion, invoking the
+    // `visitor` function for each object only after traversing its children.
+    postorder: function(obj, visitor, context) {
+      walkImpl(obj, this._traversalStrategy, null, visitor, context);
+    },
+
+    // Recursively traverses `obj` in a depth-first fashion, invoking the
+    // `visitor` function for each object before traversing its children.
+    preorder: function(obj, visitor, context) {
+      walkImpl(obj, this._traversalStrategy, visitor, null, context);
+    },
 
     // Builds up a single value by doing a post-order traversal of `obj` and
     // calling the `visitor` function on each object in the tree. For leaf
@@ -160,11 +159,32 @@
       var reducer = function(value, key, parent, subResults) {
         return visitor(subResults || leafMemo, value, key, parent);
       };
-      return walk(obj, null, reducer, context, true);
+      return walkImpl(obj, this._traversalStrategy, null, reducer, context, true);
     }
-  });
+  };
+
   // Set up aliases to match those in underscore.js.
-  _.walk.collect = _.walk.map;
-  _.walk.detect = _.walk.find;
-  _.walk.select = _.walk.filter;
+  exports.collect = exports.map;
+  exports.detect = exports.find;
+  exports.select = exports.filter;
+
+  // Returns an object containing the walk functions. If `traversalStrategy`
+  // is specified, it is a function determining how objects should be
+  // traversed. Given an object, it returns the object to be recursively
+  // walked. The default strategy is equivalent to `_.identity` for regular
+  // objects, and for DOM nodes it returns the node's DOM children.
+  _.walk = function(traversalStrategy) {
+    var walker = _.clone(exports);
+
+    // Bind all of the public functions in the walker to itself. This allows
+    // the traversal strategy to be dynamically scoped.
+    _.bindAll.apply(null, [walker].concat(_.keys(walker)));
+
+    walker._traversalStrategy = traversalStrategy || defaultTraversal;
+    return walker;
+  }
+
+  // Use `_.walk` as a namespace to hold versions of the walk functions which
+  // use the default traversal strategy.
+  _.extend(_.walk, _.walk());
 })(this);
