@@ -193,4 +193,24 @@ $(document).ready(function() {
     // With the identity function, only the value '0' should be kept.
     equal(_.walk.reject(tree, _.walk.preorder, _.identity).length, 1, 'reject with identity function');
   });
+
+  test("customTraversal", function() {
+    var tree = getSimpleTestTree();
+
+    // Set up a walker that will not traverse the 'val' properties.
+    var walker = _.walk(function(node) {
+      return _.omit(node, 'val');
+    });
+    var visitor = function(node) {
+      if (!_.isObject(node)) throw Error("Leaf value visited when it shouldn't be")
+    };
+    equal(walker.pluck(tree, 'val').length, 7, 'pluck with custom traversal');/*
+    equal(walker.pluckRec(tree, 'val').length, 7, 'pluckRec with custom traversal');
+
+    equal(walker.map(tree, _.walk.postorder, _.identity).length, 7, 'traversal strategy is dynamically scoped');
+
+    // Check that the default walker is unaffected.
+    equal(_.walk.map(tree, _.walk.postorder, _.identity).length, 14, 'default map still works');
+    equal(_.walk.pluckRec(tree, 'val').join(''), '0123456', 'default pluckRec still works');*/
+  });
 });
