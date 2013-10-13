@@ -48,7 +48,7 @@ Collection Functions
 The \_.walk module provides versions of most of the
 [Underscore collection functions](http://underscorejs.org/#collections), with
 some small differences that make them better suited for operating on trees. For
-example, we can use `_.walk.filter` to get a list of all the strings in a tree:
+example, you can use `_.walk.filter` to get a list of all the strings in a tree:
 
     _.walk.filter(_.walk.preorder, _.isString);
 
@@ -69,7 +69,7 @@ it a function which returns the descendants of a given node. E.g.:
       return el.children;
     });
 
-The resulting object has the contains functions as `_.walk`, but parameterized
+The resulting object has the same functions as `_.walk`, but parameterized
 to use the custom walking behavior:
 
     var buttons = domWalker.filter(_.walk.preorder, function(el) {
@@ -83,17 +83,47 @@ Parse Trees
 -----------
 
 A _parse tree_ is tree that represents the syntactic structure of a formal
-language. For example, the arithmetic expression `(4 + 2) * 7` might have the
+language. For example, the arithmetic expression `1 + (4 + 2) * 7` might have the
 following parse tree:
 
     var tree = {
-      'type': 'Multiplication',
-      'left': {
-	      'type': 'Addition',
-	      'left': { 'type': 'Value', 'value': 4 },
-	      'right': { 'type': 'Value', 'value': 2 }
-      },
-      'right': { 'type': 'Value', 'value': 7 }
+      'type': 'Addition',
+      'left': { 'type': 'Value', 'value': 1 },
+      'right': {
+        'type': 'Multiplication',
+        'left': {
+  	      'type': 'Addition',
+  	      'left': { 'type': 'Value', 'value': 4 },
+  	      'right': { 'type': 'Value', 'value': 2 }
+        },
+        'right': { 'type': 'Value', 'value': 7 }
+      }
     };
 
-[Show an example of evaluating the expression using `reduce`.]
+We can create a custom walker for this parse tree:
+
+    var parseTreeWalker = _.walk(function(node) {
+      return _.pick(node, 'left', 'right');
+    });
+
+Using the `find` function, we could find the first occurrence of the addition
+operator. It uses a pre-order traversal of the tree, so the following code
+will produce the root node (`tree`):
+
+    parseTreeWalker.find(tree, function(node) {
+      return node.type === 'Addition';
+    });
+
+We could use the `reduce` function to evaluate the arithmetic expression
+represented by the tree. The following code will produce `43`:
+
+    parseTreeWalker.reduce(tree, function(memo, node) {
+      if (node.type === 'Value') return node.value;
+      if (node.type === 'Addition') return memo.left + memo.right;
+      if (node.type === 'Multiplication') return memo.left * memo.right;
+    });
+
+When the visitor function is called on a node, the `memo` argument contains
+the results of calling `reduce` on each of the node's subtrees. To evaluate a
+node, we just need to add or multiply the results of the left and right
+subtrees of the node.
