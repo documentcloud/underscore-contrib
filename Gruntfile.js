@@ -52,7 +52,7 @@ module.exports = function(grunt) {
             "underscore.*.js",
             "test/*.js"
         ],
-        tasks: ["qunit"]
+        tasks: ["jshint", "qunit"]
       }
     }
   });
