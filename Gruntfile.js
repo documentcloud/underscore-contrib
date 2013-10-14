@@ -49,8 +49,8 @@ module.exports = function(grunt) {
     watch: {
       test: {
         files: [
-            "underscore.*.js",
-            "test/*.js"
+          "underscore.*.js",
+          "test/*.js"
         ],
         tasks: ["jshint", "qunit"]
       }

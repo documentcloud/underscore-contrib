@@ -28,9 +28,9 @@
   var curry = (function () {
     function collectArgs(func, that, argCount, args, newArg, reverse) {
       if (reverse === true) {
-          args.unshift(newArg);
+        args.unshift(newArg);
       } else {
-          args.push(newArg);
+        args.push(newArg);
       }
       if (args.length == argCount) {
         return func.apply(that, args);
@@ -131,7 +131,7 @@
 
     // Flexible right to left curry with strict arity.
     rCurry: function (func) {
-        return curry.call(this, func, true);
+      return curry.call(this, func, true);
     },
 
 
