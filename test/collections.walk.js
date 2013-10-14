@@ -202,7 +202,7 @@ $(document).ready(function() {
       return _.omit(node, 'val');
     });
     var visitor = function(node) {
-      if (!_.isObject(node)) throw Error("Leaf value visited when it shouldn't be")
+      if (!_.isObject(node)) throw Error("Leaf value visited when it shouldn't be");
     };
     equal(walker.pluck(tree, 'val').length, 7, 'pluck with custom traversal');/*
     equal(walker.pluckRec(tree, 'val').length, 7, 'pluckRec with custom traversal');
