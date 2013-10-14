@@ -40,6 +40,7 @@ module.exports = function(grunt) {
         "test/*.js"
       ],
       options: {
+        indent: 2,     // Indent by 2 spaces
         eqnull: true,  // Allow 'x == null' convention
         "-W058": false // Allow 'new Constructor' without parens
       }
