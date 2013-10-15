@@ -52,10 +52,11 @@ module.exports = function(grunt) {
           "underscore.*.js",
           "test/*.js"
         ],
-        tasks: ["jshint", "qunit"]
+        tasks: ["test"]
       }
     }
   });
 
+  grunt.registerTask("test", ["jshint", "qunit"]);
   grunt.registerTask("default", ["concat", "uglify"]);
 };
