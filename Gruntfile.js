@@ -4,6 +4,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks("grunt-docco");
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -53,8 +54,23 @@ module.exports = function(grunt) {
         ],
         tasks: ["qunit"]
       }
+    },
+
+    docco: {
+      docs: {
+        src: ['docs/*.md'],
+        options: {
+          output: 'docs/'
+        }
+      },
+      examples: {
+        src: ['examples/*.md'],
+        options: {
+          output: 'examples/'
+        }
+      },
     }
   });
 
-  grunt.registerTask("default", ["concat", "uglify"]);
+  grunt.registerTask('default', ['concat', 'uglify']);
 };
