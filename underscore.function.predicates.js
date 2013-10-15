@@ -69,9 +69,9 @@
     // checks if a string is a valid JSON
     isJSON: function(str) {
       try {
-          JSON.parse(str);
+        JSON.parse(str);
       } catch (e) {
-          return false;
+        return false;
       }
       return true;
     },

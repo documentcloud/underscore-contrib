@@ -23,9 +23,9 @@
     falsey: function(x) { return !_.truthy(x); },
     not:    function(b) { return !b; },
     firstExisting: function() {
-        for (var i = 0; i < arguments.length; i++) {
-            if (arguments[i] != null) return arguments[i];
-        }
+      for (var i = 0; i < arguments.length; i++) {
+        if (arguments[i] != null) return arguments[i];
+      }
     }
   });
 
