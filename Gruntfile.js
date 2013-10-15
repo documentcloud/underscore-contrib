@@ -40,6 +40,7 @@ module.exports = function(grunt) {
         "test/*.js"
       ],
       options: {
+        indent: 2,     // Indent by 2 spaces
         eqnull: true,  // Allow 'x == null' convention
         "-W058": false // Allow 'new Constructor' without parens
       }
@@ -48,13 +49,15 @@ module.exports = function(grunt) {
     watch: {
       test: {
         files: [
-            "underscore.*.js",
-            "test/*.js"
+          "underscore.*.js",
+          "test/*.js"
         ],
-        tasks: ["qunit"]
+        tasks: ["test"]
       }
     }
   });
 
-  grunt.registerTask("default", ["concat", "uglify"]);
+  grunt.registerTask("test", ["jshint", "qunit"]);
+  grunt.registerTask("default", ["test"]);
+  grunt.registerTask("dist", ["concat", "uglify"]);
 };

@@ -4,17 +4,17 @@ $(document).ready(function() {
 
   test("trampoline", function() {
     var oddOline = function(n) {
-        if (n === 0)
-          return _.done(false);
-        else
-          return _.partial(evenOline, Math.abs(n) - 1);
+      if (n === 0)
+        return _.done(false);
+      else
+        return _.partial(evenOline, Math.abs(n) - 1);
     };
 
     var evenOline = function(n) {
-        if (n === 0)
-          return _.done(true);
-        else
-          return _.partial(oddOline, Math.abs(n) - 1);
+      if (n === 0)
+        return _.done(true);
+      else
+        return _.partial(oddOline, Math.abs(n) - 1);
     };
 
     equal(_.trampoline(evenOline, 55000), true, 'should trampoline two mutually recursive functions');

@@ -182,7 +182,7 @@
 
     walker._traversalStrategy = traversalStrategy || defaultTraversal;
     return walker;
-  }
+  };
 
   // Use `_.walk` as a namespace to hold versions of the walk functions which
   // use the default traversal strategy.
