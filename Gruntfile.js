@@ -32,7 +32,9 @@ module.exports = function(grunt) {
     },
 
     qunit: {
-      all: ['test/index.html']
+      main: ['test/index.html'],
+      concat: ['test/dist-concat.html'],
+      min: ['test/dist-min.html']
     },
 
     jshint: {
@@ -73,8 +75,8 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask("test", ["jshint", "qunit"]);
+  grunt.registerTask("test", ["jshint", "qunit:main"]);
   grunt.registerTask("dist", ["concat", "uglify"]);
   grunt.registerTask('default', ['test']);
-  grunt.registerTask('dist', ['concat', 'uglify']);
+  grunt.registerTask('dist', ['test', 'concat', 'qunit:concat', 'uglify', 'qunit:min']);
 };
