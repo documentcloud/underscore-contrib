@@ -204,13 +204,13 @@ $(document).ready(function() {
     var visitor = function(node) {
       if (!_.isObject(node)) throw Error("Leaf value visited when it shouldn't be");
     };
-    equal(walker.pluck(tree, 'val').length, 7, 'pluck with custom traversal');/*
+    equal(walker.pluck(tree, 'val').length, 7, 'pluck with custom traversal');
     equal(walker.pluckRec(tree, 'val').length, 7, 'pluckRec with custom traversal');
 
     equal(walker.map(tree, _.walk.postorder, _.identity).length, 7, 'traversal strategy is dynamically scoped');
 
     // Check that the default walker is unaffected.
     equal(_.walk.map(tree, _.walk.postorder, _.identity).length, 14, 'default map still works');
-    equal(_.walk.pluckRec(tree, 'val').join(''), '0123456', 'default pluckRec still works');*/
+    equal(_.walk.pluckRec(tree, 'val').join(''), '0123456', 'default pluckRec still works');
   });
 });
