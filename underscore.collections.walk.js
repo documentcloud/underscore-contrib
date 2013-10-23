@@ -99,9 +99,9 @@
     filter: function(obj, strategy, visitor, context) {
       var results = [];
       if (obj == null) return results;
-      strategy.call(this, obj, function(value, key, parent) {
+      strategy(obj, function(value, key, parent) {
         if (visitor.call(context, value, key, parent)) results.push(value);
-      });
+      }, null, this._traversalStrategy);
       return results;
     },
 
@@ -119,9 +119,9 @@
     // `postorder`.
     map: function(obj, strategy, visitor, context) {
       var results = [];
-      strategy.call(this, obj, function(value, key, parent) {
+      strategy(obj, function(value, key, parent) {
         results[results.length] = visitor.call(context, value, key, parent);
-      });
+      }, null, this._traversalStrategy);
       return results;
     },
 
@@ -140,14 +140,20 @@
 
     // Recursively traverses `obj` in a depth-first fashion, invoking the
     // `visitor` function for each object only after traversing its children.
-    postorder: function(obj, visitor, context) {
-      walkImpl(obj, this._traversalStrategy, null, visitor, context);
+    // `traversalStrategy` is intended for internal callers, and is not part
+    // of the public API.
+    postorder: function(obj, visitor, context, traversalStrategy) {
+      traversalStrategy = traversalStrategy || this._traversalStrategy;
+      walkImpl(obj, traversalStrategy, null, visitor, context);
     },
 
     // Recursively traverses `obj` in a depth-first fashion, invoking the
     // `visitor` function for each object before traversing its children.
-    preorder: function(obj, visitor, context) {
-      walkImpl(obj, this._traversalStrategy, visitor, null, context);
+    // `traversalStrategy` is intended for internal callers, and is not part
+    // of the public API.
+    preorder: function(obj, visitor, context, traversalStrategy) {
+      traversalStrategy = traversalStrategy || this._traversalStrategy;
+      walkImpl(obj, traversalStrategy, visitor, null, context);
     },
 
     // Builds up a single value by doing a post-order traversal of `obj` and
