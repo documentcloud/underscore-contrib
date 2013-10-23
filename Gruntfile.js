@@ -72,7 +72,7 @@ module.exports = function(grunt) {
         options: {
           output: 'examples/'
         }
-      },
+      }
     }
   });
 
