@@ -170,7 +170,7 @@ $(document).ready(function() {
   });
 
   test("isInteger and isFloat", function() {
-    var integer_checks = [
+    var integerChecks = [
       {value: "-10", message: "should identify Negative integer string"},
       {value: "0", message: "should identify Zero string"},
       {value: "5", message: "should identify Positive integer string"},
@@ -185,7 +185,7 @@ $(document).ready(function() {
       {value: 8e5, message: "Exponential notation"}
     ];
 
-    var float_checks = [
+    var floatChecks = [
       {value: "-1.6", message: "should identify Negative floating point string"},
       {value: "4.536", message: "should identify Positive floating point string"},
       {value: -2.6, message: "should identify Negative floating point number"},
@@ -194,7 +194,7 @@ $(document).ready(function() {
       {value: "123e-2", message: "should identify Exponential notation string"}
     ];
 
-    var negative_checks = [
+    var negativeChecks = [
       {value: "abc", message: "should identify non-numeric strings"},
       {value: undefined, message: "should identify undefined"},
       {value: NaN, message: "should identify NaN"},
@@ -202,19 +202,19 @@ $(document).ready(function() {
       {value: Infinity, message: "should identify Infinity"}
     ];
 
-    var test_multiple = function(cases, fn, result){
+    var testMultiple = function(cases, fn, result){
       for (var i = 0; i < cases.length; i++) {
         equal(fn(cases[i].value), result, cases[i].message);
       }
     };
 
-    test_multiple(integer_checks, _.isInteger, true);
-    test_multiple(float_checks, _.isInteger, false);
-    test_multiple(negative_checks, _.isInteger, false);
+    testMultiple(integerChecks, _.isInteger, true);
+    testMultiple(floatChecks, _.isInteger, false);
+    testMultiple(negativeChecks, _.isInteger, false);
 
-    test_multiple(integer_checks, _.isFloat, false);
-    test_multiple(float_checks, _.isFloat, true);
-    test_multiple(negative_checks, _.isFloat, false);
+    testMultiple(integerChecks, _.isFloat, false);
+    testMultiple(floatChecks, _.isFloat, true);
+    testMultiple(negativeChecks, _.isFloat, false);
   });
 
   test("isIncreasing", function() {
