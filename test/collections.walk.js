@@ -6,7 +6,7 @@ $(document).ready(function() {
     return {
       val: 0,
       l: { val: 1, l: { val: 2 }, r: { val: 3 } },
-      r: { val: 4, l: { val: 5 }, r: { val: 6 } },
+      r: { val: 4, l: { val: 5 }, r: { val: 6 } }
     };
   };
 
@@ -16,7 +16,7 @@ $(document).ready(function() {
         { city: 'Munich', aliases: ['Muenchen'], population: 1378000 },
       previous: [
         { city: 'San Francisco', aliases: ['SF', 'San Fran'], population: 812826 },
-        { city: 'Toronto', aliases: ['TO', 'T-dot'], population: 2615000 },
+        { city: 'Toronto', aliases: ['TO', 'T-dot'], population: 2615000 }
       ]
     };
   };
