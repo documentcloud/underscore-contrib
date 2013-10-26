@@ -178,6 +178,18 @@
         return pred(i, array[i]);
       }),
       existy);
+    },
+
+    // Accepts an array-like object (other than strings) as an argument and
+    // returns an array whose elements are in the reverse order. Unlike the
+    // built-in `Array.prototype.reverse` method, this does not mutate the
+    // original object. Note: attempting to use this method on a string will
+    // result in a `TypeError`, as it cannot properly reverse unicode strings.
+
+    reverseOrder: function(obj) {
+      if (typeof obj == 'string')
+        throw new TypeError('Strings cannot be reversed by _.reverseOrder');
+      return slice.call(obj).reverse();
     }
   });
 
