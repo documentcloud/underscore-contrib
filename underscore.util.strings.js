@@ -37,6 +37,12 @@
       string = string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
       // remove first dash
       return  ( string.charAt( 0 ) == '-' ) ? string.substr(1) : string;
+    },
+
+    // Reports whether a string contains a search string.
+    strContains: function(str, search) {
+      if (typeof str != 'string') throw new TypeError;
+      return (str.indexOf(search) != -1);
     }
 
   });
