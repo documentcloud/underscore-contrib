@@ -184,4 +184,17 @@ $(document).ready(function() {
     deepEqual(_.keepIndexed(b, posy), [2,4,5], 'keeps elements whose index passes a truthy test');
     deepEqual(_.keepIndexed(_.range(10), oddy), [1,3,5,7,9], 'keeps elements whose index passes a truthy test');
   });
+
+  test('reverseOrder', function() {
+    var arr = [1, 2, 3];
+
+    deepEqual(_.reverseOrder(arr), [3, 2, 1], 'returns an array whose elements are in the opposite order of the argument');
+    deepEqual(arr, [1, 2, 3], 'should not mutate the argument');
+
+    var throwingFn = function() { _.reverseOrder('string'); };
+    throws(throwingFn, TypeError, 'throws a TypeError when given a string');
+
+    var argObj = (function() { return arguments; })(1, 2, 3);
+    deepEqual(_.reverseOrder(argObj), [3, 2, 1], 'works with other array-like objects');
+  });
 });
