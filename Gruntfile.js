@@ -43,10 +43,11 @@ module.exports = function(grunt) {
         "test/*.js"
       ],
       options: {
-        es3: true,     // Enforce ES3 compatibility
-        indent: 2,     // Indent by 2 spaces
-        eqnull: true,  // Allow 'x == null' convention
-        "-W058": false // Allow 'new Constructor' without parens
+        es3: true,       // Enforce ES3 compatibility
+        indent: 2,       // Indent by 2 spaces
+        camelcase: true, // All vars must be camelCase or UPPER_WITH_UNDERSCORES
+        eqnull: true,    // Allow 'x == null' convention
+        "-W058": false   // Allow 'new Constructor' without parens
       }
     },
 
