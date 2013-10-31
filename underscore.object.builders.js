@@ -70,7 +70,9 @@
       var temp = new obj.constructor();
 
       for(var key in obj) {
-        temp[key] = _.snapshot(obj[key]);
+        if (obj.hasOwnProperty(key)) {
+          temp[key] = _.snapshot(obj[key]);
+        }
       }
 
       return temp;
