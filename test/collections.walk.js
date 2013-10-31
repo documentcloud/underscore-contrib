@@ -52,7 +52,7 @@ $(document).ready(function() {
   test("simpleMap", function() {
     var visitor = function(node, key, parent) {
       if (_.has(node, 'val')) return node.val;
-      if (key !== 'val') throw Error('Leaf node with incorrect key');
+      if (key !== 'val') throw new Error('Leaf node with incorrect key');
       return this.leafChar || '-';
     };
     var visited = _.walk.map(getSimpleTestTree(), _.walk.preorder, visitor).join('');
@@ -202,7 +202,7 @@ $(document).ready(function() {
       return _.omit(node, 'val');
     });
     var visitor = function(node) {
-      if (!_.isObject(node)) throw Error("Leaf value visited when it shouldn't be");
+      if (!_.isObject(node)) throw new Error("Leaf value visited when it shouldn't be");
     };
     equal(walker.pluck(tree, 'val').length, 7, 'pluck with custom traversal');
     equal(walker.pluckRec(tree, 'val').length, 7, 'pluckRec with custom traversal');
