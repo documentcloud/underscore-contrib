@@ -227,6 +227,26 @@
         return fun.apply(null, reversed);
       };
     },
+
+    // Takes a method-style function (one which uses `this`) and pushes
+    // `this` into the argument list. The returned function uses its first
+    // argument as the receiver/context of the original function, and the rest
+    // of the arguments are used as the original's entire argument list.
+    functionalize: function(method) {
+      return function(ctx /*, args */) {
+        return method.apply(ctx, _.rest(arguments));
+      };
+    },
+
+    // Takes a function and pulls the first argument out of the argument
+    // list and into `this` position. The returned function calls the original
+    // with its receiver (`this`) prepending the argument list. The original
+    // is called with a receiver of `null`.
+    methodize: function(func) {
+      return function(/* args */) {
+        return func.apply(null, _.cons(this, arguments));
+      };
+    },
     
     k: _.always,
     t: _.pipeline
