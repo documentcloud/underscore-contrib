@@ -158,4 +158,30 @@ $(document).ready(function() {
       _.bound(obj, 'nofun');
     }, TypeError, 'should throw for non-function properties');
   });
+
+  test("functionalize", function() {
+    var rect = {
+      x: 2,
+      y: 3,
+      area: function() {return this.x * this.y;},
+      extrude: function(z) {return _.merge(this, {z: z});}
+    };
+    var areaFunc = _.functionalize(rect.area),
+        extrudeFunc = _.functionalize(rect.extrude);
+    equal(areaFunc(rect), 6, "returned function's first arg becomes original method's `this`");
+    equal(extrudeFunc(rect, 4).z, 4, "all arguments are passed along");
+  });
+
+  test("methodize", function() {
+    function area(rect) {return rect.x * rect.y;}
+    function extrude(rect, z) {return _.merge(rect, {z: z});}
+    var rect = {
+      x: 2,
+      y: 3,
+      area: _.methodize(area),
+      extrude: _.methodize(extrude)
+    };
+    equal(rect.area(), 6, "returned method passes its receiver (`this`) as first arg to original function");
+    equal(rect.extrude(4).z, 4, "all arguments are passed along");
+  });
 });
