@@ -1,6 +1,8 @@
-## Underscore-contrib
+# Underscore-contrib
 
-The brass buckles on Underscore's utility belt - a contributors' library for [Underscore](http://underscorejs.org/).
+> The brass buckles on Underscore's utility belt - a contributors' library for [Underscore](http://underscorejs.org/).
+
+## Introduction
 
 ### Places
 

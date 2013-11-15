@@ -5,6 +5,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks("grunt-docco");
+  grunt.loadNpmTasks("grunt-tocdoc");
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -60,6 +61,16 @@ module.exports = function(grunt) {
           "test/*.js"
         ],
         tasks: ["test"]
+      }
+    },
+
+    tocdoc: {
+      api: {
+        files: {
+          'index.html': [
+            'docs/index.md'
+          ]
+        }
       }
     },
 
