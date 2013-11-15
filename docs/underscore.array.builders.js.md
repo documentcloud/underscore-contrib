@@ -1,6 +1,8 @@
-Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
+### array.builders 
 
-### Array concatenation via `_.cat`
+> Functions to build arrays. <a href="docs/underscore.array.builders.js.html" class="btn btn-primary btn-xs">View Annotated Source</a>
+
+#### cat
 
 Signature: `_.cat(... arrays:Array ...)`
 
@@ -37,7 +39,7 @@ Signature: `_.cat(... elems:Arguments ...)`
     f(1,2,3);
     //=> [1,2,3,4,5,6]
 
-### Array construction via `_.cons`
+#### cons
 
 Signature: `_.cons(head:Any, tail:Array)`
 
@@ -71,7 +73,7 @@ Signature: `_.cons(head:Any, tail:Arguments)`
     f(1,2,3);
     //=> [0,1,2,3]
 
-### Array partitioning via `_.partition` and `_.partitionAll`
+#### partition
 
 The `_.partition` function, by default, accepts an array and a number and splits and returns a new array representing the original array split into some number of arrays of the given size:
 
@@ -93,6 +95,8 @@ If you given an array as the optional third argument then that array is used to 
     _.partition([0,1,2,3,4], 3, ['a', 'b']);
     //=> , [[0,1,2],[3,'a','b']]
 
+#### partitionAll
+
 The `_.partitionAll` function is similar to `_.partition` except for the following.  First, `_.partionAll` will never drop short partitions from the end:
 
     _.partitionAll([0,1,2,3,4], 3);
@@ -104,7 +108,7 @@ Also, `_.paritionAll` takes an optional third argument signifying that paritions
     //=> [[0,1],[4,5],[8,9]]
 
 	
-### Array flattening via `_.mapcat`
+#### mapcat
 
 There are times when a mapping operation produces results contained in arrays, but the final result should be flattened one level.  For these circumstances you can use `_.mapcat` to produce results:
 
@@ -125,7 +129,7 @@ Inspecting the contents of `errors` shows:
 
 The `_.mapcat` function is equivalent to `_.cat.apply(array, _.map(array,fun))`.
 	
-### Inserting elements into an array via `_.interpose`
+#### interpose
 
 The `_.interpose` function takes an array and an element and returns a new array with the given element inserted betwixt every element in the original array:
 
@@ -141,7 +145,7 @@ If there are no betweens (i.e. empty and single-element arrays), then the origin
     //=> []
 
 
-### Weaving arrays together via `_.weave` and `_.interleave`
+#### weave
 
 The `_.weave` function works similarly to `_.interpose` (shown above) except that it accepts an array used as the interposition values.  In other words, `_.weave` takes two arrays and returns a new array with the original elements woven together.  An example would help:
 
@@ -155,7 +159,7 @@ The array returned from `_.weave` will be as long as the longest array given wit
 
 The `_.interleave` function is an alias for `_.weave`.
 	
-### Building arrays from repeated value with `_.repeat` and `_.cycle`
+#### repeat
 
 Signature: `_.repeat(t:Integer, value:Any)`
 
@@ -164,12 +168,14 @@ The `_.repeat` function takes an integer value used to build an array of that si
     _.repeat(5, 'a');
     //=> ['a','a','a','a','a']
 
+#### cycle
+
 The `_.cycle` function takes an integer value used to build an array of that size containing the number of iterations through the given array, strung end-to-end as many times as needed.  An example is probably more instructive:
 
     _.cycle(5, [1,2,3]);
     //=> [1,2,3,1,2]
 	
-### Splitting an array with `_.splitAt`
+#### splitAt
 
 The `_.splitAt` function takes an array and a numeric index and returns a new array with two embedded arrays representing a split of the original array at the index provided:
 
@@ -191,7 +197,7 @@ The operation of `_.splitAt` is safe if the index provided is outside the range 
     //=> [[],[]]    
 
 
-### Taking skipped elements from an array with `_.takeSkipping`
+#### takeSkipping
 
 The `_.takeSkipping` function takes an array and a number and returns a new array containing every nth element in the original array:
 
@@ -206,7 +212,7 @@ The `_.takeSkipping` function is safe against numbers larger or smaller than the
     _.takeSkipping(_.range(10), -100);
     //=> []
 
-### Storing every stage of a reduce with `_.reductions`
+#### reductions
 
 The `_.reductions` function is similar to Underscore's builtin `_.reduce` function except that it returns an array of every intermediate value in the folding operation:
 
@@ -218,7 +224,7 @@ The `_.reductions` function is similar to Underscore's builtin `_.reduce` functi
 
 The last element in the array returned from `_.reductions` is the answer that you would get if you had just chosen to use `_.reduce`.
 
-### Taking elements from an array based on properties of their keys
+#### keepIndexed
 
 The `_.keepIndexed` function takes an array and a function and returns a new array filled with the *non-null* return results of the given function on the elements or keys in the given array:
 
@@ -236,7 +242,7 @@ If you return either `null` or `undefined` then the result is dropped from the r
 
     //=> ['b']
 
-### Building an array until a condition fails via `_.iterateUntil`
+#### iterateUntil
 
 The `_.iterateUntil` function takes a function used as a result generator, a function used as a stop-check and a seed value and returns an array of each generated result.  The operation of `_.iterateUntil` is such that the result generator is passed the seed to start and each subsequent result which will continue **until** a result fails the check function (i.e. returns falsey).  An example is best:
 
