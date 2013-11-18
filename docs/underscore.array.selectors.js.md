@@ -1,6 +1,8 @@
-Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
+### array.selectors
 
-### Retrieving the second element in an array with `_.second`
+> Functions to take things from arrays. <a href="docs/underscore.array.selectors.js.html" class="btn btn-primary btn-xs">View Annotated Source</a>
+
+#### second
 
 The `_.second` function is a convenience for the equivalent `array[1]`:
 
@@ -15,7 +17,7 @@ You can also pass an optional number to the `_.second` function to take a number
     _.second(_.range(10), 5)
 	//=> [1, 2, 3, 4]
 
-### Retrieving the third element in an array with `_.third`
+#### third
 
 The `_.third` function is a convenience for the equivalent `array[2]`:
 
@@ -30,7 +32,7 @@ You can also pass an optional number to the `_.third` function to take a number 
     _.third(_.range(10), 5)
 	//=> [2, 3, 4]
 
-### Retrieving an element from an array by index
+#### nth
 
 The `_.nth` function is a convenience for the equivalent `array[n]`:
 
@@ -51,7 +53,7 @@ The `_.nth` function can also be used in conjunction with `_.map` and `_.compact
 
 If wrapping a function around `_.nth` is too tedious or you'd like to partially apply the index then Underscore-contrib offers any of `_.flip2`, `_.fix` or `rcurry2` to solve this.
 
-### Taking or dropping elements from an array while a function stays truthy
+#### takeWhile
 
 The `_.takeWhile` function takes an array and a function and returns a new array containing the first n elements in the original array for which the given function returns a truthy value:
 
@@ -60,13 +62,9 @@ The `_.takeWhile` function takes an array and a function and returns a new array
 	_.takeWhile([-2,-1,0,1,2], isNeg);
 	//=> [-2,-1]
 
+#### dropWhile
+
 The `_.dropWhile` function works similarly except that it *drops* elements from the original array for which the given function returns a truthy value:
 
     _.dropWhile([-2,-1,0,1,2], isNeg);
 	//=> [0,1,2]
-
-
-    splitWith: function(array, pred) {
-    partitionBy: function(array, fun){
-    best: function(array, fun) {
-    keep: function(array, fun) {

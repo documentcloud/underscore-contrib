@@ -5,6 +5,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks("grunt-docco");
+  grunt.loadNpmTasks("grunt-tocdoc");
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -47,6 +48,8 @@ module.exports = function(grunt) {
         indent: 2,       // Indent by 2 spaces
         camelcase: true, // All vars must be camelCase or UPPER_WITH_UNDERSCORES
         eqnull: true,    // Allow 'x == null' convention
+        forin: true,     // Require `for x in y` to filter with `hasOwnProperty`
+        newcap: true,    // Require constructor names to be capitalized
         "-W058": false   // Allow 'new Constructor' without parens
       }
     },
@@ -58,6 +61,18 @@ module.exports = function(grunt) {
           "test/*.js"
         ],
         tasks: ["test"]
+      }
+    },
+
+    tocdoc: {
+      api: {
+        files: {
+          'index.html': [
+            'docs/index.md',
+            'docs/underscore.array.builders.js.md',
+            'docs/underscore.array.selectors.js.md'
+          ]
+        }
       }
     },
 

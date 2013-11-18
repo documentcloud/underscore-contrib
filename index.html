@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+<head>
+<title></title>
+<link rel="stylesheet" type="text/css" href="tocdoc.css" />
+</head>
+<body>
+<div class="toc"><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#places">Places</a></li><li><a href="#why-underscore-contrib">Why underscore-contrib?</a></li><li><a href="#use">Use</a></li><li><a href="#license">License</a></li></ul></li><li><a href="#sub-libraries">Sub-libraries</a><ul><li><a href="#array.builders">array.builders</a><ul><li><a href="#cat">cat</a></li><li><a href="#cons">cons</a></li><li><a href="#partition">partition</a></li><li><a href="#partitionall">partitionAll</a></li><li><a href="#mapcat">mapcat</a></li><li><a href="#interpose">interpose</a></li><li><a href="#weave">weave</a></li><li><a href="#repeat">repeat</a></li><li><a href="#cycle">cycle</a></li><li><a href="#splitat">splitAt</a></li><li><a href="#takeskipping">takeSkipping</a></li><li><a href="#reductions">reductions</a></li><li><a href="#keepindexed">keepIndexed</a></li><li><a href="#iterateuntil">iterateUntil</a></li></ul></li><li><a href="#array.selectors">array.selectors</a><ul><li><a href="#second">second</a></li><li><a href="#third">third</a></li><li><a href="#nth">nth</a></li><li><a href="#takewhile">takeWhile</a></li><li><a href="#dropwhile">dropWhile</a></li></ul></li></ul></li></ul></div>
+<h1 id="underscore-contrib">Underscore-contrib</h1>
+<blockquote>
+<p>The brass buckles on Underscore&#39;s utility belt - a contributors&#39; library for <a href="http://underscorejs.org/">Underscore</a>.</p>
+</blockquote>
+<h2 id="introduction"><a href="#introduction" name="introduction">Introduction</a></h2>
+<h3 id="places"><a href="#places" name="places">Places</a></h3>
+<ul>
+<li><a href="http://documentcloud.github.io/underscore-contrib/">Documentation</a></li>
+<li><a href="https://github.com/documentcloud/underscore-contrib">Source repository</a></li>
+<li><a href="https://github.com/documentcloud/underscore-contrib/issues?state=open">Tickets and bug reports</a></li>
+<li><a href="http://www.fogus.me">Maintainer&#39;s website</a></li>
+</ul>
+<h3 id="why-underscore-contrib-"><a href="#why-underscore-contrib" name="why-underscore-contrib">Why underscore-contrib?</a></h3>
+<p>While Underscore provides a bevy of useful tools to support functional programming in JavaScript, it can&#39;t
+(and shouldn&#39;t) be everything to everyone. Underscore-contrib is intended as a home for functions that, for
+various reasons, don&#39;t belong in Underscore proper. In particular, it aims to be:</p>
+<ul>
+<li>a home for functions that are limited in scope, but solve certain point problems, and</li>
+<li>a proving ground for features that belong in Underscore proper, but need some advocacy and/or evolution
+(or devolution) to get them there.</li>
+</ul>
+<h3 id="use"><a href="#use" name="use">Use</a></h3>
+<p>First, you’ll need Underscore. Then you can grab the relevant underscore-contrib libraries and simply add
+something
+like the following to your pages:</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;underscore.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;underscore.object.builders.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>At the moment there are no cross-contrib dependencies (i.e. each library can stand by itself), but that may
+change in the future.</p>
+<h3 id="license"><a href="#license" name="license">License</a></h3>
+<p>_.contrib is open sourced under the <a href="https://github.com/documentcloud/underscore-contrib/blob/master/LICENSE">MIT license</a>. </p>
+<h2 id="sub-libraries"><a href="#sub-libraries" name="sub-libraries">Sub-libraries</a></h2>
+<p>The _.contrib library currently contains a number of related capabilities, aggregated into the following files.</p>
+<ul>
+<li><a href="docs/underscore.array.builders.html">underscore.array.builders</a> - functions to build arrays</li>
+<li><a href="docs/underscore.array.selectors.html">underscore.array.selectors</a> - functions to take things from arrays</li>
+<li><a href="docs/underscore.collections.walk.html">underscore.collections.walk</a> - functions to walk and transform nested JavaScript objects</li>
+<li><a href="docs/underscore.function.arity.html">underscore.function.arity</a> - functions to manipulate and fix function argument arity</li>
+<li><a href="docs/underscore.function.combinators.html">underscore.function.combinators</a> - functions to combine functions to make new functions</li>
+<li><a href="docs/underscore.function.iterators.html">underscore.function.iterators</a> - functions to lazily produce, manipulate and consume sequence iterators</li>
+<li><a href="docs/underscore.function.predicates.html">underscore.function.predicates</a> - functions that return <code>true</code> or <code>false</code> based on some criteria</li>
+<li><a href="docs/underscore.object.builders.html">underscore.object.builders</a> - functions to build JavaScript objects</li>
+<li><a href="docs/underscore.object.selectors.html">underscore.object.selectors</a> - functions to pick things from JavaScript objects</li>
+<li><a href="docs/underscore.util.existential.html">underscore.util.existential</a> - functions that check for the existence or truthiness of JavaScript data types</li>
+<li><a href="docs/underscore.util.operators.html">underscore.util.operators</a> - functions that wrap common (or missing) JavaScript operators</li>
+<li><a href="docs/underscore.util.strings.html">underscore.util.strings</a> - functions to work with strings</li>
+<li><a href="docs/underscore.util.trampolines.html">underscore.util.trampolines</a> - functions to facilitate calling functions recursively without blowing the stack</li>
+</ul>
+<p>The links above are to the annotated source code.  Full-blown _.contrib documentation is in the works.  Contributors welcomed.</p>
+<h3 id="array-builders"><a href="#array.builders" name="array.builders">array.builders</a></h3>
+<blockquote>
+<p>Functions to build arrays. <a href="docs/underscore.array.builders.js.html" class="btn btn-primary btn-xs">View Annotated Source</a></p>
+</blockquote>
+<h4 id="cat"><a href="#cat" name="cat">cat</a></h4>
+<p>Signature: <code>_.cat(... arrays:Array ...)</code></p>
+<p>The <code>_.cat</code> function provides a way to concatenate zero or more heterogeneous arrays into one.</p>
+<pre><code>_.cat();                    // 0-args
+//=&gt; []
+
+_.cat([]);                  // 1-arg, empty array
+//=&gt; []
+
+_.cat([1,2,3]);             // 1-arg
+//=&gt; []
+
+_.cat([1,2,3],[4,5,6]);     // 2-args
+//=&gt; [1,2,3,4,5,6]
+
+_.cat([1,2,3],[4,5,6],[7]); // 3+ args
+//=&gt; [1,2,3,4,5,6,7]</code></pre>
+<p>Not every argument to <code>_.cat</code> needs to be an array; other types are accepted.</p>
+<p>Signature: <code>_.cat(... elems:Any ...)</code></p>
+<pre><code>_.cat(1,[2],3,4);           // mixed args
+//=&gt; [1,2,3,4]</code></pre>
+<p>The <code>_.cat</code> function will also work with the <code>arguments</code> object as if it were an array.</p>
+<p>Signature: <code>_.cat(... elems:Arguments ...)</code></p>
+<pre><code>function f(){ return _.cat(arguments, 4,5,6); }
+
+f(1,2,3);
+//=&gt; [1,2,3,4,5,6]</code></pre>
+<h4 id="cons"><a href="#cons" name="cons">cons</a></h4>
+<p>Signature: <code>_.cons(head:Any, tail:Array)</code></p>
+<p>The <code>_.cons</code> function provides a way to &quot;construct&quot; a new array by taking some element and putting it at the front of another array.</p>
+<pre><code>_.cons(0, []);
+//=&gt; [0]
+
+_.cons(1, [2]);
+//=&gt; [1,2]
+
+_.cons([0], [1,2,3]);
+//=&gt; [0,1,2,3]</code></pre>
+<p>The <code>_.cons</code> function also can be used to create pairs if the second argument is not an array.</p>
+<p>Signature: <code>_.cons(head:Any, tail:Any)</code></p>
+<pre><code>_.cons(1, 2);
+//=&gt; [1,2]
+
+_.cons([1], 2);
+//=&gt; [[1],2]</code></pre>
+<p>Finally, <code>_.cons</code> will operate with the <code>arguments</code> object.</p>
+<p>Signature: <code>_.cons(head:Any, tail:Arguments)</code></p>
+<pre><code>function f() { return _.cons(0, arguments) }
+
+f(1,2,3);
+//=&gt; [0,1,2,3]</code></pre>
+<h4 id="partition"><a href="#partition" name="partition">partition</a></h4>
+<p>The <code>_.partition</code> function, by default, accepts an array and a number and splits and returns a new array representing the original array split into some number of arrays of the given size:</p>
+<pre><code>_.partition([0,1,2,3], 2);
+//=&gt; , [[0,1],[2,3]]</code></pre>
+<p>If the original array cannot completely fulfill the partition scheme then the array returned will drop the undersized final partition:</p>
+<pre><code>_.partition([0,1,2,3,4], 2);
+//=&gt; , [[0,1],[2,3]]</code></pre>
+<p>You can pass an optional third argument to <code>_.partition</code> to pad out the final array partition should it fall short.  If the value given as the third argument is <em>not</em> an array then it is repeated the needed number of times:</p>
+<pre><code>_.partition([0,1,2,3,4], 3, &#39;_&#39;);
+//=&gt; , [[0,1,2],[3,&#39;_&#39;,&#39;_&#39;]]</code></pre>
+<p>If you given an array as the optional third argument then that array is used to pad in-place as needed:</p>
+<pre><code>_.partition([0,1,2,3,4], 3, [&#39;a&#39;, &#39;b&#39;]);
+//=&gt; , [[0,1,2],[3,&#39;a&#39;,&#39;b&#39;]]</code></pre>
+<h4 id="partitionall"><a href="#partitionall" name="partitionall">partitionAll</a></h4>
+<p>The <code>_.partitionAll</code> function is similar to <code>_.partition</code> except for the following.  First, <code>_.partionAll</code> will never drop short partitions from the end:</p>
+<pre><code>_.partitionAll([0,1,2,3,4], 3);
+//=&gt; , [[0,1,2],[3]]</code></pre>
+<p>Also, <code>_.paritionAll</code> takes an optional third argument signifying that paritions should be built from skipped regions:</p>
+<pre><code>_.partitionAll(_.range(1), 2, 4);
+//=&gt; [[0,1],[4,5],[8,9]]</code></pre>
+<h4 id="mapcat"><a href="#mapcat" name="mapcat">mapcat</a></h4>
+<p>There are times when a mapping operation produces results contained in arrays, but the final result should be flattened one level.  For these circumstances you can use <code>_.mapcat</code> to produce results:</p>
+<pre><code>var array = [1,2,null,4,undefined,6];
+
+var errors = _.mapcat(array, function(e,i) {
+  if (e == null) {
+    return [&quot;Element @&quot; + i + &quot; is bad&quot;];
+  }
+  else {
+    return [];
+  }
+});</code></pre>
+<p>Inspecting the contents of <code>errors</code> shows:</p>
+<pre><code>[&quot;Element @2 is bad&quot;, &quot;Element @4 is bad&quot;]</code></pre>
+<p>The <code>_.mapcat</code> function is equivalent to <code>_.cat.apply(array, _.map(array,fun))</code>.</p>
+<h4 id="interpose"><a href="#interpose" name="interpose">interpose</a></h4>
+<p>The <code>_.interpose</code> function takes an array and an element and returns a new array with the given element inserted betwixt every element in the original array:</p>
+<pre><code>_.interpose([1,2,3], 0);
+//=&gt; [1,0,2,0,3]</code></pre>
+<p>If there are no betweens (i.e. empty and single-element arrays), then the original array is returned:</p>
+<pre><code>_.interpose([1], 0);
+//=&gt; [1]
+
+_.interpose([], 0);
+//=&gt; []</code></pre>
+<h4 id="weave"><a href="#weave" name="weave">weave</a></h4>
+<p>The <code>_.weave</code> function works similarly to <code>_.interpose</code> (shown above) except that it accepts an array used as the interposition values.  In other words, <code>_.weave</code> takes two arrays and returns a new array with the original elements woven together.  An example would help:</p>
+<pre><code>_.weave([&#39;a&#39;,&#39;b&#39;,&#39;c&#39;], [1,2,3]);
+//=&gt; [&#39;a&#39;,1,&#39;b&#39;,2,&#39;c&#39;,3]</code></pre>
+<p>The array returned from <code>_.weave</code> will be as long as the longest array given with the woven entries stopping according to the shortest array:</p>
+<pre><code>_.weave([&#39;a&#39;,&#39;b&#39;,&#39;c&#39;], [1]);
+//=&gt; [&#39;a&#39;,1,&#39;b&#39;,&#39;c&#39;]</code></pre>
+<p>The <code>_.interleave</code> function is an alias for <code>_.weave</code>.</p>
+<h4 id="repeat"><a href="#repeat" name="repeat">repeat</a></h4>
+<p>Signature: <code>_.repeat(t:Integer, value:Any)</code></p>
+<p>The <code>_.repeat</code> function takes an integer value used to build an array of that size containing the value given:</p>
+<pre><code>_.repeat(5, &#39;a&#39;);
+//=&gt; [&#39;a&#39;,&#39;a&#39;,&#39;a&#39;,&#39;a&#39;,&#39;a&#39;]</code></pre>
+<h4 id="cycle"><a href="#cycle" name="cycle">cycle</a></h4>
+<p>The <code>_.cycle</code> function takes an integer value used to build an array of that size containing the number of iterations through the given array, strung end-to-end as many times as needed.  An example is probably more instructive:</p>
+<pre><code>_.cycle(5, [1,2,3]);
+//=&gt; [1,2,3,1,2]</code></pre>
+<h4 id="splitat"><a href="#splitat" name="splitat">splitAt</a></h4>
+<p>The <code>_.splitAt</code> function takes an array and a numeric index and returns a new array with two embedded arrays representing a split of the original array at the index provided:</p>
+<pre><code>_.splitAt([1,2,3,4,5], 2);
+//=&gt; [[1,2],[3,4,5]]
+
+_.splitAt([1,2,3,4,5], 0);
+//=&gt; [[],[1,2,3,4,5]]    </code></pre>
+<p>The operation of <code>_.splitAt</code> is safe if the index provided is outside the range of legal indices:</p>
+<pre><code>_.splitAt([1,2,3,4,5], 20000);
+//=&gt; [[1,2,3,4,5],[]]
+
+_.splitAt([1,2,3,4,5], -1000);
+//=&gt; [[],[1,2,3,4,5]]    
+
+_.splitAt([], 0);
+//=&gt; [[],[]]    </code></pre>
+<h4 id="takeskipping"><a href="#takeskipping" name="takeskipping">takeSkipping</a></h4>
+<p>The <code>_.takeSkipping</code> function takes an array and a number and returns a new array containing every nth element in the original array:</p>
+<pre><code>_.takeSkipping(_.range(10), 2);
+//=&gt; [0,2,4,6,8]</code></pre>
+<p>The <code>_.takeSkipping</code> function is safe against numbers larger or smaller than the array size:</p>
+<pre><code>_.takeSkipping(_.range(10), 100000);
+//=&gt; [0]
+
+_.takeSkipping(_.range(10), -100);
+//=&gt; []</code></pre>
+<h4 id="reductions"><a href="#reductions" name="reductions">reductions</a></h4>
+<p>The <code>_.reductions</code> function is similar to Underscore&#39;s builtin <code>_.reduce</code> function except that it returns an array of every intermediate value in the folding operation:</p>
+<pre><code>_.reductions([1,2,3,4,5], function(agg, n) {
+  return agg + n;
+}, 0);
+
+//=&gt; [1,3,6,10,15]</code></pre>
+<p>The last element in the array returned from <code>_.reductions</code> is the answer that you would get if you had just chosen to use <code>_.reduce</code>.</p>
+<h4 id="keepindexed"><a href="#keepindexed" name="keepindexed">keepIndexed</a></h4>
+<p>The <code>_.keepIndexed</code> function takes an array and a function and returns a new array filled with the <em>non-null</em> return results of the given function on the elements or keys in the given array:</p>
+<pre><code>_.keepIndexed([1,2,3], function(k) { 
+  return i === 1 || i === 2;
+});
+
+//=&gt; [false, true, true]</code></pre>
+<p>If you return either <code>null</code> or <code>undefined</code> then the result is dropped from the resulting array:</p>
+<pre><code>_.keepIndexed([&#39;a&#39;,&#39;b&#39;,&#39;c&#39;], function(k, v) { 
+  if (k === 1) return v; 
+});
+
+//=&gt; [&#39;b&#39;]</code></pre>
+<h4 id="iterateuntil"><a href="#iterateuntil" name="iterateuntil">iterateUntil</a></h4>
+<p>The <code>_.iterateUntil</code> function takes a function used as a result generator, a function used as a stop-check and a seed value and returns an array of each generated result.  The operation of <code>_.iterateUntil</code> is such that the result generator is passed the seed to start and each subsequent result which will continue <strong>until</strong> a result fails the check function (i.e. returns falsey).  An example is best:</p>
+<pre><code>var dec = function(n) { return n - 1; };
+var isPos = function(n) { return n &gt; 0; };</code></pre>
+<p>The <code>dec</code> result generator takes a number and decrements it by one.  The <code>isPos</code> predicate takes a number and returns <code>true</code> if it&#39;s positive.  Using these two functions you can build an array of every number from <code>6</code> to <code>0</code>, inclusive:</p>
+<pre><code>_.iterateUntil(dec, isPos, 6);
+//=&gt; [5,4,3,2,1]</code></pre>
+<p>That is, the array only contains every number from <code>5</code> down to <code>1</code> because when the result of <code>dec</code> got to <code>0</code> the <code>isPos</code> check failed (i.e. went falsey) thus terminating the execution.</p>
+<h3 id="array-selectors"><a href="#array.selectors" name="array.selectors">array.selectors</a></h3>
+<blockquote>
+<p>Functions to take things from arrays. <a href="docs/underscore.array.selectors.js.html" class="btn btn-primary btn-xs">View Annotated Source</a></p>
+</blockquote>
+<h4 id="second"><a href="#second" name="second">second</a></h4>
+<p>The <code>_.second</code> function is a convenience for the equivalent <code>array[1]</code>:</p>
+<pre><code>_.second([&#39;a&#39;,&#39;b&#39;]);
+//=&gt; &#39;b&#39;
+
+_.map([[&#39;a&#39;,&#39;b&#39;], _.range(10,20)], _.second);
+//=&gt; [&#39;b&#39;,11]</code></pre>
+<p>You can also pass an optional number to the <code>_.second</code> function to take a number of elements from an array starting with the second element and ending at the given index:</p>
+<pre><code>_.second(_.range(10), 5)
+//=&gt; [1, 2, 3, 4]</code></pre>
+<h4 id="third"><a href="#third" name="third">third</a></h4>
+<p>The <code>_.third</code> function is a convenience for the equivalent <code>array[2]</code>:</p>
+<pre><code>_.third([&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]);
+//=&gt; &#39;c&#39;
+
+_.map([[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;], _.range(10,20)], _.third);
+//=&gt; [&#39;c&#39;,12]</code></pre>
+<p>You can also pass an optional number to the <code>_.third</code> function to take a number of elements from an array starting with the third element and ending at the given index:</p>
+<pre><code>_.third(_.range(10), 5)
+//=&gt; [2, 3, 4]</code></pre>
+<h4 id="nth"><a href="#nth" name="nth">nth</a></h4>
+<p>The <code>_.nth</code> function is a convenience for the equivalent <code>array[n]</code>:</p>
+<pre><code>_.nth([&#39;a&#39;,&#39;b&#39;,&#39;c&#39;], 2);
+//=&gt; &#39;c&#39;</code></pre>
+<p>If given an index out of bounds then <code>_.nth</code> will return <code>undefined</code>:</p>
+<pre><code>_.nth([&#39;a&#39;,&#39;b&#39;,&#39;c&#39;], 2000);
+//=&gt; undefined</code></pre>
+<p>The <code>_.nth</code> function can also be used in conjunction with <code>_.map</code> and <code>_.compact</code> like so:</p>
+<pre><code>var b = [[&#39;a&#39;],[&#39;b&#39;],[]];
+
+_.compact(_.map(b, function(e) { return _.nth(e,0) }));
+//=&gt; [&#39;a&#39;,&#39;b&#39;]</code></pre>
+<p>If wrapping a function around <code>_.nth</code> is too tedious or you&#39;d like to partially apply the index then Underscore-contrib offers any of <code>_.flip2</code>, <code>_.fix</code> or <code>rcurry2</code> to solve this.</p>
+<h4 id="takewhile"><a href="#takewhile" name="takewhile">takeWhile</a></h4>
+<p>The <code>_.takeWhile</code> function takes an array and a function and returns a new array containing the first n elements in the original array for which the given function returns a truthy value:</p>
+<pre><code>var isNeg = function(n) { return n &lt; 0; };
+
+_.takeWhile([-2,-1,0,1,2], isNeg);
+//=&gt; [-2,-1]</code></pre>
+<h4 id="dropwhile"><a href="#dropwhile" name="dropwhile">dropWhile</a></h4>
+<p>The <code>_.dropWhile</code> function works similarly except that it <em>drops</em> elements from the original array for which the given function returns a truthy value:</p>
+<pre><code>_.dropWhile([-2,-1,0,1,2], isNeg);
+//=&gt; [0,1,2]</code></pre>
+
+</body>
+</html>
