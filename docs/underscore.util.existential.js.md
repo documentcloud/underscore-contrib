@@ -1,3 +1,5 @@
+### util.existential
+
 Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
 
     exists: function(x)

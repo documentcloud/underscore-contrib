@@ -1,3 +1,5 @@
+### collections.walk
+
 Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
 
       _.walk = walk;

@@ -1,3 +1,5 @@
+### util.operators
+
 Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
 
     add: function(x, y) {
