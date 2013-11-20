@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="tocdoc.css" />
 </head>
 <body>
-<div class="toc"><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#places">Places</a></li><li><a href="#why-underscore-contrib">Why underscore-contrib?</a></li><li><a href="#use">Use</a></li><li><a href="#license">License</a></li></ul></li><li><a href="#sub-libraries">Sub-libraries</a><ul><li><a href="#array.builders">array.builders</a><ul><li><a href="#cat">cat</a></li><li><a href="#cons">cons</a></li><li><a href="#partition">partition</a></li><li><a href="#partitionall">partitionAll</a></li><li><a href="#mapcat">mapcat</a></li><li><a href="#interpose">interpose</a></li><li><a href="#weave">weave</a></li><li><a href="#repeat">repeat</a></li><li><a href="#cycle">cycle</a></li><li><a href="#splitat">splitAt</a></li><li><a href="#takeskipping">takeSkipping</a></li><li><a href="#reductions">reductions</a></li><li><a href="#keepindexed">keepIndexed</a></li><li><a href="#iterateuntil">iterateUntil</a></li></ul></li><li><a href="#array.selectors">array.selectors</a><ul><li><a href="#second">second</a></li><li><a href="#third">third</a></li><li><a href="#nth">nth</a></li><li><a href="#takewhile">takeWhile</a></li><li><a href="#dropwhile">dropWhile</a></li></ul></li><li><a href="#collections.walk">collections.walk</a></li><li><a href="#function.arity">function.arity</a></li><li><a href="#function.combinators">function.combinators</a></li><li><a href="#function.iterators">function.iterators</a></li><li><a href="#function.predicates">function.predicates</a></li><li><a href="#object.builders">object.builders</a></li><li><a href="#object.selectors">object.selectors</a></li><li><a href="#util.existential">util.existential</a></li><li><a href="#util.operators">util.operators</a></li><li><a href="#util.strings">util.strings</a></li><li><a href="#util.trampolines">util.trampolines</a></li></ul></li></ul></div>
+<div class="toc"><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#places">Places</a></li><li><a href="#why-underscore-contrib">Why underscore-contrib?</a></li><li><a href="#use">Use</a></li><li><a href="#license">License</a></li></ul></li><li><a href="#sub-libraries">Sub-libraries</a><ul><li><a href="#array.builders">array.builders</a><ul><li><a href="#cat">cat</a></li><li><a href="#cons">cons</a></li><li><a href="#partition">partition</a></li><li><a href="#partitionall">partitionAll</a></li><li><a href="#mapcat">mapcat</a></li><li><a href="#interpose">interpose</a></li><li><a href="#weave">weave</a></li><li><a href="#repeat">repeat</a></li><li><a href="#cycle">cycle</a></li><li><a href="#splitat">splitAt</a></li><li><a href="#takeskipping">takeSkipping</a></li><li><a href="#reductions">reductions</a></li><li><a href="#keepindexed">keepIndexed</a></li><li><a href="#iterateuntil">iterateUntil</a></li></ul></li><li><a href="#array.selectors">array.selectors</a><ul><li><a href="#second">second</a></li><li><a href="#third">third</a></li><li><a href="#nth">nth</a></li><li><a href="#takewhile">takeWhile</a></li><li><a href="#dropwhile">dropWhile</a></li></ul></li><li><a href="#collections.walk">collections.walk</a></li><li><a href="#function.arity">function.arity</a></li><li><a href="#function.combinators">function.combinators</a></li><li><a href="#function.iterators">function.iterators</a></li><li><a href="#function.predicates">function.predicates</a></li><li><a href="#object.builders">object.builders</a></li><li><a href="#object.selectors">object.selectors</a></li><li><a href="#util.existential">util.existential</a></li><li><a href="#util.operators">util.operators</a></li><li><a href="#util.strings">util.strings</a><ul><li><a href="#camelcase">camelCase</a></li><li><a href="#explode">explode</a></li><li><a href="#implode">implode</a></li><li><a href="#strcontains">strContains</a></li><li><a href="#todash">toDash</a></li></ul></li><li><a href="#util.trampolines">util.trampolines</a></li></ul></li></ul></div>
 <h1 id="underscore-contrib">Underscore-contrib</h1>
 <blockquote>
 <p>The brass buckles on Underscore&#39;s utility belt - a contributors&#39; library for <a href="http://underscorejs.org/">Underscore</a>.</p>
@@ -439,9 +439,31 @@ bitwiseZ: function(x, y) {</code></pre>
 <blockquote>
 <p>Functions for working with strings.</p>
 </blockquote>
-<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
-<pre><code>explode: function(s) {
-implode: function(a) {</code></pre>
+<h4 id="camelcase"><a href="#camelcase" name="camelcase">camelCase</a></h4>
+<p><strong>Signature:</strong> <code>_.camelCase(string:String)</code></p>
+<p>Converts a dash-separated string to camel case. Opposite of <a href="#todash">toDash</a>.</p>
+<pre><code class="lang-javascript">_.camelCase(&quot;ancient-greece&quot;);
+// =&gt; &quot;ancientGreece&quot;</code></pre>
+<h4 id="explode"><a href="#explode" name="explode">explode</a></h4>
+<p><strong>Signature:</strong> <code>_.explode(s:String)</code></p>
+<p>Explodes a string into an array of characters. Opposite of <a href="#implode">implode</a>.</p>
+<pre><code class="lang-javascript">_.explode(&quot;Plato&quot;);
+// =&gt; [&quot;P&quot;, &quot;l&quot;, &quot;a&quot;, &quot;t&quot;, &quot;o&quot;]</code></pre>
+<h4 id="implode"><a href="#implode" name="implode">implode</a></h4>
+<p><strong>Signature:</strong> <code>_.implode(a:Array)</code></p>
+<p>Implodes an array of characters into a string. Opposite of <a href="#explode">explode</a>.</p>
+<pre><code class="lang-javascript">_.implode([&quot;H&quot;, &quot;o&quot;, &quot;m&quot;, &quot;e&quot;, &quot;r&quot;]);
+// =&gt; &quot;Homer&quot;</code></pre>
+<h4 id="strcontains"><a href="#strcontains" name="strcontains">strContains</a></h4>
+<p><strong>Signature:</strong> <code>_.strContains(str:String, search:String)</code></p>
+<p>Reports whether a string contains a search string.</p>
+<pre><code class="lang-javascript">_.strContains(&quot;Acropolis&quot;, &quot;polis&quot;);
+// =&gt; true</code></pre>
+<h4 id="todash"><a href="#todash" name="todash">toDash</a></h4>
+<p><strong>Signature:</strong> <code>_.toDash(string:String)</code></p>
+<p>Converts a camel case string to a dashed string. Opposite of <a href="#camelcase">camelCase</a>.</p>
+<pre><code class="lang-javascript">_.toDash(&quot;thisIsSparta&quot;);
+// =&gt; &quot;this-is-sparta&quot;</code></pre>
 <h3 id="util-trampolines"><a href="#util.trampolines" name="util.trampolines">util.trampolines</a></h3>
 <blockquote>
 <p>Trampoline functions.</p>
