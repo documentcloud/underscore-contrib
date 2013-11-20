@@ -1,5 +1,7 @@
 ### util.existential
 
+> Functions which deal with whether a value "exists."
+
 Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
 
     exists: function(x)

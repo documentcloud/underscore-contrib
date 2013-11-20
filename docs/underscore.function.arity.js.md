@@ -1,5 +1,7 @@
 ### function.arity
 
+> Functions which manipulate the arity of functions.
+
 Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
 
     fix: function(fun) {

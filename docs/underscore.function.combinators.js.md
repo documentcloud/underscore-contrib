@@ -1,5 +1,7 @@
 ### function.combinators
 
+> Functions that are combinators.
+
 Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
 
     always: function(value) {

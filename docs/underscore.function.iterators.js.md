@@ -1,5 +1,7 @@
 ### function.iterators
 
+> Functions to iterate over collections.
+
 Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
 
       _.iterators = {
