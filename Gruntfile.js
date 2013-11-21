@@ -67,11 +67,7 @@ module.exports = function(grunt) {
     tocdoc: {
       api: {
         files: {
-          'index.html': [
-            'docs/index.md',
-            'docs/underscore.array.builders.js.md',
-            'docs/underscore.array.selectors.js.md'
-          ]
+          'index.html': 'docs/*.md'
         }
       }
     },

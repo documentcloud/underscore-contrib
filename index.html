@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="tocdoc.css" />
 </head>
 <body>
-<div class="toc"><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#places">Places</a></li><li><a href="#why-underscore-contrib">Why underscore-contrib?</a></li><li><a href="#use">Use</a></li><li><a href="#license">License</a></li></ul></li><li><a href="#sub-libraries">Sub-libraries</a><ul><li><a href="#array.builders">array.builders</a><ul><li><a href="#cat">cat</a></li><li><a href="#cons">cons</a></li><li><a href="#partition">partition</a></li><li><a href="#partitionall">partitionAll</a></li><li><a href="#mapcat">mapcat</a></li><li><a href="#interpose">interpose</a></li><li><a href="#weave">weave</a></li><li><a href="#repeat">repeat</a></li><li><a href="#cycle">cycle</a></li><li><a href="#splitat">splitAt</a></li><li><a href="#takeskipping">takeSkipping</a></li><li><a href="#reductions">reductions</a></li><li><a href="#keepindexed">keepIndexed</a></li><li><a href="#iterateuntil">iterateUntil</a></li></ul></li><li><a href="#array.selectors">array.selectors</a><ul><li><a href="#second">second</a></li><li><a href="#third">third</a></li><li><a href="#nth">nth</a></li><li><a href="#takewhile">takeWhile</a></li><li><a href="#dropwhile">dropWhile</a></li></ul></li></ul></li></ul></div>
+<div class="toc"><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#places">Places</a></li><li><a href="#why-underscore-contrib">Why underscore-contrib?</a></li><li><a href="#use">Use</a></li><li><a href="#license">License</a></li></ul></li><li><a href="#sub-libraries">Sub-libraries</a><ul><li><a href="#array.builders">array.builders</a><ul><li><a href="#cat">cat</a></li><li><a href="#cons">cons</a></li><li><a href="#partition">partition</a></li><li><a href="#partitionall">partitionAll</a></li><li><a href="#mapcat">mapcat</a></li><li><a href="#interpose">interpose</a></li><li><a href="#weave">weave</a></li><li><a href="#repeat">repeat</a></li><li><a href="#cycle">cycle</a></li><li><a href="#splitat">splitAt</a></li><li><a href="#takeskipping">takeSkipping</a></li><li><a href="#reductions">reductions</a></li><li><a href="#keepindexed">keepIndexed</a></li><li><a href="#iterateuntil">iterateUntil</a></li></ul></li><li><a href="#array.selectors">array.selectors</a><ul><li><a href="#second">second</a></li><li><a href="#third">third</a></li><li><a href="#nth">nth</a></li><li><a href="#takewhile">takeWhile</a></li><li><a href="#dropwhile">dropWhile</a></li></ul></li><li><a href="#collections.walk">collections.walk</a></li><li><a href="#function.arity">function.arity</a></li><li><a href="#function.combinators">function.combinators</a></li><li><a href="#function.iterators">function.iterators</a></li><li><a href="#function.predicates">function.predicates</a></li><li><a href="#object.builders">object.builders</a></li><li><a href="#object.selectors">object.selectors</a></li><li><a href="#util.existential">util.existential</a></li><li><a href="#util.operators">util.operators</a></li><li><a href="#util.strings">util.strings</a><ul><li><a href="#camelcase">camelCase</a></li><li><a href="#explode">explode</a></li><li><a href="#implode">implode</a></li><li><a href="#strcontains">strContains</a></li><li><a href="#todash">toDash</a></li></ul></li><li><a href="#util.trampolines">util.trampolines</a></li></ul></li></ul></div>
 <h1 id="underscore-contrib">Underscore-contrib</h1>
 <blockquote>
 <p>The brass buckles on Underscore&#39;s utility belt - a contributors&#39; library for <a href="http://underscorejs.org/">Underscore</a>.</p>
@@ -274,6 +274,203 @@ _.takeWhile([-2,-1,0,1,2], isNeg);
 <p>The <code>_.dropWhile</code> function works similarly except that it <em>drops</em> elements from the original array for which the given function returns a truthy value:</p>
 <pre><code>_.dropWhile([-2,-1,0,1,2], isNeg);
 //=&gt; [0,1,2]</code></pre>
+<h3 id="collections-walk"><a href="#collections.walk" name="collections.walk">collections.walk</a></h3>
+<blockquote>
+<p>Functions to recursively walk collections which are trees.</p>
+</blockquote>
+<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<pre><code>  _.walk = walk;
+  postorder: function(obj, visitor, context)
+  preorder: function(obj, visitor, context)
+  walk(obj, visitor, null, context)
+  map: function(obj, strategy, visitor, context)
+  pluck: function(obj, propertyName)
+  pluckRec: function(obj, propertyName)
+  _.walk.collect = _.walk.map;</code></pre>
+<h3 id="function-arity"><a href="#function.arity" name="function.arity">function.arity</a></h3>
+<blockquote>
+<p>Functions which manipulate the arity of functions.</p>
+</blockquote>
+<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<pre><code>fix: function(fun) {
+unary: function (fun) {
+binary: function (fun) {
+ternary: function (fun) {
+quaternary: function (fun) {
+curry: curry,
+rCurry: function (func) {
+curry2: function (fun) {
+curry3: function (fun) {
+rcurry2: function (fun) {
+rcurry3: function (fun) {
+_.arity = (function () {</code></pre>
+<h3 id="function-combinators"><a href="#function.combinators" name="function.combinators">function.combinators</a></h3>
+<blockquote>
+<p>Functions that are combinators.</p>
+</blockquote>
+<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<pre><code>always: function(value) {
+pipeline: function(/*, funs */){
+conjoin: function(/* preds */) {
+disjoin: function(/* preds */) {
+comparator: function(fun) {
+complement: function(pred) {
+splat: function(fun) {
+unsplat: function(fun) {
+unsplatl: function(fun) {
+mapArgs: curry2(baseMapArgs),
+juxt: function(/* funs */) {
+fnull: function(fun /*, defaults */) {
+flip2: function(fun) {
+flip: function(fun) {
+_.unsplatr = _.unsplat;
+_.mapArgsWith = curry2(_.flip(baseMapArgs));
+_.bound = function(obj, fname) {</code></pre>
+<h3 id="function-iterators"><a href="#function.iterators" name="function.iterators">function.iterators</a></h3>
+<blockquote>
+<p>Functions to iterate over collections.</p>
+</blockquote>
+<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<pre><code>  _.iterators = {
+  accumulate: accumulate,
+  accumulateWithReturn: accumulateWithReturn,
+  foldl: foldl,
+  reduce: foldl,
+  unfold: unfold,
+  unfoldWithReturn: unfoldWithReturn,
+  map: map,
+  select: select,
+  reject: reject,
+  filter: select,
+  find: find,
+  slice: slice,
+  drop: drop,
+  take: take,
+  List: List,
+  Tree: Tree,
+  constant: K,
+  K: K,
+  numbers: numbers,
+  range: range</code></pre>
+<h3 id="function-predicates"><a href="#function.predicates" name="function.predicates">function.predicates</a></h3>
+<blockquote>
+<p>Functions which return whether the input meets a condition.</p>
+</blockquote>
+<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<pre><code>isInstanceOf: function(x, t) { return (x instanceof t); },
+isAssociative: function(x) { return _.isArray(x) || _.isObject(x) || _.isArguments(x); },
+isIndexed: function(x) 
+isSequential: function(x)
+isZero: function(x) 
+isEven: function(x) 
+isOdd: function(x) 
+isPositive:
+isNegative:
+isValidDate: function(x)
+isNumeric: function(n)
+isInteger: function(i)
+isFloat: function(n)
+isIncreasing: function()
+isDecreasing: function()</code></pre>
+<h3 id="object-builders"><a href="#object.builders" name="object.builders">object.builders</a></h3>
+<blockquote>
+<p>Functions to build objects.</p>
+</blockquote>
+<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<pre><code>merge: function(/* objs */){
+renameKeys: function(obj, kobj) {
+snapshot: function(obj) {
+updatePath: function(obj, fun, ks) {
+setPath: function(obj, value, ks) {
+frequencies: curry2(_.countBy)(_.identity)</code></pre>
+<h3 id="object-selectors"><a href="#object.selectors" name="object.selectors">object.selectors</a></h3>
+<blockquote>
+<p>Functions to select values from an object.</p>
+</blockquote>
+<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<pre><code>accessor: function(field) {
+dictionary: function (obj) {
+selectKeys: function (obj, ks) {
+kv: function(obj, key) {
+getPath: function getPath (obj, ks) {
+hasPath: function hasPath (obj, ks) {
+pickWhen: function(obj, pred) {
+omitWhen: function(obj, pred) {</code></pre>
+<h3 id="util-existential"><a href="#util.existential" name="util.existential">util.existential</a></h3>
+<blockquote>
+<p>Functions which deal with whether a value &quot;exists.&quot;</p>
+</blockquote>
+<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<pre><code>exists: function(x)
+truthy: function(x)
+falsey: function(x)
+not:    function(b)
+firstExisting: </code></pre>
+<h3 id="util-operators"><a href="#util.operators" name="util.operators">util.operators</a></h3>
+<blockquote>
+<p>Functions which wrap JavaScript&#39;s operators.</p>
+</blockquote>
+<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<pre><code>add: function(x, y) {
+sub: function(x, y) {
+mul: function(x, y) {
+div: function(x, y) {
+mod: function(x, y) {
+inc: function(x) {
+dec: function(x) {
+neg: function(x) {
+eq: function(x, y) {
+seq: function(x, y) {
+neq: function(x, y) {
+sneq: function(x, y) {
+not: function(x) {
+gt: function(x, y) {
+lt: function(x, y) {
+gte: function(x, y) {
+lte: function(x, y) {
+bitwiseAnd: function(x, y) {
+bitwiseOr: function(x, y) {
+bitwiseXor: function(x, y) {
+bitwiseNot: function(x) {
+bitwiseLeft: function(x, y) {
+bitwiseRight: function(x, y) {
+bitwiseZ: function(x, y) {</code></pre>
+<h3 id="util-strings"><a href="#util.strings" name="util.strings">util.strings</a></h3>
+<blockquote>
+<p>Functions for working with strings.</p>
+</blockquote>
+<h4 id="camelcase"><a href="#camelcase" name="camelcase">camelCase</a></h4>
+<p><strong>Signature:</strong> <code>_.camelCase(string:String)</code></p>
+<p>Converts a dash-separated string to camel case. Opposite of <a href="#todash">toDash</a>.</p>
+<pre><code class="lang-javascript">_.camelCase(&quot;ancient-greece&quot;);
+// =&gt; &quot;ancientGreece&quot;</code></pre>
+<h4 id="explode"><a href="#explode" name="explode">explode</a></h4>
+<p><strong>Signature:</strong> <code>_.explode(s:String)</code></p>
+<p>Explodes a string into an array of characters. Opposite of <a href="#implode">implode</a>.</p>
+<pre><code class="lang-javascript">_.explode(&quot;Plato&quot;);
+// =&gt; [&quot;P&quot;, &quot;l&quot;, &quot;a&quot;, &quot;t&quot;, &quot;o&quot;]</code></pre>
+<h4 id="implode"><a href="#implode" name="implode">implode</a></h4>
+<p><strong>Signature:</strong> <code>_.implode(a:Array)</code></p>
+<p>Implodes an array of strings into a single string. Opposite of <a href="#explode">explode</a>.</p>
+<pre><code class="lang-javascript">_.implode([&quot;H&quot;, &quot;o&quot;, &quot;m&quot;, &quot;e&quot;, &quot;r&quot;]);
+// =&gt; &quot;Homer&quot;</code></pre>
+<h4 id="strcontains"><a href="#strcontains" name="strcontains">strContains</a></h4>
+<p><strong>Signature:</strong> <code>_.strContains(str:String, search:String)</code></p>
+<p>Reports whether a string contains a search string.</p>
+<pre><code class="lang-javascript">_.strContains(&quot;Acropolis&quot;, &quot;polis&quot;);
+// =&gt; true</code></pre>
+<h4 id="todash"><a href="#todash" name="todash">toDash</a></h4>
+<p><strong>Signature:</strong> <code>_.toDash(string:String)</code></p>
+<p>Converts a camel case string to a dashed string. Opposite of <a href="#camelcase">camelCase</a>.</p>
+<pre><code class="lang-javascript">_.toDash(&quot;thisIsSparta&quot;);
+// =&gt; &quot;this-is-sparta&quot;</code></pre>
+<h3 id="util-trampolines"><a href="#util.trampolines" name="util.trampolines">util.trampolines</a></h3>
+<blockquote>
+<p>Trampoline functions.</p>
+</blockquote>
+<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<pre><code>done: function(value) {
+trampoline: function(fun /*, args */) {</code></pre>
 
 </body>
 </html>

@@ -1,3 +1,7 @@
+### object.selectors
+
+> Functions to select values from an object.
+
 Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
 
     accessor: function(field) {

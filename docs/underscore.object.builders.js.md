@@ -1,3 +1,7 @@
+### object.builders
+
+> Functions to build objects.
+
 Documentation should use [Journo](https://github.com/jashkenas/journo) formats and standards.
 
     merge: function(/* objs */){
