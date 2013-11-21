@@ -28,7 +28,7 @@ _.explode("Plato");
 
 **Signature:** `_.implode(a:Array)`
 
-Implodes an array of characters into a string. Opposite of [explode](#explode).
+Implodes an array of strings into a single string. Opposite of [explode](#explode).
 
 ```javascript
 _.implode(["H", "o", "m", "e", "r"]);
