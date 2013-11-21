@@ -9,23 +9,39 @@
 
   // Establish the root object, `window` in the browser, or `global` on the server.
   var _ = root._ || require('underscore');
-  
+
+  // Utility function to allow binary operators to support variadic arguments
+  function variadify(operator) {
+    return function() {
+      return _.reduce(arguments, operator);
+    };
+  }
+
+  // Basic math operators
+  function add(x, y) {
+    return x + y;
+  }
+
+  function sub(x, y) {
+    return x - y;
+  }
+
+  function mul(x, y) {
+    return x * y;
+  }
+
+  function div(x, y) {
+    return x / y;
+  }
+
   // Mixing in the operator functions
   // -----------------------------
 
   _.mixin({
-    add: function(x, y) {
-      return x + y;
-    },
-    sub: function(x, y) {
-      return x - y;
-    },
-    mul: function(x, y) {
-      return x * y;
-    },
-    div: function(x, y) {
-      return x / y;
-    },
+    add: variadify(add),
+    sub: variadify(sub),
+    mul: variadify(mul),
+    div: variadify(div),
     mod: function(x, y) {
       return x % y;
     },

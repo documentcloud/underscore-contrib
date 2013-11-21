@@ -5,22 +5,26 @@ $(document).ready(function() {
   test("add", function() {
     equal(_.add(1, 1), 2, '1 + 1 = 2');
     equal(_.add(3, 5), 8, '3 + 5 = 8');
+    equal(_.add(1, 2, 3, 4), 10, 'adds multiple operands');
   });
 
   test("sub", function() {
     equal(_.sub(1, 1), 0, '1 - 1 = 0');
     equal(_.sub(5, 3), 2, '5 - 3 = 2');
+    equal(_.sub(10, 9, 8, 7), -14, 'subtracts multiple operands');
   });
 
   test("mul", function() {
     equal(_.mul(1, 1), 1, '1 * 1 = 1');
     equal(_.mul(5, 3), 15, '5 * 3 = 15');
+    equal(_.mul(1, 2, 3, 4), 24, 'multiplies multiple operands');
   });
 
   test("div", function() {
     equal(_.div(1, 1), 1, '1 / 1 = 1');
     equal(_.div(15, 3), 5, '15 / 3 = 5');
     equal(_.div(15, 0), Infinity, '15 / 0 = Infinity');
+    equal(_.div(24, 2, 2, 2), 3, 'divides multiple operands');
   });
 
   test("mod", function() {
