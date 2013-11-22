@@ -77,7 +77,10 @@ $(document).ready(function() {
     equal(_.sneq(0, 0, 1), true, 'compares a list of arguments');
   });
   test("not", function() {
-    equal(false, false, 'failing placeholder');
+    equal(_.not(true), false, 'converts true to false');
+    equal(_.not(false), true, 'converts false to true');
+    equal(_.not('truthy'), false, 'converts truthy values to false');
+    equal(_.not(null), true, 'converts falsy values to true');
   });
   test("gt", function() {
     equal(_.gt(3, 2), true, '3 > 2');
