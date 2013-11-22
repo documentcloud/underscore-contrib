@@ -20,6 +20,25 @@
     };
   }
 
+  // Turn a binary comparator into a variadic comparator
+  function variadicComparator(comparator) {
+    return function() {
+      var result;
+      for (var i = 0; i < arguments.length - 1; i++) {
+        result = comparator(arguments[i], arguments[i + 1]);
+        if (result === false) return result;
+      }
+      return result; 
+    };
+  }
+
+  // Turn a boolean-returning function into one with the opposite meaning
+  function invert(fn) {
+    return function() {
+      return !fn.apply(this, arguments);
+    };
+  }
+
   // Basic math operators
   function add(x, y) {
     return x + y;
@@ -35,6 +54,22 @@
 
   function div(x, y) {
     return x / y;
+  }
+
+  function mod(x, y) {
+    return x % y;
+  }
+
+  function inc(x) {
+    return ++x;
+  }
+
+  function dec(x) {
+    return --x;
+  }
+
+  function neg(x) {
+    return -x;
   }
 
   // Bitwise operators
@@ -62,23 +97,8 @@
     return x >>> y;
   }
 
-  // Turn a binary comparator into a variadic comparator
-  function variadicComparator(comparator) {
-    return function() {
-      var result;
-      for (var i = 0; i < arguments.length - 1; i++) {
-        result = comparator(arguments[i], arguments[i + 1]);
-        if (result === false) return result;
-      }
-      return result; 
-    };
-  }
-
-  // Turn a boolean-returning function into one with the opposite meaning
-  function invert(fn) {
-    return function() {
-      return !fn.apply(this, arguments);
-    };
+  function bitwiseNot(x) {
+    return ~x;
   }
 
   // Basic comparators
@@ -88,6 +108,11 @@
 
   function seq(x, y) {
     return x === y;
+  }
+
+  // Not
+  function not(x) {
+    return !x;
   }
 
   // Relative comparators
@@ -115,25 +140,15 @@
     sub: variadicMath(sub),
     mul: variadicMath(mul),
     div: variadicMath(div),
-    mod: function(x, y) {
-      return x % y;
-    },
-    inc: function(x) {
-      return ++x;
-    },
-    dec: function(x) {
-      return --x;
-    },
-    neg: function(x) {
-      return -x;
-    },
+    mod: mod,
+    inc: inc,
+    dec: dec,
+    neg: neg,
     eq: variadicComparator(eq),
     seq: variadicComparator(seq),
     neq: invert(variadicComparator(eq)),
     sneq: invert(variadicComparator(seq)),
-    not: function(x) {
-      return !x;
-    },
+    not: not,
     gt: variadicComparator(gt),
     lt: variadicComparator(lt),
     gte: variadicComparator(gte),
@@ -141,9 +156,7 @@
     bitwiseAnd: variadicMath(bitwiseAnd),
     bitwiseOr: variadicMath(bitwiseOr),
     bitwiseXor: variadicMath(bitwiseXor),
-    bitwiseNot: function(x) {
-      return ~x;
-    },
+    bitwiseNot: bitwiseNot,
     bitwiseLeft: variadicMath(bitwiseLeft),
     bitwiseRight: variadicMath(bitwiseRight),
     bitwiseZ: variadicMath(bitwiseZ)
