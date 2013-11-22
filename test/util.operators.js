@@ -105,25 +105,37 @@ $(document).ready(function() {
     equal(_.lte(2, 2, 1), false, 'compares a list of arguments');
   });
   test("bitwiseAnd", function() {
-    equal(false, false, 'failing placeholder');
+    equal(_.bitwiseAnd(1, 1), 1, '1 & 1');
+    equal(_.bitwiseAnd(1, 0), 0, '1 & 0');
+    equal(_.bitwiseAnd(1, 1, 0), 0, 'operates on multiple arguments');
   });
   test("bitwiseOr", function() {
-    equal(false, false, 'failing placeholder');
+    equal(_.bitwiseOr(1, 1), 1, '1 | 1');
+    equal(_.bitwiseOr(1, 0), 1, '1 | 0');
+    equal(_.bitwiseOr(1, 1, 2), 3, 'operates on multiple arguments');
   });
   test("bitwiseXor", function() {
-    equal(false, false, 'failing placeholder');
+    equal(_.bitwiseXor(1, 1), 0, '1 ^ 1');
+    equal(_.bitwiseXor(1, 2), 3, '1 ^ 2');
+    equal(_.bitwiseXor(1, 2, 3), 0, 'operates on multiple arguments');
   });
   test("bitwiseNot", function() {
-    equal(false, false, 'failing placeholder');
+    equal(_.bitwiseNot(1), -2, '~1');
+    equal(_.bitwiseNot(2), -3, '~2');
   });
   test("bitwiseLeft", function() {
-    equal(false, false, 'failing placeholder');
+    equal(_.bitwiseLeft(1, 1), 2, '1 << 1');
+    equal(_.bitwiseLeft(1, 0), 1, '1 << 0');
+    equal(_.bitwiseLeft(1, 1, 1), 4, 'operates on multiple arguments');
   });
   test("bitwiseRight", function() {
-    equal(false, false, 'failing placeholder');
+    equal(_.bitwiseRight(1, 1), 0, '1 >> 1');
+    equal(_.bitwiseRight(2, 1), 1, '2 >> 1');
+    equal(_.bitwiseRight(3, 1, 1), 0, 'operates on multiple arguments');
   });
   test("bitwiseZ", function() {
-    equal(false, false, 'failing placeholder');
+    equal(_.bitwiseZ(-1, 1), 2147483647, '-1 >>> 1');
+    equal(_.bitwiseZ(-1, 1, 1), 1073741823, 'operates on multiple arguments');
   });
 
 });

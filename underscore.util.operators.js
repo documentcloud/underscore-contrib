@@ -37,6 +37,31 @@
     return x / y;
   }
 
+  // Bitwise operators
+  function bitwiseAnd(x, y) {
+    return x & y;
+  }
+
+  function bitwiseOr(x, y) {
+    return x | y;
+  }
+
+  function bitwiseXor(x, y) {
+    return x ^ y;
+  }
+
+  function bitwiseLeft(x, y) {
+    return x << y;
+  }
+
+  function bitwiseRight(x, y) {
+    return x >> y;
+  }
+
+  function bitwiseZ(x, y) {
+    return x >>> y;
+  }
+
   // Turn a binary comparator into a variadic comparator
   function variadicComparator(comparator) {
     return function() {
@@ -113,26 +138,14 @@
     lt: variadicComparator(lt),
     gte: variadicComparator(gte),
     lte: variadicComparator(lte),
-    bitwiseAnd: function(x, y) {
-      return x & y;
-    },
-    bitwiseOr: function(x, y) {
-      return x | y;
-    },
-    bitwiseXor: function(x, y) {
-      return x ^ y;
-    },
+    bitwiseAnd: variadicMath(bitwiseAnd),
+    bitwiseOr: variadicMath(bitwiseOr),
+    bitwiseXor: variadicMath(bitwiseXor),
     bitwiseNot: function(x) {
       return ~x;
     },
-    bitwiseLeft: function(x, y) {
-      return x << y;
-    },
-    bitwiseRight: function(x, y) {
-      return x >> y;
-    },
-    bitwiseZ: function(x, y) {
-      return x >>> y;
-    }
+    bitwiseLeft: variadicMath(bitwiseLeft),
+    bitwiseRight: variadicMath(bitwiseRight),
+    bitwiseZ: variadicMath(bitwiseZ)
   });
 })(this);
