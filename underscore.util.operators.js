@@ -65,6 +65,23 @@
     return x === y;
   }
 
+  // Relative comparators
+  function gt(x, y) {
+    return x > y;
+  }
+
+  function lt(x, y) {
+    return x < y;
+  }
+
+  function gte(x, y) {
+    return x >= y;
+  }
+
+  function lte(x, y) {
+    return x <= y;
+  }
+
   // Mixing in the operator functions
   // -----------------------------
 
@@ -92,18 +109,10 @@
     not: function(x) {
       return !x;
     },
-    gt: function(x, y) {
-      return x > y;
-    },
-    lt: function(x, y) {
-      return x < y;
-    },
-    gte: function(x, y) {
-      return x >= y;
-    },
-    lte: function(x, y) {
-      return x <= y;
-    },
+    gt: variadicComparator(gt),
+    lt: variadicComparator(lt),
+    gte: variadicComparator(gte),
+    lte: variadicComparator(lte),
     bitwiseAnd: function(x, y) {
       return x & y;
     },

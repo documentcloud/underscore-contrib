@@ -85,20 +85,24 @@ $(document).ready(function() {
   test("gt", function() {
     equal(_.gt(3, 2), true, '3 > 2');
     equal(_.gt(1, 3), false, '1 > 3');
+    equal(_.gt(1, 2, 1), false, 'compares a list of arguments');
   });
   test("lt", function() {
     equal(_.lt(3, 2), false, '3 < 2');
     equal(_.lt(1, 3), true, '1 < 3');
+    equal(_.lt(1, 2, 1), false, 'compares a list of arguments');
   });
   test("gte", function() {
     equal(_.gte(3, 2), true, '3 >= 2');
     equal(_.gte(1, 3), false, '1 >= 3');
     equal(_.gte(3, 3), true, '3 >= 3');
+    equal(_.gte(2, 3, 1), false, 'compares a list of arguments');
   });
   test("lte", function() {
     equal(_.lte(3, 2), false, '3 <= 2');
     equal(_.lte(1, 3), true, '1 <= 3');
     equal(_.lte(3, 3), true, '3 <= 3');
+    equal(_.lte(2, 2, 1), false, 'compares a list of arguments');
   });
   test("bitwiseAnd", function() {
     equal(false, false, 'failing placeholder');
