@@ -10,8 +10,11 @@
   // Establish the root object, `window` in the browser, or `global` on the server.
   var _ = root._ || require('underscore');
 
-  // Utility function to allow binary operators to support variadic arguments
-  function variadify(operator) {
+  // Setup for variadic operators
+  // ----------------------------
+
+  // Turn a binary math operator into a variadic operator
+  function variadicMath(operator) {
     return function() {
       return _.reduce(arguments, operator);
     };
@@ -34,14 +37,42 @@
     return x / y;
   }
 
+  // Turn a binary comparator into a variadic comparator
+  function variadicComparator(comparator) {
+    return function() {
+      var result;
+      for (var i = 0; i < arguments.length - 1; i++) {
+        result = comparator(arguments[i], arguments[i + 1]);
+        if (result === false) return result;
+      }
+      return result; 
+    };
+  }
+
+  // Turn a boolean-returning function into one with the opposite meaning
+  function invert(fn) {
+    return function() {
+      return !fn.apply(this, arguments);
+    };
+  }
+
+  // Basic comparators
+  function eq(x, y) {
+    return x == y;
+  }
+
+  function seq(x, y) {
+    return x === y;
+  }
+
   // Mixing in the operator functions
   // -----------------------------
 
   _.mixin({
-    add: variadify(add),
-    sub: variadify(sub),
-    mul: variadify(mul),
-    div: variadify(div),
+    add: variadicMath(add),
+    sub: variadicMath(sub),
+    mul: variadicMath(mul),
+    div: variadicMath(div),
     mod: function(x, y) {
       return x % y;
     },
@@ -54,18 +85,10 @@
     neg: function(x) {
       return -x;
     },
-    eq: function(x, y) {
-      return x == y;
-    },
-    seq: function(x, y) {
-      return x === y;
-    },
-    neq: function(x, y) {
-      return x != y;
-    },
-    sneq: function(x, y) {
-      return x !== y;
-    },
+    eq: variadicComparator(eq),
+    seq: variadicComparator(seq),
+    neq: invert(variadicComparator(eq)),
+    sneq: invert(variadicComparator(seq)),
     not: function(x) {
       return !x;
     },

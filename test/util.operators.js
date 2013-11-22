@@ -59,15 +59,22 @@ $(document).ready(function() {
     equal(_.eq(0, '0'), true, '0 == "0"');
     equal(_.eq({}, {}), false, '{} == {}');
     equal(false, false, 'failing placeholder');
+    equal(_.eq(0, 0, 1), false, 'compares a list of arguments');
   });
   test("seq", function() {
-    equal(false, false, 'failing placeholder');
+    equal(_.seq(1, 1), true, '1 === 1');
+    equal(_.seq(1, '1'), false, '1 !== "1"');
+    equal(_.seq(0, 0, 1), false, 'compares a list of arguments');
   });
   test("neq", function() {
-    equal(false, false, 'failing placeholder');
+    equal(_.neq('a', 'b'), true, '"a" != "b"');
+    equal(_.neq(1, '1'), false, '1 == "1"');
+    equal(_.neq(0, 0, 1), true, 'compares a list of arguments');
   });
   test("sneq", function() {
-    equal(false, false, 'failing placeholder');
+    equal(_.sneq('a', 'b'), true, '"a" !== "b"');
+    equal(_.sneq(1, '1'), true, '1 !== "1"');
+    equal(_.sneq(0, 0, 1), true, 'compares a list of arguments');
   });
   test("not", function() {
     equal(false, false, 'failing placeholder');
