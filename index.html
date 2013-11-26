@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="tocdoc.css" />
 </head>
 <body>
-<div class="toc"><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#places">Places</a></li><li><a href="#why-underscore-contrib">Why underscore-contrib?</a></li><li><a href="#use">Use</a></li><li><a href="#license">License</a></li></ul></li><li><a href="#sub-libraries">Sub-libraries</a><ul><li><a href="#array.builders">array.builders</a><ul><li><a href="#cat">cat</a></li><li><a href="#cons">cons</a></li><li><a href="#partition">partition</a></li><li><a href="#partitionall">partitionAll</a></li><li><a href="#mapcat">mapcat</a></li><li><a href="#interpose">interpose</a></li><li><a href="#weave">weave</a></li><li><a href="#repeat">repeat</a></li><li><a href="#cycle">cycle</a></li><li><a href="#splitat">splitAt</a></li><li><a href="#takeskipping">takeSkipping</a></li><li><a href="#reductions">reductions</a></li><li><a href="#keepindexed">keepIndexed</a></li><li><a href="#iterateuntil">iterateUntil</a></li></ul></li><li><a href="#array.selectors">array.selectors</a><ul><li><a href="#second">second</a></li><li><a href="#third">third</a></li><li><a href="#nth">nth</a></li><li><a href="#takewhile">takeWhile</a></li><li><a href="#dropwhile">dropWhile</a></li></ul></li><li><a href="#collections.walk">collections.walk</a></li><li><a href="#function.arity">function.arity</a></li><li><a href="#function.combinators">function.combinators</a></li><li><a href="#function.iterators">function.iterators</a></li><li><a href="#function.predicates">function.predicates</a></li><li><a href="#object.builders">object.builders</a></li><li><a href="#object.selectors">object.selectors</a></li><li><a href="#util.existential">util.existential</a></li><li><a href="#util.operators">util.operators</a></li><li><a href="#util.strings">util.strings</a><ul><li><a href="#camelcase">camelCase</a></li><li><a href="#explode">explode</a></li><li><a href="#implode">implode</a></li><li><a href="#strcontains">strContains</a></li><li><a href="#todash">toDash</a></li></ul></li><li><a href="#util.trampolines">util.trampolines</a></li></ul></li></ul></div>
+<div class="toc"><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#places">Places</a></li><li><a href="#why-underscore-contrib">Why underscore-contrib?</a></li><li><a href="#use">Use</a></li><li><a href="#license">License</a></li></ul></li><li><a href="#sub-libraries">Sub-libraries</a><ul><li><a href="#array.builders">array.builders</a><ul><li><a href="#cat">cat</a></li><li><a href="#cons">cons</a></li><li><a href="#partition">partition</a></li><li><a href="#partitionall">partitionAll</a></li><li><a href="#mapcat">mapcat</a></li><li><a href="#interpose">interpose</a></li><li><a href="#weave">weave</a></li><li><a href="#repeat">repeat</a></li><li><a href="#cycle">cycle</a></li><li><a href="#splitat">splitAt</a></li><li><a href="#takeskipping">takeSkipping</a></li><li><a href="#reductions">reductions</a></li><li><a href="#keepindexed">keepIndexed</a></li><li><a href="#iterateuntil">iterateUntil</a></li></ul></li><li><a href="#array.selectors">array.selectors</a><ul><li><a href="#second">second</a></li><li><a href="#third">third</a></li><li><a href="#nth">nth</a></li><li><a href="#takewhile">takeWhile</a></li><li><a href="#dropwhile">dropWhile</a></li></ul></li><li><a href="#collections.walk">collections.walk</a></li><li><a href="#function.arity">function.arity</a></li><li><a href="#function.combinators">function.combinators</a></li><li><a href="#function.iterators">function.iterators</a></li><li><a href="#function.predicates">function.predicates</a><ul><li><a href="#isassociative">isAssociative</a></li><li><a href="#isdecreasing">isDecreasing</a></li><li><a href="#iseven">isEven</a></li><li><a href="#isfloat">isFloat</a></li><li><a href="#isincreasing">isIncreasing</a></li><li><a href="#isindexed">isIndexed</a></li><li><a href="#isinstanceof">isInstanceOf</a></li><li><a href="#isinteger">isInteger</a></li><li><a href="#isjson">isJSON</a></li><li><a href="#isnegative">isNegative</a></li><li><a href="#isnumeric">isNumeric</a></li><li><a href="#isodd">isOdd</a></li><li><a href="#isplainobject">isPlainObject</a></li><li><a href="#ispositive">isPositive</a></li><li><a href="#issequential">isSequential</a></li><li><a href="#isvaliddate">isValidDate</a></li><li><a href="#iszero">isZero</a></li></ul></li><li><a href="#object.builders">object.builders</a></li><li><a href="#object.selectors">object.selectors</a></li><li><a href="#util.existential">util.existential</a></li><li><a href="#util.operators">util.operators</a></li><li><a href="#util.strings">util.strings</a><ul><li><a href="#camelcase">camelCase</a></li><li><a href="#explode">explode</a></li><li><a href="#implode">implode</a></li><li><a href="#strcontains">strContains</a></li><li><a href="#todash">toDash</a></li></ul></li><li><a href="#util.trampolines">util.trampolines</a></li></ul></li></ul></div>
 <h1 id="underscore-contrib">Underscore-contrib</h1>
 <blockquote>
 <p>The brass buckles on Underscore&#39;s utility belt - a contributors&#39; library for <a href="http://underscorejs.org/">Underscore</a>.</p>
@@ -356,22 +356,206 @@ _.bound = function(obj, fname) {</code></pre>
 <blockquote>
 <p>Functions which return whether the input meets a condition.</p>
 </blockquote>
-<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
-<pre><code>isInstanceOf: function(x, t) { return (x instanceof t); },
-isAssociative: function(x) { return _.isArray(x) || _.isObject(x) || _.isArguments(x); },
-isIndexed: function(x) 
-isSequential: function(x)
-isZero: function(x) 
-isEven: function(x) 
-isOdd: function(x) 
-isPositive:
-isNegative:
-isValidDate: function(x)
-isNumeric: function(n)
-isInteger: function(i)
-isFloat: function(n)
-isIncreasing: function()
-isDecreasing: function()</code></pre>
+<hr>
+<h4 id="isassociative"><a href="#isassociative" name="isassociative">isAssociative</a></h4>
+<p><strong>Signature:</strong> <code>isAssociative(value:Any)</code></p>
+<p>Returns a boolean indicating whether or not the value is an associative object.
+An associative object is one where its elements can be accessed via a key or
+index (e.g. arrays, <code>arguments</code>, objects).</p>
+<pre><code class="lang-javascript">_.isAssociative([&quot;Athens&quot;, &quot;Sparta&quot;]);
+// =&gt; true
+
+_.isAssociative(42);
+// =&gt; false</code></pre>
+<hr>
+<h4 id="isdecreasing"><a href="#isdecreasing" name="isdecreasing">isDecreasing</a></h4>
+<p><strong>Signature:</strong> <code>_.isDecreasing(values:Any...)</code></p>
+<p>Checks whether the arguments are monotonically decreasing values (i.e. whether
+each argument is less than the previous argument.)</p>
+<pre><code class="lang-javascript">_.isDecreasing(3, 2, 1);
+// =&gt; true
+
+_.isDecreasing(15, 12, 2);
+// =&gt; true
+
+_.isDecreasing(2, 3);
+// =&gt; false</code></pre>
+<hr>
+<h4 id="iseven"><a href="#iseven" name="iseven">isEven</a></h4>
+<p><strong>Signature:</strong> <code>_.isEven(value:Any)</code></p>
+<p>Checks whether the value is an even number.</p>
+<pre><code class="lang-javascript">_.isEven(12);
+// =&gt; true
+
+_.isEven(3);
+// =&gt; false
+
+_.isEven({});
+// =&gt; false</code></pre>
+<hr>
+<h4 id="isfloat"><a href="#isfloat" name="isfloat">isFloat</a></h4>
+<p><strong>Signature:</strong> <code>_.isFloat(value:Any)</code></p>
+<p>Checks whether the value is a &quot;float.&quot; For the purposes of this function, a float
+is a numeric value that is not an integer. A numeric value may be a number, a
+string containing a number, a <code>Number</code> object, etc.</p>
+<p><strong>NOTE:</strong> JavaScript itself makes no distinction between integers and floats. For
+the purposes of this function both <code>1</code> and <code>1.0</code> are considered integers.</p>
+<pre><code class="lang-javascript">_.isFloat(1.1);
+// =&gt; true
+
+_.isFloat(1);
+// =&gt; false
+
+_.isFloat(1.0);
+// =&gt; false
+
+_.isFloat(&quot;2.15&quot;);
+// =&gt; true</code></pre>
+<hr>
+<h4 id="isincreasing"><a href="#isincreasing" name="isincreasing">isIncreasing</a></h4>
+<p><strong>Signature:</strong> <code>_.isIncreasing(value:Any...)</code></p>
+<p>Checks whether the arguments are monotonically increasing values (i.e. each
+argument is greater than the previous argument.)</p>
+<pre><code class="lang-javascript">_.isIncreasing(1, 12, 15);
+// =&gt; true
+
+_.isIncreasing(1);
+// =&gt; true
+
+_.isIncreasing(5, 4);
+// =&gt; false</code></pre>
+<hr>
+<h4 id="isindexed"><a href="#isindexed" name="isindexed">isIndexed</a></h4>
+<p><strong>Signature:</strong> <code>_.isIndexed(value:Any)</code></p>
+<p>Checks whether the value is &quot;indexed.&quot; An indexed value is one which accepts a
+numerical index to access its elements. (e.g. arrays and strings)</p>
+<p><strong>NOTE:</strong> Underscore does not support cross-browser consistent use of strings as
+array-like values, so be wary in IE 8 when using string objects and in IE7 and
+earlier when using string literals &amp; objects.</p>
+<pre><code class="lang-javascript">_.isIndexed(&quot;Socrates&quot;);
+// =&gt; true
+
+_.isIndexed({poison: &quot;hemlock&quot;});
+// =&gt; false</code></pre>
+<hr>
+<h4 id="isinstanceof"><a href="#isinstanceof" name="isinstanceof">isInstanceOf</a></h4>
+<p><strong>Signature:</strong> <code>_.isInstanceOf(value:Any, constructor:Function)</code></p>
+<p>Checks whether the value is an instance of the constructor.</p>
+<pre><code class="lang-javascript">_.isInstanceOf(new Date(), Date);
+// =&gt; true
+
+_.isInstanceOf(&quot;Hippocrates&quot;, RegExp);
+// =&gt; false</code></pre>
+<hr>
+<h4 id="isinteger"><a href="#isinteger" name="isinteger">isInteger</a></h4>
+<p><strong>Signature:</strong> <code>_.isInteger(value:Any)</code></p>
+<p>Checks whether the value is a numeric integer. A numeric value can be a string
+containing a number, a <code>Number</code> object, etc.</p>
+<pre><code class="lang-javascript">_.isInteger(18);
+// =&gt; true
+
+_.isInteger(&quot;18&quot;);
+// =&gt; true
+
+_.isInteger(2.5);
+// =&gt; false
+
+_.isInteger(-1);
+// =&gt; true</code></pre>
+<hr>
+<h4 id="isjson"><a href="#isjson" name="isjson">isJSON</a></h4>
+<p><strong>Signature:</strong> <code>_.isJSON(value:Any)</code></p>
+<p>Checks whether the value is valid JSON. <a href="http://www.json.org/">See the spec</a> for
+more information on what constitutes valid JSON.</p>
+<p><strong>NOTE:</strong> This function relies on <code>JSON.parse</code> which is not available in IE7 and
+earlier.</p>
+<pre><code class="lang-javascript">_.isJSON(&#39;{ &quot;name&quot;: &quot;Crockford&quot; }&#39;);
+// =&gt; true
+
+_.isJSON({ name: &quot;Crocket&quot; });
+// =&gt; false</code></pre>
+<hr>
+<h4 id="isnegative"><a href="#isnegative" name="isnegative">isNegative</a></h4>
+<p><strong>Signature:</strong> <code>_.isNegative(value:Any)</code></p>
+<p>Checks whether the value is a negative number.</p>
+<pre><code class="lang-javascript">_.isNegative(-2);
+// =&gt; true
+
+_.isNegative(5);
+// =&gt; false</code></pre>
+<hr>
+<h4 id="isnumeric"><a href="#isnumeric" name="isnumeric">isNumeric</a></h4>
+<p><strong>Signature:</strong> <code>_.isNumeric(value:Any)</code></p>
+<p>A numeric is something that contains a numeric value, regardless of its type. It
+can be a string containing a numeric value, exponential notation, a <code>Number</code>
+object, etc.</p>
+<pre><code class="lang-javascript">_.isNumeric(&quot;14&quot;);
+// =&gt; true
+
+_.isNumeric(&quot;fourteen&quot;);
+// =&gt; false</code></pre>
+<hr>
+<h4 id="isodd"><a href="#isodd" name="isodd">isOdd</a></h4>
+<p><strong>Signature:</strong> <code>_.isOdd(value:Any)</code></p>
+<p>Checks whether the value is an odd number.</p>
+<pre><code class="lang-javascript">_.isOdd(3);
+// =&gt; true
+
+_.isOdd(2);
+// =&gt; false
+
+_.isOdd({});
+// =&gt; false</code></pre>
+<hr>
+<h4 id="isplainobject"><a href="#isplainobject" name="isplainobject">isPlainObject</a></h4>
+<p><strong>Signature:</strong> <code>_.isPlainObject(value:Any);</code></p>
+<p>Checks whether the value is a &quot;plain&quot; object. (i.e. not an array or function)</p>
+<pre><code class="lang-javascript">_.isPlainObject({});
+// =&gt; true
+
+_.isPlainObject(new Date());
+// =&gt; true
+
+_.isPlainObject([]);
+// =&gt; false</code></pre>
+<hr>
+<h4 id="ispositive"><a href="#ispositive" name="ispositive">isPositive</a></h4>
+<p><strong>Signature:</strong> <code>_.isPositive(value:Any)</code></p>
+<p>Checks whether the value is a positive number.</p>
+<pre><code class="lang-javascript">_.isPositive(21);
+// =&gt; true
+
+_.isPositive(-3);
+// =&gt; false</code></pre>
+<hr>
+<h4 id="issequential"><a href="#issequential" name="issequential">isSequential</a></h4>
+<p><strong>Signature:</strong> <code>_.isSequential(value:Any)</code></p>
+<p>Checks whether the value is a sequential composite type (i.e. arrays and
+<code>arguments</code>).</p>
+<pre><code class="lang-javascript">_.isSequential([&quot;Herodotus&quot;, &quot;Thucidydes&quot;);
+// =&gt; true
+
+_.isSequential(new Date);
+// =&gt; false</code></pre>
+<hr>
+<h4 id="isvaliddate"><a href="#isvaliddate" name="isvaliddate">isValidDate</a></h4>
+<p><strong>Signature:</strong> <code>_.isValidDate(value:Any)</code></p>
+<p>Checks whether the value is a valid date. That is, the value is both an instance
+of <code>Date</code> and it represents an actual date.</p>
+<pre><code class="lang-javascript">_.isValidDate(new Date(&quot;January 1, 1900&quot;));
+// =&gt; true
+
+_.isValidDate(new Date(&quot;The Last Great Time War&quot;));
+// =&gt; false</code></pre>
+<hr>
+<h4 id="iszero"><a href="#iszero" name="iszero">isZero</a></h4>
+<p><strong>Signature:</strong> <code>_.isZero(value:Any)</code></p>
+<p>Checks whether the value is <code>0</code>.</p>
+<pre><code class="lang-javascript">_.isZero(0);
+// =&gt; true
+
+_.isZero(&quot;Pythagoras&quot;);
+// =&gt; false</code></pre>
 <h3 id="object-builders"><a href="#object.builders" name="object.builders">object.builders</a></h3>
 <blockquote>
 <p>Functions to build objects.</p>
