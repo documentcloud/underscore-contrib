@@ -62,11 +62,11 @@ $(document).ready(function() {
   });
 
   test("isPlainObject", function() {
-    /* jshint -W057 */
+    function SomeConstructor() {}
     equal(_.isPlainObject({}), true, 'should identify empty objects');
     equal(_.isPlainObject({a: 1, b: 2}), true, 'should identify objects');
-    equal(_.isPlainObject(Object.create(null)), true, 'should identify objects with no prototype');
-    equal(_.isPlainObject(new (function() {})), true, 'should identify an instance as a plain object');
+    equal(_.isPlainObject(Object.create(null)), false, 'should reject objects with no prototype');
+    equal(_.isPlainObject(new SomeConstructor), false, 'should reject instances constructed by something other than Object');
 
     equal(_.isPlainObject([]), false, 'should identify when something is not a plain object');
     equal(_.isPlainObject(function(){}), false, 'should identify when something is not a plain object');
