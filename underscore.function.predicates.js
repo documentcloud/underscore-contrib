@@ -36,7 +36,7 @@
     isSequential: function(x) { return (_.isArray(x)) || (_.isArguments(x)); },
 
     // Check if an object is an object literal, since _.isObject(function() {}) === _.isObject([]) === true
-    isPlainObject: function(x) { return (_.isObject(x) && !_.isFunction(x) && !_.isArray(x)); },
+    isPlainObject: function(x) { return _.isObject(x) && x.constructor === root.Object; },
 
     // These do what you think that they do
     isZero: function(x) { return 0 === x; },
