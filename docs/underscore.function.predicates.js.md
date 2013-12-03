@@ -244,14 +244,16 @@ _.isOdd({});
 
 **Signature:** `_.isPlainObject(value:Any);`
 
-Checks whether the value is a "plain" object. (i.e. not an array or function)
+Checks whether the value is a "plain" object created as an object literal (`{}`)
+or explicitly constructed with `new Object()`. Instances of other constructors
+are **not** plain objects.
 
 ```javascript
 _.isPlainObject({});
 // => true
 
 _.isPlainObject(new Date());
-// => true
+// => false
 
 _.isPlainObject([]);
 // => false

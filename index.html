@@ -509,12 +509,14 @@ _.isOdd({});
 <hr>
 <h4 id="isplainobject"><a href="#isplainobject" name="isplainobject">isPlainObject</a></h4>
 <p><strong>Signature:</strong> <code>_.isPlainObject(value:Any);</code></p>
-<p>Checks whether the value is a &quot;plain&quot; object. (i.e. not an array or function)</p>
+<p>Checks whether the value is a &quot;plain&quot; object created as an object literal (<code>{}</code>)
+or explicitly constructed with <code>new Object()</code>. Instances of other constructors
+are <strong>not</strong> plain objects.</p>
 <pre><code class="lang-javascript">_.isPlainObject({});
 // =&gt; true
 
 _.isPlainObject(new Date());
-// =&gt; true
+// =&gt; false
 
 _.isPlainObject([]);
 // =&gt; false</code></pre>
