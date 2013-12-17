@@ -102,6 +102,7 @@
     // Weaves two or more arrays together
     weave: function(/* args */) {
       if (!_.some(arguments)) return [];
+      if (arguments.length == 1) return arguments[0];
 
       return _.filter(_.flatten(_.zip.apply(null, arguments), true), function(elem) {
         return elem != null;
