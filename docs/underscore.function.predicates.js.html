@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>underscore.function.predicates.js.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.builders.js.html">
+                underscore.array.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.selectors.js.html">
+                underscore.array.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.js.html">
+                underscore.collections.walk.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.arity.js.html">
+                underscore.function.arity.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.combinators.js.html">
+                underscore.function.combinators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.iterators.js.html">
+                underscore.function.iterators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.predicates.js.html">
+                underscore.function.predicates.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.builders.js.html">
+                underscore.object.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.selectors.js.html">
+                underscore.object.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.existential.js.html">
+                underscore.util.existential.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.operators.js.html">
+                underscore.util.operators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.js.html">
+                underscore.util.strings.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.trampolines.js.html">
+                underscore.util.trampolines.js.md
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>underscore.function.predicates.js.md</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h3 id="function-predicates">function.predicates</h3>
+<blockquote>
+<p>Functions which return whether the input meets a condition.</p>
+</blockquote>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h4 id="isassociative">isAssociative</h4>
+<p><strong>Signature:</strong> <code>isAssociative(value:Any)</code></p>
+<p>Returns a boolean indicating whether or not the value is an associative object.
+An associative object is one where its elements can be accessed via a key or
+index (e.g. arrays, <code>arguments</code>, objects).</p>
+<pre><code class="lang-javascript">_.isAssociative([&quot;Athens&quot;, &quot;Sparta&quot;]);
+// =&gt; true
+
+_.isAssociative(42);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h4 id="isdecreasing">isDecreasing</h4>
+<p><strong>Signature:</strong> <code>_.isDecreasing(values:Any...)</code></p>
+<p>Checks whether the arguments are monotonically decreasing values (i.e. whether
+each argument is less than the previous argument.)</p>
+<pre><code class="lang-javascript">_.isDecreasing(3, 2, 1);
+// =&gt; true
+
+_.isDecreasing(15, 12, 2);
+// =&gt; true
+
+_.isDecreasing(2, 3);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h4 id="iseven">isEven</h4>
+<p><strong>Signature:</strong> <code>_.isEven(value:Any)</code></p>
+<p>Checks whether the value is an even number.</p>
+<pre><code class="lang-javascript">_.isEven(12);
+// =&gt; true
+
+_.isEven(3);
+// =&gt; false
+
+_.isEven({});
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h4 id="isfloat">isFloat</h4>
+<p><strong>Signature:</strong> <code>_.isFloat(value:Any)</code></p>
+<p>Checks whether the value is a &quot;float.&quot; For the purposes of this function, a float
+is a numeric value that is not an integer. A numeric value may be a number, a
+string containing a number, a <code>Number</code> object, etc.</p>
+<p><strong>NOTE:</strong> JavaScript itself makes no distinction between integers and floats. For
+the purposes of this function both <code>1</code> and <code>1.0</code> are considered integers.</p>
+<pre><code class="lang-javascript">_.isFloat(1.1);
+// =&gt; true
+
+_.isFloat(1);
+// =&gt; false
+
+_.isFloat(1.0);
+// =&gt; false
+
+_.isFloat(&quot;2.15&quot;);
+// =&gt; true
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h4 id="isincreasing">isIncreasing</h4>
+<p><strong>Signature:</strong> <code>_.isIncreasing(value:Any...)</code></p>
+<p>Checks whether the arguments are monotonically increasing values (i.e. each
+argument is greater than the previous argument.)</p>
+<pre><code class="lang-javascript">_.isIncreasing(1, 12, 15);
+// =&gt; true
+
+_.isIncreasing(1);
+// =&gt; true
+
+_.isIncreasing(5, 4);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h4 id="isindexed">isIndexed</h4>
+<p><strong>Signature:</strong> <code>_.isIndexed(value:Any)</code></p>
+<p>Checks whether the value is &quot;indexed.&quot; An indexed value is one which accepts a
+numerical index to access its elements. (e.g. arrays and strings)</p>
+<p><strong>NOTE:</strong> Underscore does not support cross-browser consistent use of strings as
+array-like values, so be wary in IE 8 when using string objects and in IE7 and
+earlier when using string literals &amp; objects.</p>
+<pre><code class="lang-javascript">_.isIndexed(&quot;Socrates&quot;);
+// =&gt; true
+
+_.isIndexed({poison: &quot;hemlock&quot;});
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h4 id="isinstanceof">isInstanceOf</h4>
+<p><strong>Signature:</strong> <code>_.isInstanceOf(value:Any, constructor:Function)</code></p>
+<p>Checks whether the value is an instance of the constructor.</p>
+<pre><code class="lang-javascript">_.isInstanceOf(new Date(), Date);
+// =&gt; true
+
+_.isInstanceOf(&quot;Hippocrates&quot;, RegExp);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h4 id="isinteger">isInteger</h4>
+<p><strong>Signature:</strong> <code>_.isInteger(value:Any)</code></p>
+<p>Checks whether the value is a numeric integer. A numeric value can be a string
+containing a number, a <code>Number</code> object, etc.</p>
+<pre><code class="lang-javascript">_.isInteger(18);
+// =&gt; true
+
+_.isInteger(&quot;18&quot;);
+// =&gt; true
+
+_.isInteger(2.5);
+// =&gt; false
+
+_.isInteger(-1);
+// =&gt; true
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h4 id="isjson">isJSON</h4>
+<p><strong>Signature:</strong> <code>_.isJSON(value:Any)</code></p>
+<p>Checks whether the value is valid JSON. <a href="http://www.json.org/">See the spec</a> for
+more information on what constitutes valid JSON.</p>
+<p><strong>NOTE:</strong> This function relies on <code>JSON.parse</code> which is not available in IE7 and
+earlier.</p>
+<pre><code class="lang-javascript">_.isJSON(&#39;{ &quot;name&quot;: &quot;Crockford&quot; }&#39;);
+// =&gt; true
+
+_.isJSON({ name: &quot;Crocket&quot; });
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h4 id="isnegative">isNegative</h4>
+<p><strong>Signature:</strong> <code>_.isNegative(value:Any)</code></p>
+<p>Checks whether the value is a negative number.</p>
+<pre><code class="lang-javascript">_.isNegative(-2);
+// =&gt; true
+
+_.isNegative(5);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h4 id="isnumeric">isNumeric</h4>
+<p><strong>Signature:</strong> <code>_.isNumeric(value:Any)</code></p>
+<p>A numeric is something that contains a numeric value, regardless of its type. It
+can be a string containing a numeric value, exponential notation, a <code>Number</code>
+object, etc.</p>
+<pre><code class="lang-javascript">_.isNumeric(&quot;14&quot;);
+// =&gt; true
+
+_.isNumeric(&quot;fourteen&quot;);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h4 id="isodd">isOdd</h4>
+<p><strong>Signature:</strong> <code>_.isOdd(value:Any)</code></p>
+<p>Checks whether the value is an odd number.</p>
+<pre><code class="lang-javascript">_.isOdd(3);
+// =&gt; true
+
+_.isOdd(2);
+// =&gt; false
+
+_.isOdd({});
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <h4 id="isplainobject">isPlainObject</h4>
+<p><strong>Signature:</strong> <code>_.isPlainObject(value:Any);</code></p>
+<p>Checks whether the value is a &quot;plain&quot; object created as an object literal (<code>{}</code>)
+or explicitly constructed with <code>new Object()</code>. Instances of other constructors
+are <strong>not</strong> plain objects.</p>
+<pre><code class="lang-javascript">_.isPlainObject({});
+// =&gt; true
+
+_.isPlainObject(new Date());
+// =&gt; false
+
+_.isPlainObject([]);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h4 id="ispositive">isPositive</h4>
+<p><strong>Signature:</strong> <code>_.isPositive(value:Any)</code></p>
+<p>Checks whether the value is a positive number.</p>
+<pre><code class="lang-javascript">_.isPositive(21);
+// =&gt; true
+
+_.isPositive(-3);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h4 id="issequential">isSequential</h4>
+<p><strong>Signature:</strong> <code>_.isSequential(value:Any)</code></p>
+<p>Checks whether the value is a sequential composite type (i.e. arrays and
+<code>arguments</code>).</p>
+<pre><code class="lang-javascript">_.isSequential([&quot;Herodotus&quot;, &quot;Thucidydes&quot;);
+// =&gt; true
+
+_.isSequential(new Date);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <h4 id="isvaliddate">isValidDate</h4>
+<p><strong>Signature:</strong> <code>_.isValidDate(value:Any)</code></p>
+<p>Checks whether the value is a valid date. That is, the value is both an instance
+of <code>Date</code> and it represents an actual date.</p>
+<pre><code class="lang-javascript">_.isValidDate(new Date(&quot;January 1, 1900&quot;));
+// =&gt; true
+
+_.isValidDate(new Date(&quot;The Last Great Time War&quot;));
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h4 id="iszero">isZero</h4>
+<p><strong>Signature:</strong> <code>_.isZero(value:Any)</code></p>
+<p>Checks whether the value is <code>0</code>.</p>
+<pre><code class="lang-javascript">_.isZero(0);
+// =&gt; true
+
+_.isZero(&quot;Pythagoras&quot;);
+// =&gt; false
+</code></pre>
+
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

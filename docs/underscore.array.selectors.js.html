@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>underscore.array.selectors.js.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.builders.js.html">
+                underscore.array.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.selectors.js.html">
+                underscore.array.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.js.html">
+                underscore.collections.walk.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.arity.js.html">
+                underscore.function.arity.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.combinators.js.html">
+                underscore.function.combinators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.iterators.js.html">
+                underscore.function.iterators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.predicates.js.html">
+                underscore.function.predicates.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.builders.js.html">
+                underscore.object.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.selectors.js.html">
+                underscore.object.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.existential.js.html">
+                underscore.util.existential.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.operators.js.html">
+                underscore.util.operators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.js.html">
+                underscore.util.strings.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.trampolines.js.html">
+                underscore.util.trampolines.js.md
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>underscore.array.selectors.js.md</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h3 id="array-selectors">array.selectors</h3>
+<blockquote>
+<p>Functions to take things from arrays. <a href="docs/underscore.array.selectors.js.html" class="btn btn-primary btn-xs">View Annotated Source</a></p>
+</blockquote>
+<h4 id="second">second</h4>
+<p>The <code>_.second</code> function is a convenience for the equivalent <code>array[1]</code>:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.second([<span class="string">'a'</span>,<span class="string">'b'</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>=&gt; &#39;b&#39;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.map([[<span class="string">'a'</span>,<span class="string">'b'</span>], _.range(<span class="number">10</span>,<span class="number">20</span>)], _.second);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>=&gt; [&#39;b&#39;,11]</p>
+<p>You can also pass an optional number to the <code>_.second</code> function to take a number of elements from an array starting with the second element and ending at the given index:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.second(_.range(<span class="number">10</span>), <span class="number">5</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>=&gt; [1, 2, 3, 4]</p>
+<h4 id="third">third</h4>
+<p>The <code>_.third</code> function is a convenience for the equivalent <code>array[2]</code>:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.third([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>=&gt; &#39;c&#39;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.map([[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>], _.range(<span class="number">10</span>,<span class="number">20</span>)], _.third);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>=&gt; [&#39;c&#39;,12]</p>
+<p>You can also pass an optional number to the <code>_.third</code> function to take a number of elements from an array starting with the third element and ending at the given index:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.third(_.range(<span class="number">10</span>), <span class="number">5</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>=&gt; [2, 3, 4]</p>
+<h4 id="nth">nth</h4>
+<p>The <code>_.nth</code> function is a convenience for the equivalent <code>array[n]</code>:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.nth([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>], <span class="number">2</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>=&gt; &#39;c&#39;</p>
+<p>If given an index out of bounds then <code>_.nth</code> will return <code>undefined</code>:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.nth([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>], <span class="number">2000</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>=&gt; undefined</p>
+<p>The <code>_.nth</code> function can also be used in conjunction with <code>_.map</code> and <code>_.compact</code> like so:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> b = [[<span class="string">'a'</span>],[<span class="string">'b'</span>],[]];
+
+_.compact(_.map(b, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> {</span> <span class="keyword">return</span> _.nth(e,<span class="number">0</span>) }));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>=&gt; [&#39;a&#39;,&#39;b&#39;]</p>
+<p>If wrapping a function around <code>_.nth</code> is too tedious or you&#39;d like to partially apply the index then Underscore-contrib offers any of <code>_.flip2</code>, <code>_.fix</code> or <code>rcurry2</code> to solve this.</p>
+<h4 id="takewhile">takeWhile</h4>
+<p>The <code>_.takeWhile</code> function takes an array and a function and returns a new array containing the first n elements in the original array for which the given function returns a truthy value:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> isNeg = <span class="function"><span class="keyword">function</span><span class="params">(n)</span> {</span> <span class="keyword">return</span> n &lt; <span class="number">0</span>; };
+
+_.takeWhile([-<span class="number">2</span>,-<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>], isNeg);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>=&gt; [-2,-1]</p>
+<h4 id="dropwhile">dropWhile</h4>
+<p>The <code>_.dropWhile</code> function works similarly except that it <em>drops</em> elements from the original array for which the given function returns a truthy value:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.dropWhile([-<span class="number">2</span>,-<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>], isNeg);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>=&gt; [0,1,2]</p>
+
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>underscore.util.strings.js.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.builders.js.html">
+                underscore.array.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.selectors.js.html">
+                underscore.array.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.js.html">
+                underscore.collections.walk.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.arity.js.html">
+                underscore.function.arity.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.combinators.js.html">
+                underscore.function.combinators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.iterators.js.html">
+                underscore.function.iterators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.predicates.js.html">
+                underscore.function.predicates.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.builders.js.html">
+                underscore.object.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.selectors.js.html">
+                underscore.object.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.existential.js.html">
+                underscore.util.existential.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.operators.js.html">
+                underscore.util.operators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.js.html">
+                underscore.util.strings.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.trampolines.js.html">
+                underscore.util.trampolines.js.md
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>underscore.util.strings.js.md</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h3 id="util-strings">util.strings</h3>
+<blockquote>
+<p>Functions for working with strings.</p>
+</blockquote>
+<h4 id="camelcase">camelCase</h4>
+<p><strong>Signature:</strong> <code>_.camelCase(string:String)</code></p>
+<p>Converts a dash-separated string to camel case. Opposite of <a href="#todash">toDash</a>.</p>
+<pre><code class="lang-javascript">_.camelCase(&quot;ancient-greece&quot;);
+// =&gt; &quot;ancientGreece&quot;
+</code></pre>
+<h4 id="explode">explode</h4>
+<p><strong>Signature:</strong> <code>_.explode(s:String)</code></p>
+<p>Explodes a string into an array of characters. Opposite of <a href="#implode">implode</a>.</p>
+<pre><code class="lang-javascript">_.explode(&quot;Plato&quot;);
+// =&gt; [&quot;P&quot;, &quot;l&quot;, &quot;a&quot;, &quot;t&quot;, &quot;o&quot;]
+</code></pre>
+<h4 id="implode">implode</h4>
+<p><strong>Signature:</strong> <code>_.implode(a:Array)</code></p>
+<p>Implodes an array of strings into a single string. Opposite of <a href="#explode">explode</a>.</p>
+<pre><code class="lang-javascript">_.implode([&quot;H&quot;, &quot;o&quot;, &quot;m&quot;, &quot;e&quot;, &quot;r&quot;]);
+// =&gt; &quot;Homer&quot;
+</code></pre>
+<h4 id="strcontains">strContains</h4>
+<p><strong>Signature:</strong> <code>_.strContains(str:String, search:String)</code></p>
+<p>Reports whether a string contains a search string.</p>
+<pre><code class="lang-javascript">_.strContains(&quot;Acropolis&quot;, &quot;polis&quot;);
+// =&gt; true
+</code></pre>
+<h4 id="todash">toDash</h4>
+<p><strong>Signature:</strong> <code>_.toDash(string:String)</code></p>
+<p>Converts a camel case string to a dashed string. Opposite of <a href="#camelcase">camelCase</a>.</p>
+<pre><code class="lang-javascript">_.toDash(&quot;thisIsSparta&quot;);
+// =&gt; &quot;this-is-sparta&quot;
+</code></pre>
+
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

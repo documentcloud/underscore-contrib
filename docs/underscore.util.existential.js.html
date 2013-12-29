@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>underscore.util.existential.js.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.builders.js.html">
+                underscore.array.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.selectors.js.html">
+                underscore.array.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.js.html">
+                underscore.collections.walk.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.arity.js.html">
+                underscore.function.arity.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.combinators.js.html">
+                underscore.function.combinators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.iterators.js.html">
+                underscore.function.iterators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.predicates.js.html">
+                underscore.function.predicates.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.builders.js.html">
+                underscore.object.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.selectors.js.html">
+                underscore.object.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.existential.js.html">
+                underscore.util.existential.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.operators.js.html">
+                underscore.util.operators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.js.html">
+                underscore.util.strings.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.trampolines.js.html">
+                underscore.util.trampolines.js.md
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>underscore.util.existential.js.md</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h3 id="util-existential">util.existential</h3>
+<blockquote>
+<p>Functions which deal with whether a value &quot;exists.&quot;</p>
+</blockquote>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h4 id="exists">exists</h4>
+<p><strong>Signature:</strong> <code>_.exists(value:Any)</code></p>
+<p>Checks whether or not the value is &quot;existy.&quot; Both <code>null</code> and <code>undefined</code> are
+considered non-existy values. All other values are existy.</p>
+<pre><code class="lang-javascript">_.exists(null);
+// =&gt; false
+
+_.exists(undefined);
+// =&gt; false
+
+_.exists({});
+// = &gt; true
+
+_.exists(&quot;Sparta&quot;);
+// =&gt; true
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h4 id="falsey">falsey</h4>
+<p><strong>Signature:</strong> <code>_.falsey(value:Any)</code></p>
+<p>Checks whether the value is falsey. A falsey value is one which coerces to
+<code>false</code> in a boolean context.</p>
+<pre><code class="lang-javascript">_.falsey(0);
+// =&gt; true
+
+_.falsey(&quot;&quot;);
+// =&gt; true
+
+_.falsey({});
+// =&gt; false
+
+_.falsey(&quot;Corinth&quot;);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h4 id="firstexisting">firstExisting</h4>
+<p><strong>Signature:</strong> <code>_.firstExisting(value:Any[, value:Any...])</code></p>
+<p>Returns the first existy argument from the argument list.</p>
+<pre><code class="lang-javascript">_.firstExisting(&quot;Socrates&quot;, &quot;Plato&quot;);
+// =&gt; &quot;Socrates&quot;
+
+_.firstExisting(null, undefined, &quot;Heraclitus&quot;);
+// =&gt; &quot;Heraclitus&quot;
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h4 id="not">not</h4>
+<p><strong>Signature:</strong> <code>_.not(value:Any)</code></p>
+<p>Returns a boolean which is the opposite of the truthiness of the original value.</p>
+<pre><code class="lang-javascript">_.not(0);
+// =&gt; true
+
+_.not(1);
+// =&gt; false
+
+_.not(true);
+// =&gt; false
+
+_.not(false);
+// =&gt; true
+
+_.not({});
+// =&gt; false
+
+_.not(null);
+// =&gt; true
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h4 id="truthy">truthy</h4>
+<p><strong>Signature:</strong> <code>_.truthy(value:Any)</code></p>
+<p>Checks whether the value is truthy. A truthy value is one which coerces to
+<code>true</code> in a boolean context.</p>
+<pre><code class="lang-javascript">_.truthy({});
+// =&gt; true
+
+_.truthy(&quot;Athens&quot;);
+// =&gt; true
+
+_.truthy(0);
+// =&gt; false
+
+_.truthy(&quot;&quot;);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

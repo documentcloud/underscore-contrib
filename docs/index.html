@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Underscore-contrib</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.builders.js.html">
+                underscore.array.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.selectors.js.html">
+                underscore.array.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.js.html">
+                underscore.collections.walk.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.arity.js.html">
+                underscore.function.arity.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.combinators.js.html">
+                underscore.function.combinators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.iterators.js.html">
+                underscore.function.iterators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.predicates.js.html">
+                underscore.function.predicates.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.builders.js.html">
+                underscore.object.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.selectors.js.html">
+                underscore.object.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.existential.js.html">
+                underscore.util.existential.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.operators.js.html">
+                underscore.util.operators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.js.html">
+                underscore.util.strings.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.trampolines.js.html">
+                underscore.util.trampolines.js.md
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="underscore-contrib">Underscore-contrib</h1>
+<blockquote>
+<p>The brass buckles on Underscore&#39;s utility belt - a contributors&#39; library for <a href="http://underscorejs.org/">Underscore</a>.</p>
+</blockquote>
+<h2 id="introduction">Introduction</h2>
+<h3 id="places">Places</h3>
+<ul>
+<li><a href="http://documentcloud.github.io/underscore-contrib/">Documentation</a></li>
+<li><a href="https://github.com/documentcloud/underscore-contrib">Source repository</a></li>
+<li><a href="https://github.com/documentcloud/underscore-contrib/issues?state=open">Tickets and bug reports</a></li>
+<li><a href="http://www.fogus.me">Maintainer&#39;s website</a></li>
+</ul>
+<h3 id="why-underscore-contrib-">Why underscore-contrib?</h3>
+<p>While Underscore provides a bevy of useful tools to support functional programming in JavaScript, it can&#39;t
+(and shouldn&#39;t) be everything to everyone. Underscore-contrib is intended as a home for functions that, for
+various reasons, don&#39;t belong in Underscore proper. In particular, it aims to be:</p>
+<ul>
+<li>a home for functions that are limited in scope, but solve certain point problems, and</li>
+<li>a proving ground for features that belong in Underscore proper, but need some advocacy and/or evolution
+(or devolution) to get them there.</li>
+</ul>
+<h3 id="use">Use</h3>
+<p>First, you’ll need Underscore. Then you can grab the relevant underscore-contrib libraries and simply add
+something
+like the following to your pages:</p>
+<script type="text/javascript" src="underscore.js"></script>
+<script type="text/javascript" src="underscore.object.builders.js"></script>
+
+<p>At the moment there are no cross-contrib dependencies (i.e. each library can stand by itself), but that may
+change in the future.</p>
+<h3 id="license">License</h3>
+<p>_.contrib is open sourced under the <a href="https://github.com/documentcloud/underscore-contrib/blob/master/LICENSE">MIT license</a>. </p>
+<h2 id="sub-libraries">Sub-libraries</h2>
+<p>The _.contrib library currently contains a number of related capabilities, aggregated into the following files.</p>
+<ul>
+<li><a href="docs/underscore.array.builders.html">underscore.array.builders</a> - functions to build arrays</li>
+<li><a href="docs/underscore.array.selectors.html">underscore.array.selectors</a> - functions to take things from arrays</li>
+<li><a href="docs/underscore.collections.walk.html">underscore.collections.walk</a> - functions to walk and transform nested JavaScript objects</li>
+<li><a href="docs/underscore.function.arity.html">underscore.function.arity</a> - functions to manipulate and fix function argument arity</li>
+<li><a href="docs/underscore.function.combinators.html">underscore.function.combinators</a> - functions to combine functions to make new functions</li>
+<li><a href="docs/underscore.function.iterators.html">underscore.function.iterators</a> - functions to lazily produce, manipulate and consume sequence iterators</li>
+<li><a href="docs/underscore.function.predicates.html">underscore.function.predicates</a> - functions that return <code>true</code> or <code>false</code> based on some criteria</li>
+<li><a href="docs/underscore.object.builders.html">underscore.object.builders</a> - functions to build JavaScript objects</li>
+<li><a href="docs/underscore.object.selectors.html">underscore.object.selectors</a> - functions to pick things from JavaScript objects</li>
+<li><a href="docs/underscore.util.existential.html">underscore.util.existential</a> - functions that check for the existence or truthiness of JavaScript data types</li>
+<li><a href="docs/underscore.util.operators.html">underscore.util.operators</a> - functions that wrap common (or missing) JavaScript operators</li>
+<li><a href="docs/underscore.util.strings.html">underscore.util.strings</a> - functions to work with strings</li>
+<li><a href="docs/underscore.util.trampolines.html">underscore.util.trampolines</a> - functions to facilitate calling functions recursively without blowing the stack</li>
+</ul>
+<p>The links above are to the annotated source code.  Full-blown _.contrib documentation is in the works.  Contributors welcomed.</p>
+
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

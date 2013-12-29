@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>underscore.array.builders.js.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.builders.js.html">
+                underscore.array.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.selectors.js.html">
+                underscore.array.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.js.html">
+                underscore.collections.walk.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.arity.js.html">
+                underscore.function.arity.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.combinators.js.html">
+                underscore.function.combinators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.iterators.js.html">
+                underscore.function.iterators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.predicates.js.html">
+                underscore.function.predicates.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.builders.js.html">
+                underscore.object.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.selectors.js.html">
+                underscore.object.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.existential.js.html">
+                underscore.util.existential.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.operators.js.html">
+                underscore.util.operators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.js.html">
+                underscore.util.strings.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.trampolines.js.html">
+                underscore.util.trampolines.js.md
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>underscore.array.builders.js.md</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h3 id="array-builders">array.builders</h3>
+<blockquote>
+<p>Functions to build arrays. <a href="docs/underscore.array.builders.js.html" class="btn btn-primary btn-xs">View Annotated Source</a></p>
+</blockquote>
+<h4 id="cat">cat</h4>
+<p>Signature: <code>_.cat(... arrays:Array ...)</code></p>
+<p>The <code>_.cat</code> function provides a way to concatenate zero or more heterogeneous arrays into one.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cat();                    <span class="comment">// 0-args</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>=&gt; []</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cat([]);                  <span class="comment">// 1-arg, empty array</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>=&gt; []</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cat([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);             <span class="comment">// 1-arg</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>=&gt; []</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cat([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]);     <span class="comment">// 2-args</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>=&gt; [1,2,3,4,5,6]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cat([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>],[<span class="number">7</span>]); <span class="comment">// 3+ args</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>=&gt; [1,2,3,4,5,6,7]</p>
+<p>Not every argument to <code>_.cat</code> needs to be an array; other types are accepted.</p>
+<p>Signature: <code>_.cat(... elems:Any ...)</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cat(<span class="number">1</span>,[<span class="number">2</span>],<span class="number">3</span>,<span class="number">4</span>);           <span class="comment">// mixed args</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>=&gt; [1,2,3,4]</p>
+<p>The <code>_.cat</code> function will also work with the <code>arguments</code> object as if it were an array.</p>
+<p>Signature: <code>_.cat(... elems:Arguments ...)</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span>{</span> <span class="keyword">return</span> _.cat(arguments, <span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>); }
+
+f(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>=&gt; [1,2,3,4,5,6]</p>
+<h4 id="cons">cons</h4>
+<p>Signature: <code>_.cons(head:Any, tail:Array)</code></p>
+<p>The <code>_.cons</code> function provides a way to &quot;construct&quot; a new array by taking some element and putting it at the front of another array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cons(<span class="number">0</span>, []);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>=&gt; [0]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cons(<span class="number">1</span>, [<span class="number">2</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>=&gt; [1,2]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cons([<span class="number">0</span>], [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>=&gt; [0,1,2,3]</p>
+<p>The <code>_.cons</code> function also can be used to create pairs if the second argument is not an array.</p>
+<p>Signature: <code>_.cons(head:Any, tail:Any)</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cons(<span class="number">1</span>, <span class="number">2</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>=&gt; [1,2]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cons([<span class="number">1</span>], <span class="number">2</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>=&gt; [[1],2]</p>
+<p>Finally, <code>_.cons</code> will operate with the <code>arguments</code> object.</p>
+<p>Signature: <code>_.cons(head:Any, tail:Arguments)</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span> {</span> <span class="keyword">return</span> _.cons(<span class="number">0</span>, arguments) }
+
+f(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>=&gt; [0,1,2,3]</p>
+<h4 id="partition">partition</h4>
+<p>The <code>_.partition</code> function, by default, accepts an array and a number and splits and returns a new array representing the original array split into some number of arrays of the given size:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.partition([<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], <span class="number">2</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>=&gt; , [[0,1],[2,3]]</p>
+<p>If the original array cannot completely fulfill the partition scheme then the array returned will drop the undersized final partition:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.partition([<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>], <span class="number">2</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>=&gt; , [[0,1],[2,3]]</p>
+<p>You can pass an optional third argument to <code>_.partition</code> to pad out the final array partition should it fall short.  If the value given as the third argument is <em>not</em> an array then it is repeated the needed number of times:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.partition([<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>], <span class="number">3</span>, <span class="string">'_'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>=&gt; , [[0,1,2],[3,&#39;<em>&#39;,&#39;</em>&#39;]]</p>
+<p>If you given an array as the optional third argument then that array is used to pad in-place as needed:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.partition([<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>], <span class="number">3</span>, [<span class="string">'a'</span>, <span class="string">'b'</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>=&gt; , [[0,1,2],[3,&#39;a&#39;,&#39;b&#39;]]</p>
+<h4 id="partitionall">partitionAll</h4>
+<p>The <code>_.partitionAll</code> function is similar to <code>_.partition</code> except for the following.  First, <code>_.partionAll</code> will never drop short partitions from the end:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.partitionAll([<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>], <span class="number">3</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>=&gt; , [[0,1,2],[3]]</p>
+<p>Also, <code>_.paritionAll</code> takes an optional third argument signifying that paritions should be built from skipped regions:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.partitionAll(_.range(<span class="number">1</span>), <span class="number">2</span>, <span class="number">4</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>=&gt; [[0,1],[4,5],[8,9]]</p>
+<h4 id="mapcat">mapcat</h4>
+<p>There are times when a mapping operation produces results contained in arrays, but the final result should be flattened one level.  For these circumstances you can use <code>_.mapcat</code> to produce results:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> array = [<span class="number">1</span>,<span class="number">2</span>,<span class="literal">null</span>,<span class="number">4</span>,<span class="literal">undefined</span>,<span class="number">6</span>];
+
+<span class="keyword">var</span> errors = _.mapcat(array, <span class="function"><span class="keyword">function</span><span class="params">(e,i)</span> {</span>
+  <span class="keyword">if</span> (e == <span class="literal">null</span>) {
+    <span class="keyword">return</span> [<span class="string">"Element @"</span> + i + <span class="string">" is bad"</span>];
+  }
+  <span class="keyword">else</span> {
+    <span class="keyword">return</span> [];
+  }
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Inspecting the contents of <code>errors</code> shows:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>[<span class="string">"Element @2 is bad"</span>, <span class="string">"Element @4 is bad"</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>The <code>_.mapcat</code> function is equivalent to <code>_.cat.apply(array, _.map(array,fun))</code>.</p>
+<h4 id="interpose">interpose</h4>
+<p>The <code>_.interpose</code> function takes an array and an element and returns a new array with the given element inserted betwixt every element in the original array:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.interpose([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], <span class="number">0</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>=&gt; [1,0,2,0,3]</p>
+<p>If there are no betweens (i.e. empty and single-element arrays), then the original array is returned:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.interpose([<span class="number">1</span>], <span class="number">0</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>=&gt; [1]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.interpose([], <span class="number">0</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>=&gt; []</p>
+<h4 id="weave">weave</h4>
+<p>The <code>_.weave</code> function works similarly to <code>_.interpose</code> (shown above) except that it accepts an array used as the interposition values.  In other words, <code>_.weave</code> takes two arrays and returns a new array with the original elements woven together.  An example would help:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.weave([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>], [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>=&gt; [&#39;a&#39;,1,&#39;b&#39;,2,&#39;c&#39;,3]</p>
+<p>The array returned from <code>_.weave</code> will be as long as the longest array given with the woven entries stopping according to the shortest array:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.weave([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>], [<span class="number">1</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>=&gt; [&#39;a&#39;,1,&#39;b&#39;,&#39;c&#39;]</p>
+<p>The <code>_.interleave</code> function is an alias for <code>_.weave</code>.</p>
+<h4 id="repeat">repeat</h4>
+<p>Signature: <code>_.repeat(t:Integer, value:Any)</code></p>
+<p>The <code>_.repeat</code> function takes an integer value used to build an array of that size containing the value given:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.repeat(<span class="number">5</span>, <span class="string">'a'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>=&gt; [&#39;a&#39;,&#39;a&#39;,&#39;a&#39;,&#39;a&#39;,&#39;a&#39;]</p>
+<h4 id="cycle">cycle</h4>
+<p>The <code>_.cycle</code> function takes an integer value used to build an array of that size containing the number of iterations through the given array, strung end-to-end as many times as needed.  An example is probably more instructive:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.cycle(<span class="number">5</span>, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>=&gt; [1,2,3,1,2]</p>
+<h4 id="splitat">splitAt</h4>
+<p>The <code>_.splitAt</code> function takes an array and a numeric index and returns a new array with two embedded arrays representing a split of the original array at the index provided:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.splitAt([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>], <span class="number">2</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>=&gt; [[1,2],[3,4,5]]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.splitAt([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>], <span class="number">0</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>=&gt; [[],[1,2,3,4,5]]    </p>
+<p>The operation of <code>_.splitAt</code> is safe if the index provided is outside the range of legal indices:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.splitAt([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>], <span class="number">20000</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>=&gt; [[1,2,3,4,5],[]]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.splitAt([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>], -<span class="number">1000</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>=&gt; [[],[1,2,3,4,5]]    </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.splitAt([], <span class="number">0</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>=&gt; [[],[]]    </p>
+<h4 id="takeskipping">takeSkipping</h4>
+<p>The <code>_.takeSkipping</code> function takes an array and a number and returns a new array containing every nth element in the original array:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.takeSkipping(_.range(<span class="number">10</span>), <span class="number">2</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>=&gt; [0,2,4,6,8]</p>
+<p>The <code>_.takeSkipping</code> function is safe against numbers larger or smaller than the array size:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.takeSkipping(_.range(<span class="number">10</span>), <span class="number">100000</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>=&gt; [0]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.takeSkipping(_.range(<span class="number">10</span>), -<span class="number">100</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>=&gt; []</p>
+<h4 id="reductions">reductions</h4>
+<p>The <code>_.reductions</code> function is similar to Underscore&#39;s builtin <code>_.reduce</code> function except that it returns an array of every intermediate value in the folding operation:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.reductions([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>], <span class="function"><span class="keyword">function</span><span class="params">(agg, n)</span> {</span>
+  <span class="keyword">return</span> agg + n;
+}, <span class="number">0</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <p>=&gt; [1,3,6,10,15]</p>
+<p>The last element in the array returned from <code>_.reductions</code> is the answer that you would get if you had just chosen to use <code>_.reduce</code>.</p>
+<h4 id="keepindexed">keepIndexed</h4>
+<p>The <code>_.keepIndexed</code> function takes an array and a function and returns a new array filled with the <em>non-null</em> return results of the given function on the elements or keys in the given array:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.keepIndexed([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], <span class="function"><span class="keyword">function</span><span class="params">(k)</span> {</span> 
+  <span class="keyword">return</span> i === <span class="number">1</span> || i === <span class="number">2</span>;
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <p>=&gt; [false, true, true]</p>
+<p>If you return either <code>null</code> or <code>undefined</code> then the result is dropped from the resulting array:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.keepIndexed([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>], <span class="function"><span class="keyword">function</span><span class="params">(k, v)</span> {</span> 
+  <span class="keyword">if</span> (k === <span class="number">1</span>) <span class="keyword">return</span> v; 
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <p>=&gt; [&#39;b&#39;]</p>
+<h4 id="iterateuntil">iterateUntil</h4>
+<p>The <code>_.iterateUntil</code> function takes a function used as a result generator, a function used as a stop-check and a seed value and returns an array of each generated result.  The operation of <code>_.iterateUntil</code> is such that the result generator is passed the seed to start and each subsequent result which will continue <strong>until</strong> a result fails the check function (i.e. returns falsey).  An example is best:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> dec = <span class="function"><span class="keyword">function</span><span class="params">(n)</span> {</span> <span class="keyword">return</span> n - <span class="number">1</span>; };
+<span class="keyword">var</span> isPos = <span class="function"><span class="keyword">function</span><span class="params">(n)</span> {</span> <span class="keyword">return</span> n &gt; <span class="number">0</span>; };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
+              </div>
+              <p>The <code>dec</code> result generator takes a number and decrements it by one.  The <code>isPos</code> predicate takes a number and returns <code>true</code> if it&#39;s positive.  Using these two functions you can build an array of every number from <code>6</code> to <code>0</code>, inclusive:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.iterateUntil(dec, isPos, <span class="number">6</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-42">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-42">&#182;</a>
+              </div>
+              <p>=&gt; [5,4,3,2,1]</p>
+<p>That is, the array only contains every number from <code>5</code> down to <code>1</code> because when the result of <code>dec</code> got to <code>0</code> the <code>isPos</code> check failed (i.e. went falsey) thus terminating the execution.</p>
+
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>underscore.util.operators.js.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.builders.js.html">
+                underscore.array.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.array.selectors.js.html">
+                underscore.array.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.collections.walk.js.html">
+                underscore.collections.walk.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.arity.js.html">
+                underscore.function.arity.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.combinators.js.html">
+                underscore.function.combinators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.iterators.js.html">
+                underscore.function.iterators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.function.predicates.js.html">
+                underscore.function.predicates.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.builders.js.html">
+                underscore.object.builders.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.object.selectors.js.html">
+                underscore.object.selectors.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.existential.js.html">
+                underscore.util.existential.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.operators.js.html">
+                underscore.util.operators.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.strings.js.html">
+                underscore.util.strings.js.md
+              </a>
+            
+              
+              <a class="source" href="underscore.util.trampolines.js.html">
+                underscore.util.trampolines.js.md
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>underscore.util.operators.js.md</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h3 id="util-operators">util.operators</h3>
+<blockquote>
+<p>Functions which wrap JavaScript&#39;s operators.</p>
+</blockquote>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h4 id="add">add</h4>
+<p><strong>Signature:</strong> <code>_.add(value:Number, value:Number[, value:Number...])</code></p>
+<p>Returns the sum of the arguments.</p>
+<pre><code class="lang-javascript">_.add(1, 2, 3, 4);
+// =&gt; 10
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h4 id="bitwiseand">bitwiseAnd</h4>
+<p><strong>Signature:</strong> <code>_.bitwiseAnd(value:Any, value:Any[, value:Any...])</code></p>
+<p>Returns the result of using the <code>&amp;</code> operator on the arguments.</p>
+<pre><code class="lang-javascript">_.bitwiseAnd(1, 3);
+// =&gt; 1
+
+_.bitwiseAnd(1, 3, 2);
+// =&gt; 0
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h4 id="bitwiseleft">bitwiseLeft</h4>
+<p><strong>Signature:</strong> <code>_.bitwiseLeft(value:Any, value:Any[, value:Any...])</code></p>
+<p>Returns the result of using the <code>&lt;&lt;</code> operator on the arguments.</p>
+<pre><code class="lang-javascript">_.bitwiseLeft(1, 3);
+// =&gt; 8
+
+_.bitwiseLeft(1, 3, 2);
+// =&gt; 32
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h4 id="bitwiseright">bitwiseRight</h4>
+<p><strong>Signature:</strong> <code>_.bitwiseRight(value:Any, value:Any[, value:Any...])</code></p>
+<p>Returns the result of using the <code>&gt;&gt;</code> operator on the arguments.</p>
+<pre><code class="lang-javascript">_.bitwiseRight(3, 1);
+// =&gt; 1
+
+_.bitwiseRight(3, 1, 3);
+// =&gt; 0
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h4 id="bitwisenot">bitwiseNot</h4>
+<p><strong>Signature:</strong> <code>_.bitwiseNot(value:Any)</code></p>
+<p>Returns the result of using the <code>~</code> operator on the value.</p>
+<pre><code class="lang-javascript">_.bitwiseNot(1);
+// =&gt; -2
+
+_.bitwiseOr(2);
+// =&gt; -3
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h4 id="bitwiseor">bitwiseOr</h4>
+<p><strong>Signature:</strong> <code>_.bitwiseOr(value:Any, value:Any[, value:Any...])</code></p>
+<p>Returns the result of using the <code>|</code> operator on the arguments.</p>
+<pre><code class="lang-javascript">_.bitwiseOr(1, 3);
+// =&gt; 3
+
+_.bitwiseOr(1, 3, 4);
+// =&gt; 7
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h4 id="bitwisexor">bitwiseXor</h4>
+<p><strong>Signature:</strong> <code>_.bitwiseXor(value:Any, value:Any[, value:Any...])</code></p>
+<p>Returns the result of using the <code>^</code> operator on the arguments.</p>
+<pre><code class="lang-javascript">_.bitwiseXor(1, 3);
+// =&gt; 2
+
+_.bitwiseXor(1, 3, 3);
+// =&gt; 1
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h4 id="bitwisez">bitwiseZ</h4>
+<p><strong>Signature:</strong> <code>_.bitwiseZ(value:Any, value:Any[, value:Any...])</code></p>
+<p>Returns the result of using the <code>&gt;&gt;&gt;</code> operator on the arguments.</p>
+<pre><code class="lang-javascript">_.bitwiseZ(72, 32);
+// =&gt; 72
+
+_.bitwiseZ(72, 32, 2);
+// =&gt; 18
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h4 id="dec">dec</h4>
+<p><strong>Signature:</strong> <code>_.dec(value:Number)</code></p>
+<p>Returns the result of decrementing the value by <code>1</code>.</p>
+<pre><code class="lang-javascript">_.dec(2);
+// =&gt; 1
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h4 id="div">div</h4>
+<p><strong>Signature:</strong> <code>_.div(value:Number, value:Number[, value:Number...])</code></p>
+<p>Returns the quotient of the arguments.</p>
+<pre><code class="lang-javascript">_.div(8, 2);
+// =&gt; 4
+
+_.div(8, 2, 2);
+// =&gt; 2
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h4 id="eq">eq</h4>
+<p><strong>Signature:</strong> <code>_.eq(value:Any, value:Any[, value:Any...])</code></p>
+<p>Compares the arguments with loose equality (<code>==</code>).</p>
+<pre><code class="lang-javascript">_.eq(1, &quot;1&quot;);
+// =&gt; true
+
+_.eq(1, 15);
+// =&gt; false
+
+_.eq(1, true, &quot;1&quot;);
+// =&gt; true
+
+_.eq(1, 1, 15);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h4 id="gt">gt</h4>
+<p><strong>Signature:</strong> <code>_.gt(value:Any, value:Any[, value:Any...])</code></p>
+<p>Checks whether each argument is greater than the previous argument.</p>
+<pre><code class="lang-javascript">_.gt(1, 2);
+// =&gt; true
+
+_.gt(1, 2, 3);
+// =&gt; true
+
+_.gt(1, 6, 2);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <h4 id="gte">gte</h4>
+<p><strong>Signature:</strong> <code>_.gte(value:Any, value:Any[, value:Any...])</code></p>
+<p>Checks whether each argument is greater than or equal to the previous argument.</p>
+<pre><code class="lang-javascript">_.gte(1, 2);
+// =&gt; true
+
+_.gte(1, 1, 3);
+// =&gt; true
+
+_.gte(1, 6, 2);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h4 id="inc">inc</h4>
+<p><strong>Signature:</strong> <code>_.inc(value:Number)</code></p>
+<p>Returns the result of incrementing the value by <code>1</code>.</p>
+<pre><code class="lang-javascript">_.inc(2);
+// =&gt; 3
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h4 id="lt">lt</h4>
+<p><strong>Signature:</strong> <code>_.lt(value:Any, value:Any[, value:Any...])</code></p>
+<p>Checks whether each argument is less than the previous argument.</p>
+<pre><code class="lang-javascript">_.lt(2, 1);
+// =&gt; true
+
+_.lt(2, 1, 0);
+// =&gt; true
+
+_.lt(2, 1, 12);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <h4 id="lte">lte</h4>
+<p><strong>Signature:</strong> <code>_.lte(value:Any, value:Any[, value:Any...])</code></p>
+<p>Checks whether each argument is less than or equal to the previous argument.</p>
+<pre><code class="lang-javascript">_.lte(2, 1);
+// =&gt; true
+
+_.lte(2, 1, 1);
+// =&gt; true
+
+_.lte(2, 1, 12);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h4 id="mul">mul</h4>
+<p><strong>Signature:</strong> <code>_.mul(value:Number, value:Number[, value:Number...])</code></p>
+<p>Returns the product of the arguments.</p>
+<pre><code class="lang-javascript">_.mul(1, 2, 3, 4);
+// =&gt; 24
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <h4 id="mod">mod</h4>
+<p><strong>Signature:</strong> <code>_.mod(dividend:Number, divisor:Number)</code></p>
+<p>Returns the remainder of dividing <code>dividend</code> by <code>divisor</code>.</p>
+<pre><code class="lang-javascript">_.mod(26, 5);
+// =&gt; 1
+
+_.mod(14, 3);
+// =&gt; 2
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <h4 id="neg">neg</h4>
+<p><strong>Signature:</strong> <code>_.neg(num:Number)</code></p>
+<p>Returns a new number with the opposite sign value of <code>num</code>.</p>
+<pre><code class="lang-javascript">_.neg(5);
+// =&gt; -5
+
+_.neg(-3);
+// =&gt; 3
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <h4 id="neq">neq</h4>
+<p><strong>Signature:</strong> <code>_.neq(value:Any, value:Any[, value:Any...])</code></p>
+<p>Checks whether each argument is not equal to the previous argument, using loose
+inequality (<code>!=</code>).</p>
+<pre><code class="lang-javascript">_.neq(2, 1);
+// =&gt; true
+
+_.neq(2, 1, 1);
+// =&gt; true
+
+_.neq(1, 1);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <h4 id="not">not</h4>
+<p><strong>Signature:</strong> <code>_.not(value:Any)</code></p>
+<p>Returns a boolean which is the opposite of the truthiness of the original value.</p>
+<pre><code class="lang-javascript">_.not(0);
+// =&gt; true
+
+_.not(1);
+// =&gt; false
+
+_.not(true);
+// =&gt; false
+
+_.not(false);
+// =&gt; true
+
+_.not({});
+// =&gt; false
+
+_.not(null);
+// =&gt; true
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <h4 id="seq">seq</h4>
+<p><strong>Signature:</strong> <code>_.seq(value:Any, value:Any[, value:Any...])</code></p>
+<p>Checks whether the arguments are strictly equal (<code>===</code>) to each other.</p>
+<pre><code class="lang-javascript">_.seq(2, 2);
+// =&gt; true
+
+_.seq(2, &quot;2&quot;);
+// =&gt; false
+
+_.seq(2, 2, 2);
+// =&gt; true
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <h4 id="sneq">sneq</h4>
+<p><strong>Signature:</strong> <code>_.sneq(value:Any, value:Any[, value:Any...])</code></p>
+<p>Checks whether the arguments are strictly not equal (<code>!==</code>) to each other.</p>
+<pre><code class="lang-javascript">_.sneq(2, 2);
+// =&gt; false
+
+_.sneq(2, &quot;2&quot;);
+// =&gt; true
+
+_.sneq(2, 2, 2);
+// =&gt; false
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h4 id="sub">sub</h4>
+<p><strong>Signature:</strong> <code>_.sub(value:Number, value:Number[, value:Number...])</code></p>
+<p>Returns the difference of the arguments.</p>
+<pre><code class="lang-javascript">_.sub(10, 3);
+// =&gt; 7
+
+_.sub(10, 3, 5);
+// =&gt; 2
+</code></pre>
+
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
