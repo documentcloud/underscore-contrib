@@ -112,18 +112,320 @@
 <blockquote>
 <p>Functions to select values from an object.</p>
 </blockquote>
-<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<hr>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>accessor: <span class="function"><span class="keyword">function</span><span class="params">(field)</span> {</span>
-dictionary: <span class="function"><span class="keyword">function</span> <span class="params">(obj)</span> {</span>
-selectKeys: <span class="function"><span class="keyword">function</span> <span class="params">(obj, ks)</span> {</span>
-kv: <span class="function"><span class="keyword">function</span><span class="params">(obj, key)</span> {</span>
-getPath: <span class="function"><span class="keyword">function</span> <span class="title">getPath</span> <span class="params">(obj, ks)</span> {</span>
-hasPath: <span class="function"><span class="keyword">function</span> <span class="title">hasPath</span> <span class="params">(obj, ks)</span> {</span>
-pickWhen: <span class="function"><span class="keyword">function</span><span class="params">(obj, pred)</span> {</span>
-omitWhen: <span class="function"><span class="keyword">function</span><span class="params">(obj, pred)</span> {</span></pre></div></div>
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h4 id="accessor">accessor</h4>
+<p><strong>Signature:</strong> <code>_.accessor(field:String)</code></p>
+<p>Returns a function that will attempt to look up a named field in any object
+that it is given.</p>
+<pre><code class="lang-javascript">var getName = _.accessor(&#39;name&#39;);
+
+getName({ name: &#39;Seneca&#39; });
+// =&gt; &#39;Seneca&#39;
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h4 id="dictionary">dictionary</h4>
+<p><strong>Signature:</strong> <code>_.dictionary(obj:Object)</code></p>
+<p>Given an object, returns a function that will attempt to look up a field that
+it is given.</p>
+<p>```javascript
+var generals = {</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>rome: <span class="string">"Scipio"</span>,
+carthage: <span class="string">"Hannibal"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>};</p>
+<p>var getGeneralOf = _.dictionary(generals);</p>
+<p>_.getGeneralOf(&quot;rome&quot;);
+// =&gt; &quot;Scipio&quot;
+```</p>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h4 id="getpath">getPath</h4>
+<p><strong>Signature:</strong> <code>_.getPath(obj:Object, ks:String|Array)</code></p>
+<p>Gets the value at any depth in a nested object based on the path described by
+the keys given. Keys may be given as an array or as a dot-separated string.
+Returns <code>undefined</code> if the path cannot be reached.</p>
+<p>```javascript
+var countries = {</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    greece: {
+        athens: {
+            playwright:  <span class="string">"Sophocles"</span>
+        }
+    }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>};</p>
+<p>_.getPath(countries, &quot;greece.athens.playwright&quot;);
+// =&gt; &quot;Sophocles&quot;</p>
+<p>_.getPath(countries, &quot;greece.sparta.playwright&quot;);
+// =&gt; undefined</p>
+<p>_.getPath(countries, [&quot;greece&quot;, &quot;athens&quot;, &quot;playwright&quot;]);
+// =&gt; &quot;Sophocles&quot;</p>
+<p>_.getPath(countries, [&quot;greece&quot;, &quot;sparta&quot;, &quot;playwright&quot;]);
+// =&gt; undefined
+```</p>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h4 id="haspath">hasPath</h4>
+<p><strong>Signature:</strong> <code>_.hasPath(obj:Object, ks:String|Array)</code></p>
+<p>Returns a boolean indicating whether there is a property at the path described
+by the keys given. Keys may be given as an array or as a dot-separated string.</p>
+<p>```javascript
+var countries = {</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    greece: {
+        athens: {
+            playwright:  <span class="string">"Sophocles"</span>
+        }
+    }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>};</p>
+<p>_.hasPath(countries, &quot;greece.athens.playwright&quot;);
+// =&gt; true</p>
+<p>_.hasPath(countries, &quot;greece.sparta.playwright&quot;);
+// =&gt; false</p>
+<p>_.hasPath(countries, [&quot;greece&quot;, &quot;athens&quot;, &quot;playwright&quot;]);
+// =&gt; true</p>
+<p>_.hasPath(countries, [&quot;greece&quot;, &quot;sparta&quot;, &quot;playwright&quot;]);
+// =&gt; false
+```</p>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h4 id="kv">kv</h4>
+<p><strong>Signature:</strong> <code>_.kv(obj:Object, key:String)</code></p>
+<p>Returns the key/value pair for a given property in an object, undefined if not found.</p>
+<p>```javascript
+var playAuthor = {</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="string">"Medea"</span>: <span class="string">"Aeschylus"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>};</p>
+<p>_.kv(playAuthor, &quot;Medea&quot;);
+// =&gt; [&quot;Medea&quot;, &quot;Aeschylus&quot;]</p>
+<p>_.kv(playAuthor, &quot;Hamlet&quot;);
+// =&gt; undefined
+```</p>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h4 id="omitwhen">omitWhen</h4>
+<p><strong>Signature:</strong> <code>_.omitWhen(obj, pred:Function)</code></p>
+<p>Returns a copy of <code>obj</code> omitting any properties that the predicate (<code>pred</code>)
+function returns <code>true</code> for. The predicat function is invoked with each
+property value, like so: <code>pred(propValue)</code>.</p>
+<p>```javascript
+var playwrights = {</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>euripedes: <span class="string">"Greece"</span>,
+shakespere: <span class="string">"England"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>};</p>
+<p>_.omitWhen(obj, function (country) { return country == &quot;England&quot; });
+// =&gt; { euripedes: &quot;Greece&quot; }
+```</p>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h4 id="pickwhen">pickWhen</h4>
+<p><strong>Signature:</strong> <code>_.pickWhen(obj:Object, pred:Function)</code></p>
+<p>Returns a copy of <code>obj</code> containing only properties that the predicate (<code>pred</code>)
+function returns <code>true</code> for. The predicate function is invoked with each
+property value, like so: <code>pred(propValue)</code>.</p>
+<p>```javascript
+var playwrights = {</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>euripedes: <span class="string">"Greece"</span>,
+shakespere: <span class="string">"England"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>};</p>
+<p>_.omitWhen(obj, function (country) { return country == &quot;England&quot; });
+// =&gt; { shakespeare: &quot;England&quot; }
+```</p>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h4 id="selectkeys">selectKeys</h4>
+<p><strong>Signature:</strong> `_.selectKeys(obj:Object, ks:Array);</p>
+<p>Returns a copy of <code>obj</code> containing only the properties listed in the <code>ks</code> array.</p>
+<p>```javascript
+var philosopherCities = {</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>Philo: <span class="string">"Alexandria"</span>,
+Plato: <span class="string">"Athens"</span>,
+Plotinus: <span class="string">"Rome"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>}</p>
+<p>_.selectKeys(philosopherCities, [&quot;Plato&quot;, &quot;Plotinus&quot;]);
+// =&gt; { Plato: &quot;Athens&quot;, Plotinus: &quot;Rome&quot; }
+```</p>
+
+            </div>
             
         </li>
         
