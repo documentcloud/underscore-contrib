@@ -15,7 +15,7 @@ The `_.cat` function provides a way to concatenate zero or more heterogeneous ar
     //=> []
     
     _.cat([1,2,3]);             // 1-arg
-    //=> []
+    //=> [1,2,3]
     
     _.cat([1,2,3],[4,5,6]);     // 2-args
     //=> [1,2,3,4,5,6]
