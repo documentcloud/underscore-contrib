@@ -1,4 +1,4 @@
-// underscore-contrib v0.1.4
+// underscore-contrib v0.2.2
 // =========================
 
 // > https://github.com/documentcloud/underscore-contrib
@@ -109,6 +109,7 @@
     // Weaves two or more arrays together
     weave: function(/* args */) {
       if (!_.some(arguments)) return [];
+      if (arguments.length == 1) return arguments[0];
 
       return _.filter(_.flatten(_.zip.apply(null, arguments), true), function(elem) {
         return elem != null;
@@ -185,6 +186,18 @@
         return pred(i, array[i]);
       }),
       existy);
+    },
+
+    // Accepts an array-like object (other than strings) as an argument and
+    // returns an array whose elements are in the reverse order. Unlike the
+    // built-in `Array.prototype.reverse` method, this does not mutate the
+    // original object. Note: attempting to use this method on a string will
+    // result in a `TypeError`, as it cannot properly reverse unicode strings.
+
+    reverseOrder: function(obj) {
+      if (typeof obj == 'string')
+        throw new TypeError('Strings cannot be reversed by _.reverseOrder');
+      return slice.call(obj).reverse();
     }
   });
 
@@ -225,11 +238,17 @@
       return (n != null) && !guard ? slice.call(array, 1, n) : array[1];
     },
 
-    // A function to get at an index into an array
-    nth: function(array, index) {
-      if ((index < 0) || (index > array.length - 1)) throw Error("Attempting to index outside the bounds of the array.");
+    // Returns the third element of an array. Passing **n** will return all but
+    // the first two of the head N values in the array.  The **guard** check allows it
+    // to work with `_.map`.
+    third: function(array, n, guard) {
+      if (array == null) return void 0;
+      return (n != null) && !guard ? slice.call(array, 2, n) : array[2];
+    },
 
-      return array[index];
+    // A function to get at an index into an array
+    nth: function(array, index, guard) {
+      if ((index != null) && !guard) return array[index];
     },
 
     // Takes all items in an array while a given predicate returns truthy.
@@ -265,7 +284,7 @@
     // taking an original array and spliting it at the index
     // where a given function goes falsey.
     splitWith: function(array, pred) {
-      return [_.takeWhile(pred, array), _.dropWhile(pred, array)];
+      return [_.takeWhile(array, pred), _.dropWhile(array, pred)];
     },
 
     // Takes an array and partitions it as the given predicate changes
@@ -319,59 +338,102 @@
 
   // An internal object that can be returned from a visitor function to
   // prevent a top-down walk from walking subtrees of a node.
-  var breaker = {};
+  var stopRecursion = {};
+
+  // An internal object that can be returned from a visitor function to
+  // cause the walk to immediately stop.
+  var stopWalk = {};
 
   var notTreeError = 'Not a tree: same object found in two different branches';
 
+  // Implements the default traversal strategy: if `obj` is a DOM node, walk
+  // its DOM children; otherwise, walk all the objects it references.
+  function defaultTraversal(obj) {
+    return _.isElement(obj) ? obj.children : obj;
+  }
+
   // Walk the tree recursively beginning with `root`, calling `beforeFunc`
   // before visiting an objects descendents, and `afterFunc` afterwards.
-  function walk(root, beforeFunc, afterFunc, context) {
+  // If `collectResults` is true, the last argument to `afterFunc` will be a
+  // collection of the results of walking the node's subtrees.
+  function walkImpl(root, traversalStrategy, beforeFunc, afterFunc, context, collectResults) {
     var visited = [];
-    (function _walk(value, key, parent) {
-      if (beforeFunc && beforeFunc.call(context, value, key, parent) === breaker)
-        return;
-
-      if (_.isObject(value) || _.isArray(value)) {
-        // Keep track of objects that have been visited, and throw an exception
-        // when trying to visit the same object twice.
+    return (function _walk(value, key, parent) {
+      // Keep track of objects that have been visited, and throw an exception
+      // when trying to visit the same object twice.
+      if (_.isObject(value)) {
         if (visited.indexOf(value) >= 0) throw new TypeError(notTreeError);
         visited.push(value);
-
-        // Recursively walk this object's descendents. If it's a DOM node, walk
-        // its DOM children.
-        _.each(_.isElement(value) ? value.children : value, _walk, context);
       }
 
-      if (afterFunc) afterFunc.call(context, value, key, parent);
+      if (beforeFunc) {
+        var result = beforeFunc.call(context, value, key, parent);
+        if (result === stopWalk) return stopWalk;
+        if (result === stopRecursion) return;
+      }
+
+      var subResults;
+      var target = traversalStrategy(value);
+      if (_.isObject(target) && !_.isEmpty(target)) {
+        // If collecting results from subtrees, collect them in the same shape
+        // as the parent node.
+        if (collectResults) subResults = _.isArray(value) ? [] : {};
+
+        var stop = _.any(target, function(obj, key) {
+          var result = _walk(obj, key, value);
+          if (result === stopWalk) return true;
+          if (subResults) subResults[key] = result;
+        });
+        if (stop) return stopWalk;
+      }
+      if (afterFunc) return afterFunc.call(context, value, key, parent, subResults);
     })(root);
   }
 
+  // Internal helper providing the implementation for `pluck` and `pluckRec`.
   function pluck(obj, propertyName, recursive) {
     var results = [];
-    _.walk.preorder(obj, function(value, key) {
-      if (key === propertyName) {
-        results[results.length] = value;
-        if (!recursive) return breaker;
-      }
+    this.preorder(obj, function(value, key) {
+      if (!recursive && key == propertyName)
+        return stopRecursion;
+      if (_.has(value, propertyName))
+        results[results.length] = value[propertyName];
     });
     return results;
   }
 
-  // Add the `walk` namespace
-  // ------------------------
-
-  _.walk = walk;
-  _.extend(walk, {
-    // Recursively traverses `obj` in a depth-first fashion, invoking the
-    // `visitor` function for each object only after traversing its children.
-    postorder: function(obj, visitor, context) {
-      walk(obj, null, visitor, context);
+  var exports = {
+    // Performs a preorder traversal of `obj` and returns the first value
+    // which passes a truth test.
+    find: function(obj, visitor, context) {
+      var result;
+      this.preorder(obj, function(value, key, parent) {
+        if (visitor.call(context, value, key, parent)) {
+          result = value;
+          return stopWalk;
+        }
+      }, context);
+      return result;
     },
 
-    // Recursively traverses `obj` in a depth-first fashion, invoking the
-    // `visitor` function for each object before traversing its children.
-    preorder: function(obj, visitor, context) {
-      walk(obj, visitor, null, context)
+    // Recursively traverses `obj` and returns all the elements that pass a
+    // truth test. `strategy` is the traversal function to use, e.g. `preorder`
+    // or `postorder`.
+    filter: function(obj, strategy, visitor, context) {
+      var results = [];
+      if (obj == null) return results;
+      strategy(obj, function(value, key, parent) {
+        if (visitor.call(context, value, key, parent)) results.push(value);
+      }, null, this._traversalStrategy);
+      return results;
+    },
+
+    // Recursively traverses `obj` and returns all the elements for which a
+    // truth test fails.
+    reject: function(obj, strategy, visitor, context) {
+      return this.filter(obj, strategy, function(value, key, parent) {
+        return !visitor.call(context, value, key, parent);
+      });
     },
 
     // Produces a new array of values by recursively traversing `obj` and
@@ -380,9 +442,9 @@
     // `postorder`.
     map: function(obj, strategy, visitor, context) {
       var results = [];
-      strategy.call(null, obj, function(value, key, parent) {
+      strategy(obj, function(value, key, parent) {
         results[results.length] = visitor.call(context, value, key, parent);
-      });
+      }, null, this._traversalStrategy);
       return results;
     },
 
@@ -390,16 +452,70 @@
     // tree rooted at `obj`. Results are not recursively searched; use
     // `pluckRec` for that.
     pluck: function(obj, propertyName) {
-      return pluck(obj, propertyName, false);
+      return pluck.call(this, obj, propertyName, false);
     },
 
     // Version of `pluck` which recursively searches results for nested objects
     // with a property named `propertyName`.
     pluckRec: function(obj, propertyName) {
-      return pluck(obj, propertyName, true);
+      return pluck.call(this, obj, propertyName, true);
+    },
+
+    // Recursively traverses `obj` in a depth-first fashion, invoking the
+    // `visitor` function for each object only after traversing its children.
+    // `traversalStrategy` is intended for internal callers, and is not part
+    // of the public API.
+    postorder: function(obj, visitor, context, traversalStrategy) {
+      traversalStrategy = traversalStrategy || this._traversalStrategy;
+      walkImpl(obj, traversalStrategy, null, visitor, context);
+    },
+
+    // Recursively traverses `obj` in a depth-first fashion, invoking the
+    // `visitor` function for each object before traversing its children.
+    // `traversalStrategy` is intended for internal callers, and is not part
+    // of the public API.
+    preorder: function(obj, visitor, context, traversalStrategy) {
+      traversalStrategy = traversalStrategy || this._traversalStrategy;
+      walkImpl(obj, traversalStrategy, visitor, null, context);
+    },
+
+    // Builds up a single value by doing a post-order traversal of `obj` and
+    // calling the `visitor` function on each object in the tree. For leaf
+    // objects, the `memo` argument to `visitor` is the value of the `leafMemo`
+    // argument to `reduce`. For non-leaf objects, `memo` is a collection of
+    // the results of calling `reduce` on the object's children.
+    reduce: function(obj, visitor, leafMemo, context) {
+      var reducer = function(value, key, parent, subResults) {
+        return visitor(subResults || leafMemo, value, key, parent);
+      };
+      return walkImpl(obj, this._traversalStrategy, null, reducer, context, true);
     }
-  });
-  _.walk.collect = _.walk.map;  // Alias `map` as `collect`.
+  };
+
+  // Set up aliases to match those in underscore.js.
+  exports.collect = exports.map;
+  exports.detect = exports.find;
+  exports.select = exports.filter;
+
+  // Returns an object containing the walk functions. If `traversalStrategy`
+  // is specified, it is a function determining how objects should be
+  // traversed. Given an object, it returns the object to be recursively
+  // walked. The default strategy is equivalent to `_.identity` for regular
+  // objects, and for DOM nodes it returns the node's DOM children.
+  _.walk = function(traversalStrategy) {
+    var walker = _.clone(exports);
+
+    // Bind all of the public functions in the walker to itself. This allows
+    // the traversal strategy to be dynamically scoped.
+    _.bindAll.apply(null, [walker].concat(_.keys(walker)));
+
+    walker._traversalStrategy = traversalStrategy || defaultTraversal;
+    return walker;
+  };
+
+  // Use `_.walk` as a namespace to hold versions of the walk functions which
+  // use the default traversal strategy.
+  _.extend(_.walk, _.walk());
 })(this);
 
 // Underscore-contrib (underscore.function.arity.js 0.0.1)
@@ -424,17 +540,17 @@
       }
       else throw new RangeError('Only a single argument may be accepted.');
 
-    }
+    };
   }
 
   // Curry
   // -------
   var curry = (function () {
     function collectArgs(func, that, argCount, args, newArg, reverse) {
-      if (reverse == true) {
-          args.unshift(newArg);
+      if (reverse === true) {
+        args.unshift(newArg);
       } else {
-          args.push(newArg);
+        args.push(newArg);
       }
       if (args.length == argCount) {
         return func.apply(that, args);
@@ -484,12 +600,13 @@
     // Fixes the arguments to a function based on the parameter template defined by
     // the presence of values and the `_` placeholder.
     fix: function(fun) {
-      var args = _.rest(arguments);
+      var fixArgs = _.rest(arguments);
 
       var f = function() {
+        var args = fixArgs.slice();
         var arg = 0;
 
-        for ( var i = 0; i < args.length && arg < arguments.length; i++ ) {
+        for ( var i = 0; i < (args.length || arg < arguments.length); i++ ) {
           if ( args[i] === _ ) {
             args[i] = arguments[arg++];
           }
@@ -534,7 +651,7 @@
 
     // Flexible right to left curry with strict arity.
     rCurry: function (func) {
-        return curry.call(this, func, true);
+      return curry.call(this, func, true);
     },
 
 
@@ -543,7 +660,7 @@
         return enforcesUnary(function (last) {
           return fun.call(this, first, last);
         });
-      })
+      });
     },
 
     curry3: function (fun) {
@@ -551,9 +668,9 @@
         return enforcesUnary(function (second) {
           return enforcesUnary(function (last) {
             return fun.call(this, first, second, last);
-          })
-        })
-      })
+          });
+        });
+      });
     },
 
       // reverse currying for functions taking two arguments.
@@ -561,8 +678,8 @@
       return enforcesUnary(function (last) {
         return enforcesUnary(function (first) {
           return fun.call(this, first, last);
-        })
-      })
+        });
+      });
     },
 
     rcurry3: function (fun) {
@@ -570,15 +687,18 @@
         return enforcesUnary(function (second) {
           return enforcesUnary(function (first) {
             return fun.call(this, first, second, last);
-          })
-        })
-      })
+          });
+        });
+      });
     },
     // Dynamic decorator to enforce function arity and defeat varargs.
     enforce: enforce
   });
 
   _.arity = (function () {
+    // Allow 'new Function', as that is currently the only reliable way
+    // to manipulate function.length
+    /* jshint -W054 */
     var FUNCTIONS = {};
     return function arity (numberOfArgs, fun) {
       if (FUNCTIONS[numberOfArgs] == null) {
@@ -638,7 +758,7 @@
     return _.arity(fun.length, function () {
       return fun.apply(this, __map.call(arguments, mapFun));
     });
-  };
+  }
   
   // Mixing in the combinator functions
   // ----------------------------------
@@ -759,7 +879,7 @@
       }
       else if (funLength === 1)  {
         return function () {
-          return fun.call(this, __slice.call(arguments, 0))
+          return fun.call(this, __slice.call(arguments, 0));
         };
       }
       else {
@@ -812,11 +932,11 @@
     // Flips the first two args of a function
     flip2: function(fun) {
       return function(/* args */) {
-        var tmp = arguments[0];
-        arguments[0] = arguments[1];
-        arguments[1] = tmp;
+        var flipped = __slice.call(arguments);
+        flipped[0] = arguments[1];
+        flipped[1] = arguments[0];
 
-        return fun.apply(null, arguments);
+        return fun.apply(null, flipped);
       };
     },
 
@@ -826,6 +946,26 @@
         var reversed = __reverse.call(arguments);
 
         return fun.apply(null, reversed);
+      };
+    },
+
+    // Takes a method-style function (one which uses `this`) and pushes
+    // `this` into the argument list. The returned function uses its first
+    // argument as the receiver/context of the original function, and the rest
+    // of the arguments are used as the original's entire argument list.
+    functionalize: function(method) {
+      return function(ctx /*, args */) {
+        return method.apply(ctx, _.rest(arguments));
+      };
+    },
+
+    // Takes a function and pulls the first argument out of the argument
+    // list and into `this` position. The returned function calls the original
+    // with its receiver (`this`) prepending the argument list. The original
+    // is called with a receiver of `null`.
+    methodize: function(func) {
+      return function(/* args */) {
+        return func.apply(null, _.cons(this, arguments));
       };
     },
     
@@ -849,11 +989,45 @@
 
 })(this);
 
+// Underscore-contrib (underscore.function.dispatch.js 0.0.1)
+// (c) 2013 Justin Ridgewell
+// Underscore-contrib may be freely distributed under the MIT license.
+
+(function(root) {
+
+  // Baseline setup
+  // --------------
+
+  // Establish the root object, `window` in the browser, or `global` on the server.
+  var _ = root._ || require('underscore');
+
+  // Helpers
+  // -------
+
+  // Create quick reference variable for speed.
+  var slice   = Array.prototype.slice;
+
+  // Mixing in the attempt function
+  // ------------------------
+
+  _.mixin({
+    // If object is not undefined or null then invoke the named `method` function
+    // with `object` as context and arguments; otherwise, return undefined.
+    attempt: function(object, method) {
+      if (object == null) return void 0;
+      var func = object[method];
+      var args = slice.call(arguments, 2);
+      return _.isFunction(func) ? func.apply(object, args) : void 0;
+    }
+  });
+
+})(this);
+
 // Underscore-contrib (underscore.function.iterators.js 0.0.1)
 // (c) 2013 Michael Fogus and DocumentCloud Inc.
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function(root, undefined) {
 
   // Baseline setup
   // --------------
@@ -878,278 +1052,311 @@
     };
   }
   
-  var undefined = void 0;
-
-  
   // Mixing in the iterator functions
   // --------------------------------
 
-     function foldl (iter, binaryFn, seed) {
-      var state, element;
-      if (seed !== void 0) {
-        state = seed;
-      }
-      else {
-        state = iter();
-      }
+  function foldl (iter, binaryFn, seed) {
+    var state, element;
+    if (seed !== void 0) {
+      state = seed;
+    }
+    else {
+      state = iter();
+    }
+    element = iter();
+    while (element != null) {
+      state = binaryFn.call(element, state, element);
       element = iter();
-      while (element != null) {
-        state = binaryFn.call(element, state, element);
-        element = iter();
+    }
+    return state;
+  }
+  
+  function unfold (seed, unaryFn) {
+    var state = HASNTBEENRUN;
+    return function () {
+      if (state === HASNTBEENRUN) {
+        state = seed;
+      } else if (state != null) {
+        state = unaryFn.call(state, state);
       }
+
       return state;
     };
+  }
   
-    function unfold (seed, unaryFn) {
-      var state = HASNTBEENRUN;
-      return function () {
-        if (state === HASNTBEENRUN) {
-          return (state = seed);
-        }
-        else if (state != null) {
-          return (state = unaryFn.call(state, state));
-        }
-        else return state;
-      };
+  // note that the unfoldWithReturn behaves differently than
+  // unfold with respect to the first value returned
+  function unfoldWithReturn (seed, unaryFn) {
+    var state = seed,
+        pair,
+        value;
+    return function () {
+      if (state != null) {
+        pair = unaryFn.call(state, state);
+        value = pair[1];
+        state = value != null ? pair[0] : void 0;
+        return value;
+      }
+      else return void 0;
     };
-  
-    // note that the unfoldWithReturn behaves differently than
-    // unfold with respect to the first value returned
-    function unfoldWithReturn (seed, unaryFn) {
-      var state = seed,
-          pair,
-          value;
-      return function () {
-        if (state != null) {
-          pair = unaryFn.call(state, state);
-          value = pair[1];
-          state = value != null
-                  ? pair[0]
-                  : void 0;
-          return value;
-        }
-        else return void 0;
-      };
-    };
+  }
 
-    function accumulate (iter, binaryFn, initial) {
-      var state = initial;
-      return function () {
-        element = iter();
-        if (element == null) {
-          return element;
+  function accumulate (iter, binaryFn, initial) {
+    var state = initial;
+    return function () {
+      var element = iter();
+      if (element == null) {
+        return element;
+      }
+      else {
+        if (state === void 0) {
+          state = element;
+        } else {
+          state = binaryFn.call(element, state, element);
         }
-        else {
-          if (state === void 0) {
-            return (state = element);
-          }
-          else return (state = binaryFn.call(element, state, element));
-        }
-      };
+        
+        return state;
+      }
     };
+  }
   
-    function accumulateWithReturn (iter, binaryFn, initial) {
-      var state = initial,
-          stateAndReturnValue;
-      return function () {
-        element = iter();
-        if (element == null) {
-          return element;
+  function accumulateWithReturn (iter, binaryFn, initial) {
+    var state = initial,
+        stateAndReturnValue,
+        element;
+    return function () {
+      element = iter();
+      if (element == null) {
+        return element;
+      }
+      else {
+        if (state === void 0) {
+          state = element;
+          return state;
         }
         else {
-          if (state === void 0) {
-            return (state = element);
+          stateAndReturnValue = binaryFn.call(element, state, element);
+          state = stateAndReturnValue[0];
+          return stateAndReturnValue[1];
+        }
+      }
+    };
+  }
+  
+  function map (iter, unaryFn) {
+    return function() {
+      var element;
+      element = iter();
+      if (element != null) {
+        return unaryFn.call(element, element);
+      } else {
+        return void 0;
+      }
+    };
+  }
+
+  function mapcat(iter, unaryFn) {
+    var lastIter = null;
+    return function() {
+      var element;
+      var gen;
+      if (lastIter == null) {
+        gen = iter();
+        if (gen == null) {
+          lastIter = null;
+          return void 0;
+        }
+        lastIter = unaryFn.call(gen, gen);
+      }
+      while (element == null) {
+        element = lastIter();
+        if (element == null) {
+          gen = iter();
+          if (gen == null) {
+            lastIter = null;
+            return void 0;
           }
           else {
-            stateAndReturnValue = binaryFn.call(element, state, element);
-            state = stateAndReturnValue[0];
-            return stateAndReturnValue[1];
+            lastIter = unaryFn.call(gen, gen);
           }
         }
-      };
-    };
-  
-    function map (iter, unaryFn) {
-      return function() {
-        var element;
-        element = iter();
-        if (element != null) {
-          return unaryFn.call(element, element);
-        } else {
-          return void 0;
-        }
-      };
-    };
-
-    function select (iter, unaryPredicateFn) {
-      return function() {
-        var element;
-        element = iter();
-        while (element != null) {
-          if (unaryPredicateFn.call(element, element)) {
-            return element;
-          }
-          element = iter();
-        }
-        return void 0;
-      };
-    };
-  
-    function reject (iter, unaryPredicateFn) {
-      return select(iter, function (something) {
-        return !unaryPredicateFn(something);
-      });
-    };
-  
-    function find (iter, unaryPredicateFn) {
-      return select(iter, unaryPredicateFn)();
-    }
-
-    function slice (iter, numberToDrop, numberToTake) {
-      var count = 0;
-      while (numberToDrop-- > 0) {
-        iter();
       }
-      if (numberToTake != null) {
-        return function() {
-          if (++count <= numberToTake) {
-            return iter();
-          } else {
-            return void 0;
-          }
-        };
-      }
-      else return iter;
+      return element;
     };
-  
-    function drop (iter, numberToDrop) {
-      return slice(iter, numberToDrop == null ? 1 : numberToDrop);
-    }
-  
-    function take (iter, numberToTake) {
-      return slice(iter, 0, numberToTake == null ? 1 : numberToTake);
-    }
+  }
 
-    function List (array) {
-      var index = 0;
-      return function() {
-        return array[index++];
-      };
-    };
-  
-    function Tree (array) {
-      var index, myself, state;
-      index = 0;
-      state = [];
-      myself = function() {
-        var element, tempState;
-        element = array[index++];
-        if (element instanceof Array) {
-          state.push({
-            array: array,
-            index: index
-          });
-          array = element;
-          index = 0;
-          return myself();
-        } else if (element === void 0) {
-          if (state.length > 0) {
-            tempState = state.pop(), array = tempState.array, index = tempState.index;
-            return myself();
-          } else {
-            return void 0;
-          }
-        } else {
+  function select (iter, unaryPredicateFn) {
+    return function() {
+      var element;
+      element = iter();
+      while (element != null) {
+        if (unaryPredicateFn.call(element, element)) {
           return element;
         }
-      };
-      return myself;
+        element = iter();
+      }
+      return void 0;
     };
+  }
   
-    function K (value) {
-      return function () {
-        return value;
-      };
-    };
+  function reject (iter, unaryPredicateFn) {
+    return select(iter, function (something) {
+      return !unaryPredicateFn(something);
+    });
+  }
+  
+  function find (iter, unaryPredicateFn) {
+    return select(iter, unaryPredicateFn)();
+  }
 
-    function upRange (from, to, by) {
-      return function () {
-        var was;
-      
-        if (from > to) {
+  function slice (iter, numberToDrop, numberToTake) {
+    var count = 0;
+    while (numberToDrop-- > 0) {
+      iter();
+    }
+    if (numberToTake != null) {
+      return function() {
+        if (++count <= numberToTake) {
+          return iter();
+        } else {
           return void 0;
         }
-        else {
-          was = from;
-          from = from + by;
-          return was;
-        }
-      }
-    };
+      };
+    }
+    else return iter;
+  }
+  
+  function drop (iter, numberToDrop) {
+    return slice(iter, numberToDrop == null ? 1 : numberToDrop);
+  }
 
-    function downRange (from, to, by) {
-      return function () {
-        var was;
-      
-        if (from < to) {
+  function take (iter, numberToTake) {
+    return slice(iter, 0, numberToTake == null ? 1 : numberToTake);
+  }
+
+  function List (array) {
+    var index = 0;
+    return function() {
+      return array[index++];
+    };
+  }
+  
+  function Tree (array) {
+    var index, myself, state;
+    index = 0;
+    state = [];
+    myself = function() {
+      var element, tempState;
+      element = array[index++];
+      if (element instanceof Array) {
+        state.push({
+          array: array,
+          index: index
+        });
+        array = element;
+        index = 0;
+        return myself();
+      } else if (element === void 0) {
+        if (state.length > 0) {
+          tempState = state.pop();
+          array = tempState.array;
+          index = tempState.index;
+          return myself();
+        } else {
           return void 0;
         }
-        else {
-          was = from;
-          from = from - by;
-          return was;
-        }
-      };
+      } else {
+        return element;
+      }
     };
+    return myself;
+  }
   
-    function range (from, to, by) {
-      if (from == null) {
-        return upRange(1, Infinity, 1);
-      }
-      else if (to == null) {
-        return upRange(from, Infinity, 1);
-      }
-      else if (by == null) {
-        if (from <= to) {
-          return upRange(from, to, 1);
-        }
-        else return downRange(from, to, 1)
-      }
-      else if (by > 0) {
-        return upRange(from, to, by);
-      }
-      else if (by < 0) {
-        return downRange(from, to, Math.abs(by))
-      }
-      else return k(from);
+  function K (value) {
+    return function () {
+      return value;
     };
+  }
+
+  function upRange (from, to, by) {
+    return function () {
+      var was;
+    
+      if (from > to) {
+        return void 0;
+      }
+      else {
+        was = from;
+        from = from + by;
+        return was;
+      }
+    };
+  }
+
+  function downRange (from, to, by) {
+    return function () {
+      var was;
+    
+      if (from < to) {
+        return void 0;
+      }
+      else {
+        was = from;
+        from = from - by;
+        return was;
+      }
+    };
+  }
   
-    var numbers = unary(range);
+  function range (from, to, by) {
+    if (from == null) {
+      return upRange(1, Infinity, 1);
+    }
+    else if (to == null) {
+      return upRange(from, Infinity, 1);
+    }
+    else if (by == null) {
+      if (from <= to) {
+        return upRange(from, to, 1);
+      }
+      else return downRange(from, to, 1);
+    }
+    else if (by > 0) {
+      return upRange(from, to, by);
+    }
+    else if (by < 0) {
+      return downRange(from, to, Math.abs(by));
+    }
+    else return k(from);
+  }
+  
+  var numbers = unary(range);
 
-    _.iterators = {
-      accumulate: accumulate,
-      accumulateWithReturn: accumulateWithReturn,
-      foldl: foldl,
-      reduce: foldl,
-      unfold: unfold,
-      unfoldWithReturn: unfoldWithReturn,
-      map: map,
-      select: select,
-      reject: reject,
-      filter: select,
-      find: find,
-      slice: slice,
-      drop: drop,
-      take: take,
-      List: List,
-      Tree: Tree,
-      constant: K,
-      K: K,
-      numbers: numbers,
-      range: range
-    };
+  _.iterators = {
+    accumulate: accumulate,
+    accumulateWithReturn: accumulateWithReturn,
+    foldl: foldl,
+    reduce: foldl,
+    unfold: unfold,
+    unfoldWithReturn: unfoldWithReturn,
+    map: map,
+    mapcat: mapcat,
+    select: select,
+    reject: reject,
+    filter: select,
+    find: find,
+    slice: slice,
+    drop: drop,
+    take: take,
+    List: List,
+    Tree: Tree,
+    constant: K,
+    K: K,
+    numbers: numbers,
+    range: range
+  };
 
-})(this);
+})(this, void 0);
 
 // Underscore-contrib (underscore.function.predicates.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
@@ -1188,6 +1395,9 @@
     // A seq is something considered a sequential composite type (i.e. arrays and `arguments`).
     isSequential: function(x) { return (_.isArray(x)) || (_.isArguments(x)); },
 
+    // Check if an object is an object literal, since _.isObject(function() {}) === _.isObject([]) === true
+    isPlainObject: function(x) { return _.isObject(x) && x.constructor === root.Object; },
+
     // These do what you think that they do
     isZero: function(x) { return 0 === x; },
     isEven: function(x) { return _.isFinite(x) && (x & 1) === 0; },
@@ -1214,6 +1424,16 @@
     // A float is a numbr that is not an integer.
     isFloat: function(n) {
       return _.isNumeric(n) && !_.isInteger(n);
+    },
+
+    // checks if a string is a valid JSON
+    isJSON: function(str) {
+      try {
+        JSON.parse(str);
+      } catch (e) {
+        return false;
+      }
+      return true;
     },
 
     // Returns true if its arguments are monotonically
@@ -1280,7 +1500,7 @@
       };
     };
   };
-  
+
   // Mixing in the object builders
   // ----------------------------
 
@@ -1323,7 +1543,9 @@
       var temp = new obj.constructor();
 
       for(var key in obj) {
-        temp[key] = _.snapshot(obj[key]);
+        if (obj.hasOwnProperty(key)) {
+          temp[key] = _.snapshot(obj[key]);
+        }
       }
 
       return temp;
@@ -1334,7 +1556,7 @@
     // the current value and is expected to return a value for use as the
     // new value.  If no keys are provided, then the object itself is presented
     // to the given function.
-    updatePath: function(obj, fun, ks) {
+    updatePath: function(obj, fun, ks, defaultValue) {
       if (!isAssociative(obj)) throw new TypeError("Attempted to update a non-associative object.");
       if (!existy(ks)) return fun(obj);
 
@@ -1345,6 +1567,9 @@
       var target   = ret;
 
       _.each(_.initial(keys), function(key) {
+        if (defaultValue && !_.has(target, key)) {
+          target[key] = _.clone(defaultValue);
+        }
         target = target[key];
       });
 
@@ -1354,10 +1579,10 @@
 
     // Sets the value at any depth in a nested object based on the
     // path described by the keys given.
-    setPath: function(obj, value, ks) {
+    setPath: function(obj, value, ks, defaultValue) {
       if (!existy(ks)) throw new TypeError("Attempted to set a property at a null path.");
 
-      return _.updatePath(obj, function() { return value; }, ks);
+      return _.updatePath(obj, function() { return value; }, ks, defaultValue);
     },
 
     // Returns an object where each element of an array is keyed to
@@ -1384,6 +1609,8 @@
 
   // Create quick reference variables for speed access to core prototypes.
   var concat  = Array.prototype.concat;
+  var ArrayProto = Array.prototype;
+  var slice = ArrayProto.slice;
 
   // Mixing in the object selectors
   // ------------------------------
@@ -1420,8 +1647,11 @@
     },
 
     // Gets the value at any depth in a nested object based on the
-    // path described by the keys given.
+    // path described by the keys given. Keys may be given as an array
+    // or as a dot-separated string.
     getPath: function getPath (obj, ks) {
+      if (typeof ks == "string") ks = ks.split(".");
+
       // If we have reached an undefined property
       // then stop executing and return undefined
       if (obj === undefined) return void 0;
@@ -1440,6 +1670,8 @@
     // Returns a boolean indicating whether there is a property
     // at the path described by the keys given
     hasPath: function hasPath (obj, ks) {
+      if (typeof ks == "string") ks = ks.split(".");
+
       var numKeys = ks.length;
 
       if (obj == null && numKeys > 0) return false;
@@ -1449,7 +1681,22 @@
       if (numKeys === 1) return true;
 
       return hasPath(obj[_.first(ks)], _.rest(ks));
+    },
+
+    pickWhen: function(obj, pred) {
+      var copy = {};
+
+      _.each(obj, function(value, key) {
+        if (pred(obj[key])) copy[key] = obj[key];
+      });
+
+      return copy;
+    },
+
+    omitWhen: function(obj, pred) {
+      return _.pickWhen(obj, function(e) { return !pred(e); });
     }
+
   });
 
 })(this);
@@ -1477,7 +1724,12 @@
     exists: function(x) { return x != null; },
     truthy: function(x) { return (x !== false) && _.exists(x); },
     falsey: function(x) { return !_.truthy(x); },
-    not:    function(b) { return !b; }
+    not:    function(b) { return !b; },
+    firstExisting: function() {
+      for (var i = 0; i < arguments.length; i++) {
+        if (arguments[i] != null) return arguments[i];
+      }
+    }
   });
 
 })(this);
@@ -1493,83 +1745,157 @@
 
   // Establish the root object, `window` in the browser, or `global` on the server.
   var _ = root._ || require('underscore');
-  
+
+  // Setup for variadic operators
+  // ----------------------------
+
+  // Turn a binary math operator into a variadic operator
+  function variadicMath(operator) {
+    return function() {
+      return _.reduce(arguments, operator);
+    };
+  }
+
+  // Turn a binary comparator into a variadic comparator
+  function variadicComparator(comparator) {
+    return function() {
+      var result;
+      for (var i = 0; i < arguments.length - 1; i++) {
+        result = comparator(arguments[i], arguments[i + 1]);
+        if (result === false) return result;
+      }
+      return result; 
+    };
+  }
+
+  // Turn a boolean-returning function into one with the opposite meaning
+  function invert(fn) {
+    return function() {
+      return !fn.apply(this, arguments);
+    };
+  }
+
+  // Basic math operators
+  function add(x, y) {
+    return x + y;
+  }
+
+  function sub(x, y) {
+    return x - y;
+  }
+
+  function mul(x, y) {
+    return x * y;
+  }
+
+  function div(x, y) {
+    return x / y;
+  }
+
+  function mod(x, y) {
+    return x % y;
+  }
+
+  function inc(x) {
+    return ++x;
+  }
+
+  function dec(x) {
+    return --x;
+  }
+
+  function neg(x) {
+    return -x;
+  }
+
+  // Bitwise operators
+  function bitwiseAnd(x, y) {
+    return x & y;
+  }
+
+  function bitwiseOr(x, y) {
+    return x | y;
+  }
+
+  function bitwiseXor(x, y) {
+    return x ^ y;
+  }
+
+  function bitwiseLeft(x, y) {
+    return x << y;
+  }
+
+  function bitwiseRight(x, y) {
+    return x >> y;
+  }
+
+  function bitwiseZ(x, y) {
+    return x >>> y;
+  }
+
+  function bitwiseNot(x) {
+    return ~x;
+  }
+
+  // Basic comparators
+  function eq(x, y) {
+    return x == y;
+  }
+
+  function seq(x, y) {
+    return x === y;
+  }
+
+  // Not
+  function not(x) {
+    return !x;
+  }
+
+  // Relative comparators
+  function gt(x, y) {
+    return x > y;
+  }
+
+  function lt(x, y) {
+    return x < y;
+  }
+
+  function gte(x, y) {
+    return x >= y;
+  }
+
+  function lte(x, y) {
+    return x <= y;
+  }
+
   // Mixing in the operator functions
   // -----------------------------
 
   _.mixin({
-    add: function(x, y) {
-      return x + y;
-    },
-    sub: function(x, y) {
-      return x - y;
-    },
-    mul: function(x, y) {
-      return x * y;
-    },
-    div: function(x, y) {
-      return x / y;
-    },
-    mod: function(x, y) {
-      return x % y;
-    },
-    inc: function(x) {
-      return ++x;
-    },
-    dec: function(x) {
-      return --x;
-    },
-    neg: function(x) {
-      return -x;
-    },
-    eq: function(x, y) {
-      return x == y;
-    },
-    seq: function(x, y) {
-      return x === y;
-    },
-    neq: function(x, y) {
-      return x != y;
-    },
-    sneq: function(x, y) {
-      return x !== y;
-    },
-    not: function(x) {
-      return !x;
-    },
-    gt: function(x, y) {
-      return x > y;
-    },
-    lt: function(x, y) {
-      return x < y;
-    },
-    gte: function(x, y) {
-      return x >= y;
-    },
-    lte: function(x, y) {
-      return x <= y;
-    },
-    bitwiseAnd: function(x, y) {
-      return x & y;
-    },
-    bitwiseOr: function(x, y) {
-      return x | y;
-    },
-    bitwiseXor: function(x, y) {
-      return x ^ y;
-    },
-    bitwiseNot: function(x) {
-      return ~x;
-    },
-    bitwiseLeft: function(x, y) {
-      return x << y;
-    },
-    bitwiseRight: function(x, y) {
-      return x >> y;
-    },
-    bitwiseZ: function(x, y) {
-      return x >>> y;
-    }
+    add: variadicMath(add),
+    sub: variadicMath(sub),
+    mul: variadicMath(mul),
+    div: variadicMath(div),
+    mod: mod,
+    inc: inc,
+    dec: dec,
+    neg: neg,
+    eq: variadicComparator(eq),
+    seq: variadicComparator(seq),
+    neq: invert(variadicComparator(eq)),
+    sneq: invert(variadicComparator(seq)),
+    not: not,
+    gt: variadicComparator(gt),
+    lt: variadicComparator(lt),
+    gte: variadicComparator(gte),
+    lte: variadicComparator(lte),
+    bitwiseAnd: variadicMath(bitwiseAnd),
+    bitwiseOr: variadicMath(bitwiseOr),
+    bitwiseXor: variadicMath(bitwiseXor),
+    bitwiseNot: bitwiseNot,
+    bitwiseLeft: variadicMath(bitwiseLeft),
+    bitwiseRight: variadicMath(bitwiseRight),
+    bitwiseZ: variadicMath(bitwiseZ)
   });
 })(this);
 
@@ -1600,7 +1926,26 @@
     // Implodes and array of chars into a string
     implode: function(a) {
       return a.join('');
+    },
+
+    // Converts a string to camel case
+    camelCase : function( string ){
+      return  string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    },
+
+    // Converts camel case to dashed (opposite of _.camelCase)
+    toDash : function( string ){
+      string = string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
+      // remove first dash
+      return  ( string.charAt( 0 ) == '-' ) ? string.substr(1) : string;
+    },
+
+    // Reports whether a string contains a search string.
+    strContains: function(str, search) {
+      if (typeof str != 'string') throw new TypeError;
+      return (str.indexOf(search) != -1);
     }
+
   });
 })(this);
 
