@@ -86,7 +86,7 @@
         var args = fixArgs.slice();
         var arg = 0;
 
-        for ( var i = 0; i < args.length || arg < arguments.length; i++ ) {
+        for ( var i = 0; i < (args.length || arg < arguments.length); i++ ) {
           if ( args[i] === _ ) {
             args[i] = arguments[arg++];
           }

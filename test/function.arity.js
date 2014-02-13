@@ -20,6 +20,9 @@ $(document).ready(function() {
     equal(g(1), 'number, undefined, number', 'should not remember arguments between calls');
 
     equal(_.fix(parseInt, _, 10)('11'), 11, 'should "fix" common js foibles');
+    
+    equal(_.fix(f, _, 3)(1,'a'), 'number, number', 'should ignore extra parameters');
+    
   });
 
   test("arity", function () {
