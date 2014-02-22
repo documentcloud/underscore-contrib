@@ -52,33 +52,33 @@ $(document).ready(function() {
     deepEqual(a, [1,2,3], 'should not modify the original tail');
   });
 
-  test("partition", function() {
+  test("chunk", function() {
     var a = _.range(4);
     var b = _.range(5);
     var c = _.range(7);
 
-    deepEqual(_.partition(a, 2), [[0,1],[2,3]], 'should partition into the size given');
-    deepEqual(_.partition(b, 2), [[0,1],[2,3]], 'should partition into the size given. Extras are dropped');
+    deepEqual(_.chunk(a, 2), [[0,1],[2,3]], 'should chunk into the size given');
+    deepEqual(_.chunk(b, 2), [[0,1],[2,3]], 'should chunk into the size given. Extras are dropped');
 
-    var result = _.partition(a, 2);
+    var result = _.chunk(a, 2);
     deepEqual(a, _.range(4), 'should not modify the original array');
 
-    deepEqual(_.partition(c, 3, [7,8]), [[0,1,2],[3,4,5],[6,7,8]], 'should allow one to specify a padding array');
-    deepEqual(_.partition(b, 3, 9), [[0,1,2],[3,4,9]], 'should allow one to specify a padding value');
+    deepEqual(_.chunk(c, 3, [7,8]), [[0,1,2],[3,4,5],[6,7,8]], 'should allow one to specify a padding array');
+    deepEqual(_.chunk(b, 3, 9), [[0,1,2],[3,4,9]], 'should allow one to specify a padding value');
   });
 
-  test("partitionAll", function() {
+  test("chunkAll", function() {
     var a = _.range(4);
     var b = _.range(10);
 
-    deepEqual(_.partitionAll(a, 2), [[0,1],[2,3]], 'should partition into the size given');
-    deepEqual(_.partitionAll(b, 4), [[0,1,2,3],[4,5,6,7],[8,9]], 'should partition into the size given, with a small end');
+    deepEqual(_.chunkAll(a, 2), [[0,1],[2,3]], 'should chunk into the size given');
+    deepEqual(_.chunkAll(b, 4), [[0,1,2,3],[4,5,6,7],[8,9]], 'should chunk into the size given, with a small end');
 
-    var result = _.partitionAll(a, 2);
+    var result = _.chunkAll(a, 2);
     deepEqual(a, _.range(4), 'should not modify the original array');
 
-    deepEqual(_.partitionAll(b, 2, 4), [[0,1],[4,5],[8,9]], 'should partition into the size given, with skips');
-    deepEqual(_.partitionAll(b, 3, 4), [[0,1,2],[4,5,6],[8,9]], 'should partition into the size given, with skips and a small end');
+    deepEqual(_.chunkAll(b, 2, 4), [[0,1],[4,5],[8,9]], 'should chunk into the size given, with skips');
+    deepEqual(_.chunkAll(b, 3, 4), [[0,1,2],[4,5,6],[8,9]], 'should chunk into the size given, with skips and a small end');
   });
 
   test("mapcat", function() {

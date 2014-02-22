@@ -38,6 +38,41 @@ Signature: `_.cat(... elems:Arguments ...)`
     
     f(1,2,3);
     //=> [1,2,3,4,5,6]
+    
+#### chunk
+
+The `_.chunk` function, by default, accepts an array and a number and splits and returns a new array representing the original array split into some number of arrays of the given size:
+
+    _.chunk([0,1,2,3], 2);
+    //=> , [[0,1],[2,3]]
+
+If the original array cannot completely fulfill the chunk scheme then the array returned will drop the undersized final chunk:
+
+    _.chunk([0,1,2,3,4], 2);
+    //=> , [[0,1],[2,3]]
+
+You can pass an optional third argument to `_.chunk` to pad out the final array chunk should it fall short.  If the value given as the third argument is *not* an array then it is repeated the needed number of times:
+
+    _.chunk([0,1,2,3,4], 3, '_');
+    //=> , [[0,1,2],[3,'_','_']]
+
+If you given an array as the optional third argument then that array is used to pad in-place as needed:
+
+    _.chunk([0,1,2,3,4], 3, ['a', 'b']);
+    //=> , [[0,1,2],[3,'a','b']]
+
+#### chunkAll
+
+The `_.chunkAll` function is similar to `_.chunk` except for the following.  First, `_.chunkAll` will never drop short chunks from the end:
+
+    _.chunkAll([0,1,2,3,4], 3);
+    //=> , [[0,1,2],[3]]
+
+Also, `_.chunkAll` takes an optional third argument signifying that paritions should be built from skipped regions:
+
+    _.chunkAll(_.range(1), 2, 4);
+    //=> [[0,1],[4,5],[8,9]]
+
 
 #### cons
 
@@ -73,41 +108,7 @@ Signature: `_.cons(head:Any, tail:Arguments)`
     f(1,2,3);
     //=> [0,1,2,3]
 
-#### partition
 
-The `_.partition` function, by default, accepts an array and a number and splits and returns a new array representing the original array split into some number of arrays of the given size:
-
-    _.partition([0,1,2,3], 2);
-    //=> , [[0,1],[2,3]]
-
-If the original array cannot completely fulfill the partition scheme then the array returned will drop the undersized final partition:
-
-    _.partition([0,1,2,3,4], 2);
-    //=> , [[0,1],[2,3]]
-
-You can pass an optional third argument to `_.partition` to pad out the final array partition should it fall short.  If the value given as the third argument is *not* an array then it is repeated the needed number of times:
-
-    _.partition([0,1,2,3,4], 3, '_');
-    //=> , [[0,1,2],[3,'_','_']]
-
-If you given an array as the optional third argument then that array is used to pad in-place as needed:
-
-    _.partition([0,1,2,3,4], 3, ['a', 'b']);
-    //=> , [[0,1,2],[3,'a','b']]
-
-#### partitionAll
-
-The `_.partitionAll` function is similar to `_.partition` except for the following.  First, `_.partionAll` will never drop short partitions from the end:
-
-    _.partitionAll([0,1,2,3,4], 3);
-    //=> , [[0,1,2],[3]]
-
-Also, `_.paritionAll` takes an optional third argument signifying that paritions should be built from skipped regions:
-
-    _.partitionAll(_.range(1), 2, 4);
-    //=> [[0,1],[4,5],[8,9]]
-
-	
 #### mapcat
 
 There are times when a mapping operation produces results contained in arrays, but the final result should be flattened one level.  For these circumstances you can use `_.mapcat` to produce results:
