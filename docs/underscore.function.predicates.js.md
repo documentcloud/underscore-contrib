@@ -301,6 +301,12 @@ _.isSequential(new Date);
 Checks whether the value is a valid date. That is, the value is both an instance
 of `Date` and it represents an actual date.
 
+<span class="label label-danger">Warning:</span> This function does not verify
+whether the original input to `Date` is a real date. For instance,
+`new Date("02/30/2014")` is considered a valid date because `Date` coerces that
+into a representation of 03/02/2014. To validate strings representing a date,
+consider using a date/time library like [Moment.js.][momentjs]
+
 ```javascript
 _.isValidDate(new Date("January 1, 1900"));
 // => true
@@ -323,4 +329,8 @@ _.isZero(0);
 
 _.isZero("Pythagoras");
 // => false
-```    
+```
+
+--------------------------------------------------------------------------------
+
+[momentjs]:http://momentjs.com/

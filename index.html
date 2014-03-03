@@ -1315,6 +1315,11 @@ _.isSequential(new Date);
 <p><strong>Signature:</strong> <code>_.isValidDate(value:Any)</code></p>
 <p>Checks whether the value is a valid date. That is, the value is both an instance
 of <code>Date</code> and it represents an actual date.</p>
+<p><span class="label label-danger">Warning:</span> This function does not verify
+whether the original input to <code>Date</code> is a real date. For instance,
+<code>new Date(&quot;02/30/2014&quot;)</code> is considered a valid date because <code>Date</code> coerces that
+into a representation of 03/02/2014. To validate strings representing a date,
+consider using a date/time library like <a href="http://momentjs.com/">Moment.js.</a></p>
 <pre><code class="lang-javascript">_.isValidDate(new Date(&quot;January 1, 1900&quot;));
 // =&gt; true
 
@@ -1329,6 +1334,7 @@ _.isValidDate(new Date(&quot;The Last Great Time War&quot;));
 
 _.isZero(&quot;Pythagoras&quot;);
 // =&gt; false</code></pre>
+<hr>
 <h3 id="object-builders"><a href="#object.builders" name="object.builders">object.builders</a></h3>
 <blockquote>
 <p>Functions to build objects.</p>
