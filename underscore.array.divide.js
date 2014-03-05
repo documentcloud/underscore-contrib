@@ -14,7 +14,7 @@
   */
   _.mixin({
     at : function(arrayOrString, location, length) {
-      var i, max, result;
+      var i, max, result, slice;
       if (arrayOrString == null) {
         arrayOrString = [];
       }
@@ -30,21 +30,11 @@
       if (length === 0) {
         return arrayOrString[location];
       } else {
-        result = null;
-        for (i = location, max = location+length; i < max; i++) {
-          if (_.isArray(arrayOrString)) {
-            if (result == null) {
-              result = [];
-            }
-            result.push(arrayOrString[i]);
-          } else if (_.isString(arrayOrString)) {
-            if (result == null) {
-              result = "";
-            }
-            result += arrayOrString[i];
-          }
+        if (_.isArray(arrayOrString)) {
+          return Array.prototype.slice.call(arrayOrString, location, location+length);
+        }else if (_.isString(arrayOrString)) {
+          return String.prototype.slice.call(arrayOrString, location, location+length);
         }
-        return result;
       }
     }
   });
