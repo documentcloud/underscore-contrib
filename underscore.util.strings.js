@@ -22,6 +22,18 @@
       return s.split('');
     },
 
+    // Parses a query string into a hash
+    fromQuery: function(str) {
+      var parameters = str.split('&');
+      var parameter;
+      obj = {}
+      for (var index in parameters) {
+        parameter = parameters[index].split('=');
+        obj[decodeURIComponent(parameter[0])] = decodeURIComponent(parameter[1]);
+      }
+      return obj;
+    },
+
     // Implodes and array of chars into a string
     implode: function(a) {
       return a.join('');
@@ -37,6 +49,15 @@
       string = string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
       // remove first dash
       return  ( string.charAt( 0 ) == '-' ) ? string.substr(1) : string;
+    },
+
+    // Creates a query string from a hash
+    toQuery: function(obj) {
+      var parameters = []
+      for (var key in obj) {
+        parameters.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+      }
+      return parameters.join('&');
     },
 
     // Reports whether a string contains a search string.
