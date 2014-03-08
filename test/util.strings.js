@@ -8,8 +8,8 @@ $(document).ready(function() {
   });
 
   test('fromQuery', function() {
-    var query = 'foo%26bar=baz&test=total+success';
-    ok(_.isEqual(_.fromQuery(query), {'foo&bar': 'baz', 'test': 'total success'}), 'can convert a query string to a hash');
+    var query = 'foo%26bar=baz&test=total+utter+success';
+    ok(_.isEqual(_.fromQuery(query), {'foo&bar': 'baz', 'test': 'total utter success'}), 'can convert a query string to a hash');
   });
 
   test('implode', function() {

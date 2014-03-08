@@ -12,8 +12,12 @@
 
   // Helpers
   // -------
+
+  // No reason to create regex more than once
+  var plusRegex = /\+/g;
+
   var URLDecode = function(s) {
-    return decodeURIComponent(s.replace('+', '%20'));
+    return decodeURIComponent(s.replace(plusRegex, '%20'));
   };
 
   // Mixing in the string utils
