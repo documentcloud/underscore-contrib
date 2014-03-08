@@ -15,7 +15,8 @@
   
   // Create quick reference variables for speed access to core prototypes.
   var slice   = Array.prototype.slice,
-      concat  = Array.prototype.concat;
+      concat  = Array.prototype.concat,
+      sort    = Array.prototype.sort;
 
   var existy = function(x) { return x != null; };
 
@@ -191,6 +192,48 @@
       if (typeof obj == 'string')
         throw new TypeError('Strings cannot be reversed by _.reverseOrder');
       return slice.call(obj).reverse();
+    },
+    
+    
+    // Returns copy or array sorted according to arbitrary ordering
+    // order must be an array of values; defines the custom sort
+    // key must be one of: missing/null, a string, or a function; 
+    collate: function(array, order, key) {
+    	if (!_.isArray(array)) throw new TypeError("expected an array as the first argument");
+    	if (!_.isArray(order)) throw new TypeError("expected an array as the second argument");
+    	
+    	var getSortVal;
+    	if(_.isFunction(key)) getSortVal = key;
+    	else if(_.isString(key)) getSortVal = function() {
+    		return this[key];
+    	};
+    	else getSortVal = function() {
+    		return this;
+    	};
+    	
+    	return array.sort(function(a,b) {
+    		
+    		if(_.isFunction(key)) {
+    			valA = key.call(a);
+    			valB = key.call(b);
+    		} else if(existy(key)) {
+    			valA = a[key];
+    			valB = b[key];
+    		} else {
+    			valA = a;
+    			valB = b;
+    		}
+    		
+    		var rankA = _.indexOf(order, valA);
+    		var rankB = _.indexOf(order, valB);
+    		
+    		if(rankA === -1) return 1;
+    		if(rankB === -1) return -1
+    		
+    		return rankA - rankB;
+    	});
+    	
+    	
     }
   });
 

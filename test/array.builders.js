@@ -197,4 +197,35 @@ $(document).ready(function() {
     var argObj = (function() { return arguments; })(1, 2, 3);
     deepEqual(_.reverseOrder(argObj), [3, 2, 1], 'works with other array-like objects');
   });
+  
+  
+  test('collate', function() {
+  	
+  	var itemsBare = ['green', 'yellow', 'violet', 'red', 'indigo', 'orange', 'blue'];
+  	var itemsObj = [{'prop':'green'}, {'prop':'yellow'}, {'prop':'violet'}, {'prop':'red'}, {'prop':'indigo'}, {'prop':'orange'}, {'prop':'blue'}];
+  	var itemsRaw = ['g', 'y', 'v', 'r', 'i', 'o', 'b'];
+  	var rawConvertFunc = function() {
+  		return ({
+  			'r': 'red',
+  			'o': 'orange',
+  			'y': 'yellow',
+  			'g': 'green',
+  			'b': 'blue',
+  			'i': 'indigo',
+  			'v': 'violet'
+  		})[this];
+  	};
+  	
+  	
+  	var properOrder = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+  	
+  	deepEqual(_.collate(itemsBare, properOrder), properOrder, 'returns an array of scalars whose elements are ordered according to provided lexicon');
+  	deepEqual(_.collate(itemsObj, properOrder, 'prop'), [{'prop':'red'}, {'prop':'orange'}, {'prop':'yellow'}, {'prop':'green'}, {'prop':'blue'}, {'prop':'indigo'}, {'prop':'violet'}], 'returns an array of objects that are ordered according to provided lexicon');
+  	deepEqual(_.collate(itemsRaw, properOrder, rawConvertFunc), ['r', 'o', 'y', 'g', 'b', 'i', 'v'], 'returns an array whose elements are sorted by derived value according to provided lexicon');
+  	
+  	
+  });
+  
+  
+  
 });
