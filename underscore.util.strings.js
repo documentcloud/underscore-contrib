@@ -12,6 +12,9 @@
 
   // Helpers
   // -------
+  var URLDecode = function(s) {
+    return decodeURIComponent(s.replace('+', '%20'));
+  };
 
   // Mixing in the string utils
   // ----------------------------
@@ -24,12 +27,10 @@
 
     // Parses a query string into a hash
     fromQuery: function(str) {
-      var parameters = str.split('&');
-      var parameter;
-      obj = {}
+      var parameters = str.split('&'), obj = {}, parameter;
       for (var index in parameters) {
         parameter = parameters[index].split('=');
-        obj[decodeURIComponent(parameter[0])] = decodeURIComponent(parameter[1]);
+        obj[URLDecode(parameter[0])] = URLDecode(parameter[1]);
       }
       return obj;
     },
