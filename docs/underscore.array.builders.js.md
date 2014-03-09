@@ -256,3 +256,39 @@ The `dec` result generator takes a number and decrements it by one.  The `isPos`
     //=> [5,4,3,2,1]
 
 That is, the array only contains every number from `5` down to `1` because when the result of `dec` got to `0` the `isPos` check failed (i.e. went falsey) thus terminating the execution.
+
+#### collate
+
+The `_.collate` function provides a way to sort an array according to an arbitrary order.
+
+Signature: `_.collate(toSort:array, customOrder:array)`
+
+    var order = ['tall', 'medium', 'short'];
+    var people = ['medium', 'short', 'tall', 'tall', 'short', 'medium'];
+    _.collate(people, order);
+    //=> ['tall', 'tall', 'medium', 'medium', 'short', 'short']
+
+You can provide a third argument to `_.collate` to influence how array elements are evaluated while sorting.
+
+If the third argument is a string, `_.collate` will look for a property with that name on each array element, and that value will be used for sorting.
+
+Signature: `_collate(toSort:array, customOrder:array, sortKey:string)`
+
+    var order = ['tall', 'medium', 'short'];
+    var people = [ {name:'Danny', height:'short'}, {name:'Arnold', height:'tall'} ];
+    _.collate(people, order, 'height');
+    //=> [ {name:'Arnold', height:'tall'}, {name:'Danny', height:'short'} ];
+
+You may also pass a function as the third argument; it will be executed once for each item (with the original list as `this`, and the item as its argument), with its return used as the item's sort value.
+
+Signature: `_collate(toSort:array, customOrder:array, sortKey:function)`
+
+    var rankedSeverity = ['Critical', 'Major', 'Minor'];
+    var warnings = ['failed login', 'hdd full', 'network outage'];
+    function determineSeverity(msg) {
+    	if(msg.indexOf('hdd') >= 0) return 'Critical';
+    	if(msg.indexOf('network') >= 0) return 'Major';
+    	return 'Minor';
+    }
+    _.collate(warnings, rankedSeverity, determineSeverity);
+    //=> ['hdd full', 'network outage', 'failed login']

@@ -205,8 +205,8 @@
       var valA, valB;
       return sort.call(array, function (a, b) {
         if(_.isFunction(key)) {
-          valA = key.call(a);
-          valB = key.call(b);
+          valA = key.call(array, a);
+          valB = key.call(array, b);
         } else if(existy(key)) {
           valA = a[key];
           valB = b[key];
