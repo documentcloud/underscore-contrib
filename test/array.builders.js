@@ -204,7 +204,7 @@ $(document).ready(function() {
     var itemsBare = ['green', 'yellow', 'violet', 'red', 'indigo', 'orange', 'blue'];
     var itemsObj = [{'prop':'green'}, {'prop':'yellow'}, {'prop':'violet'}, {'prop':'red'}, {'prop':'indigo'}, {'prop':'orange'}, {'prop':'blue'}];
     var itemsRaw = ['g', 'y', 'v', 'r', 'i', 'o', 'b'];
-    var rawConvertFunc = function() {
+    var rawConvertFunc = function(val) {
       return ({
         'r': 'red',
         'o': 'orange',
@@ -213,7 +213,7 @@ $(document).ready(function() {
         'b': 'blue',
         'i': 'indigo',
         'v': 'violet'
-      })[this];
+      })[val];
     };
     
     deepEqual(_.collate(itemsBare, properOrder), properOrder, 'returns an array of scalars whose elements are ordered according to provided lexicon');
