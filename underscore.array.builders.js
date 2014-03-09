@@ -202,6 +202,7 @@
       if (!_.isArray(array)) throw new TypeError("expected an array as the first argument");
       if (!_.isArray(order)) throw new TypeError("expected an array as the second argument");
       
+      var valA, valB;
       return sort.call(array, function (a, b) {
         if(_.isFunction(key)) {
           valA = key.call(a);
@@ -218,7 +219,7 @@
         var rankB = _.indexOf(order, valB);
         
         if(rankA === -1) return 1;
-        if(rankB === -1) return -1
+        if(rankB === -1) return -1;
         
         return rankA - rankB;
       });
