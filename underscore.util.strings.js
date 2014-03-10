@@ -13,6 +13,13 @@
   // Helpers
   // -------
 
+  // No reason to create regex more than once
+  var plusRegex = /\+/g;
+
+  var URLDecode = function(s) {
+    return decodeURIComponent(s.replace(plusRegex, '%20'));
+  };
+
   // Mixing in the string utils
   // ----------------------------
 
@@ -20,6 +27,16 @@
     // Explodes a string into an array of chars
     explode: function(s) {
       return s.split('');
+    },
+
+    // Parses a query string into a hash
+    fromQuery: function(str) {
+      var parameters = str.split('&'), obj = {}, parameter;
+      for (var index in parameters) {
+        parameter = parameters[index].split('=');
+        obj[URLDecode(parameter[0])] = URLDecode(parameter[1]);
+      }
+      return obj;
     },
 
     // Implodes and array of chars into a string
@@ -37,6 +54,15 @@
       string = string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
       // remove first dash
       return  ( string.charAt( 0 ) == '-' ) ? string.substr(1) : string;
+    },
+
+    // Creates a query string from a hash
+    toQuery: function(obj) {
+      var parameters = []
+      for (var key in obj) {
+        parameters.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+      }
+      return parameters.join('&');
     },
 
     // Reports whether a string contains a search string.
