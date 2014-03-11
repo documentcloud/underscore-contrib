@@ -85,5 +85,17 @@ $(document).ready(function() {
     deepEqual(_.nths(a,[1,3]), ['b', 'd'], 'should return the elements at given indices into an array');
     deepEqual(_.nths(a,[1,5,3]), ['b', undefined, 'd'], 'should return undefined if out of bounds');
   });
+
+  test("binPick", function() {
+    var a = ['a','b','c', 'd'];
+
+    deepEqual(_.binPick(a, false, true), ['b'], 'should return the element at a given index into an array');
+    deepEqual(_.binPick(a, false, true, false, true), ['b', 'd'], 'should return the elements at given indices into an array');
+    deepEqual(_.binPick(a, false, true, false, true, true), ['b', 'd', undefined], 'should return undefined if out of bounds');
+
+    deepEqual(_.binPick(a, [false, true]), ['b'], 'should return the element at a given index into an array');
+    deepEqual(_.binPick(a, [false, true, false, true]), ['b', 'd'], 'should return the elements at given indices into an array');
+    deepEqual(_.binPick(a, [false, true, false, true, true]), ['b', 'd', undefined], 'should return undefined if out of bounds');
+  });
 });
 

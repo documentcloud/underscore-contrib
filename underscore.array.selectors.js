@@ -46,7 +46,7 @@
       if ((index != null) && !guard) return array[index];
     },
 
-    // A function to get at indices into an array
+    // A function to get values via indices into an array
     nths: function nths(array, indices) {
       if (array == null) return void 0;
 
@@ -54,6 +54,18 @@
         return _(indices).map(function(i){return array[i];});
       else
         return nths(array, slice.call(arguments, 1));
+    },
+
+    // A function to get at "truthily" indexed values
+    // bin refers to "binary" nature of true/false values in binIndices
+    // but can also be thought of as putting array values into either "take" or "don't" bins
+    binPick: function binPick(array, binIndices) {
+      if (binIndices == null) return void 0;
+
+      if (isSeq(binIndices))
+        return _.nths(array, _.range(binIndices.length).filter(function(i){return binIndices[i];}));
+      else
+        return binPick(array, slice.call(arguments, 1));
     },
 
     // Takes all items in an array while a given predicate returns truthy.
