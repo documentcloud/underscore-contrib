@@ -60,7 +60,7 @@
     // bin refers to "binary" nature of true/false values in binIndices
     // but can also be thought of as putting array values into either "take" or "don't" bins
     binPick: function binPick(array, binIndices) {
-      if (binIndices == null) return void 0;
+      if (array == null) return void 0;
 
       if (isSeq(binIndices))
         return _.nths(array, _.range(binIndices.length).filter(function(i){return binIndices[i];}));
