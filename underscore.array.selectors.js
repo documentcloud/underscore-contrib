@@ -46,6 +46,16 @@
       if ((index != null) && !guard) return array[index];
     },
 
+    // A function to get at indices into an array
+    nths: function nths(array, indices) {
+      if (array == null) return void 0;
+
+      if (isSeq(indices))
+        return _(indices).map(function(i){return array[i];});
+      else
+        return nths(array, slice.call(arguments, 1));
+    },
+
     // Takes all items in an array while a given predicate returns truthy.
     takeWhile: function(array, pred) {
       if (!isSeq(array)) throw new TypeError;
