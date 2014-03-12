@@ -21,18 +21,18 @@
     return decodeURIComponent(s.replace(plusRegex, '%20'));
   };
 
-  var buildParams = function(prefix, obj, top) {
+  var buildParams = function(prefix, val, top) {
     if (_.isUndefined(top)) top = true;
-    if (_.isArray(obj)) {
-      return _.map(obj, function(value, key) {
+    if (_.isArray(val)) {
+      return _.map(val, function(value, key) {
         return buildParams(top ? key : prefix + '[]', value, false);
       }).join('&');
-    } else if (_.isObject(obj)) {
-      return _.map(obj, function(value, key) {
+    } else if (_.isObject(val)) {
+      return _.map(val, function(value, key) {
         return buildParams(top ? key : prefix + '[' + key + ']', value, false);
       }).join('&');
     } else {
-      return encodeURIComponent(prefix) + '=' + encodeURIComponent(obj);
+      return encodeURIComponent(prefix) + '=' + encodeURIComponent(val);
     }
   };
 
