@@ -23,13 +23,13 @@
 
   var buildParams = function(prefix, obj, top) {
     if (_.isUndefined(top)) top = true;
-    if (_.isObject(obj)) {
-      return _.map(obj, function(value, key) {
-        return buildParams(top ? key : prefix + '[' + key + ']', value, false);
-      }).join('&');
-    } else if (_.isArray(obj)) {
+    if (_.isArray(obj)) {
       return _.map(obj, function(value, key) {
         return buildParams(top ? key : prefix + '[]', value, false);
+      }).join('&');
+    } else if (_.isObject(obj)) {
+      return _.map(obj, function(value, key) {
+        return buildParams(top ? key : prefix + '[' + key + ']', value, false);
       }).join('&');
     } else {
       return encodeURIComponent(prefix) + '=' + encodeURIComponent(obj);
