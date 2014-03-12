@@ -14,14 +14,14 @@ $(document).ready(function() {
         'bar': {
           'baz': {
             'blargl': 'blah',
-            'blargr': 'woop',
-          },
-        },
+            'blargr': 'woop'
+          }
+        }
       },
       'blar': 'bluh',
       'abc': [
         '123',
-        '234',
+        '234'
       ]
     }), 'can convert a query string to a hash');
   });

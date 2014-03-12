@@ -17,7 +17,7 @@
   var plusRegex = /\+/g;
   var bracketRegex = /(?:([^\[]+))|(?:\[(.*?)\])/g;
 
-  var URLDecode = function(s) {
+  var urlDecode = function(s) {
     return decodeURIComponent(s.replace(plusRegex, '%20'));
   };
 
@@ -52,43 +52,43 @@
           parameter,
           key,
           match,
-          last_key,
-          sub_key,
+          lastKey,
+          subKey,
           depth;
 
       // Iterate over key/value pairs
-      for (var index in parameters) {
-        parameter = parameters[index].split('=');
-        key = URLDecode(parameter[0]);
-        last_key = key;
+      _.each(parameters, function(parameter) {
+        parameter = parameter.split('=');
+        key = urlDecode(parameter[0]);
+        lastKey = key;
         depth = obj;
 
         // Reset so we don't have issues when matching the same string
         bracketRegex.lastIndex = 0;
 
         // Attempt to extract nested values
-        while (match = bracketRegex.exec(key)) {
+        while ((match = bracketRegex.exec(key)) !== null) {
           if (!_.isUndefined(match[1])) {
 
             // If we're at the top nested level, no new object needed
-            sub_key = match[1];
+            subKey = match[1];
 
           } else {
 
             // If we're at a lower nested level, we need to step down, and make
             // sure that there is an object to place the value into
-            sub_key = match[2];
-            depth[last_key] = depth[last_key] || (sub_key ? {} : []);
-            depth = depth[last_key];
+            subKey = match[2];
+            depth[lastKey] = depth[lastKey] || (subKey ? {} : []);
+            depth = depth[lastKey];
           }
 
           // Save the correct key as a hash or an array
-          last_key = sub_key || _.size(depth);
+          lastKey = subKey || _.size(depth);
         }
 
         // Assign value to nested object
-        depth[last_key] = URLDecode(parameter[1])
-      }
+        depth[lastKey] = urlDecode(parameter[1]);
+      });
 
       return obj;
     },
@@ -112,7 +112,7 @@
 
     // Creates a query string from a hash
     toQuery: function(obj) {
-      return buildParams('', obj)
+      return buildParams('', obj);
     },
 
     // Reports whether a string contains a search string.
