@@ -8,8 +8,22 @@ $(document).ready(function() {
   });
 
   test('fromQuery', function() {
-    var query = 'foo%26bar=baz&test=total+utter+success';
-    ok(_.isEqual(_.fromQuery(query), {'foo&bar': 'baz', 'test': 'total utter success'}), 'can convert a query string to a hash');
+    var query = 'foo%5Bbar%5D%5Bbaz%5D%5Bblargl%5D=blah&foo%5Bbar%5D%5Bbaz%5D%5Bblargr%5D=woop&blar=bluh&abc[]=123&abc[]=234';
+    ok(_.isEqual(_.fromQuery(query), {
+      'foo': {
+        'bar': {
+          'baz': {
+            'blargl': 'blah',
+            'blargr': 'woop'
+          }
+        }
+      },
+      'blar': 'bluh',
+      'abc': [
+        '123',
+        '234'
+      ]
+    }), 'can convert a query string to a hash');
   });
 
   test('implode', function() {
@@ -26,8 +40,9 @@ $(document).ready(function() {
   });
 
   test('toQuery', function() {
-    var obj = {'foo&bar': 'baz', 'test': 'total success'};
-    equal(_.toQuery(obj), 'foo%26bar=baz&test=total%20success', 'can convert a hash to a query string');
+    var obj = {'foo&bar': 'baz', 'test': 'total success', 'nested': {'works': 'too'}, 'isn\'t': ['that', 'cool?']};
+    equal(_.toQuery(obj), 'foo%26bar=baz&test=total+success&nested%5Bworks%5D=too&isn\'t%5B%5D=that&isn\'t%5B%5D=cool%3F', 'can convert a hash to a query string');
+    equal(_.toQuery(obj), jQuery.param(obj), 'query serialization matchs jQuery.param()');
   });
 
   test('strContains', function() {
