@@ -42,6 +42,7 @@ $(document).ready(function() {
   test('toQuery', function() {
     var obj = {'foo&bar': 'baz', 'test': 'total success', 'nested': {'works': 'too'}, 'isn\'t': ['that', 'cool?']};
     equal(_.toQuery(obj), 'foo%26bar=baz&test=total%20success&nested%5Bworks%5D=too&isn\'t%5B%5D=that&isn\'t%5B%5D=cool%3F', 'can convert a hash to a query string');
+    equal(_.toQuery(obj), jQuery.param(obj).replace(/\+/g, '%20'), 'query serialization does not match jQuery.param()');
   });
 
   test('strContains', function() {
