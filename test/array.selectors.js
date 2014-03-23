@@ -86,6 +86,10 @@ $(document).ready(function() {
     deepEqual(_.nths(a,[1,5,3]), ['b', undefined, 'd'], 'should return undefined if out of bounds');
   });
 
+  test("valuesAt", function() {
+    equal(_.valuesAt, _.nths, 'valuesAt should be alias for nths');
+  });
+
   test("binPick", function() {
     var a = ['a','b','c', 'd'];
 

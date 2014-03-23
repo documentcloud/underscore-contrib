@@ -47,7 +47,7 @@
     },
 
     // A function to get values via indices into an array
-    nths: function nths(array, indices) {
+    nths: nths = function(array, indices) {
       if (array == null) return void 0;
 
       if (isSeq(indices))
@@ -55,6 +55,7 @@
       else
         return nths(array, slice.call(arguments, 1));
     },
+    valuesAt: nths,
 
     // A function to get at "truthily" indexed values
     // bin refers to "binary" nature of true/false values in binIndices
