@@ -1,7 +1,7 @@
 {
   "name": "underscore-contrib",
   "main": "index.js",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "homepage": "https://github.com/documentcloud/underscore-contrib",
   "authors": [
     "fogus <me@fogus.me>"
