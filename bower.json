@@ -1,0 +1,25 @@
+{
+  "name": "underscore-contrib",
+  "main": "index.js",
+  "version": "0.2.0",
+  "homepage": "https://github.com/documentcloud/underscore-contrib",
+  "authors": [
+    "fogus <me@fogus.me>"
+  ],
+  "description": "The brass buckles on Underscore's utility belt",
+  "keywords": [
+    "underscore",
+    "underscorejs",
+    "documentcloud",
+    "functional",
+    "javascript"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
