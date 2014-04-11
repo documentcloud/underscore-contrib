@@ -189,20 +189,42 @@
     // non-existy values.  Each subsequent value provided to `fnull` acts
     // as the default to the original function should a call receive non-existy
     // values in the defaulted arg slots.
-    fnull: function(fun /*, defaults */) {
-      var defaults = _.rest(arguments);
+    // A context may optionally be passed a first parameter
+    fnull: function(/* context, */ arg /*, defaults */) {
 
-      return function(/*args*/) {
+      if ( typeof(arg) === 'object' ){
         var args = _.toArray(arguments);
-        var sz = _.size(defaults);
+        var context = args.shift();
+        var fun = args.shift();
+        var defaults = args;
 
-        for(var i = 0; i < sz; i++) {
-          if (!existy(args[i]))
-            args[i] = defaults[i];
-        }
+        return function(/*args*/) {
+          var args = _.toArray(arguments);
+          var sz = _.size(defaults);
 
-        return fun.apply(null, args);
-      };
+          for(var i = 0; i < sz; i++) {
+            if (!existy(args[i]))
+              args[i] = defaults[i];
+          }
+
+          return fun.apply(context,args);
+        };
+
+      } else {
+        var defaults = _.rest(arguments);
+
+        return function(/*args*/) {
+          var args = _.toArray(arguments);
+          var sz = _.size(defaults);
+
+          for(var i = 0; i < sz; i++) {
+            if (!existy(args[i]))
+              args[i] = defaults[i];
+          }
+
+          return arg.apply(null, args);
+        };
+      }
     },
 
     // Flips the first two args of a function

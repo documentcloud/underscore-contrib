@@ -121,10 +121,19 @@ $(document).ready(function() {
     var a = [1,2,3,null,5];
     var b = [1,2,3,undefined,5];
     var safeMult = _.fnull(function(total, n) { return total * n; }, 1, 1);
+    function Human () { 
+      this.punctuation = '!';
+      this.greet = function(greeting,friend) { return greeting + ' ' + friend + this.punctuation; };
+    };
+    var cowboy = new Human();
+    var greetFriend = _.fnull(cowboy, cowboy.greet, 'Howdy');
+    var friend = 'Dave';
 
     equal(_.reduce([1,2,3,5], safeMult), 30, 'should not fill in defaults when not needed');
     equal(_.reduce(a, safeMult), 30, 'should fill in defaults for null');
     equal(_.reduce(b, safeMult), 30, 'should fill in defaults for undefined');
+    equal(greetFriend(undefined, friend), 'Howdy Dave!', 'should fill in defaults for a function with a context');
+    equal(greetFriend('Hello', friend), 'Hello Dave!', 'should not fill in unnecessary defaults for a function with a context');
   });
 
   test("juxt", function() {
