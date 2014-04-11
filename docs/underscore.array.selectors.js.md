@@ -4,44 +4,13 @@
 
 --------------------------------------------------------------------------------
 
-#### second
+#### dropWhile
 
-The `_.second` function is a convenience for the equivalent `array[1]`:
-
-```javascript
-_.second(['a','b']);
-//=> 'b'
-
-_.map([['a','b'], _.range(10,20)], _.second);
-//=> ['b',11]
-```
-
-You can also pass an optional number to the `_.second` function to take a number of elements from an array starting with the second element and ending at the given index:
+The `_.dropWhile` function works similarly except that it *drops* elements from the original array for which the given function returns a truthy value:
 
 ```javascript
-_.second(_.range(10), 5)
-//=> [1, 2, 3, 4]
-```
-
---------------------------------------------------------------------------------
-
-#### third
-
-The `_.third` function is a convenience for the equivalent `array[2]`:
-
-```javascript
-_.third(['a','b','c']);
-//=> 'c'
-
-_.map([['a','b','c'], _.range(10,20)], _.third);
-//=> ['c',12]
-```
-
-You can also pass an optional number to the `_.third` function to take a number of elements from an array starting with the third element and ending at the given index:
-
-```javascript
-_.third(_.range(10), 5)
-//=> [2, 3, 4]
+_.dropWhile([-2,-1,0,1,2], isNeg);
+//=> [0,1,2]
 ```
 
 --------------------------------------------------------------------------------
@@ -75,6 +44,27 @@ If wrapping a function around `_.nth` is too tedious or you'd like to partially 
 
 --------------------------------------------------------------------------------
 
+#### second
+
+The `_.second` function is a convenience for the equivalent `array[1]`:
+
+```javascript
+_.second(['a','b']);
+//=> 'b'
+
+_.map([['a','b'], _.range(10,20)], _.second);
+//=> ['b',11]
+```
+
+You can also pass an optional number to the `_.second` function to take a number of elements from an array starting with the second element and ending at the given index:
+
+```javascript
+_.second(_.range(10), 5)
+//=> [1, 2, 3, 4]
+```
+
+--------------------------------------------------------------------------------
+
 #### takeWhile
 
 The `_.takeWhile` function takes an array and a function and returns a new array containing the first n elements in the original array for which the given function returns a truthy value:
@@ -88,13 +78,23 @@ _.takeWhile([-2,-1,0,1,2], isNeg);
 
 --------------------------------------------------------------------------------
 
-#### dropWhile
+#### third
 
-The `_.dropWhile` function works similarly except that it *drops* elements from the original array for which the given function returns a truthy value:
+The `_.third` function is a convenience for the equivalent `array[2]`:
 
 ```javascript
-_.dropWhile([-2,-1,0,1,2], isNeg);
-//=> [0,1,2]
+_.third(['a','b','c']);
+//=> 'c'
+
+_.map([['a','b','c'], _.range(10,20)], _.third);
+//=> ['c',12]
+```
+
+You can also pass an optional number to the `_.third` function to take a number of elements from an array starting with the third element and ending at the given index:
+
+```javascript
+_.third(_.range(10), 5)
+//=> [2, 3, 4]
 ```
 
 --------------------------------------------------------------------------------

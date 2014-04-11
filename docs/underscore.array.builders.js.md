@@ -141,6 +141,82 @@ f(1,2,3);
 
 --------------------------------------------------------------------------------
 
+#### cycle
+
+The `_.cycle` function takes an integer value used to build an array of that size containing the number of iterations through the given array, strung end-to-end as many times as needed.  An example is probably more instructive:
+
+```javascript
+_.cycle(5, [1,2,3]);
+//=> [1,2,3,1,2]
+```
+
+--------------------------------------------------------------------------------
+
+#### interpose
+
+The `_.interpose` function takes an array and an element and returns a new array with the given element inserted betwixt every element in the original array:
+
+```javascript
+_.interpose([1,2,3], 0);
+//=> [1,0,2,0,3]
+```
+
+If there are no betweens (i.e. empty and single-element arrays), then the original array is returned:
+
+```javascript
+_.interpose([1], 0);
+//=> [1]
+
+_.interpose([], 0);
+//=> []
+```
+
+--------------------------------------------------------------------------------
+
+#### iterateUntil
+
+The `_.iterateUntil` function takes a function used as a result generator, a function used as a stop-check and a seed value and returns an array of each generated result.  The operation of `_.iterateUntil` is such that the result generator is passed the seed to start and each subsequent result which will continue **until** a result fails the check function (i.e. returns falsey).  An example is best:
+
+```javascript
+var dec = function(n) { return n - 1; };
+var isPos = function(n) { return n > 0; };
+```
+
+The `dec` result generator takes a number and decrements it by one.  The `isPos` predicate takes a number and returns `true` if it's positive.  Using these two functions you can build an array of every number from `6` to `0`, inclusive:
+
+```javascript
+_.iterateUntil(dec, isPos, 6);
+//=> [5,4,3,2,1]
+```
+
+That is, the array only contains every number from `5` down to `1` because when the result of `dec` got to `0` the `isPos` check failed (i.e. went falsey) thus terminating the execution.
+
+--------------------------------------------------------------------------------
+
+#### keepIndexed
+
+The `_.keepIndexed` function takes an array and a function and returns a new array filled with the *non-null* return results of the given function on the elements or keys in the given array:
+
+```javascript
+_.keepIndexed([1,2,3], function(k) { 
+  return i === 1 || i === 2;
+});
+
+//=> [false, true, true]
+```
+
+If you return either `null` or `undefined` then the result is dropped from the resulting array:
+
+```javascript
+_.keepIndexed(['a','b','c'], function(k, v) { 
+  if (k === 1) return v; 
+});
+
+//=> ['b']
+```
+
+--------------------------------------------------------------------------------
+
 #### mapcat
 
 There are times when a mapping operation produces results contained in arrays, but the final result should be flattened one level.  For these circumstances you can use `_.mapcat` to produce results:
@@ -167,44 +243,19 @@ The `_.mapcat` function is equivalent to `_.cat.apply(array, _.map(array,fun))`.
 
 --------------------------------------------------------------------------------
 
-#### interpose
+#### reductions
 
-The `_.interpose` function takes an array and an element and returns a new array with the given element inserted betwixt every element in the original array:
-
-```javascript
-_.interpose([1,2,3], 0);
-//=> [1,0,2,0,3]
-```
-
-If there are no betweens (i.e. empty and single-element arrays), then the original array is returned:
+The `_.reductions` function is similar to Underscore's builtin `_.reduce` function except that it returns an array of every intermediate value in the folding operation:
 
 ```javascript
-_.interpose([1], 0);
-//=> [1]
+_.reductions([1,2,3,4,5], function(agg, n) {
+  return agg + n;
+}, 0);
 
-_.interpose([], 0);
-//=> []
+//=> [1,3,6,10,15]
 ```
 
---------------------------------------------------------------------------------
-
-#### weave
-
-The `_.weave` function works similarly to `_.interpose` (shown above) except that it accepts an array used as the interposition values.  In other words, `_.weave` takes two arrays and returns a new array with the original elements woven together.  An example would help:
-
-```javascript
-_.weave(['a','b','c'], [1,2,3]);
-//=> ['a',1,'b',2,'c',3]
-```
-
-The array returned from `_.weave` will be as long as the longest array given with the woven entries stopping according to the shortest array:
-
-```javascript
-_.weave(['a','b','c'], [1]);
-//=> ['a',1,'b','c']
-```
-
-The `_.interleave` function is an alias for `_.weave`.
+The last element in the array returned from `_.reductions` is the answer that you would get if you had just chosen to use `_.reduce`.
 
 --------------------------------------------------------------------------------
 
@@ -217,17 +268,6 @@ The `_.repeat` function takes an integer value used to build an array of that si
 ```javascript
 _.repeat(5, 'a');
 //=> ['a','a','a','a','a']
-```
-
---------------------------------------------------------------------------------
-
-#### cycle
-
-The `_.cycle` function takes an integer value used to build an array of that size containing the number of iterations through the given array, strung end-to-end as many times as needed.  An example is probably more instructive:
-
-```javascript
-_.cycle(5, [1,2,3]);
-//=> [1,2,3,1,2]
 ```
 
 --------------------------------------------------------------------------------
@@ -280,62 +320,22 @@ _.takeSkipping(_.range(10), -100);
 
 --------------------------------------------------------------------------------
 
-#### reductions
+#### weave
 
-The `_.reductions` function is similar to Underscore's builtin `_.reduce` function except that it returns an array of every intermediate value in the folding operation:
-
-```javascript
-_.reductions([1,2,3,4,5], function(agg, n) {
-  return agg + n;
-}, 0);
-
-//=> [1,3,6,10,15]
-```
-
-The last element in the array returned from `_.reductions` is the answer that you would get if you had just chosen to use `_.reduce`.
-
---------------------------------------------------------------------------------
-
-#### keepIndexed
-
-The `_.keepIndexed` function takes an array and a function and returns a new array filled with the *non-null* return results of the given function on the elements or keys in the given array:
+The `_.weave` function works similarly to `_.interpose` (shown above) except that it accepts an array used as the interposition values.  In other words, `_.weave` takes two arrays and returns a new array with the original elements woven together.  An example would help:
 
 ```javascript
-_.keepIndexed([1,2,3], function(k) { 
-  return i === 1 || i === 2;
-});
-
-//=> [false, true, true]
+_.weave(['a','b','c'], [1,2,3]);
+//=> ['a',1,'b',2,'c',3]
 ```
 
-If you return either `null` or `undefined` then the result is dropped from the resulting array:
+The array returned from `_.weave` will be as long as the longest array given with the woven entries stopping according to the shortest array:
 
 ```javascript
-_.keepIndexed(['a','b','c'], function(k, v) { 
-  if (k === 1) return v; 
-});
-
-//=> ['b']
+_.weave(['a','b','c'], [1]);
+//=> ['a',1,'b','c']
 ```
 
---------------------------------------------------------------------------------
-
-#### iterateUntil
-
-The `_.iterateUntil` function takes a function used as a result generator, a function used as a stop-check and a seed value and returns an array of each generated result.  The operation of `_.iterateUntil` is such that the result generator is passed the seed to start and each subsequent result which will continue **until** a result fails the check function (i.e. returns falsey).  An example is best:
-
-```javascript
-var dec = function(n) { return n - 1; };
-var isPos = function(n) { return n > 0; };
-```
-
-The `dec` result generator takes a number and decrements it by one.  The `isPos` predicate takes a number and returns `true` if it's positive.  Using these two functions you can build an array of every number from `6` to `0`, inclusive:
-
-```javascript
-_.iterateUntil(dec, isPos, 6);
-//=> [5,4,3,2,1]
-```
-
-That is, the array only contains every number from `5` down to `1` because when the result of `dec` got to `0` the `isPos` check failed (i.e. went falsey) thus terminating the execution.
+The `_.interleave` function is an alias for `_.weave`.
 
 --------------------------------------------------------------------------------
