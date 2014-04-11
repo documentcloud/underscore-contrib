@@ -4,6 +4,21 @@
 
 --------------------------------------------------------------------------------
 
+#### best
+
+**Signature:** `_.best(array:Array, fun:Function)`
+
+Returns the "best" value in an array based on the result of a given function.
+
+```javascript
+_.best([1, 2, 3, 4, 5], function(x, y) {
+  return x > y;
+});
+//=> 5
+```
+
+--------------------------------------------------------------------------------
+
 #### dropWhile
 
 The `_.dropWhile` function works similarly except that it *drops* elements from the original array for which the given function returns a truthy value:
@@ -11,6 +26,23 @@ The `_.dropWhile` function works similarly except that it *drops* elements from 
 ```javascript
 _.dropWhile([-2,-1,0,1,2], isNeg);
 //=> [0,1,2]
+```
+
+--------------------------------------------------------------------------------
+
+#### keep
+
+**Signature:** `_.keep(array:Array, fun:Function)`
+
+Returns an array of existy results of a function over a source array.
+
+```javascript
+_.keep([1, 2, 3, 4, 5], function(val) {
+  if (val % 3 === 0) {
+    return val;
+  }
+});
+// => [3]
 ```
 
 --------------------------------------------------------------------------------
@@ -41,6 +73,23 @@ _.compact(_.map(b, function(e) { return _.nth(e,0) }));
 ```
 
 If wrapping a function around `_.nth` is too tedious or you'd like to partially apply the index then Underscore-contrib offers any of `_.flip2`, `_.fix` or `rcurry2` to solve this.
+
+--------------------------------------------------------------------------------
+
+#### partitionBy
+
+**Signature:** `_.keep(array:Array, fun:Function)`
+
+Takes an array and partitions it into sub-arrays as the given predicate changes
+truth sense.
+
+```javascript
+_.partitionBy([1,2,2,3,1,1,5], _.isEven);
+// => [[1],[2,2],[3,1,1,5]]
+
+_.partitionBy([1,2,2,3,1,1,5], _.identity);
+// => [[1],[2,2],[3],[1,1],[5]]
+```
 
 --------------------------------------------------------------------------------
 
