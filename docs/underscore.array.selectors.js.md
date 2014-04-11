@@ -21,7 +21,9 @@ _.best([1, 2, 3, 4, 5], function(x, y) {
 
 #### dropWhile
 
-The `_.dropWhile` function works similarly except that it *drops* elements from the original array for which the given function returns a truthy value:
+**Signature:** `_.dropWhile(array:Array, pred:Function)`
+
+Drops elements for which the given function returns a truthy value.
 
 ```javascript
 _.dropWhile([-2,-1,0,1,2], isNeg);
@@ -49,7 +51,11 @@ _.keep([1, 2, 3, 4, 5], function(val) {
 
 #### nth
 
-The `_.nth` function is a convenience for the equivalent `array[n]`:
+**Signature:** `_.nth(array:Array, index:Number[, guard:Any])`
+
+The `_.nth` function is a convenience for the equivalent `array[n]`. The
+optional `guard` value allows `_.nth` to work correctly as a callback for
+`_.map`.
 
 ```javascript
 _.nth(['a','b','c'], 2);
@@ -95,7 +101,11 @@ _.partitionBy([1,2,2,3,1,1,5], _.identity);
 
 #### second
 
-The `_.second` function is a convenience for the equivalent `array[1]`:
+**Signature:** `_.second(array:Array, index:Number[, guard:Any])`
+
+The `_.second` function is a convenience for the equivalent `array[1]`. The
+optional `guard` value allows `_.second` to work correctly as a callback for
+`_.map`.
 
 ```javascript
 _.second(['a','b']);
@@ -116,6 +126,8 @@ _.second(_.range(10), 5)
 
 #### takeWhile
 
+**Signature:** `_.takeWhile(array:Array, pred:Function)`
+
 The `_.takeWhile` function takes an array and a function and returns a new array containing the first n elements in the original array for which the given function returns a truthy value:
 
 ```javascript
@@ -129,7 +141,11 @@ _.takeWhile([-2,-1,0,1,2], isNeg);
 
 #### third
 
-The `_.third` function is a convenience for the equivalent `array[2]`:
+**Signature:** `_.third(array:Array, index:Number[, guard:Any])`
+
+The `_.third` function is a convenience for the equivalent `array[2]`. The
+optional `guard` value allows `_.third` to work correctly as a callback for
+`_.map`.
 
 ```javascript
 _.third(['a','b','c']);
