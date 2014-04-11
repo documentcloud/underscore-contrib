@@ -43,11 +43,8 @@
   // ----------------------------------
 
   _.mixin({
-    // Takes a value and returns a function that always returns
-    // said value.
-    always: function(value) {
-      return function() { return value; };
-    },
+    // Provide "always" alias for backwards compatibility
+    always: _.constant,
 
     // Takes some number of functions, either as an array or variadically
     // and returns a function that takes some value as its first argument 
