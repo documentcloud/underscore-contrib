@@ -180,8 +180,8 @@
       return function(/* args */) {
         var args = arguments;
         return _.map(funs, function(f) {
-          return f.apply(null, args);
-        });
+          return f.apply(this, args);
+        }, this);
       };
     },
 

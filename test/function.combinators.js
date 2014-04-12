@@ -164,6 +164,16 @@ $(document).ready(function() {
     var run = _.juxt(function(s, n) { return s.length + n; }, parseInt, _.always(108));
 
     deepEqual(run('42', 10), [12, 42, 108], 'should return a function that returns an array of the originally supplied functions called');
+
+    var obj = {
+      name: "Elizabeth 1",
+      firstChar: function () { return this.name[0]; },
+      lastChar: function () { return this.name[this.name.length - 1]; }
+    };
+
+    obj.firstAndLastChars = _.juxt(obj.firstChar, obj.lastChar);
+
+    deepEqual(obj.firstAndLastChars(), ['E', '1'], 'should function as a method combinator.');
   });
 
   test("accessor", function() {
