@@ -114,7 +114,7 @@
     // function
     splat: function(fun) {
       return function(array) {
-        return fun.apply(null, array);
+        return fun.apply(this, array);
       };
     },
 

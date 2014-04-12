@@ -61,6 +61,21 @@ $(document).ready(function() {
     var sumArray = _.splat(sumArgs);
 
     equal(sumArray([1, 2, 3]), 6, 'should return a function that takes array elements as the arguments for the original function');
+
+    var obj = {
+      a: 1,
+      b: 2,
+      getPropsByName: function () {
+        var props = [];
+        for (var i = 0; i < arguments.length; i++) {
+          props.push(this[arguments[i]]);
+        }
+        return props;
+      }
+    };
+    obj.getPropsByNameArray = _.splat(obj.getPropsByName);
+
+    deepEqual(obj.getPropsByNameArray(['a', 'b']), [1, 2], 'should function as a method combinator');
   });
 
   test("unsplat", function() {
