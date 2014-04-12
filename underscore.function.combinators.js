@@ -221,7 +221,7 @@
       return function(/* args */) {
         var reversed = __reverse.call(arguments);
 
-        return fun.apply(null, reversed);
+        return fun.apply(this, reversed);
       };
     },
 

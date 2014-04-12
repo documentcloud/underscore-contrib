@@ -157,6 +157,15 @@ $(document).ready(function() {
     var echo = function() { return Array.prototype.slice.call(arguments, 0); };
 
     deepEqual(_.flip(echo)(1, 2, 3, 4), [4, 3, 2, 1], 'should return a function that flips the first three or more args to a function');
+
+    var obj = {
+      num: 5,
+      addToNum: function (a, b) { return [a + this.num, b + this.num]; }
+    };
+
+    obj.reversedAddToNum = _.flip(obj.addToNum);
+
+    deepEqual(obj.reversedAddToNum(1, 2), [7, 6], 'should function as a method combinator.');
   });
 
   test("fnull", function() {
