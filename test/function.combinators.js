@@ -158,6 +158,16 @@ $(document).ready(function() {
     equal(_.reduce([1,2,3,5], safeMult), 30, 'should not fill in defaults when not needed');
     equal(_.reduce(a, safeMult), 30, 'should fill in defaults for null');
     equal(_.reduce(b, safeMult), 30, 'should fill in defaults for undefined');
+
+    var obj = {
+      a: 1,
+      fallback: "fallback value",
+      getPropByName: function (name) { return this[name]; }
+    };
+
+    obj.getPropByNameOrDefault = _.fnull(obj.getPropByName, "fallback");
+
+    equal(obj.getPropByNameOrDefault(), "fallback value", 'should function as a method combinator.');
   });
 
   test("juxt", function() {

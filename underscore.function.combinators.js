@@ -201,7 +201,7 @@
             args[i] = defaults[i];
         }
 
-        return fun.apply(null, args);
+        return fun.apply(this, args);
       };
     },
 
