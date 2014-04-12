@@ -43,6 +43,14 @@ $(document).ready(function() {
 
     equal(notOdd(2), true, 'should return a function that is the opposite of the function given');
     equal(notOdd(3), false, 'should return a function that is the opposite of the function given');
+
+    var obj = {
+      num: 1,
+      numIsPositive: function () { return this.num > 0; }
+    };
+    obj.numIsNotPositive = _.complement(obj.numIsPositive);
+
+    equal(obj.numIsNotPositive(), false, 'should function as a method combinator');
   });
 
   test("unsplat", function() {

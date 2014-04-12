@@ -104,7 +104,7 @@
     // Returns a function that reverses the sense of a given predicate-like.
     complement: function(pred) {
       return function() {
-        return !pred.apply(null, arguments);
+        return !pred.apply(this, arguments);
       };
     },
 
