@@ -212,7 +212,7 @@
         flipped[0] = arguments[1];
         flipped[1] = arguments[0];
 
-        return fun.apply(null, flipped);
+        return fun.apply(this, flipped);
       };
     },
 

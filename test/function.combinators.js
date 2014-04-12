@@ -142,6 +142,15 @@ $(document).ready(function() {
     var div = function(n, d) { return n/d; };
 
     equal(_.flip2(div)(10,2), 0.2, 'should return a function that flips the first two args to a function');
+
+    var obj = {
+      num: 5,
+      addToNum: function (a, b) { return [a + this.num, b + this.num]; }
+    };
+
+    obj.reversedAddToNum = _.flip2(obj.addToNum);
+
+    deepEqual(obj.reversedAddToNum(1, 2), [7, 6], 'should function as a method combinator.');
   });
 
   test("flip", function() {
