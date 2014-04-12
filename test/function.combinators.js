@@ -53,6 +53,16 @@ $(document).ready(function() {
     equal(obj.numIsNotPositive(), false, 'should function as a method combinator');
   });
 
+  test('splat', function() {
+    var sumArgs = function () {
+      return _.reduce(arguments, function (a, b) { return a + b; }, 0);
+    };
+
+    var sumArray = _.splat(sumArgs);
+
+    equal(sumArray([1, 2, 3]), 6, 'should return a function that takes array elements as the arguments for the original function');
+  });
+
   test("unsplat", function() {
     var echo  = _.unsplat(function (args) { return args; }),
         echo2 = _.unsplat(function (first, rest) { return [first, rest]; }),
