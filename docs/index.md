@@ -25,9 +25,8 @@ various reasons, don't belong in Underscore proper. In particular, it aims to be
 
 #### In the Browser
 
-First, you'll need Underscore. Then you can grab the relevant
-underscore-contrib sub-libraries and simply add something like the following to
-your pages:
+First, you'll need Underscore **version 1.6.0 or higher**. Then you can grab the relevant underscore-contrib sub-libraries and simply add something like
+the following to your pages:
 
 ```html
 <script type="text/javascript" src="underscore.js"></script>
@@ -39,7 +38,13 @@ can stand by itself), but that may change in the future.
 
 #### In Node.js
 
-Using contrib in Node is very simple. Just do this:
+Using contrib in Node is very simple. Just install it with npm:
+
+```
+npm install underscore-contrib --save
+```
+
+Then require it within your project like so:
 
 ```javascript
 var _ = require('underscore-contrib');
