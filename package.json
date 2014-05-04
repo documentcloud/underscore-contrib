@@ -13,7 +13,8 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-docco": "~0.3.0",
-    "grunt-tocdoc": "~0.1.0"
+    "grunt-tocdoc": "~0.1.0",
+    "grunt-cli": "~0.1.11"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,9 @@
     "name": "Fogus",
     "email": "me@fogus.me",
     "url": "http://www.fogus.me"
+  },
+  "scripts": {
+    "test": "node ./node_modules/grunt-cli/bin/grunt test"
   },
   "homepage": "https://github.com/documentcloud/underscore-contrib"
 }
