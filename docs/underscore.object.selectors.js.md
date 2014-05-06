@@ -160,7 +160,7 @@ var playwrights = {
     shakespere: "England"
 };
 
-_.omitWhen(obj, function (country) { return country == "England" });
+_.pickWhen(obj, function (country) { return country == "England" });
 // => { shakespeare: "England" }
 ```
 
