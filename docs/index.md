@@ -1,4 +1,4 @@
-# Underscore-contrib
+# Underscore-contrib (0.3.0)
 
 > The brass buckles on Underscore's utility belt - a contributors' library for [Underscore](http://underscorejs.org/).
 

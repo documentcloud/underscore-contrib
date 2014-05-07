@@ -1,6 +1,6 @@
 {
   "name": "underscore-contrib",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "main": "dist/underscore-contrib.min.js",
   "homepage": "https://github.com/documentcloud/underscore-contrib",
   "authors": [

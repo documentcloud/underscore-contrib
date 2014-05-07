@@ -1,4 +1,4 @@
-// Underscore-contrib (underscore.function.combinators.js 0.0.1)
+// Underscore-contrib (underscore.function.combinators.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 

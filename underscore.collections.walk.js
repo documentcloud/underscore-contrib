@@ -1,4 +1,4 @@
-// Underscore-contrib (underscore.collections.walk.js 0.0.1)
+// Underscore-contrib (underscore.collections.walk.js 0.3.0)
 // (c) 2013 Patrick Dubroy
 // Underscore-contrib may be freely distributed under the MIT license.
 

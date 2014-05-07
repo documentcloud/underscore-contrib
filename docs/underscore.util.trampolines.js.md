@@ -6,3 +6,5 @@ Documentation should use [Journo](https://github.com/jashkenas/journo) formats a
 
     done: function(value) {
     trampoline: function(fun /*, args */) {
+
+--------------------------------------------------------------------------------
