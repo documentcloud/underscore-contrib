@@ -244,6 +244,28 @@
         return func.apply(null, _.cons(this, arguments));
       };
     },
+
+    // return a function that returns a new instance of the constructor
+    newize: function( Ctor ) {
+      return function( args ) {
+        return new Ctor( args );
+      };
+    },
+
+    // similar to _.compose except that you're calling `new` on the functions.
+    // 
+    // For utilizing the decorator pattern (http://robots.thoughtbot.com/evaluating-alternative-decorator-implementations-in)
+    // First argument is the base constructor that will be decorated
+    // All subsequent arguments are ordered left to right as decorators
+    // Each decorator constructor should receive as its sole argument the 
+    // object that it is to decorate.
+    // 
+    // turns: new Decorator3(new Decorator2(new Decorator1(new BaseConstructor(args))));
+    // into:  _(BaseConstructor).decorate(Decorator1, Decorator2, Decorator3)(args);
+    decorate: function() {
+      var funs = _.map( _.toArray( arguments ).reverse(), _.newize );
+      return _.compose.apply( null, funs );
+    },
     
     k: _.always,
     t: _.pipeline
