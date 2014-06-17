@@ -35,7 +35,7 @@ var generals = {
 
 var getGeneralOf = _.dictionary(generals);
 
-_.getGeneralOf("rome");
+getGeneralOf("rome");
 // => "Scipio"
 ```
 
