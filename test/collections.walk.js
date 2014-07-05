@@ -21,7 +21,7 @@ $(document).ready(function() {
     };
   };
 
-  test("basic", function() {
+  test("basic", function basicNoHelp() {
     // Updates the value of `node` to be the sum of the values of its subtrees.
     // Ignores leaf nodes.
     var visitor = function(node) {
@@ -32,13 +32,13 @@ $(document).ready(function() {
     var tree = getSimpleTestTree();
     _.walk.postorder(tree, visitor);
     equal(tree.val, 16, 'should visit subtrees first');
-    
+
     tree = getSimpleTestTree();
     _.walk.preorder(tree, visitor);
     equal(tree.val, 5, 'should visit subtrees after the node itself');
   });
-  
-  test("circularRefs", function() {
+
+  test("circularRefs", function circularRefsNoHelp() {
     var tree = getSimpleTestTree();
     tree.l.l.r = tree;
     throws(function() { _.walk.preorder(tree, _.identity); }, TypeError, 'preorder throws an exception');
@@ -49,7 +49,7 @@ $(document).ready(function() {
     throws(function() { _.walk.preorder(tree, _.identity); }, TypeError, 'exception for a self-referencing node');
   });
 
-  test("simpleMap", function() {
+  test("simpleMap", function simpleMapNoHelp() {
     var visitor = function(node, key, parent) {
       if (_.has(node, 'val')) return node.val;
       if (key !== 'val') throw new Error('Leaf node with incorrect key');
@@ -78,7 +78,7 @@ $(document).ready(function() {
     }
   });
 
-  test("mixedMap", function() {
+  test("mixedMap", function mixedMapNoHelp() {
     var visitor = function(node, key, parent) {
       return _.isString(node) ? node.toLowerCase() : null;
     };
@@ -98,7 +98,7 @@ $(document).ready(function() {
     deepEqual(_.difference(result, postorderResult), ['foo'], 'map on list of trees');
   });
 
-  test("pluck", function() {
+  test("pluck", function pluckNoHelp() {
     var tree = getSimpleTestTree();
     tree.val = { val: 'z' };
 
@@ -119,7 +119,7 @@ $(document).ready(function() {
     deepEqual(_.walk.pluck(tree, 'population'), [1378000, 812826, 2615000, 'you'], 'pluck from a list of trees');
   });
 
-  test("reduce", function() {
+  test("reduce", function reduceNoHelp() {
     var add = function(a, b) { return a + b; };
     var leafMemo = [];
     var sum = function(memo, node) {
@@ -147,7 +147,7 @@ $(document).ready(function() {
     equal(_.walk.map(tree, _.walk.preorder, toString).join(''), '-0-4-6-5-1-3-2', 'pre-order map');
   });
 
-  test("find", function() {
+  test("find", function findNoHelp() {
     var tree = getSimpleTestTree();
 
     // Returns a visitor function that will succeed when a node with the given
@@ -166,7 +166,7 @@ $(document).ready(function() {
     deepEqual(_.walk.find(tree, findValue(99)), undefined);
   });
 
-  test("filter", function() {
+  test("filter", function filterNoHelp() {
     var tree = getSimpleTestTree();
     tree.r.val = '.oOo.';  // Remove one of the numbers.
     var isEvenNumber = function(x) {
@@ -182,7 +182,7 @@ $(document).ready(function() {
     equal(_.walk.filter(tree, _.walk.preorder, _.identity).length, 13, 'filter on identity function');
   });
 
-  test("reject", function() {
+  test("reject", function rejectNoHelp() {
     var tree = getSimpleTestTree();
     tree.r.val = '.oOo.';  // Remove one of the numbers.
 
@@ -194,7 +194,7 @@ $(document).ready(function() {
     equal(_.walk.reject(tree, _.walk.preorder, _.identity).length, 1, 'reject with identity function');
   });
 
-  test("customTraversal", function() {
+  test("customTraversal", function customTraversalNoHelp() {
     var tree = getSimpleTestTree();
 
     // Set up a walker that will not traverse the 'val' properties.

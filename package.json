@@ -14,7 +14,8 @@
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-docco": "~0.3.0",
     "grunt-tocdoc": "~0.1.0",
-    "grunt-cli": "~0.1.11"
+    "grunt-cli": "~0.1.11",
+    "qunit-helpful": "^0.6.0"
   },
   "repository": {
     "type": "git",

@@ -9,7 +9,7 @@ $(document).ready(function() {
 
   test('fromQuery', function() {
     var query = 'foo%5Bbar%5D%5Bbaz%5D%5Bblargl%5D=blah&foo%5Bbar%5D%5Bbaz%5D%5Bblargr%5D=woop&blar=bluh&abc[]=123&abc[]=234';
-    ok(_.isEqual(_.fromQuery(query), {
+    var expected = {
       'foo': {
         'bar': {
           'baz': {
@@ -23,7 +23,8 @@ $(document).ready(function() {
         '123',
         '234'
       ]
-    }), 'can convert a query string to a hash');
+    };
+    ok(_.isEqual(_.fromQuery(query), expected), 'can convert a query string to a hash');
   });
 
   test('implode', function() {
