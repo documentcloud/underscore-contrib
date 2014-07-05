@@ -73,5 +73,33 @@ $(document).ready(function() {
     equal(_.nth(a,100), undefined, 'should return undefined if out of bounds');
     deepEqual(_.map(b,function(e) { return _.nth(e,0); }), ['a','b',undefined], 'should be usable in _.map');
   });
+
+  test("nths", function() {
+    var a = ['a','b','c', 'd'];
+
+    deepEqual(_.nths(a,1), ['b'], 'should return the element at a given index into an array');
+    deepEqual(_.nths(a,1,3), ['b', 'd'], 'should return the elements at given indices into an array');
+    deepEqual(_.nths(a,1,5,3), ['b', undefined, 'd'], 'should return undefined if out of bounds');
+
+    deepEqual(_.nths(a,[1]), ['b'], 'should return the element at a given index into an array');
+    deepEqual(_.nths(a,[1,3]), ['b', 'd'], 'should return the elements at given indices into an array');
+    deepEqual(_.nths(a,[1,5,3]), ['b', undefined, 'd'], 'should return undefined if out of bounds');
+  });
+
+  test("valuesAt", function() {
+    equal(_.valuesAt, _.nths, 'valuesAt should be alias for nths');
+  });
+
+  test("binPick", function() {
+    var a = ['a','b','c', 'd'];
+
+    deepEqual(_.binPick(a, false, true), ['b'], 'should return the element at a given index into an array');
+    deepEqual(_.binPick(a, false, true, false, true), ['b', 'd'], 'should return the elements at given indices into an array');
+    deepEqual(_.binPick(a, false, true, false, true, true), ['b', 'd', undefined], 'should return undefined if out of bounds');
+
+    deepEqual(_.binPick(a, [false, true]), ['b'], 'should return the element at a given index into an array');
+    deepEqual(_.binPick(a, [false, true, false, true]), ['b', 'd'], 'should return the elements at given indices into an array');
+    deepEqual(_.binPick(a, [false, true, false, true, true]), ['b', 'd', undefined], 'should return undefined if out of bounds');
+  });
 });
 
