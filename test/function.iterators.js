@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  
+
   function sum (x, y) { return x + y; }
   function square (x) { return x * x; }
   function odd (x) { return x % 2 === 1; }
@@ -16,16 +16,16 @@ $(document).ready(function() {
     equal(i(), 4, "should return the next element of the underlying array");
     equal(i(), 5, "should return the next element of the underlying array");
     equal(i(), void 0, "should return undefined when out of elements");
-    
+
     i = _.iterators.List([1, [2, 3, [4]], 5]);
     equal(i(), 1, "should return the first element of the underlying array");
     notEqual(i(), 2, "should not do a deep traverse");
     equal(i(), 5, "should return the next element of the underlying array");
     equal(i(), void 0, "should return undefined when out of elements");
-    
+
     i = _.iterators.List([]);
     equal(i(), void 0, "should return undefined when there are no elements");
-  
+
     i = _.iterators.List([[], [[]]]);
     notEqual(i(), void 0, "should have a values given an empty tree");
   });
@@ -33,10 +33,10 @@ $(document).ready(function() {
   test("Tree", function () {
     var i = _.iterators.Tree([]);
     equal(i(), void 0, "should return undefined for an empty array");
-  
+
     i = _.iterators.Tree([[], [[]]]);
     equal(i(), void 0, "should return undefined for an empty tree");
-  
+
     i = _.iterators.Tree([1, 2, 3, 4, 5]);
     equal(i(), 1, "should return the first element of the underlying array");
     equal(i(), 2, "should return the next element of the underlying array");
@@ -44,7 +44,7 @@ $(document).ready(function() {
     equal(i(), 4, "should return the next element of the underlying array");
     equal(i(), 5, "should return the next element of the underlying array");
     equal(i(), void 0, "should return undefined when out of elements");
-    
+
     i = _.iterators.Tree([1, [2, 3, [4]], 5]);
     equal(i(), 1, "should return the first element of the underlying array");
     equal(i(), 2, "should return the next element of the underlying array");
@@ -53,23 +53,23 @@ $(document).ready(function() {
     equal(i(), 5, "should return the next element of the underlying array");
     equal(i(), void 0, "should return undefined when out of elements");
   });
-  
-  test("Reduce", function () {
-    
+
+  test("Reduce", function reduceNoHelp() {
+
     equal( _.iterators.reduce(_.iterators.Tree([1, [2, 3, [4]], 5]), sum, 0), 15, "should fold an iterator with many elements");
 
     equal( _.iterators.reduce(_.iterators.Tree([[[4], []]]), sum, 42), 46, "should fold an iterator with one element");
 
     equal( _.iterators.reduce(_.iterators.Tree([[], [[]]]), sum, 42), 42, "should fold an empty iterator");
-      
+
     equal( _.iterators.reduce(_.iterators.Tree([1, [2, 3, [4]], 5]), sum), 15, "should fold an array with two or more elements");
-      
+
     equal( _.iterators.reduce(_.iterators.Tree([[[4], []]]), sum), 4, "should fold an array with one element");
-      
+
     equal( _.iterators.reduce(_.iterators.Tree([[[], []]]), sum), void 0, "should fold an array with no elements");
   });
-  
-  test("Accumulate", function () {
+
+  test("Accumulate", function accumulateNoHelp() {
     var i = _.iterators.accumulate(_.iterators.Tree([1, [2, 3, [4]], 5]), sum, 0);
     equal(i(), 1, "should map an iterator with many elements");
     equal(i(), 3, "should map an iterator with many elements");
@@ -77,14 +77,14 @@ $(document).ready(function() {
     equal(i(), 10, "should map an iterator with many elements");
     equal(i(), 15, "should map an iterator with many elements");
     equal(i(), void 0);
-  
+
     i = _.iterators.accumulate(_.iterators.Tree([[[4], []]]), sum, 42);
     equal(i(), 46, "should map an iterator with one element");
     equal(i(), void 0);
-  
+
     i = _.iterators.accumulate(_.iterators.Tree([[[], []]]), sum, 42);
     equal(i(), void 0, "should map an empty iterator");
-      
+
     i = _.iterators.accumulate(_.iterators.Tree([1, [2, 3, [4]], 5]), sum);
     equal(i(), 1, "should map an iterator with many elements");
     equal(i(), 3, "should map an iterator with many elements");
@@ -92,17 +92,17 @@ $(document).ready(function() {
     equal(i(), 10, "should map an iterator with many elements");
     equal(i(), 15, "should map an iterator with many elements");
     equal(i(), void 0);
-  
+
     i = _.iterators.accumulate(_.iterators.Tree([[[4], []]]), sum);
     equal(i(), 4, "should map an iterator with one element");
     equal(i(), void 0);
-  
+
     i = _.iterators.accumulate(_.iterators.Tree([[[], []]]), sum);
     equal(i(), void 0);
-    
+
   });
-  
-  test("Map", function () {
+
+  test("Map", function mapNoHelp() {
     var i = _.iterators.map(_.iterators.Tree([1, [2, 3, [4]], 5]), square);
     equal(i(), 1, "should map an iterator with many elements");
     equal(i(), 4, "should map an iterator with many elements");
@@ -110,16 +110,16 @@ $(document).ready(function() {
     equal(i(), 16, "should map an iterator with many elements");
     equal(i(), 25, "should map an iterator with many elements");
     equal(i(), void 0);
-  
+
     i = _.iterators.map(_.iterators.Tree([[[4], []]]), square);
     equal(i(), 16, "should map an iterator with one element");
     equal(i(), void 0);
-  
+
     i = _.iterators.map(_.iterators.Tree([[[], []]]), square);
     equal(i(), void 0, "should map an empty iterator");
   });
 
-  test("mapcat", function () {
+  test("mapcat", function mapcatNoHelp() {
     var i = _.iterators.mapcat(_.iterators.Tree([1, [2]]), naturalSmallerThan);
     equal(i(), 0, "should mapcat an iterator with many elements");
     equal(i(), 0, "should mapcat an iterator with many elements");
@@ -134,19 +134,19 @@ $(document).ready(function() {
     equal(i(), void 0, "should mapcat an empty iterator");
   });
 
-  test("filter", function() {
+  test("filter", function filterNoHelp() {
     var i = _.iterators.filter(_.iterators.Tree([1, [2, 3, [4]], 5]), odd);
     equal(i(),1);
     equal(i(),3);
     equal(i(),5);
     equal(i(),void 0);
-    
+
     i = _.iterators.filter(_.iterators.Tree([[[4], []]]), odd);
     equal(i(),void 0);
-    
+
     i = _.iterators.filter(_.iterators.Tree([[[], []]]), odd);
     equal(i(),void 0);
-    
+
     i = _.iterators.filter(_.iterators.List([2, 4, 6, 8, 10]), odd);
     equal(i(),void 0);
   });
@@ -266,7 +266,7 @@ $(document).ready(function() {
       equal(i(),void 0);
     });
   });
-  
+
   test("accumulateWithReturn", function() {
     expect(0);
     test("should pass the state and result in a pair", function() {
@@ -280,7 +280,7 @@ $(document).ready(function() {
       equal(i(),'Total is 15');
     });
   });
-  
+
   test("unfold", function() {
     expect(0);
     test("should unfold and include the seed", function() {
@@ -301,7 +301,7 @@ $(document).ready(function() {
       equal(i(),void 0);
     });
   });
-  
+
   test("unfoldWithReturn", function() {
     expect(0);
     test("should unfold and throw off a value", function() {
@@ -332,6 +332,6 @@ $(document).ready(function() {
       equal(i(),void 0);
     });
   });
-  
+
 });
 
