@@ -141,6 +141,105 @@ curried(1)(2)(3);
 
 --------------------------------------------------------------------------------
 
+#### curryRight
+
+**Signature:** `_.curryRight(func:Function)`
+
+**Aliases:** `_.rCurry`
+
+Returns a curried version of `func` where arguments are processed from right
+to left.
+
+```javascript
+function divide (a, b) {
+    return a / b;
+}
+
+var curried = _.curryRight(divide);
+// => function
+
+curried(1);
+// => function
+
+curried(1)(2);
+// => 2
+
+curried(2)(1);
+// => 0.5
+```
+
+--------------------------------------------------------------------------------
+
+#### curryRight2
+
+**Signature:** `_.curryRight2(func:Function)`
+
+**Aliases:** `_.rcurry2`
+
+Returns a curried version of `func` where a maxium of two arguments are
+processed from right to left.
+
+```javascript
+function concat () {
+    var str = "";
+    
+    for (var i = 0; i < arguments.length; i++) {
+        str = str + arguments[i];
+    }
+    
+    return str;
+}
+
+var curried = _.curryRight2(concat);
+// => function
+
+curried("a");
+// => function
+
+curried("a")("b");
+// => "ba"
+
+```
+
+--------------------------------------------------------------------------------
+
+#### curryRight3
+
+**Signature:** `_.curryRight3(func:Function)`
+
+**Aliases:** `_.rcurry3`
+
+Returns a curried version of `func` where a maxium of three arguments are
+processed from right to left.
+
+```javascript
+function concat () {
+    var str = "";
+    
+    for (var i = 0; i < arguments.length; i++) {
+        str = str + arguments[i];
+    }
+    
+    return str;
+}
+
+var curried = _.curryRight3(concat);
+// => function
+
+curried("a");
+// => function
+
+curried("a")("b");
+// => function
+
+curried("a")("b")("c");
+// => "cba"
+
+```
+
+
+--------------------------------------------------------------------------------
+
 #### fix
 
 **Signature:** `_.fix(fun:Function[, value:Any...])`
@@ -241,93 +340,3 @@ logOneArg("first", "second");
 ```
 
 --------------------------------------------------------------------------------
-
-#### rCurry
-
-**Signature:** `_.rCurry(func:Function)`
-
-Returns a curried version of `func` where arguments are processed from right
-to left.
-
-```javascript
-function divide (a, b) {
-    return a / b;
-}
-
-var curried = _.rCurry(divide);
-// => function
-
-curried(1);
-// => function
-
-curried(1)(2);
-// => 2
-
-curried(2)(1);
-// => 0.5
-```
-
---------------------------------------------------------------------------------
-
-#### rcurry2
-
-**Signature:** `_.rcurry2(func:Function)`
-
-Returns a curried version of `func` where a maxium of two arguments are
-processed from right to left.
-
-```javascript
-function concat () {
-    var str = "";
-    
-    for (var i = 0; i < arguments.length; i++) {
-        str = str + arguments[i];
-    }
-    
-    return str;
-}
-
-var curried = _.rcurry2(concat);
-// => function
-
-curried("a");
-// => function
-
-curried("a")("b");
-// => "ba"
-
-```
-
---------------------------------------------------------------------------------
-
-#### rcurry3
-
-**Signature:** `_.rcurry3(func:Function)`
-
-Returns a curried version of `func` where a maxium of three arguments are
-processed from right to left.
-
-```javascript
-function concat () {
-    var str = "";
-    
-    for (var i = 0; i < arguments.length; i++) {
-        str = str + arguments[i];
-    }
-    
-    return str;
-}
-
-var curried = _.rcurry3(concat);
-// => function
-
-curried("a");
-// => function
-
-curried("a")("b");
-// => function
-
-curried("a")("b")("c");
-// => "cba"
-
-```

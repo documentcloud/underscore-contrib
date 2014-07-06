@@ -67,7 +67,7 @@ $(document).ready(function() {
         return x + y + z;
       },
       curried = _.curry(func),
-      rCurried = _.rCurry(func);
+      rCurried = _.curryRight(func);
 
     equal(func(1, 2, 3), 6, "Test pure function");
     equal(typeof curried, 'function', "Curry returns a function");
@@ -100,13 +100,13 @@ $(document).ready(function() {
 
   });
 
-  test("rcurry2", function () {
+  test("curryRight2", function () {
 
     function echo () { return [].slice.call(arguments, 0); }
 
     deepEqual(echo(1, 2), [1, 2], "Control test");
-    deepEqual(_.rcurry2(echo)(1)(2), [2, 1], "Reverses curried arguments");
-
+    deepEqual(_.curryRight2(echo)(1)(2), [2, 1], "Reverses curried arguments");
+    equal(_.curryRight2, _.rcurry2, "should have alias 'rcurry2'");
   });
 
   test("curry3", function () {
@@ -118,13 +118,13 @@ $(document).ready(function() {
 
   });
 
-  test("rcurry3", function () {
+  test("curryRight3", function () {
 
     function echo () { return [].slice.call(arguments, 0); }
 
     deepEqual(echo(1, 2, 3), [1, 2, 3], "Control test");
-    deepEqual(_.rcurry3(echo)(1)(2)(3), [3, 2, 1], "Reverses curried arguments");
-
+    deepEqual(_.curryRight3(echo)(1)(2)(3), [3, 2, 1], "Reverses curried arguments");
+    equal(_.curryRight3, _.rcurry3, "should have alias 'rcurry3'");
   });
 
   test("enforce", function () {
