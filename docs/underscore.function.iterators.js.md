@@ -220,7 +220,7 @@ twoAndUp();
 
 #### iterators.range
 
-**Signature:** `_.iterators.range([from:Number, to:Number, by:Number]);
+**Signature:** `_.iterators.range([from:Number, to:Number, by:Number])`
 
 Returns an iterator whose values consist of numbers beginning with `from`, ending with `to`, in steps of size `by`.
 
