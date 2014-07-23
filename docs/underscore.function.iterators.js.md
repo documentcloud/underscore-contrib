@@ -126,10 +126,10 @@ ceasar();
 
 **Signature:** `_.iterators.List(array:Array)`
 
-Returns an iterater that when invoked will iterate over the contents of `array`.
+Returns an iterator that when invoked will iterate over the contents of `array`.
 
 ```javascript
-var triumvirIter = _.iterators.List(["Ceasar", "Pompey", "Crassus"];
+var triumvirIter = _.iterators.List(["Ceasar", "Pompey", "Crassus"]);
 
 triumvirIter();
 // => "Ceasar"
