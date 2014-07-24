@@ -32,7 +32,9 @@
   var createPredicateApplicator = function (funcToInvoke /*, preds */) {
     var preds = _(arguments).tail();
 
-    return function (array) {
+    return function (objToCheck) {
+      var array = _(objToCheck).cat();
+
       return _[funcToInvoke](array, function (e) {
         return _[funcToInvoke](preds, function (p) {
           return p(e);
@@ -42,6 +44,7 @@
   };
 
   // n.b. depends on underscore.function.arity.js
+  // n.b. depends on underscore.array.builders.js
     
   // Takes a target function and a mapping function. Returns a function
   // that applies the mapper to its arguments before evaluating the body.
