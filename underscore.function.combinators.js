@@ -29,6 +29,18 @@
     };
   };
   
+  var createPredicateApplicator = function (funcToInvoke /*, preds */) {
+    var preds = _(arguments).tail();
+
+    return function (array) {
+      return _[funcToInvoke](array, function (e) {
+        return _[funcToInvoke](preds, function (p) {
+          return p(e);
+        });
+      });
+    };
+  };
+
   // n.b. depends on underscore.function.arity.js
     
   // Takes a target function and a mapping function. Returns a function
@@ -62,32 +74,12 @@
     // Composes a bunch of predicates into a single predicate that
     // checks all elements of an array for conformance to all of the
     // original predicates.
-    conjoin: function(/* preds */) {
-      var preds = arguments;
-
-      return function(array) {
-        return _.every(array, function(e) {
-          return _.every(preds, function(p) {
-            return p(e);
-          });
-        });
-      };
-    },
+    conjoin: _(createPredicateApplicator).partial('every'),
 
     // Composes a bunch of predicates into a single predicate that
     // checks all elements of an array for conformance to any of the
     // original predicates.
-    disjoin: function(/* preds */) {
-      var preds = arguments;
-
-      return function(array) {
-        return _.some(array, function(e) {
-          return _.some(preds, function(p) {
-            return p(e);
-          });
-        });
-      };
-    },
+    disjoin: _(createPredicateApplicator).partial('some'),
 
     // Takes a predicate-like and returns a comparator (-1,0,1).
     comparator: function(fun) {
