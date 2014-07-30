@@ -91,7 +91,7 @@ it will be created with `defaultValue`.
 
 ```javascript
 var imperialize = function (val) {
-    if (val == "Republic) return "Empire";
+    if (val == "Republic") return "Empire";
     else return val;
 };
 
