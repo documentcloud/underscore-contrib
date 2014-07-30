@@ -56,6 +56,8 @@ Sets the value of a property at any depth in `obj` based on the path described
 by the `ks` array. If any of the properties in the `ks` path don't exist, they
 will be created with `defaultValue`.
 
+See `_.updatePath` about `obj` not being mutated in the process by cloning it.
+
 ```javascript
 _.setPath({}, "Plotinus", ["Platonism", "Neoplatonism"], {});
 // => { Platonism: { Neoplatonism: "Plotinus" } }
@@ -89,12 +91,27 @@ expected to return a replacement value.  If no keys are provided, then the
 object itself is presented to `fun`. If a property in the path is missing, then
 it will be created with `defaultValue`.
 
+Note that the original object will *not* be mutated. Instead, `obj` will
+be cloned deeply.
+
 ```javascript
 var imperialize = function (val) {
-    if (val == "Republic) return "Empire";
+    if (val == "Republic") return "Empire";
     else return val;
 };
 
 _.updatePath({ rome: "Republic" }, imperialize,  ["rome"]);
 // => { rome: "Empire" }
+
+var obj = { earth: { rome: "Republic" } };
+var imperialObj = _.updatePath(obj, imperialize, ["earth", "rome"]);
+
+imperialObj;
+// => { earth: { rome: "Empire" }}
+
+obj;
+// => { earth: { rome: "Republic" }}
+
+obj === imperialObj;
+// => false
 ```
