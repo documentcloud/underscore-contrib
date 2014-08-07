@@ -14,8 +14,7 @@
   // -------
   
   // Create quick reference variables for speed access to core prototypes.
-  var slice   = Array.prototype.slice,
-      concat  = Array.prototype.concat;
+  var slice   = Array.prototype.slice;
 
   var existy = function(x) { return x != null; };
 
@@ -28,14 +27,7 @@
     // array.  If given an `arguments` object, `cat` will treat it like an array
     // and concatenate it likewise.
     cat: function() {
-      return _.reduce(arguments, function(acc, elem) {
-        if (_.isArguments(elem)) {
-          return concat.call(acc, slice.call(elem));
-        }
-        else {
-          return concat.call(acc, elem);
-        }
-      }, []);
+      return _.flatten(arguments, true);
     },
 
     // 'Constructs' an array by putting an element at its front
@@ -83,7 +75,7 @@
 
     // Maps a function over an array and concatenates all of the results.
     mapcat: function(array, fun) {
-      return _.cat.apply(null, _.map(array, fun));
+      return _.flatten(_.map(array, fun), true);
     },
 
     // Returns an array with some item between each element
