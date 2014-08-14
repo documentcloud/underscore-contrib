@@ -204,6 +204,8 @@ $(document).ready(function() {
     var arr1 = [1,2], arr2 = [3,4,5], arr3 = [6,7],
         expected = [[1,3,6],[1,3,7],[1,4,6],[1,4,7],[1,5,6],[1,5,7],[2,3,6],[2,3,7],[2,4,6],[2,4,7],[2,5,6],[2,5,7]];
     deepEqual(_.combinations(arr1,arr2,arr3),expected,'array with all possible combinations is returned');
+
+    deepEqual(_.combinations(["a",["b"]],[[1]]),[["a",[1]],[["b"],[1]]],'initial arrays can contain array elements which are then preserved');
   });
 
 });

@@ -198,7 +198,7 @@
       return _.reduce(slice.call(arguments, 1),function(ret,newarr){
         return _.reduce(ret,function(memo,oldi){
           return memo.concat(_.map(newarr,function(newi){
-            return oldi.concat(newi);
+            return oldi.concat([newi]);
           }));
         },[]);
       },_.map(arguments[0],function(i){return [i];}));
