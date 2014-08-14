@@ -194,7 +194,7 @@
 
     // Creates an array with all possible combinations of elements from
     // the given arrays
-    combine: function(){
+    combinations: function(){
       return _.reduce(slice.call(arguments, 1),function(ret,newarr){
         return _.reduce(ret,function(memo,oldi){
           return memo.concat(_.map(newarr,function(newi){
