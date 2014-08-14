@@ -186,12 +186,25 @@
     // built-in `Array.prototype.reverse` method, this does not mutate the
     // original object. Note: attempting to use this method on a string will
     // result in a `TypeError`, as it cannot properly reverse unicode strings.
-
     reverseOrder: function(obj) {
       if (typeof obj == 'string')
         throw new TypeError('Strings cannot be reversed by _.reverseOrder');
       return slice.call(obj).reverse();
+    },
+
+    // Creates an array with all possible combinations of elements from
+    // the given arrays
+    combine: function(){
+      return _.reduce(slice.call(arguments, 1),function(ret,newarr){
+        return _.reduce(ret,function(memo,oldi){
+          return memo.concat(_.reduce(newarr,function(m,newi){
+            m.push(oldi.concat(newi));
+            return m;
+          },[]));
+        },[]);
+      },_.map(arguments[0],function(i){return [i];}));
     }
+    
   });
 
 })(this);
