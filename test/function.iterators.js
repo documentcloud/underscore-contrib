@@ -333,5 +333,30 @@ $(document).ready(function() {
     });
   });
   
+
+  test("cycle", function() {
+    expect(0);
+    test("empty array always returns undefined", function(){
+      var iter = _.iterators.cycle([]);
+      equal(iter(), void 0);
+      equal(iter(), void 0);
+      equal(iter(), void 0);
+    });
+    test("one item array always returns the item", function() {
+      var iter = _.iterators.cycle(['a']);
+      equal(iter(), 'a');
+      equal(iter(), 'a');
+      equal(iter(), 'a');
+    });
+    test("multiple item array endlessly loops over the array", function(){
+      var letters = ['a', 'b', 'c', 'd', 'e'];
+      var iter = _.iterators.cycle(letters);
+      for(var n = 0; n < 5; n++){
+        for(var j = 0; j < letters.length; j++){
+          equal(iter(), letters[j]);
+        }
+      }
+    });
+  });
 });
 
