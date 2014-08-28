@@ -216,6 +216,14 @@
     };
   }
   
+  function cycle(array) {
+    var index = 0,
+        length = array.length;
+    return function() {
+      return array[index++ % length];
+    };
+  }
+
   function Tree (array) {
     var index, myself, state;
     index = 0;
@@ -328,7 +336,8 @@
     constant: K,
     K: K,
     numbers: numbers,
-    range: range
+    range: range,
+    cycle: cycle
   };
 
 })(this, void 0);
