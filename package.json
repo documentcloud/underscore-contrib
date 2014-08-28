@@ -13,7 +13,7 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-docco": "~0.3.0",
-    "grunt-tocdoc": "~0.1.0",
+    "grunt-tocdoc": "0.1.1",
     "grunt-cli": "~0.1.11"
   },
   "repository": {

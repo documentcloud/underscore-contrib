@@ -3,6 +3,11 @@
 <head>
 <title></title>
 <link rel="stylesheet" type="text/css" href="tocdoc.css" />
+
+    <script src="test/vendor/underscore.js"></script>
+
+    <script src="dist/underscore-contrib.js"></script>
+
 </head>
 <body>
 <div class="toc"><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#places">Places</a></li><li><a href="#why-underscore-contrib">Why underscore-contrib?</a></li><li><a href="#use">Use</a><ul><li><a href="#in-the-browser">In the Browser</a></li><li><a href="#in-node.js">In Node.js</a></li></ul></li><li><a href="#license">License</a></li></ul></li><li><a href="#sub-libraries">Sub-libraries</a><ul><li><a href="#array.builders">array.builders</a><ul><li><a href="#cat">cat</a></li><li><a href="#chunk">chunk</a></li><li><a href="#chunkall">chunkAll</a></li><li><a href="#cons">cons</a></li><li><a href="#cycle">cycle</a></li><li><a href="#interpose">interpose</a></li><li><a href="#iterateuntil">iterateUntil</a></li><li><a href="#keepindexed">keepIndexed</a></li><li><a href="#mapcat">mapcat</a></li><li><a href="#reductions">reductions</a></li><li><a href="#repeat">repeat</a></li><li><a href="#splitat">splitAt</a></li><li><a href="#takeskipping">takeSkipping</a></li><li><a href="#weave">weave</a></li></ul></li><li><a href="#array.selectors">array.selectors</a><ul><li><a href="#best">best</a></li><li><a href="#dropwhile">dropWhile</a></li><li><a href="#keep">keep</a></li><li><a href="#nth">nth</a></li><li><a href="#partitionby">partitionBy</a></li><li><a href="#second">second</a></li><li><a href="#takewhile">takeWhile</a></li><li><a href="#third">third</a></li></ul></li><li><a href="#collections.walk">collections.walk</a></li><li><a href="#function.arity">function.arity</a><ul><li><a href="#arity">arity</a></li><li><a href="#binary">binary</a></li><li><a href="#curry">curry</a></li><li><a href="#curry2">curry2</a></li><li><a href="#curry3">curry3</a></li><li><a href="#curryright">curryRight</a></li><li><a href="#curryright2">curryRight2</a></li><li><a href="#curryright3">curryRight3</a></li><li><a href="#fix">fix</a></li><li><a href="#quaternary">quaternary</a></li><li><a href="#ternary">ternary</a></li><li><a href="#unary">unary</a></li></ul></li><li><a href="#function.combinators">function.combinators</a><ul><li><a href="#always">always</a></li><li><a href="#bound">bound</a></li><li><a href="#comparator">comparator</a></li><li><a href="#complement">complement</a></li><li><a href="#conjoin">conjoin</a></li><li><a href="#disjoin">disjoin</a></li><li><a href="#juxt">juxt</a></li><li><a href="#flip">flip</a></li><li><a href="#flip2">flip2</a></li><li><a href="#fnull">fnull</a></li><li><a href="#functionalize">functionalize</a></li><li><a href="#mapargs">mapArgs</a></li><li><a href="#mapargswith">mapArgsWith</a></li><li><a href="#methodize">methodize</a></li><li><a href="#pipeline">pipeline</a></li><li><a href="#splat">splat</a></li><li><a href="#unsplat">unsplat</a></li><li><a href="#unsplatl">unsplatl</a></li></ul></li><li><a href="#function.iterators">function.iterators</a><ul><li><a href="#iterators.accumulate">iterators.accumulate</a></li><li><a href="#iterators.accumulatewithreturn">iterators.accumulateWithReturn</a></li><li><a href="#iterators.drop">iterators.drop</a></li><li><a href="#iterators.foldl">iterators.foldl</a></li><li><a href="#iterators.k">iterators.K</a></li><li><a href="#iterators.list">iterators.List</a></li><li><a href="#iterators.map">iterators.map</a></li><li><a href="#iterators.mapcat">iterators.mapcat</a></li><li><a href="#iterators.numbers">iterators.numbers</a></li><li><a href="#iterators.range">iterators.range</a></li><li><a href="#iterators.reject">iterators.reject</a></li><li><a href="#iterators.select">iterators.select</a></li><li><a href="#iterators.slice">iterators.slice</a></li><li><a href="#iterators.take">iterators.take</a></li><li><a href="#iterators.tree">iterators.Tree</a></li><li><a href="#iterators.unfold">iterators.unfold</a></li><li><a href="#iterators.unfoldwithreturn">iterators.unfoldWithReturn</a></li></ul></li><li><a href="#function.predicates">function.predicates</a><ul><li><a href="#isassociative">isAssociative</a></li><li><a href="#isdecreasing">isDecreasing</a></li><li><a href="#iseven">isEven</a></li><li><a href="#isfloat">isFloat</a></li><li><a href="#isincreasing">isIncreasing</a></li><li><a href="#isindexed">isIndexed</a></li><li><a href="#isinstanceof">isInstanceOf</a></li><li><a href="#isinteger">isInteger</a></li><li><a href="#isjson">isJSON</a></li><li><a href="#isnegative">isNegative</a></li><li><a href="#isnumeric">isNumeric</a></li><li><a href="#isodd">isOdd</a></li><li><a href="#isplainobject">isPlainObject</a></li><li><a href="#ispositive">isPositive</a></li><li><a href="#issequential">isSequential</a></li><li><a href="#isvaliddate">isValidDate</a></li><li><a href="#iszero">isZero</a></li></ul></li><li><a href="#object.builders">object.builders</a><ul><li><a href="#frequencies">frequencies</a></li><li><a href="#merge">merge</a></li><li><a href="#renamekeys">renameKeys</a></li><li><a href="#setpath">setPath</a></li><li><a href="#snapshot">snapshot</a></li></ul></li><li><a href="#object.selectors">object.selectors</a><ul><li><a href="#accessor">accessor</a></li><li><a href="#dictionary">dictionary</a></li><li><a href="#getpath">getPath</a></li><li><a href="#haspath">hasPath</a></li><li><a href="#kv">kv</a></li><li><a href="#omitwhen">omitWhen</a></li><li><a href="#pickwhen">pickWhen</a></li><li><a href="#selectkeys">selectKeys</a></li></ul></li><li><a href="#util.existential">util.existential</a><ul><li><a href="#exists">exists</a></li><li><a href="#falsey">falsey</a></li><li><a href="#firstexisting">firstExisting</a></li><li><a href="#not">not</a></li><li><a href="#truthy">truthy</a></li></ul></li><li><a href="#util.operators">util.operators</a><ul><li><a href="#add">add</a></li><li><a href="#bitwiseand">bitwiseAnd</a></li><li><a href="#bitwiseleft">bitwiseLeft</a></li><li><a href="#bitwiseright">bitwiseRight</a></li><li><a href="#bitwisenot">bitwiseNot</a></li><li><a href="#bitwiseor">bitwiseOr</a></li><li><a href="#bitwisexor">bitwiseXor</a></li><li><a href="#bitwisez">bitwiseZ</a></li><li><a href="#dec">dec</a></li><li><a href="#div">div</a></li><li><a href="#eq">eq</a></li><li><a href="#gt">gt</a></li><li><a href="#gte">gte</a></li><li><a href="#inc">inc</a></li><li><a href="#lt">lt</a></li><li><a href="#lte">lte</a></li><li><a href="#mul">mul</a></li><li><a href="#mod">mod</a></li><li><a href="#neg">neg</a></li><li><a href="#neq">neq</a></li><li><a href="#not-1">not</a></li><li><a href="#seq">seq</a></li><li><a href="#sneq">sneq</a></li><li><a href="#sub">sub</a></li></ul></li><li><a href="#util.strings">util.strings</a><ul><li><a href="#camelcase">camelCase</a></li><li><a href="#explode">explode</a></li><li><a href="#fromquery">fromQuery</a></li><li><a href="#implode">implode</a></li><li><a href="#strcontains">strContains</a></li><li><a href="#todash">toDash</a></li><li><a href="#toquery">toQuery</a></li></ul></li><li><a href="#util.trampolines">util.trampolines</a><ul><li><a href="#done">done</a></li><li><a href="#trampoline">trampoline</a></li></ul></li><li><a href="#changelog">Changelog</a><ul><li><a href="#0.3.0">0.3.0</a></li></ul></li></ul></li></ul></div>
@@ -983,8 +988,8 @@ ceasar();
 <hr>
 <h4 id="iterators-list"><a href="#iterators.list" name="iterators.list">iterators.List</a></h4>
 <p><strong>Signature:</strong> <code>_.iterators.List(array:Array)</code></p>
-<p>Returns an iterater that when invoked will iterate over the contents of <code>array</code>.</p>
-<pre><code class="lang-javascript">var triumvirIter = _.iterators.List([&quot;Ceasar&quot;, &quot;Pompey&quot;, &quot;Crassus&quot;];
+<p>Returns an iterator that when invoked will iterate over the contents of <code>array</code>.</p>
+<pre><code class="lang-javascript">var triumvirIter = _.iterators.List([&quot;Ceasar&quot;, &quot;Pompey&quot;, &quot;Crassus&quot;]);
 
 triumvirIter();
 // =&gt; &quot;Ceasar&quot;
@@ -1439,6 +1444,7 @@ where the keys of <code>obj</code> have been renamed as specified in <code>keyMa
 <p>Sets the value of a property at any depth in <code>obj</code> based on the path described
 by the <code>ks</code> array. If any of the properties in the <code>ks</code> path don&#39;t exist, they
 will be created with <code>defaultValue</code>.</p>
+<p>See <code>_.updatePath</code> about <code>obj</code> not being mutated in the process by cloning it.</p>
 <pre><code class="lang-javascript">_.setPath({}, &quot;Plotinus&quot;, [&quot;Platonism&quot;, &quot;Neoplatonism&quot;], {});
 // =&gt; { Platonism: { Neoplatonism: &quot;Plotinus&quot; } }</code></pre>
 <hr>
@@ -1459,13 +1465,27 @@ the <code>ks</code> array.  The function <code>fun</code> is called with the cur
 expected to return a replacement value.  If no keys are provided, then the
 object itself is presented to <code>fun</code>. If a property in the path is missing, then
 it will be created with <code>defaultValue</code>.</p>
+<p>Note that the original object will <em>not</em> be mutated. Instead, <code>obj</code> will
+be cloned deeply.</p>
 <pre><code class="lang-javascript">var imperialize = function (val) {
-    if (val == &quot;Republic) return &quot;Empire&quot;;
+    if (val == &quot;Republic&quot;) return &quot;Empire&quot;;
     else return val;
 };
 
 _.updatePath({ rome: &quot;Republic&quot; }, imperialize,  [&quot;rome&quot;]);
-// =&gt; { rome: &quot;Empire&quot; }</code></pre>
+// =&gt; { rome: &quot;Empire&quot; }
+
+var obj = { earth: { rome: &quot;Republic&quot; } };
+var imperialObj = _.updatePath(obj, imperialize, [&quot;earth&quot;, &quot;rome&quot;]);
+
+imperialObj;
+// =&gt; { earth: { rome: &quot;Empire&quot; }}
+
+obj;
+// =&gt; { earth: { rome: &quot;Republic&quot; }}
+
+obj === imperialObj;
+// =&gt; false</code></pre>
 <h3 id="object-selectors"><a href="#object.selectors" name="object.selectors">object.selectors</a></h3>
 <blockquote>
 <p>Functions to select values from an object.</p>

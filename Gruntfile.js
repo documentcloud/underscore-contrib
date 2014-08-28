@@ -68,6 +68,12 @@ module.exports = function(grunt) {
       api: {
         files: {
           'index.html': ['docs/*.md', 'CHANGELOG.md']
+        },
+        options: {
+            scripts: [
+                'test/vendor/underscore.js',
+                'dist/underscore-contrib.js'
+            ]
         }
       }
     },
