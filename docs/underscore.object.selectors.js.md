@@ -54,7 +54,8 @@ var countries = {
         greece: {
             athens: {
                 playwright:  "Sophocles"
-            }
+            },
+            notableFigures: ["Alexander", "Hippocrates", "Thales"]
         }
     }
 };
@@ -70,6 +71,12 @@ _.getPath(countries, ["greece", "athens", "playwright"]);
 
 _.getPath(countries, ["greece", "sparta", "playwright"]);
 // => undefined
+
+_.getPath(countries, ["greece", "notableFigures", 1]);
+// => "Hippocrates"
+
+_.getPath(countries, ["greece.notableFigures", 2]);
+// => "Thales"
 ```
 
 --------------------------------------------------------------------------------
@@ -86,7 +93,8 @@ var countries = {
         greece: {
             athens: {
                 playwright:  "Sophocles"
-            }
+            },
+            notableFigures: ["Alexander", "Hippocrates", "Thales"]
         }
     }
 };
@@ -101,6 +109,15 @@ _.hasPath(countries, ["greece", "athens", "playwright"]);
 // => true
 
 _.hasPath(countries, ["greece", "sparta", "playwright"]);
+// => false
+
+_.hasPath(countries, ["greece", "notableFigures", 1]);
+// => true
+
+_.hasPath(countries, ["greece.notableFigures", 2]);
+// => true
+
+_.hasPath(countries, ["greece.sparta", 2]);
 // => false
 ```
 
