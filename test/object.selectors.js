@@ -28,7 +28,7 @@ $(document).ready(function() {
   });
 
   test("getPath", function() {
-    var deepObject = { a: { b: { c: "c" } }, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ["arr"] };
+    var deepObject = { a: { b: { c: "c" } }, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ["arr"], deepArray: { contents: ["da1", "da2"] } };
     var deepArr = [[["thirdLevel"]]];
     var ks = ["a", "b", "c"];
 
@@ -36,6 +36,8 @@ $(document).ready(function() {
     deepEqual(ks, ["a", "b", "c"], "should not have mutated ks argument");
     strictEqual(_.getPath(deepArr, [0, 0, 0]), "thirdLevel", "should get a deep property's value from arrays");
     strictEqual(_.getPath(deepObject, ["arrayVal", 0]), "arr", "should get a deep property's value from nested arrays and objects");
+    strictEqual(_.getPath(deepObject, ["deepArray", "contents", 1]), "da2", "should get a deep property's value within arrays inside deep objects, from an array");
+    strictEqual(_.getPath(deepObject, ["deepArray.contents", 0]), "da1", "should get a deep property's value within arrays inside deep objects, from an array with composite paths");
 
     strictEqual(_.getPath(deepObject, ["undefinedVal"]), undefined, "should return undefined for undefined properties");
     strictEqual(_.getPath(deepObject, ["a", "notHere"]), undefined, "should return undefined for non-existent properties");
@@ -46,12 +48,16 @@ $(document).ready(function() {
   });
 
   test("hasPath", function() {
-    var deepObject = { a: { b: { c: "c" } }, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ["arr"] };
+    var deepObject = { a: { b: { c: "c" } }, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ["arr"], deepArray: { contents: ["da1", "da2"] } };
     var ks = ["a", "b", "c"];
 
     strictEqual(_.hasPath(deepObject, ["notHere", "notHereEither"]), false, "should return false if the path doesn't exist");
     strictEqual(_.hasPath(deepObject, ks), true, "should return true if the path exists");
     deepEqual(ks, ["a", "b", "c"], "should not have mutated ks argument");
+
+    strictEqual(_.hasPath(deepObject, ["deepArray", "contents", 1]), true, "should return true for an existing value within arrays inside deep objects, from an array");
+    strictEqual(_.hasPath(deepObject, ["deepArray.contents", 0]), true, "should return true for an existing value within arrays inside deep objects, from an array with composite paths");
+    strictEqual(_.hasPath(deepObject, ["deepArray.contents", 2]), false, "should return false for an existing value within arrays inside deep objects, from an array with composite paths");
 
     strictEqual(_.hasPath(deepObject, ["arrayVal", 0]), true, "should return true for an array's index if it is defined");
     strictEqual(_.hasPath(deepObject, ["arrayVal", 999]), false, "should return false for an array's index if it is not defined");

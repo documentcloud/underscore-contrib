@@ -58,6 +58,11 @@
     getPath: function getPath (obj, ks) {
       if (typeof ks == "string") ks = ks.split(".");
 
+      // Split every path inside each array element
+      ks = _.flatten(ks.map(function(partialPath) {
+        return (typeof partialPath == "string") ? partialPath.split(".") : partialPath;
+      }));
+
       // If we have reached an undefined property
       // then stop executing and return undefined
       if (obj === undefined) return void 0;
@@ -77,6 +82,11 @@
     // at the path described by the keys given
     hasPath: function hasPath (obj, ks) {
       if (typeof ks == "string") ks = ks.split(".");
+
+      // Split every path inside each array element
+      ks = _.flatten(ks.map(function(partialPath) {
+        return (typeof partialPath == "string") ? partialPath.split(".") : partialPath;
+      }));
 
       var numKeys = ks.length;
 
