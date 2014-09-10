@@ -70,10 +70,10 @@ module.exports = function(grunt) {
           'index.html': ['docs/*.md', 'CHANGELOG.md']
         },
         options: {
-            scripts: [
-                'test/vendor/underscore.js',
-                'dist/underscore-contrib.js'
-            ]
+          scripts: [
+            'test/vendor/underscore.js',
+            'dist/underscore-contrib.js'
+          ]
         }
       }
     },
