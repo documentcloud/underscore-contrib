@@ -7,3 +7,4 @@ docs/public
 examples/*.css
 examples/*.html
 examples/public
+bower_components/*
