@@ -75,7 +75,10 @@ _.getPath(countries, ["greece", "sparta", "playwright"]);
 _.getPath(countries, ["greece", "notableFigures", 1]);
 // => "Hippocrates"
 
-_.getPath(countries, ["greece.notableFigures", 2]);
+_.getPath(countries, "greece.notableFigures[2]");
+// => "Thales"
+
+_.getPath(countries, "greece['notableFigures'][2]")
 // => "Thales"
 ```
 
@@ -114,10 +117,13 @@ _.hasPath(countries, ["greece", "sparta", "playwright"]);
 _.hasPath(countries, ["greece", "notableFigures", 1]);
 // => true
 
-_.hasPath(countries, ["greece.notableFigures", 2]);
+_.hasPath(countries, "greece.notableFigures[2]");
 // => true
 
-_.hasPath(countries, ["greece.sparta", 2]);
+_.hasPath(countries, "greece['notableFigures'][2]");
+// => true
+
+_.hasPath(countries, "greece.sparta[2]");
 // => false
 ```
 
