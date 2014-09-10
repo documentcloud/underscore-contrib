@@ -169,7 +169,7 @@
 
       if (numKeys === 1) return true;
 
-      return hasPath(obj[_.first(ks)], _.rest(ks));      
+      return hasPath(obj[_.first(ks)], _.rest(ks));
     },
 
     pickWhen: function(obj, pred) {
