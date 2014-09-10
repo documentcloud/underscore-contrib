@@ -18,6 +18,89 @@
   var ArrayProto = Array.prototype;
   var slice = ArrayProto.slice;
 
+  // Internal functions that would not be exposed
+
+  // Will take a path like 'element[0][1].subElement["Hey!.What?"]'
+  // and return [element, 0, 1, subElement, "Hey!.What?"]
+  function parseJavaScriptPathIntoKeyNames(javascriptPath) {
+    var parts = [];
+    var terminatorExpected = null;
+    var insideIndexer = false;
+    var currentPart = "";
+
+    function flushCurrentPart() {
+      if (currentPart.length > 0) {
+        parts.push(currentPart);
+        currentPart = "";
+      }
+    }
+
+    for (var i = 0; i < javascriptPath.length; i++) {
+      var currentChar = javascriptPath[i];
+      switch (currentChar) {
+      case "[":
+        if (!terminatorExpected) {
+          flushCurrentPart();
+
+          terminatorExpected = ']';
+          insideIndexer = true;
+        } else {
+          currentPart += currentChar;
+        }
+        break;
+      case "]":
+        if (terminatorExpected === "]") {
+          flushCurrentPart();
+
+          terminatorExpected = null;
+          insideIndexer = false;
+        } else {
+          currentPart += currentChar;
+        }
+        break;
+      case ".":
+        if (!terminatorExpected) {
+          flushCurrentPart();
+        } else {
+          currentPart += currentChar;
+        }
+        break;
+      case "\'":
+        if (!terminatorExpected || terminatorExpected === "]") {
+          terminatorExpected = "\'";
+        } else if (terminatorExpected === "\'" && insideIndexer) {
+          terminatorExpected = ']';
+        } else if (terminatorExpected === "\'" && !insideIndexer) {
+          flushCurrentPart();
+
+          terminatorExpected = null;
+        } else {
+          currentPart += currentChar;
+        }
+        break;
+      case "\"":
+        if (!terminatorExpected || terminatorExpected === "]") {
+          terminatorExpected = "\"";
+        } else if (terminatorExpected === "\"" && insideIndexer) {
+          terminatorExpected = ']';
+        } else if (terminatorExpected === "\"" && !insideIndexer) {
+          flushCurrentPart();
+
+          terminatorExpected = null;
+        } else {
+          currentPart += currentChar;
+        }
+        break;
+      default:
+        currentPart += currentChar;
+      } // switch (currentChar)
+    } // for
+
+    flushCurrentPart();
+
+    return parts;
+  }
+
   // Mixing in the object selectors
   // ------------------------------
 
@@ -56,12 +139,7 @@
     // path described by the keys given. Keys may be given as an array
     // or as a dot-separated string.
     getPath: function getPath (obj, ks) {
-      if (typeof ks == "string") ks = ks.split(".");
-
-      // Split every path inside each array element
-      ks = _.flatten(ks.map(function(partialPath) {
-        return (typeof partialPath == "string") ? partialPath.split(".") : partialPath;
-      }));
+      ks = typeof ks === "string" ? parseJavaScriptPathIntoKeyNames(ks) : ks;
 
       // If we have reached an undefined property
       // then stop executing and return undefined
@@ -81,12 +159,7 @@
     // Returns a boolean indicating whether there is a property
     // at the path described by the keys given
     hasPath: function hasPath (obj, ks) {
-      if (typeof ks == "string") ks = ks.split(".");
-
-      // Split every path inside each array element
-      ks = _.flatten(ks.map(function(partialPath) {
-        return (typeof partialPath == "string") ? partialPath.split(".") : partialPath;
-      }));
+      ks = typeof ks === "string" ? parseJavaScriptPathIntoKeyNames(ks) : ks;
 
       var numKeys = ks.length;
 
@@ -96,7 +169,7 @@
 
       if (numKeys === 1) return true;
 
-      return hasPath(obj[_.first(ks)], _.rest(ks));
+      return hasPath(obj[_.first(ks)], _.rest(ks));      
     },
 
     pickWhen: function(obj, pred) {
