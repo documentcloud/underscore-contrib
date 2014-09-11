@@ -47,7 +47,7 @@ $(document).ready(function() {
 
     strictEqual(_.getPath(weirdObject, ["D'artagnan", "[0].[1]"]), "myValue", "should be able to traverse complex property names, from an array");
     strictEqual(_.getPath(weirdObject, "[\"D'artagnan\"]['[0].[1]']"), "myValue", "should be able to traverse complex property names, from an accessor string");
-    strictEqual(_.getPath(weirdObject, "element.0['prop.1']"), "value1", "should be able to traverse complex property names, from an accessor string");
+    strictEqual(_.getPath(weirdObject, "element[0]['prop.1']"), "value1", "should be able to traverse complex property names, from an accessor string");
 
     strictEqual(_.getPath(deepObject, "a.b.c"), "c", "should work with keys written in dot notation");
     strictEqual(_.getPath({}, "myPath.deepProperty"), undefined, "should not break with empty objects and deep paths");
@@ -72,10 +72,10 @@ $(document).ready(function() {
 
     strictEqual(_.hasPath(weirdObject, ["D'artagnan", "[0].[1]"]), true, "should return true for complex property names, from an array");
     strictEqual(_.hasPath(weirdObject, "[\"D'artagnan\"]['[0].[1]']"), true, "should return true for complex property names, from an accessor string");
-    strictEqual(_.hasPath(weirdObject, "element.0['prop.1']"), true, "should be return true for complex property names, from an accessor string");
+    strictEqual(_.hasPath(weirdObject, "element[0]['prop.1']"), true, "should be return true for complex property names, from an accessor string");
     strictEqual(_.hasPath(weirdObject, ["D'artagnan", "[0].[2]"]), false, "should return false for non-existent complex property names, from an array");
     strictEqual(_.hasPath(weirdObject, "[\"D'artagnan\"]['[0].[2]']"), false, "should return true for non-existent complex property names, from an accessor string");
-    strictEqual(_.hasPath(weirdObject, "element.0['prop.2']"), false, "should be return true for non-existent complex property names, from an accessor string");
+    strictEqual(_.hasPath(weirdObject, "element[0]['prop.2']"), false, "should be return true for non-existent complex property names, from an accessor string");
 
     strictEqual(_.hasPath(deepObject, ["nullVal", "notHere"]), false, "should return false for descendants of null properties");
     strictEqual(_.hasPath(deepObject, ["undefinedVal", "notHere"]), false, "should return false for descendants of undefined properties");
