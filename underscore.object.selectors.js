@@ -20,8 +20,8 @@
 
   // Internal functions that would not be exposed
 
-  // Will take a path like 'element[0][1].subElement["Hey!.What?"]'
-  // and return [element, 0, 1, subElement, "Hey!.What?"]
+  // Will take a path like 'element[0][1].subElement["Hey!.What?"]["[hey]"]'
+  // and return ["element", "0", "1", "subElement", "Hey!.What?", "[hey]"]
   function parseJavaScriptPathIntoKeyNames(javascriptPath) {
     var parts = [];
     var terminatorExpected = null;
