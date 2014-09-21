@@ -22,83 +22,21 @@
 
   // Will take a path like 'element[0][1].subElement["Hey!.What?"]["[hey]"]'
   // and return ["element", "0", "1", "subElement", "Hey!.What?", "[hey]"]
-  function parseJavaScriptPathIntoKeyNames(javascriptPath) {
-    var parts = [];
-    var terminatorExpected = null;
-    var insideIndexer = false;
-    var currentPart = "";
+  function parseJavaScriptPathIntoKeyNames(path) {
+    // from http://codereview.stackexchange.com/a/63010/8176
+    /**
+     * Repeatedly capture either:
+     * - a bracketed expression, discarding optional matching quotes inside, or
+     * - an unbracketed expression, delimited by a dot or a bracket.
+     */
+    var re = /\[("|')(.+)\1\]|([^.\[\]]+)/g;
 
-    function flushCurrentPart() {
-      if (currentPart.length > 0) {
-        parts.push(currentPart);
-        currentPart = "";
-      }
+    var elements = [];
+    var result;
+    while ((result = re.exec(path)) !== null) {
+      elements.push(result[2] || result[3]);
     }
-
-    for (var i = 0; i < javascriptPath.length; i++) {
-      var currentChar = javascriptPath[i];
-      switch (currentChar) {
-      case "[":
-        if (!terminatorExpected) {
-          flushCurrentPart();
-
-          terminatorExpected = ']';
-          insideIndexer = true;
-        } else {
-          currentPart += currentChar;
-        }
-        break;
-      case "]":
-        if (terminatorExpected === "]") {
-          flushCurrentPart();
-
-          terminatorExpected = null;
-          insideIndexer = false;
-        } else {
-          currentPart += currentChar;
-        }
-        break;
-      case ".":
-        if (!terminatorExpected) {
-          flushCurrentPart();
-        } else {
-          currentPart += currentChar;
-        }
-        break;
-      case "\'":
-        if (!terminatorExpected || terminatorExpected === "]") {
-          terminatorExpected = "\'";
-        } else if (terminatorExpected === "\'" && insideIndexer) {
-          terminatorExpected = ']';
-        } else if (terminatorExpected === "\'" && !insideIndexer) {
-          flushCurrentPart();
-
-          terminatorExpected = null;
-        } else {
-          currentPart += currentChar;
-        }
-        break;
-      case "\"":
-        if (!terminatorExpected || terminatorExpected === "]") {
-          terminatorExpected = "\"";
-        } else if (terminatorExpected === "\"" && insideIndexer) {
-          terminatorExpected = ']';
-        } else if (terminatorExpected === "\"" && !insideIndexer) {
-          flushCurrentPart();
-
-          terminatorExpected = null;
-        } else {
-          currentPart += currentChar;
-        }
-        break;
-      default:
-        currentPart += currentChar;
-      } // switch (currentChar)
-    } // for
-
-    flushCurrentPart();
-
-    return parts;
+    return elements;
   }
 
   // Mixing in the object selectors
