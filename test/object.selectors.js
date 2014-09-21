@@ -76,4 +76,19 @@ $(document).ready(function() {
 
     deepEqual(_.omitWhen(a, _.isEmpty), {baz: "something", quux: ['a']}, "should return an object with kvs that return a falsey value for the given predicate");
   });
+
+  test("omitPath", function(){
+    var a = {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro', list: [{file: '..', more: {other: { a: 1, b: 2}}, name: 'aa'}, {file: '..', name: 'bb'}]}};
+
+    deepEqual(_.omitPath(a, 'dada.carlos.pepe'), {foo: true, bar: false, baz: 42, dada: {carlos: {}, pedro: 'pedro', list: [{file: '..', more: {other: { a: 1, b: 2}} , name: 'aa'}, {file: '..', name: 'bb'}]}}, "should return an object without the value that represent the path");
+    deepEqual(_.omitPath(a, 'dada.carlos'), {foo: true, bar: false, baz: 42, dada: {pedro: 'pedro', list: [{file: '..', more: {other: { a: 1, b: 2}} , name: 'aa'}, {file: '..', name: 'bb'}]}}, "should return an object without the value that represent the path");
+    deepEqual(_.omitPath(a, ''), {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro', list: [{file: '..', more: {other: { a: 1, b: 2}} , name: 'aa'}, {file: '..', name: 'bb'}]}}, "should return the whole object because the path is empty");
+
+    deepEqual(_.omitPath(a, 'dada.list.file'), {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro', list: [{name: 'aa', more: {other: { a: 1, b: 2}}}, {name: 'bb'}]}}, "should return an object without the value in each object of the list");
+    deepEqual(_.omitPath(a, 'dada.list.name'), {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro', list: [{file: '..', more: {other: { a: 1, b: 2}}}, {file: '..'}]}}, "should return an object without the value in each object of the list");
+
+    deepEqual(_.omitPath(a, 'dada.list'), {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro'}}, "should return an object without the list");
+
+    deepEqual(_.omitPath(a, 'dada.list.more.other.a'), {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro', list: [{file: '..', more: {other: { b: 2}} , name: 'aa'}, {file: '..', name: 'bb'}]}}, "should return an object without the value inside the values of the list");
+  });
 });
