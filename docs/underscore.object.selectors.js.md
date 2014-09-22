@@ -46,7 +46,8 @@ getGeneralOf("rome");
 **Signature:** `_.getPath(obj:Object, ks:String|Array)`
 
 Gets the value at any depth in a nested object based on the path described by
-the keys given. Keys may be given as an array or as a dot-separated string.
+the keys given. Keys may be given as an array of key names or as a single string
+using JavaScript property access notation.
 Returns `undefined` if the path cannot be reached.
 
 ```javascript
@@ -89,7 +90,8 @@ _.getPath(countries, "greece['notableFigures'][2]")
 **Signature:** `_.hasPath(obj:Object, ks:String|Array)`
 
 Returns a boolean indicating whether there is a property at the path described
-by the keys given. Keys may be given as an array or as a dot-separated string.
+by the keys given. Keys may be given as an array of key names or as a single string
+using JavaScript property access notation.
 
 ```javascript
 var countries = {

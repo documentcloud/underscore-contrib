@@ -18,8 +18,6 @@
   var ArrayProto = Array.prototype;
   var slice = ArrayProto.slice;
 
-  // Internal functions that would not be exposed
-
   // Will take a path like 'element[0][1].subElement["Hey!.What?"]["[hey]"]'
   // and return ["element", "0", "1", "subElement", "Hey!.What?", "[hey]"]
   function parseJavaScriptPathIntoKeyNames(path) {
@@ -77,7 +75,7 @@
     // path described by the keys given. Keys may be given as an array
     // or as a dot-separated string.
     getPath: function getPath (obj, ks) {
-      ks = typeof ks === "string" ? parseJavaScriptPathIntoKeyNames(ks) : ks;
+      ks = typeof ks == "string" ? parseJavaScriptPathIntoKeyNames(ks) : ks;
 
       // If we have reached an undefined property
       // then stop executing and return undefined
@@ -97,7 +95,7 @@
     // Returns a boolean indicating whether there is a property
     // at the path described by the keys given
     hasPath: function hasPath (obj, ks) {
-      ks = typeof ks === "string" ? parseJavaScriptPathIntoKeyNames(ks) : ks;
+      ks = typeof ks == "string" ? parseJavaScriptPathIntoKeyNames(ks) : ks;
 
       var numKeys = ks.length;
 
