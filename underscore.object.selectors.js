@@ -18,6 +18,25 @@
   var ArrayProto = Array.prototype;
   var slice = ArrayProto.slice;
 
+  // Will take a path like 'element[0][1].subElement["Hey!.What?"]["[hey]"]'
+  // and return ["element", "0", "1", "subElement", "Hey!.What?", "[hey]"]
+  function parseJavaScriptPathIntoKeyNames(path) {
+    // from http://codereview.stackexchange.com/a/63010/8176
+    /**
+     * Repeatedly capture either:
+     * - a bracketed expression, discarding optional matching quotes inside, or
+     * - an unbracketed expression, delimited by a dot or a bracket.
+     */
+    var re = /\[("|')(.+)\1\]|([^.\[\]]+)/g;
+
+    var elements = [];
+    var result;
+    while ((result = re.exec(path)) !== null) {
+      elements.push(result[2] || result[3]);
+    }
+    return elements;
+  }
+
   // Mixing in the object selectors
   // ------------------------------
 
@@ -56,7 +75,7 @@
     // path described by the keys given. Keys may be given as an array
     // or as a dot-separated string.
     getPath: function getPath (obj, ks) {
-      if (typeof ks == "string") ks = ks.split(".");
+      ks = typeof ks == "string" ? parseJavaScriptPathIntoKeyNames(ks) : ks;
 
       // If we have reached an undefined property
       // then stop executing and return undefined
@@ -76,7 +95,7 @@
     // Returns a boolean indicating whether there is a property
     // at the path described by the keys given
     hasPath: function hasPath (obj, ks) {
-      if (typeof ks == "string") ks = ks.split(".");
+      ks = typeof ks == "string" ? parseJavaScriptPathIntoKeyNames(ks) : ks;
 
       var numKeys = ks.length;
 

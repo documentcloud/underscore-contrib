@@ -1517,13 +1517,15 @@ getGeneralOf(&quot;rome&quot;);
 <h4 id="getpath"><a href="#getpath" name="getpath">getPath</a></h4>
 <p><strong>Signature:</strong> <code>_.getPath(obj:Object, ks:String|Array)</code></p>
 <p>Gets the value at any depth in a nested object based on the path described by
-the keys given. Keys may be given as an array or as a dot-separated string.
+the keys given. Keys may be given as an array of key names or as a single string
+using JavaScript property access notation.
 Returns <code>undefined</code> if the path cannot be reached.</p>
 <pre><code class="lang-javascript">var countries = {
         greece: {
             athens: {
                 playwright:  &quot;Sophocles&quot;
-            }
+            },
+            notableFigures: [&quot;Alexander&quot;, &quot;Hippocrates&quot;, &quot;Thales&quot;]
         }
     }
 };
@@ -1538,17 +1540,28 @@ _.getPath(countries, [&quot;greece&quot;, &quot;athens&quot;, &quot;playwright&q
 // =&gt; &quot;Sophocles&quot;
 
 _.getPath(countries, [&quot;greece&quot;, &quot;sparta&quot;, &quot;playwright&quot;]);
-// =&gt; undefined</code></pre>
+// =&gt; undefined
+
+_.getPath(countries, [&quot;greece&quot;, &quot;notableFigures&quot;, 1]);
+// =&gt; &quot;Hippocrates&quot;
+
+_.getPath(countries, &quot;greece.notableFigures[2]&quot;);
+// =&gt; &quot;Thales&quot;
+
+_.getPath(countries, &quot;greece[&#39;notableFigures&#39;][2]&quot;)
+// =&gt; &quot;Thales&quot;</code></pre>
 <hr>
 <h4 id="haspath"><a href="#haspath" name="haspath">hasPath</a></h4>
 <p><strong>Signature:</strong> <code>_.hasPath(obj:Object, ks:String|Array)</code></p>
 <p>Returns a boolean indicating whether there is a property at the path described
-by the keys given. Keys may be given as an array or as a dot-separated string.</p>
+by the keys given. Keys may be given as an array of key names or as a single string
+using JavaScript property access notation.</p>
 <pre><code class="lang-javascript">var countries = {
         greece: {
             athens: {
                 playwright:  &quot;Sophocles&quot;
-            }
+            },
+            notableFigures: [&quot;Alexander&quot;, &quot;Hippocrates&quot;, &quot;Thales&quot;]
         }
     }
 };
@@ -1563,6 +1576,18 @@ _.hasPath(countries, [&quot;greece&quot;, &quot;athens&quot;, &quot;playwright&q
 // =&gt; true
 
 _.hasPath(countries, [&quot;greece&quot;, &quot;sparta&quot;, &quot;playwright&quot;]);
+// =&gt; false
+
+_.hasPath(countries, [&quot;greece&quot;, &quot;notableFigures&quot;, 1]);
+// =&gt; true
+
+_.hasPath(countries, &quot;greece.notableFigures[2]&quot;);
+// =&gt; true
+
+_.hasPath(countries, &quot;greece[&#39;notableFigures&#39;][2]&quot;);
+// =&gt; true
+
+_.hasPath(countries, &quot;greece.sparta[2]&quot;);
 // =&gt; false</code></pre>
 <hr>
 <h4 id="kv"><a href="#kv" name="kv">kv</a></h4>
