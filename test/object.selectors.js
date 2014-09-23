@@ -81,6 +81,11 @@ $(document).ready(function() {
     strictEqual(_.hasPath(deepObject, ["undefinedVal", "notHere"]), false, "should return false for descendants of undefined properties");
 
     strictEqual(_.hasPath(deepObject, "a.b.c"), true, "should work with keys written in dot notation.");
+
+    strictEqual(_.hasPath(null, []), true, "should return true for null and undefined when passed no keys");
+    strictEqual(_.hasPath(void 0, []), true);
+    strictEqual(_.hasPath(null, ['']), false, "should return false (not throw) on null/undefined given keys");
+    strictEqual(_.hasPath(void 0, ['']), false);
   });
 
   test("pickWhen", function() {
