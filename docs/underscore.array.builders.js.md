@@ -1,4 +1,4 @@
-### array.builders 
+### array.builders
 
 > Functions to build arrays. <a href="docs/underscore.array.builders.js.html" class="btn btn-primary btn-xs">View Annotated Source</a>
 
@@ -10,16 +10,16 @@ The `_.cat` function provides a way to concatenate zero or more heterogeneous ar
 
     _.cat();                    // 0-args
     //=> []
-    
+
     _.cat([]);                  // 1-arg, empty array
     //=> []
-    
+
     _.cat([1,2,3]);             // 1-arg
     //=> [1,2,3]
-    
+
     _.cat([1,2,3],[4,5,6]);     // 2-args
     //=> [1,2,3,4,5,6]
-    
+
     _.cat([1,2,3],[4,5,6],[7]); // 3+ args
     //=> [1,2,3,4,5,6,7]
 
@@ -35,10 +35,10 @@ The `_.cat` function will also work with the `arguments` object as if it were an
 Signature: `_.cat(... elems:Arguments ...)`
 
     function f(){ return _.cat(arguments, 4,5,6); }
-    
+
     f(1,2,3);
     //=> [1,2,3,4,5,6]
-    
+
 #### chunk
 
 The `_.chunk` function, by default, accepts an array and a number and splits and returns a new array representing the original array split into some number of arrays of the given size:
@@ -82,10 +82,10 @@ The `_.cons` function provides a way to "construct" a new array by taking some e
 
     _.cons(0, []);
     //=> [0]
-    
+
     _.cons(1, [2]);
     //=> [1,2]
-    
+
     _.cons([0], [1,2,3]);
     //=> [0,1,2,3]
 
@@ -95,7 +95,7 @@ Signature: `_.cons(head:Any, tail:Any)`
 
     _.cons(1, 2);
     //=> [1,2]
-    
+
     _.cons([1], 2);
     //=> [[1],2]
 
@@ -104,7 +104,7 @@ Finally, `_.cons` will operate with the `arguments` object.
 Signature: `_.cons(head:Any, tail:Arguments)`
 
     function f() { return _.cons(0, arguments) }
-    
+
     f(1,2,3);
     //=> [0,1,2,3]
 
@@ -129,7 +129,7 @@ Inspecting the contents of `errors` shows:
     ["Element @2 is bad", "Element @4 is bad"]
 
 The `_.mapcat` function is equivalent to `_.cat.apply(array, _.map(array,fun))`.
-	
+
 #### interpose
 
 The `_.interpose` function takes an array and an element and returns a new array with the given element inserted betwixt every element in the original array:
@@ -159,7 +159,7 @@ The array returned from `_.weave` will be as long as the longest array given wit
     //=> ['a',1,'b','c']
 
 The `_.interleave` function is an alias for `_.weave`.
-	
+
 #### repeat
 
 Signature: `_.repeat(t:Integer, value:Any)`
@@ -175,7 +175,7 @@ The `_.cycle` function takes an integer value used to build an array of that siz
 
     _.cycle(5, [1,2,3]);
     //=> [1,2,3,1,2]
-	
+
 #### splitAt
 
 The `_.splitAt` function takes an array and a numeric index and returns a new array with two embedded arrays representing a split of the original array at the index provided:
@@ -184,18 +184,18 @@ The `_.splitAt` function takes an array and a numeric index and returns a new ar
     //=> [[1,2],[3,4,5]]
 
     _.splitAt([1,2,3,4,5], 0);
-    //=> [[],[1,2,3,4,5]]    
+    //=> [[],[1,2,3,4,5]]
 
 The operation of `_.splitAt` is safe if the index provided is outside the range of legal indices:
 
     _.splitAt([1,2,3,4,5], 20000);
     //=> [[1,2,3,4,5],[]]
-    
+
     _.splitAt([1,2,3,4,5], -1000);
-    //=> [[],[1,2,3,4,5]]    
-    
+    //=> [[],[1,2,3,4,5]]
+
     _.splitAt([], 0);
-    //=> [[],[]]    
+    //=> [[],[]]
 
 
 #### takeSkipping
@@ -229,7 +229,7 @@ The last element in the array returned from `_.reductions` is the answer that yo
 
 The `_.keepIndexed` function takes an array and a function and returns a new array filled with the *non-null* return results of the given function on the elements or keys in the given array:
 
-    _.keepIndexed([1,2,3], function(k) { 
+    _.keepIndexed([1,2,3], function(k) {
       return i === 1 || i === 2;
     });
 
@@ -237,8 +237,8 @@ The `_.keepIndexed` function takes an array and a function and returns a new arr
 
 If you return either `null` or `undefined` then the result is dropped from the resulting array:
 
-    _.keepIndexed(['a','b','c'], function(k, v) { 
-      if (k === 1) return v; 
+    _.keepIndexed(['a','b','c'], function(k, v) {
+      if (k === 1) return v;
     });
 
     //=> ['b']
@@ -263,10 +263,12 @@ The `_.collate` function provides a way to sort an array according to an arbitra
 
 Signature: `_.collate(toSort:array, customOrder:array)`
 
+```js
     var order = ['tall', 'medium', 'short'];
     var people = ['medium', 'short', 'tall', 'tall', 'short', 'medium'];
     _.collate(people, order);
     //=> ['tall', 'tall', 'medium', 'medium', 'short', 'short']
+```
 
 You can provide a third argument to `_.collate` to influence how array elements are evaluated while sorting.
 
@@ -274,15 +276,18 @@ If the third argument is a string, `_.collate` will look for a property with tha
 
 Signature: `_collate(toSort:array, customOrder:array, sortKey:string)`
 
+```js
     var order = ['tall', 'medium', 'short'];
     var people = [ {name:'Danny', height:'short'}, {name:'Arnold', height:'tall'} ];
     _.collate(people, order, 'height');
     //=> [ {name:'Arnold', height:'tall'}, {name:'Danny', height:'short'} ];
+```
 
 You may also pass a function as the third argument; it will be executed once for each item (with the original list as `this`, and the item as its argument), with its return used as the item's sort value.
 
 Signature: `_collate(toSort:array, customOrder:array, sortKey:function)`
 
+```js
     var rankedSeverity = ['Critical', 'Major', 'Minor'];
     var warnings = ['failed login', 'hdd full', 'network outage'];
     function determineSeverity(msg) {
@@ -292,3 +297,4 @@ Signature: `_collate(toSort:array, customOrder:array, sortKey:function)`
     }
     _.collate(warnings, rankedSeverity, determineSeverity);
     //=> ['hdd full', 'network outage', 'failed login']
+```
