@@ -199,14 +199,15 @@
     // order must be an array of values; defines the custom sort
     // key must be one of: missing/null, a string, or a function; 
     collate: function(array, order, key) {
-      if (!_.isArray(array)) throw new TypeError("expected an array as the first argument");
-      if (!_.isArray(order)) throw new TypeError("expected an array as the second argument");
+      if (typeof array.length != "number") throw new TypeError("expected an array-like first argument");
+      if (typeof order.length != "number") throw new TypeError("expected an array-like second argument");
       
+      var original = slice.call(array);
       var valA, valB;
-      return sort.call(array, function (a, b) {
+      return sort.call(original, function (a, b) {
         if(_.isFunction(key)) {
-          valA = key.call(array, a);
-          valB = key.call(array, b);
+          valA = key.call(original, a);
+          valB = key.call(original, b);
         } else if(existy(key)) {
           valA = a[key];
           valB = b[key];
