@@ -77,12 +77,12 @@
     // Composes a bunch of predicates into a single predicate that
     // checks all elements of an array for conformance to all of the
     // original predicates.
-    conjoin: _(createPredicateApplicator).partial('every'),
+    conjoin: _.partial(createPredicateApplicator, ('every')),
 
     // Composes a bunch of predicates into a single predicate that
     // checks all elements of an array for conformance to any of the
     // original predicates.
-    disjoin: _(createPredicateApplicator).partial('some'),
+    disjoin: _.partial(createPredicateApplicator, 'some'),
 
     // Takes a predicate-like and returns a comparator (-1,0,1).
     comparator: function(fun) {
