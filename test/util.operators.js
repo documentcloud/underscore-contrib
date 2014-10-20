@@ -64,21 +64,25 @@ $(document).ready(function() {
     equal(_.eq({}, {}), false, '{} == {}');
     equal(false, false, 'failing placeholder');
     equal(_.eq(0, 0, 1), false, 'compares a list of arguments');
+    equal(_.eq([0, 0, 1]), false, 'compares a list of arguments, when specified as an array');
   });
   test("seq", function() {
     equal(_.seq(1, 1), true, '1 === 1');
     equal(_.seq(1, '1'), false, '1 !== "1"');
     equal(_.seq(0, 0, 1), false, 'compares a list of arguments');
+    equal(_.seq([0, 0, 1]), false, 'compares a list of arguments, when specified as an array');
   });
   test("neq", function() {
     equal(_.neq('a', 'b'), true, '"a" != "b"');
     equal(_.neq(1, '1'), false, '1 == "1"');
     equal(_.neq(0, 0, 1), true, 'compares a list of arguments');
+    equal(_.neq([0, 0, 1]), true, 'compares a list of arguments, when specified as an array');
   });
   test("sneq", function() {
     equal(_.sneq('a', 'b'), true, '"a" !== "b"');
     equal(_.sneq(1, '1'), true, '1 !== "1"');
     equal(_.sneq(0, 0, 1), true, 'compares a list of arguments');
+    equal(_.sneq([0, 0, 1]), true, 'compares a list of arguments, when specified as an array');
   });
   test("not", function() {
     equal(_.not(true), false, 'converts true to false');
@@ -90,23 +94,27 @@ $(document).ready(function() {
     equal(_.gt(3, 2), true, '3 > 2');
     equal(_.gt(1, 3), false, '1 > 3');
     equal(_.gt(1, 2, 1), false, 'compares a list of arguments');
+    equal(_.gt([1, 2, 1]), false, 'compares a list of arguments, when specified as an array');
   });
   test("lt", function() {
     equal(_.lt(3, 2), false, '3 < 2');
     equal(_.lt(1, 3), true, '1 < 3');
     equal(_.lt(1, 2, 1), false, 'compares a list of arguments');
+    equal(_.lt([1, 2, 1]), false, 'compares a list of arguments, when specified as an array');
   });
   test("gte", function() {
     equal(_.gte(3, 2), true, '3 >= 2');
     equal(_.gte(1, 3), false, '1 >= 3');
     equal(_.gte(3, 3), true, '3 >= 3');
     equal(_.gte(2, 3, 1), false, 'compares a list of arguments');
+    equal(_.gte([2, 3, 1]), false, 'compares a list of arguments, when specified as an array');
   });
   test("lte", function() {
     equal(_.lte(3, 2), false, '3 <= 2');
     equal(_.lte(1, 3), true, '1 <= 3');
     equal(_.lte(3, 3), true, '3 <= 3');
     equal(_.lte(2, 2, 1), false, 'compares a list of arguments');
+    equal(_.lte([2, 2, 1]), false, 'compares a list of arguments, when specified as an array');
   });
   test("bitwiseAnd", function() {
     equal(_.bitwiseAnd(1, 1), 1, '1 & 1');

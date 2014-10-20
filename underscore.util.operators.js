@@ -25,10 +25,13 @@
   function variadicComparator(comparator) {
     return function() {
       var result;
-      for (var i = 0; i < arguments.length - 1; i++) {
-        result = comparator(arguments[i], arguments[i + 1]);
+      var numbersToCompare = _(arguments).flatten();
+
+      for (var i = 0; i < numbersToCompare.length - 1; i++) {
+        result = comparator(numbersToCompare[i], numbersToCompare[i + 1]);
         if (result === false) return result;
       }
+
       return result; 
     };
   }
