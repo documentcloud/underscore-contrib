@@ -16,7 +16,7 @@
   // Turn a binary math operator into a variadic operator
   function variadicMath(operator) {
     return function() {
-      var numbersToOperateOn = _(arguments).flatten();
+      var numbersToOperateOn = _.flatten(arguments, true);
       return _.reduce(numbersToOperateOn, operator);
     };
   }
@@ -25,7 +25,7 @@
   function variadicComparator(comparator) {
     return function() {
       var result;
-      var numbersToCompare = _(arguments).flatten();
+      var numbersToCompare = _.flatten(arguments, true);
 
       for (var i = 0; i < numbersToCompare.length - 1; i++) {
         result = comparator(numbersToCompare[i], numbersToCompare[i + 1]);
