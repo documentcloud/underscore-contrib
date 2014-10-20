@@ -12,10 +12,6 @@
 
   // Setup for variadic operators
   // ----------------------------
-  
-  function isArrayLike(obj) {
-    return typeof obj.length == "number";
-  }
 
   // Turn a binary math operator into a variadic operator
   function variadicMath(operator) {
@@ -38,6 +34,10 @@
 
       return result; 
     };
+  }
+
+  function isArrayLike(obj) {
+    return typeof obj.length == "number";
   }
 
   // Turn a boolean-returning function into one with the opposite meaning
