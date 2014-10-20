@@ -37,7 +37,7 @@
   }
 
   function isArrayLike(obj) {
-    return typeof obj.length == "number";
+    return obj != null && typeof obj.length === "number";
   }
 
   // Turn a boolean-returning function into one with the opposite meaning
