@@ -16,7 +16,8 @@
   // Turn a binary math operator into a variadic operator
   function variadicMath(operator) {
     return function() {
-      return _.reduce(arguments, operator);
+      var numbersToOperateOn = _(arguments).flatten();
+      return _.reduce(numbersToOperateOn, operator);
     };
   }
 
