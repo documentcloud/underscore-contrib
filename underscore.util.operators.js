@@ -22,11 +22,11 @@
 
   // Turn a binary comparator into a variadic comparator
   function variadicComparator(comparator) {
-    return variaderize(function(numbersToCompare) {
+    return variaderize(function(itemsToCompare) {
       var result;
 
-      for (var i = 0; i < numbersToCompare.length - 1; i++) {
-        result = comparator(numbersToCompare[i], numbersToCompare[i + 1]);
+      for (var i = 0; i < itemsToCompare.length - 1; i++) {
+        result = comparator(itemsToCompare[i], itemsToCompare[i + 1]);
         if (result === false) return result;
       }
 
