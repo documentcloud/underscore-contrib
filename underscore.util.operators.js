@@ -15,20 +15,20 @@
 
   // Turn a binary math operator into a variadic operator
   function variadicMath(operator) {
-    return function() {
-      var numbersToOperateOn = isArrayLike(arguments[0]) ? arguments[0] : arguments;
+    return function(args) {
+      var numbersToOperateOn = isArrayLike(args) ? args : arguments;
       return _.reduce(numbersToOperateOn, operator);
     };
   }
 
   // Turn a binary comparator into a variadic comparator
   function variadicComparator(comparator) {
-    return function() {
-      var result;
-      var numbersToCompare = isArrayLike(arguments[0]) ? arguments[0] : arguments;
+    return function(args) {
+        var numbersToCompare = isArrayLike(args) ? args : arguments;
+        var result;
 
-      for (var i = 0; i < numbersToCompare.length - 1; i++) {
-        result = comparator(numbersToCompare[i], numbersToCompare[i + 1]);
+        for (var i = 0; i < numbersToCompare.length - 1; i++) {
+          result = comparator(numbersToCompare[i], numbersToCompare[i + 1]);
         if (result === false) return result;
       }
 
