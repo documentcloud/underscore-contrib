@@ -15,21 +15,35 @@
 
   // Turn a binary math operator into a variadic operator
   function variadicMath(operator) {
-    return function() {
-      return _.reduce(arguments, operator);
-    };
+    return variaderize(function(numbersToOperateOn) {
+      return _.reduce(numbersToOperateOn, operator);
+    });
   }
 
   // Turn a binary comparator into a variadic comparator
   function variadicComparator(comparator) {
-    return function() {
+    return variaderize(function(itemsToCompare) {
       var result;
-      for (var i = 0; i < arguments.length - 1; i++) {
-        result = comparator(arguments[i], arguments[i + 1]);
+
+      for (var i = 0; i < itemsToCompare.length - 1; i++) {
+        result = comparator(itemsToCompare[i], itemsToCompare[i + 1]);
         if (result === false) return result;
       }
-      return result; 
+
+      return result;
+    });
+  }
+  
+  // Converts a unary function that operates on an array into one that also works with a variable number of arguments
+  function variaderize(func) {
+    return function (args) {
+      var allArgs = isArrayLike(args) ? args : arguments;
+      return func(allArgs);
     };
+  }
+
+  function isArrayLike(obj) {
+    return obj != null && typeof obj.length === "number";
   }
 
   // Turn a boolean-returning function into one with the opposite meaning
