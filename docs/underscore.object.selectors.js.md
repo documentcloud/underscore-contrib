@@ -131,6 +131,19 @@ _.hasPath(countries, "greece.sparta[2]");
 
 --------------------------------------------------------------------------------
 
+#### keysFromPath
+
+**Signature:** `_.keysFromPath(path:String)`
+
+Takes a string in JavaScript object path notation and returns an array of keys.
+
+```javascript
+_.keysFromPath("rome.emperors[0]['first-name']");
+// => ["rome", "emperors", "0", "first-name"]
+```
+
+--------------------------------------------------------------------------------
+
 #### kv
 
 **Signature:** `_.kv(obj:Object, key:String)`

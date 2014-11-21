@@ -88,6 +88,12 @@ $(document).ready(function() {
     strictEqual(_.hasPath(void 0, ['']), false);
   });
 
+  test("keysFromPath", function() {
+    deepEqual(_.keysFromPath("a.b.c"), ["a", "b", "c"], "should convert a path into an array of keys");
+    deepEqual(_.keysFromPath("a[0].b['c']"), ["a", "0", "b", "c"], "should handle bracket notation");
+    deepEqual(_.keysFromPath("[\"D'artagnan\"]['[0].[1]']"), ["D'artagnan", "[0].[1]"], "should handle complex paths");
+  });
+
   test("pickWhen", function() {
     var a = {foo: true, bar: false, baz: 42};
 

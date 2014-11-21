@@ -20,7 +20,7 @@
 
   // Will take a path like 'element[0][1].subElement["Hey!.What?"]["[hey]"]'
   // and return ["element", "0", "1", "subElement", "Hey!.What?", "[hey]"]
-  function parseJavaScriptPathIntoKeyNames(path) {
+  function keysFromPath(path) {
     // from http://codereview.stackexchange.com/a/63010/8176
     /**
      * Repeatedly capture either:
@@ -75,7 +75,7 @@
     // path described by the keys given. Keys may be given as an array
     // or as a dot-separated string.
     getPath: function getPath (obj, ks) {
-      ks = typeof ks == "string" ? parseJavaScriptPathIntoKeyNames(ks) : ks;
+      ks = typeof ks == "string" ? keysFromPath(ks) : ks;
 
       var i = -1, length = ks.length;
 
@@ -92,7 +92,7 @@
     // Returns a boolean indicating whether there is a property
     // at the path described by the keys given
     hasPath: function hasPath (obj, ks) {
-      ks = typeof ks == "string" ? parseJavaScriptPathIntoKeyNames(ks) : ks;
+      ks = typeof ks == "string" ? keysFromPath(ks) : ks;
 
       var i = -1, length = ks.length;
       while (++i < length && obj != null) {
@@ -104,6 +104,8 @@
       }
       return i === length;
     },
+
+    keysFromPath: keysFromPath,
 
     pickWhen: function(obj, pred) {
       var copy = {};
