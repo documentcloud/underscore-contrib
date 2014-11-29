@@ -2,13 +2,15 @@
 // (c) 2013 Michael Fogus and DocumentCloud Inc.
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root, undefined) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -340,4 +342,4 @@
     cycle: cycle
   };
 
-})(this, void 0);
+}).call(this, void 0);
