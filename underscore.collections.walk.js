@@ -2,13 +2,15 @@
 // (c) 2013 Patrick Dubroy
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -193,4 +195,4 @@
   // Use `_.walk` as a namespace to hold versions of the walk functions which
   // use the default traversal strategy.
   _.extend(_.walk, _.walk());
-})(this);
+}).call(this);

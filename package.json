@@ -7,14 +7,14 @@
   },
   "devDependencies": {
     "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.11",
     "grunt-contrib-concat": "0.3.0",
-    "grunt-contrib-uglify": "0.2.0",
+    "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-qunit": "~0.2.2",
+    "grunt-contrib-uglify": "0.2.0",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-jshint": "~0.6.4",
     "grunt-docco": "~0.3.0",
-    "grunt-tocdoc": "0.1.1",
-    "grunt-cli": "~0.1.11"
+    "grunt-tocdoc": "0.1.1"
   },
   "repository": {
     "type": "git",
