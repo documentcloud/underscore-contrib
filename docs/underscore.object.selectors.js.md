@@ -173,7 +173,7 @@ function returns `true` for. The predicat function is invoked with each
 property value, like so: `pred(propValue)`.
 
 ```javascript
-var playwrights = {
+var obj = {
     euripedes: "Greece",
     shakespere: "England"
 };
@@ -193,7 +193,7 @@ function returns `true` for. The predicate function is invoked with each
 property value, like so: `pred(propValue)`.
 
 ```javascript
-var playwrights = {
+var obj = {
     euripedes: "Greece",
     shakespere: "England"
 };
