@@ -173,12 +173,12 @@ function returns `true` for. The predicat function is invoked with each
 property value, like so: `pred(propValue)`.
 
 ```javascript
-var obj = {
+var playwrights = {
     euripedes: "Greece",
     shakespere: "England"
 };
 
-_.omitWhen(obj, function (country) { return country == "England" });
+_.omitWhen(playwrights, function (country) { return country == "England" });
 // => { euripedes: "Greece" }
 ```
 
@@ -193,12 +193,12 @@ function returns `true` for. The predicate function is invoked with each
 property value, like so: `pred(propValue)`.
 
 ```javascript
-var obj = {
+var playwrights = {
     euripedes: "Greece",
     shakespere: "England"
 };
 
-_.pickWhen(obj, function (country) { return country == "England" });
+_.pickWhen(playwrights, function (country) { return country == "England" });
 // => { shakespeare: "England" }
 ```
 
