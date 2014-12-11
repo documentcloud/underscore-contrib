@@ -178,7 +178,7 @@ var playwrights = {
     shakespere: "England"
 };
 
-_.omitWhen(obj, function (country) { return country == "England" });
+_.omitWhen(playwrights, function (country) { return country == "England" });
 // => { euripedes: "Greece" }
 ```
 
@@ -198,7 +198,7 @@ var playwrights = {
     shakespere: "England"
 };
 
-_.pickWhen(obj, function (country) { return country == "England" });
+_.pickWhen(playwrights, function (country) { return country == "England" });
 // => { shakespeare: "England" }
 ```
 
