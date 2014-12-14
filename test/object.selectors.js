@@ -86,6 +86,8 @@ $(document).ready(function() {
     strictEqual(_.hasPath(void 0, []), true);
     strictEqual(_.hasPath(null, ['']), false, "should return false (not throw) on null/undefined given keys");
     strictEqual(_.hasPath(void 0, ['']), false);
+
+    strictEqual(_.hasPath(deepObject, "a.b.c.d"), false, "should return false for keys which doesn't exist on nested existing objects");
   });
 
   test("keysFromPath", function() {

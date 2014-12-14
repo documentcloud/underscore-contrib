@@ -97,7 +97,7 @@
       ks = typeof ks == "string" ? keysFromPath(ks) : ks;
 
       var i = -1, length = ks.length;
-      while (++i < length && obj != null) {
+      while (++i < length && _.isObject(obj)) {
         if (ks[i] in obj) {
           obj = obj[ks[i]];
         } else {
