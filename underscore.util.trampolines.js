@@ -21,7 +21,7 @@ _.mixin({
     var result = fun.apply(fun, _.rest(arguments));
 
     while (_.isFunction(result)) {
-      result = result();
+      result = _(result());
       if ((result instanceof _) && (result.stopTrampoline)) break;
     }
 
