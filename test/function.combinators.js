@@ -18,6 +18,8 @@ $(document).ready(function() {
   test("conjoin", function() {
     var isPositiveEven = _.conjoin(function(x) { return x > 0; }, function(x) { return (x & 1) === 0; });
 
+    equal(isPositiveEven(2), true, 'should recognize that element satisfies a conjunction');
+    equal(isPositiveEven(1), false, 'should recognize that element does not satisfy a conjunction');
     equal(isPositiveEven([2,4,6,8]), true, 'should recognize when all elements satisfy a conjunction');
     equal(isPositiveEven([2,4,6,7,8]), false, 'should recognize when an element fails to satisfy a conjunction');
   });
@@ -25,6 +27,8 @@ $(document).ready(function() {
   test("disjoin", function() {
     var orPositiveEven = _.disjoin(function(x) { return x > 0; }, function(x) { return (x & 1) === 0; });
 
+    equal(orPositiveEven(2), true, 'should recognize that element satisfies a disjunction');
+    equal(orPositiveEven(-1), false, 'should recognize that element does not satisfy a disjunction');
     equal(orPositiveEven([-1,2,3,4,5,6]), true, 'should recognize when all elements satisfy a disjunction');
     equal(orPositiveEven([-1,-3]), false, 'should recognize when an element fails to satisfy a disjunction');
   });
