@@ -84,7 +84,7 @@ If wrapping a function around `_.nth` is too tedious or you'd like to partially 
 
 #### partitionBy
 
-**Signature:** `_.keep(array:Array, fun:Function)`
+**Signature:** `_.partitionBy(array:Array, fun:Function)`
 
 Takes an array and partitions it into sub-arrays as the given predicate changes
 truth sense.
