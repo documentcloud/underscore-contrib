@@ -24,12 +24,26 @@ _.frequencies(citations);
 
 **Signature:** `_.merge(obj1:Object[, obj:Object...])`
 
-Merges two or more objects starting with the left-most and applying the keys
-rightward.
+Returns a new object resulting from merging the passed objects. Objects
+are processed in order, so each will override properties of the same
+name occurring in earlier arguments. 
+
+Returns `null` if called without arguments.
 
 ```javascript
-_.merge({ a: "alpha" }, { b: "beta" });
-// => { a: "alpha", b: "beta" }
+var a = {a: "alpha"};
+var b = {b: "beta"};
+
+var threeGreekLetters = _.merge(a, b, {g: "gamma"});
+
+a;
+// => {a: "alpha"}
+
+b;
+// => {b: "beta"}
+
+threeGreekLetters;
+// => { a: "alpha", b: "beta", g: "gamma" }
 ```
 
 --------------------------------------------------------------------------------
@@ -56,11 +70,26 @@ Sets the value of a property at any depth in `obj` based on the path described
 by the `ks` array. If any of the properties in the `ks` path don't exist, they
 will be created with `defaultValue`.
 
-See `_.updatePath` about `obj` not being mutated in the process by cloning it.
+Note that the original object will *not* be mutated. Instead, `obj` will
+be cloned deeply.
+
+
 
 ```javascript
-_.setPath({}, "Plotinus", ["Platonism", "Neoplatonism"], {});
+
+var obj = {};
+
+var plotinusObj = _.setPath(obj, "Plotinus", ["Platonism", "Neoplatonism"], {});
+
+obj;
+// => {}
+
+plotinusObj;
 // => { Platonism: { Neoplatonism: "Plotinus" } }
+
+obj === plotinusObj;
+// => false;
+
 ```
 
 --------------------------------------------------------------------------------
@@ -82,6 +111,8 @@ schools === _.snapshot(schools);
 ```
 
 --------------------------------------------------------------------------------
+
+#### updatePath
 
 **Signature:** `_.updatePath(obj:Object, fun:Function, ks:Array, defaultValue:Any)`
 
@@ -115,3 +146,5 @@ obj;
 obj === imperialObj;
 // => false
 ```
+
+--------------------------------------------------------------------------------
