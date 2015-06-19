@@ -61,7 +61,7 @@
 
     var fTypeof = function(o) {
         return typeof o;
-    }
+    };
 
     _.mixin({islike: islike});
 }).call(this);
