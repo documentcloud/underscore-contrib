@@ -74,6 +74,7 @@ The _.contrib library currently contains a number of related capabilities, aggre
   - [underscore.util.operators](#util.operators) - functions that wrap common (or missing) JavaScript operators
   - [underscore.util.strings](#util.strings) - functions to work with strings
   - [underscore.util.trampolines](#util.trampolines) - functions to facilitate calling functions recursively without blowing the stack
+  - [underscore.comparison.islike](#comparison.islike) - a function to test objects fit simple patterns
 
 The links above are to the annotated source code.  Full-blown _.contrib documentation is in the works.  Contributors welcomed.
 
