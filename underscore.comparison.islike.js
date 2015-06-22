@@ -21,7 +21,7 @@
         }
 
         if (typeof obj !== typeof pattern) return false;
-            if (pattern instanceof Array && !(obj instanceof Array)) return false;
+            if (_.isArray(pattern) && !_.isArray(obj)) return false;
 
                 var type = typeof pattern;
 
@@ -37,15 +37,12 @@
                     } else { // object
                         if (pattern.constructor === pattern.constructor.prototype.constructor) {
                             // for 'simple' objects we enumerate
-                            for (var k in pattern) {
-                                if (!pattern.hasOwnProperty(k)) {
-                                    continue;
-                                }
-                                var p = pattern[k];
+                            var anyUnlike = _.any(pattern, function(p, k) {
                                 var o = obj[k];
-                                if (!islike(o, p)) {
-                                    return false;
-                                }
+                                return !islike(o, p);
+                            });
+                            if (anyUnlike) {
+                                return false;
                             }
                         } else {
                             // for 'types' we just check the inheritance chain

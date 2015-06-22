@@ -14,7 +14,9 @@ _.islike(
 
 ```
 
-To specify that a value should be a string you can put an empty string in the pattern `""`. For a number use `0` and for an array use an empty array `[]`. Nested objects are recursively checked.
+#### Basic types
+
+To specify that a value should be a string you can put an empty string in the pattern `""`. For a number use `0` and for an array use an empty array `[]`.
 
  * `""` - stands for a string
  * `0` - stands for a number
@@ -30,6 +32,8 @@ _.islike(myArgument, {
 });
 ```
 
+#### Array types
+
 An array value can also be type checked by passing an array of types in the pattern. For example
 
  * `_.islike([ 1, 2, 3, "hello" ], [ 0 ])` - returns false
@@ -38,3 +42,21 @@ An array value can also be type checked by passing an array of types in the patt
  * `_.islike([ 1, 2, 3, "hello", function() {} ], [ 0, "", Function ]}` - returns true
 
 `[""]` allows an array of only strings and `["",0]` allows strings and numbers. This check is done using `typeof` so objects and arrays will fall into the same category.
+
+#### Complex nested objects
+
+Nested objects are recursively checked, so you just need to nest your pattern.
+
+This is a very complex example, probably more complex than `_.islike` is suited for, but is shows the nesting. In the example the object has a `process` property with two callback functuons and an array of numbers. It also has an `author` property which has another nested `location` property.
+
+```javascript
+_.islike(myComplexArgument,
+    title: "", age: 0, popularity: 0, available: false,
+    process: {
+        success: Function, error: Function, values: [0]
+    },
+    author: {
+        name: "", location: { country: "", city: "", postcode: "" }
+    }
+});
+```
