@@ -208,4 +208,9 @@ $(document).ready(function() {
     deepEqual(_.combinations(["a",["b"]],[[1]]),[["a",[1]],[["b"],[1]]],'initial arrays can contain array elements which are then preserved');
   });
 
+  test('insert', function(){
+    deepEqual(_.insert([], 0, 1), [1],'empty array will will insert item');
+    deepEqual(_.insert([1,3], 1, 2), [1,2,3],'array will insert item');
+    deepEqual(_.insert([1,3], 2, 2), [1,3,2],'exceeding index will insert item at the end');
+  });
 });

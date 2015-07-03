@@ -196,6 +196,13 @@
           }));
         },[]);
       },_.map(arguments[0],function(i){return [i];}));
+    },
+    
+    // Inserts an item in an array at the specific index
+    insert: function(array, index, item){
+      var copy = array.slice(0);
+      copy.splice(index, 0, item);
+      return copy;
     }
 
   });
