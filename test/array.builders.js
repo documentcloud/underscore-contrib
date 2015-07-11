@@ -209,8 +209,9 @@ $(document).ready(function() {
   });
 
   test('insert', function(){
-    deepEqual(_.insert([], 0, 1), [1],'empty array will will insert item');
-    deepEqual(_.insert([1,3], 1, 2), [1,2,3],'array will insert item');
-    deepEqual(_.insert([1,3], 2, 2), [1,3,2],'exceeding index will insert item at the end');
+    deepEqual(_.insert([], 0, 1), [1],'inserts item in empty array');
+    deepEqual(_.insert([2], 0, 1), [1,2],'inserst item at the corret index');
+    deepEqual(_.insert([1,2], 2, 3), [1,2,3],'inserts item at the end of array if exceeding index');
+    deepEqual(_.insert([1,3], -1, 2), [1,2,3],'inserst item at the correct index if negative index');
   });
 });
