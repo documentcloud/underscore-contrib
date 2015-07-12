@@ -209,6 +209,9 @@ $(document).ready(function() {
   });
 
   test('insert', function(){
+    var throwingFn = function() { _.insert({}, 0, 1); };
+    throws(throwingFn, TypeError, 'throws a TypeError when passing an object literal');
+    
     deepEqual(_.insert([], 0, 1), [1],'inserts item in empty array');
     deepEqual(_.insert([2], 0, 1), [1,2],'inserst item at the corret index');
     deepEqual(_.insert([1,2], 2, 3), [1,2,3],'inserts item at the end of array if exceeding index');

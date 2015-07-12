@@ -202,6 +202,7 @@
     // Inserts an item in an array at the specific index mutating the original
     // array and returning it.
     insert: function(array, index, item){
+      if (!_.isArray(array)) throw new TypeError('Expected an array as the first argument');
       splice.call(array, index, 0, item);
       return array;
     }
