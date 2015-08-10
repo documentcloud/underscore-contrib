@@ -339,3 +339,36 @@ _.weave(['a','b','c'], [1]);
 The `_.interleave` function is an alias for `_.weave`.
 
 --------------------------------------------------------------------------------
+
+#### grind
+
+Signature: `_.grind(array:Array, properties...: String)`
+
+The `_.grind` function creates a new array from the passed `array`, with the exception that the objects in the returned 
+array will have `properties` removed from them. The returned array is a *ground down* version of the given array.
+
+```javascript
+_.grind();                            // 0 args, empty array is returned
+//=> [] 
+
+
+_.grind([1, 2, 3]);                   // 1 arg, given array is returned
+//=> [1, 2, 3]
+
+
+var mary = { name: "mary", hobbie: "lacrosse"  };
+var jack = { name: "jack", hobbie: "baseball"  };
+var people = [mary, jack];
+
+_.grind(people, "hobbie");            // 2 arg, property denoted by second arg is ground off of objects
+//=> [{name: "mary"}, {name: "jack"}]
+
+
+var adam = { name: "adam", color: "blue", number: "10" };
+var nick = { name: "nick", color: "pink", number: "19" };
+var people = [adam, nick];
+
+_.grind(people, "color", "number");   // 2+ args, all properties listed are ground off of objects
+//=> [{name: "adam"}, {name: "nick"}]
+```
+

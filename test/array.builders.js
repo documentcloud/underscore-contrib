@@ -208,4 +208,33 @@ $(document).ready(function() {
     deepEqual(_.combinations(["a",["b"]],[[1]]),[["a",[1]],[["b"],[1]]],'initial arrays can contain array elements which are then preserved');
   });
 
+
+  test("grind", function(){
+    var people, lessInterestingPeople;
+
+    /* Grind off a single property from an array of objects */
+    var mary = { name: "mary", hobbie: "lacrosse"  };
+    var jack = { name: "jack", hobbie: "baseball"  };
+
+    people = [mary, jack];
+
+    lessInterestingPeople = _.grind(people, "hobbie");
+
+    deepEqual(lessInterestingPeople[0].hasOwnProperty("hobbie"), false); 
+    deepEqual(lessInterestingPeople[1].hasOwnProperty("hobbie"), false);
+    
+    /* Grind off multiple properties, just list them after the array */
+    var adam = { name: "adam", color: "blue", number: "10" };
+    var nick = { name: "nick", color: "pink", number: "19" };
+     
+    people = [adam, nick];   
+    
+    lessInterestingPeople = _.grind(people, "color", "number");
+
+    deepEqual(lessInterestingPeople[0].hasOwnProperty("color"), false); 
+    deepEqual(lessInterestingPeople[1].hasOwnProperty("color"), false);
+    deepEqual(lessInterestingPeople[0].hasOwnProperty("number"), false); 
+    deepEqual(lessInterestingPeople[1].hasOwnProperty("number"), false);
+  });
+
 });

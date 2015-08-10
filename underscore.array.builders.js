@@ -196,8 +196,25 @@
           }));
         },[]);
       },_.map(arguments[0],function(i){return [i];}));
-    }
+    },
+    
+    // Creates an array with the given array, but with `properties` removed 
+    // from each object in the array.
+    grind: function(array /*, properties */){
+      if (array == null || !_.isArray(array)) return [];
+      var props = [].slice.call(arguments, 1); 
+      if (props == null) return array;
 
+      var ground = _.map(array, _.clone);
+
+      _.each(ground, function(obj) {
+        _.each(props, function(prop) {
+          delete obj[prop];
+        });
+      });
+      
+      return ground;
+    }
   });
 
 }).call(this);
