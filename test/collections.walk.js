@@ -21,6 +21,10 @@ $(document).ready(function() {
     };
   };
 
+  var getArrayValues = function() {
+    return ["a", "a", "a", "a", "b", "c", "d", "e" ];
+  };
+
   test("basic", function() {
     // Updates the value of `node` to be the sum of the values of its subtrees.
     // Ignores leaf nodes.
@@ -32,12 +36,12 @@ $(document).ready(function() {
     var tree = getSimpleTestTree();
     _.walk.postorder(tree, visitor);
     equal(tree.val, 16, 'should visit subtrees first');
-    
+
     tree = getSimpleTestTree();
     _.walk.preorder(tree, visitor);
     equal(tree.val, 5, 'should visit subtrees after the node itself');
   });
-  
+
   test("circularRefs", function() {
     var tree = getSimpleTestTree();
     tree.l.l.r = tree;
@@ -212,5 +216,21 @@ $(document).ready(function() {
     // Check that the default walker is unaffected.
     equal(_.walk.map(tree, _.walk.postorder, _.identity).length, 14, 'default map still works');
     equal(_.walk.pluckRec(tree, 'val').join(''), '0123456', 'default pluckRec still works');
+  });
+
+  test("containsAtLeast", function(){
+    var array = getArrayValues();
+
+    equal(_.walk.containsAtLeast(array, 3, "a"), true, "list contains at least 3 items");
+    equal(_.walk.containsAtLeast(array, 1, "b"), true, "list contains at least 1 items");
+    equal(_.walk.containsAtLeast(array, 1, "f"), false, "list doesn't contain item for that value");
+  });
+
+  test("containsAtMost", function(){
+    var array = getArrayValues();
+
+    equal(_.walk.containsAtMost(array, 4, "a"), true, "list contains at most 4 items");
+    equal(_.walk.containsAtMost(array, 1, "b"), true, "list contains at most 1 value");
+    equal(_.walk.containsAtMost(array, 1, "f"), true, "list contains at most 1 value");
   });
 });
