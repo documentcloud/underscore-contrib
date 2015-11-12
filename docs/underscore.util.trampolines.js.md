@@ -38,7 +38,7 @@ isEvenNaive(99999);
 function isEvenInner (num) {
     if (num === 0) return _.done(true);
     if (num === 1) return _.done(false);
-    return function () { return isEvenInner(Math.abs(num) - 2); };
+    return function () { return isEvenInner(num - 2); };
 }
 
 _.trampoline(isEvenInner, 99999);
