@@ -1,4 +1,4 @@
-### array.builders 
+### array.builders
 
 > Functions to build arrays. <a href="docs/underscore.array.builders.js.html" class="btn btn-primary btn-xs">View Annotated Source</a>
 
@@ -69,13 +69,13 @@ You can pass an optional third argument to `_.chunk` to pad out the final array 
 
 ```javascript
 _.chunk([0,1,2,3,4], 3, '_');
-//=> , [[0,1,2],[3,'_','_']]
+//=> , [[0,1,2],[3,4,'_']]
 ```
 
 If you given an array as the optional third argument then that array is used to pad in-place as needed:
 
 ```javascript
-_.chunk([0,1,2,3,4], 3, ['a', 'b']);
+_.chunk([0,1,2,3], 3, ['a', 'b']);
 //=> , [[0,1,2],[3,'a','b']]
 ```
 
@@ -87,13 +87,13 @@ The `_.chunkAll` function is similar to `_.chunk` except for the following.  Fir
 
 ```javascript
 _.chunkAll([0,1,2,3,4], 3);
-//=> , [[0,1,2],[3]]
+//=> , [[0,1,2],[3,4]]
 ```
 
 Also, `_.chunkAll` takes an optional third argument signifying that paritions should be built from skipped regions:
 
 ```javascript
-_.chunkAll(_.range(1), 2, 4);
+_.chunkAll(_.range(10), 2, 4);
 //=> [[0,1],[4,5],[8,9]]
 ```
 
@@ -198,7 +198,7 @@ That is, the array only contains every number from `5` down to `1` because when 
 The `_.keepIndexed` function takes an array and a function and returns a new array filled with the *non-null* return results of the given function on the elements or keys in the given array:
 
 ```javascript
-_.keepIndexed([1,2,3], function(k) { 
+_.keepIndexed([1,2,3], function(k) {
   return i === 1 || i === 2;
 });
 
@@ -208,8 +208,8 @@ _.keepIndexed([1,2,3], function(k) {
 If you return either `null` or `undefined` then the result is dropped from the resulting array:
 
 ```javascript
-_.keepIndexed(['a','b','c'], function(k, v) { 
-  if (k === 1) return v; 
+_.keepIndexed(['a','b','c'], function(k, v) {
+  if (k === 1) return v;
 });
 
 //=> ['b']
@@ -291,7 +291,7 @@ _.splitAt([1,2,3,4,5], 20000);
 //=> [[1,2,3,4,5],[]]
 
 _.splitAt([1,2,3,4,5], -1000);
-//=> [[],[1,2,3,4,5]]    
+//=> [[],[1,2,3,4,5]]
 
 _.splitAt([], 0);
 //=> [[],[]]
