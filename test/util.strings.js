@@ -32,11 +32,25 @@ $(document).ready(function() {
 
   test('camelCase', function() {
     equal(_.camelCase('punic-wars'), 'punicWars', 'Should convert a dashed-format string to camelCase.');
+    equal(_.camelCase('punic_wars', '_'), 'punicWars', 'Should convert a snake_case string to camelCase.');
+
+    var thrower = function() { _.camelCase('trojan-war', 12); };
+    throws(thrower, TypeError, 'Throws TypeError if second argument is not a string.');
+
+    thrower = function() { _.camelCase('trojan-war', '__'); };
+    throws(thrower, Error, 'Throws TypeError if separator is not one character.');
   });
 
   test('toDash', function() {
     equal(_.toDash('trojanWar'), 'trojan-war', 'Should convert a camelCase string to dashed-format.');
     equal(_.toDash('PersianWar'), 'persian-war', 'Should convert a PascalCase string to dashed-format.');
+    equal(_.toDash('persianWar', '_'), 'persian_war', 'Should convert a camelCase string to snake_case.');
+
+    var thrower = function() { _.toDash('trojanWar', 12); };
+    throws(thrower, TypeError, 'Throws TypeError if second argument is not a string.');
+
+    thrower = function() { _.toDash('trojanWar', '__'); };
+    throws(thrower, Error, 'Throws TypeError if separator is not one character.');
   });
 
   test('toQuery', function() {

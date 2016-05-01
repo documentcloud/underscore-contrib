@@ -9,20 +9,21 @@
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
   
   // Create quick reference variables for speed access to core prototypes.
-  var slice   = Array.prototype.slice,
-      concat  = Array.prototype.concat;
+  var slice   = Array.prototype.slice;
 
   var existy = function(x) { return x != null; };
 
@@ -35,14 +36,7 @@
     // array.  If given an `arguments` object, `cat` will treat it like an array
     // and concatenate it likewise.
     cat: function() {
-      return _.reduce(arguments, function(acc, elem) {
-        if (_.isArguments(elem)) {
-          return concat.call(acc, slice.call(elem));
-        }
-        else {
-          return concat.call(acc, elem);
-        }
-      }, []);
+      return _.flatten(arguments, true);
     },
 
     // 'Constructs' an array by putting an element at its front
@@ -90,7 +84,7 @@
 
     // Maps a function over an array and concatenates all of the results.
     mapcat: function(array, fun) {
-      return _.cat.apply(null, _.map(array, fun));
+      return _.flatten(_.map(array, fun), true);
     },
 
     // Returns an array with some item between each element
@@ -193,27 +187,41 @@
     // built-in `Array.prototype.reverse` method, this does not mutate the
     // original object. Note: attempting to use this method on a string will
     // result in a `TypeError`, as it cannot properly reverse unicode strings.
-
     reverseOrder: function(obj) {
       if (typeof obj == 'string')
         throw new TypeError('Strings cannot be reversed by _.reverseOrder');
       return slice.call(obj).reverse();
+    },
+
+    // Creates an array with all possible combinations of elements from
+    // the given arrays
+    combinations: function(){
+      return _.reduce(slice.call(arguments, 1),function(ret,newarr){
+        return _.reduce(ret,function(memo,oldi){
+          return memo.concat(_.map(newarr,function(newi){
+            return oldi.concat([newi]);
+          }));
+        },[]);
+      },_.map(arguments[0],function(i){return [i];}));
     }
+
   });
 
-})(this);
+}).call(this);
 
 // Underscore-contrib (underscore.array.selectors.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -249,6 +257,29 @@
     // A function to get at an index into an array
     nth: function(array, index, guard) {
       if ((index != null) && !guard) return array[index];
+    },
+
+    // A function to get values via indices into an array
+    nths: nths = function(array, indices) {
+      if (array == null) return void 0;
+
+      if (isSeq(indices))
+        return _(indices).map(function(i){return array[i];});
+      else
+        return nths(array, slice.call(arguments, 1));
+    },
+    valuesAt: nths,
+
+    // A function to get at "truthily" indexed values
+    // bin refers to "binary" nature of true/false values in binIndices
+    // but can also be thought of as putting array values into either "take" or "don't" bins
+    binPick: function binPick(array, binIndices) {
+      if (array == null) return void 0;
+
+      if (isSeq(binIndices))
+        return _.nths(array, _.range(binIndices.length).filter(function(i){return binIndices[i];}));
+      else
+        return binPick(array, slice.call(arguments, 1));
     },
 
     // Takes all items in an array while a given predicate returns truthy.
@@ -319,19 +350,21 @@
     }
   });
 
-})(this);
+}).call(this);
 
 // Underscore-contrib (underscore.collections.walk.js 0.3.0)
 // (c) 2013 Patrick Dubroy
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -516,19 +549,21 @@
   // Use `_.walk` as a namespace to hold versions of the walk functions which
   // use the default traversal strategy.
   _.extend(_.walk, _.walk());
-})(this);
+}).call(this);
 
 // Underscore-contrib (underscore.function.arity.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -591,6 +626,30 @@
     };
   }());
 
+  // Right curry variants
+  // ---------------------
+  var curryRight = function (func) {
+    return curry.call(this, func, true);
+  };
+
+  var curryRight2 = function (fun) {
+    return enforcesUnary(function (last) {
+      return enforcesUnary(function (first) {
+        return fun.call(this, first, last);
+      });
+    });
+  };
+
+  var curryRight3 = function (fun) {
+    return enforcesUnary(function (last) {
+      return enforcesUnary(function (second) {
+        return enforcesUnary(function (first) {
+          return fun.call(this, first, second, last);
+        });
+      });
+    });
+  };
+
   // Mixing in the arity functions
   // -----------------------------
 
@@ -650,9 +709,8 @@
     curry: curry,
 
     // Flexible right to left curry with strict arity.
-    rCurry: function (func) {
-      return curry.call(this, func, true);
-    },
+    curryRight: curryRight,
+    rCurry: curryRight, // alias for backwards compatibility
 
 
     curry2: function (fun) {
@@ -673,24 +731,13 @@
       });
     },
 
-      // reverse currying for functions taking two arguments.
-    rcurry2: function (fun) {
-      return enforcesUnary(function (last) {
-        return enforcesUnary(function (first) {
-          return fun.call(this, first, last);
-        });
-      });
-    },
+    // reverse currying for functions taking two arguments.
+    curryRight2: curryRight2,
+    rcurry2: curryRight2, // alias for backwards compatibility
 
-    rcurry3: function (fun) {
-      return enforcesUnary(function (last) {
-        return enforcesUnary(function (second) {
-          return enforcesUnary(function (first) {
-            return fun.call(this, first, second, last);
-          });
-        });
-      });
-    },
+    curryRight3: curryRight3,
+    rcurry3: curryRight3, // alias for backwards compatibility
+
     // Dynamic decorator to enforce function arity and defeat varargs.
     enforce: enforce
   });
@@ -717,19 +764,21 @@
     };
   })();
 
-})(this);
+}).call(this);
 
 // Underscore-contrib (underscore.function.combinators.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -750,7 +799,22 @@
     };
   };
   
+  var createPredicateApplicator = function (funcToInvoke /*, preds */) {
+    var preds = _(arguments).tail();
+
+    return function (objToCheck) {
+      var array = _(objToCheck).cat();
+
+      return _[funcToInvoke](array, function (e) {
+        return _[funcToInvoke](preds, function (p) {
+          return p(e);
+        });
+      });
+    };
+  };
+
   // n.b. depends on underscore.function.arity.js
+  // n.b. depends on underscore.array.builders.js
     
   // Takes a target function and a mapping function. Returns a function
   // that applies the mapper to its arguments before evaluating the body.
@@ -783,32 +847,12 @@
     // Composes a bunch of predicates into a single predicate that
     // checks all elements of an array for conformance to all of the
     // original predicates.
-    conjoin: function(/* preds */) {
-      var preds = arguments;
-
-      return function(array) {
-        return _.every(array, function(e) {
-          return _.every(preds, function(p) {
-            return p(e);
-          });
-        });
-      };
-    },
+    conjoin: _.partial(createPredicateApplicator, ('every')),
 
     // Composes a bunch of predicates into a single predicate that
     // checks all elements of an array for conformance to any of the
     // original predicates.
-    disjoin: function(/* preds */) {
-      var preds = arguments;
-
-      return function(array) {
-        return _.some(array, function(e) {
-          return _.some(preds, function(p) {
-            return p(e);
-          });
-        });
-      };
-    },
+    disjoin: _.partial(createPredicateApplicator, 'some'),
 
     // Takes a predicate-like and returns a comparator (-1,0,1).
     comparator: function(fun) {
@@ -984,19 +1028,21 @@
     return _.bind(fn, obj);
   };
 
-})(this);
+}).call(this);
 
 // Underscore-contrib (underscore.function.dispatch.js 0.3.0)
 // (c) 2013 Justin Ridgewell
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -1018,19 +1064,21 @@
     }
   });
 
-})(this);
+}).call(this);
 
 // Underscore-contrib (underscore.function.iterators.js 0.3.0)
 // (c) 2013 Michael Fogus and DocumentCloud Inc.
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root, undefined) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -1238,6 +1286,14 @@
     };
   }
   
+  function cycle(array) {
+    var index = 0,
+        length = array.length;
+    return function() {
+      return array[index++ % length];
+    };
+  }
+
   function Tree (array) {
     var index, myself, state;
     index = 0;
@@ -1350,135 +1406,133 @@
     constant: K,
     K: K,
     numbers: numbers,
-    range: range
+    range: range,
+    cycle: cycle
   };
 
-})(this, void 0);
+}).call(this, void 0);
 
 // Underscore-contrib (underscore.function.predicates.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+// Establish the root object, `window` in the browser, or `require` it on the server.
+if (typeof exports === 'object') {
+  _ = module.exports = require('underscore');
+}
 
-  // Baseline setup
-  // --------------
-
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
-
-  // Helpers
-  // -------
+// Helpers
+// -------
 
 
-  // Mixing in the predicate functions
-  // ---------------------------------
+// Mixing in the predicate functions
+// ---------------------------------
 
-  _.mixin({
-    // A wrapper around instanceof
-    isInstanceOf: function(x, t) { return (x instanceof t); },
+_.mixin({
+  // A wrapper around instanceof
+  isInstanceOf: function(x, t) { return (x instanceof t); },
 
-    // An associative object is one where its elements are
-    // accessed via a key or index. (i.e. array and object)
-    isAssociative: function(x) { return _.isArray(x) || _.isObject(x) || _.isArguments(x); },
+  // An associative object is one where its elements are
+  // accessed via a key or index. (i.e. array and object)
+  isAssociative: function(x) { return _.isArray(x) || _.isObject(x) || _.isArguments(x); },
 
-    // An indexed object is anything that allows numerical index for
-    // accessing its elements (e.g. arrays and strings). NOTE: Underscore
-    // does not support cross-browser consistent use of strings as array-like
-    // objects, so be wary in IE 8 when using  String objects and IE<8.
-    // on string literals & objects.
-    isIndexed: function(x) { return _.isArray(x) || _.isString(x) || _.isArguments(x); },
+  // An indexed object is anything that allows numerical index for
+  // accessing its elements (e.g. arrays and strings). NOTE: Underscore
+  // does not support cross-browser consistent use of strings as array-like
+  // objects, so be wary in IE 8 when using  String objects and IE<8.
+  // on string literals & objects.
+  isIndexed: function(x) { return _.isArray(x) || _.isString(x) || _.isArguments(x); },
 
-    // A seq is something considered a sequential composite type (i.e. arrays and `arguments`).
-    isSequential: function(x) { return (_.isArray(x)) || (_.isArguments(x)); },
+  // A seq is something considered a sequential composite type (i.e. arrays and `arguments`).
+  isSequential: function(x) { return (_.isArray(x)) || (_.isArguments(x)); },
 
-    // Check if an object is an object literal, since _.isObject(function() {}) === _.isObject([]) === true
-    isPlainObject: function(x) { return _.isObject(x) && x.constructor === root.Object; },
+  // Check if an object is an object literal, since _.isObject(function() {}) === _.isObject([]) === true
+  isPlainObject: function(x) { return _.isObject(x) && x.constructor === Object; },
 
-    // These do what you think that they do
-    isZero: function(x) { return 0 === x; },
-    isEven: function(x) { return _.isFinite(x) && (x & 1) === 0; },
-    isOdd: function(x) { return _.isFinite(x) && !_.isEven(x); },
-    isPositive: function(x) { return x > 0; },
-    isNegative: function(x) { return x < 0; },
-    isValidDate: function(x) { return _.isDate(x) && !_.isNaN(x.getTime()); },
+  // These do what you think that they do
+  isZero: function(x) { return 0 === x; },
+  isEven: function(x) { return _.isFinite(x) && (x & 1) === 0; },
+  isOdd: function(x) { return _.isFinite(x) && !_.isEven(x); },
+  isPositive: function(x) { return x > 0; },
+  isNegative: function(x) { return x < 0; },
+  isValidDate: function(x) { return _.isDate(x) && !_.isNaN(x.getTime()); },
 
-    // A numeric is a variable that contains a numeric value, regardless its type
-    // It can be a String containing a numeric value, exponential notation, or a Number object
-    // See here for more discussion: http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844
-    isNumeric: function(n) {
-      return !isNaN(parseFloat(n)) && isFinite(n);
-    },
+  // A numeric is a variable that contains a numeric value, regardless its type
+  // It can be a String containing a numeric value, exponential notation, or a Number object
+  // See here for more discussion: http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844
+  isNumeric: function(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  },
 
-    // An integer contains an optional minus sign to begin and only the digits 0-9
-    // Objects that can be parsed that way are also considered ints, e.g. "123"
-    // Floats that are mathematically equal to integers are considered integers, e.g. 1.0
-    // See here for more discussion: http://stackoverflow.com/questions/1019515/javascript-test-for-an-integer
-    isInteger: function(i) {
-      return _.isNumeric(i) && i % 1 === 0;
-    },
+  // An integer contains an optional minus sign to begin and only the digits 0-9
+  // Objects that can be parsed that way are also considered ints, e.g. "123"
+  // Floats that are mathematically equal to integers are considered integers, e.g. 1.0
+  // See here for more discussion: http://stackoverflow.com/questions/1019515/javascript-test-for-an-integer
+  isInteger: function(i) {
+    return _.isNumeric(i) && i % 1 === 0;
+  },
 
-    // A float is a numbr that is not an integer.
-    isFloat: function(n) {
-      return _.isNumeric(n) && !_.isInteger(n);
-    },
+  // A float is a numbr that is not an integer.
+  isFloat: function(n) {
+    return _.isNumeric(n) && !_.isInteger(n);
+  },
 
-    // checks if a string is a valid JSON
-    isJSON: function(str) {
-      try {
-        JSON.parse(str);
-      } catch (e) {
+  // checks if a string is a valid JSON
+  isJSON: function(str) {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  },
+
+  // Returns true if its arguments are monotonically
+  // increaing values; false otherwise.
+  isIncreasing: function() {
+    var count = _.size(arguments);
+    if (count === 1) return true;
+    if (count === 2) return arguments[0] < arguments[1];
+
+    for (var i = 1; i < count; i++) {
+      if (arguments[i-1] >= arguments[i]) {
         return false;
       }
-      return true;
-    },
-
-    // Returns true if its arguments are monotonically
-    // increaing values; false otherwise.
-    isIncreasing: function() {
-      var count = _.size(arguments);
-      if (count === 1) return true;
-      if (count === 2) return arguments[0] < arguments[1];
-
-      for (var i = 1; i < count; i++) {
-        if (arguments[i-1] >= arguments[i]) {
-          return false;
-        }
-      }
-
-      return true;
-    },
-
-    // Returns true if its arguments are monotonically
-    // decreaing values; false otherwise.
-    isDecreasing: function() {
-      var count = _.size(arguments);
-      if (count === 1) return true;
-      if (count === 2) return arguments[0] > arguments[1];
-
-      for (var i = 1; i < count; i++) {
-        if (arguments[i-1] <= arguments[i]) {
-          return false;
-        }
-      }
-
-      return true;
     }
-  });
 
-})(this);
+    return true;
+  },
+
+  // Returns true if its arguments are monotonically
+  // decreaing values; false otherwise.
+  isDecreasing: function() {
+    var count = _.size(arguments);
+    if (count === 1) return true;
+    if (count === 2) return arguments[0] > arguments[1];
+
+    for (var i = 1; i < count; i++) {
+      if (arguments[i-1] <= arguments[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+});
 
 // Underscore-contrib (underscore.object.builders.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -1587,19 +1641,21 @@
     frequencies: curry2(_.countBy)(_.identity)
   });
 
-})(this);
+}).call(this);
 
 // Underscore-contrib (underscore.object.selectors.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -1608,6 +1664,25 @@
   var concat  = Array.prototype.concat;
   var ArrayProto = Array.prototype;
   var slice = ArrayProto.slice;
+
+  // Will take a path like 'element[0][1].subElement["Hey!.What?"]["[hey]"]'
+  // and return ["element", "0", "1", "subElement", "Hey!.What?", "[hey]"]
+  function keysFromPath(path) {
+    // from http://codereview.stackexchange.com/a/63010/8176
+    /**
+     * Repeatedly capture either:
+     * - a bracketed expression, discarding optional matching quotes inside, or
+     * - an unbracketed expression, delimited by a dot or a bracket.
+     */
+    var re = /\[("|')(.+)\1\]|([^.\[\]]+)/g;
+
+    var elements = [];
+    var result;
+    while ((result = re.exec(path)) !== null) {
+      elements.push(result[2] || result[3]);
+    }
+    return elements;
+  }
 
   // Mixing in the object selectors
   // ------------------------------
@@ -1647,38 +1722,37 @@
     // path described by the keys given. Keys may be given as an array
     // or as a dot-separated string.
     getPath: function getPath (obj, ks) {
-      if (typeof ks == "string") ks = ks.split(".");
+      ks = typeof ks == "string" ? keysFromPath(ks) : ks;
 
-      // If we have reached an undefined property
-      // then stop executing and return undefined
-      if (obj === undefined) return void 0;
+      var i = -1, length = ks.length;
 
-      // If the path array has no more elements, we've reached
-      // the intended property and return its value
-      if (ks.length === 0) return obj;
-
-      // If we still have elements in the path array and the current
-      // value is null, stop executing and return undefined
-      if (obj === null) return void 0;
-
-      return getPath(obj[_.first(ks)], _.rest(ks));
+      // If the obj is null or undefined we have to break as
+      // a TypeError will result trying to access any property
+      // Otherwise keep incrementally access the next property in
+      // ks until complete
+      while (++i < length && obj != null) {
+        obj = obj[ks[i]];
+      }
+      return i === length ? obj : void 0;
     },
 
     // Returns a boolean indicating whether there is a property
     // at the path described by the keys given
     hasPath: function hasPath (obj, ks) {
-      if (typeof ks == "string") ks = ks.split(".");
+      ks = typeof ks == "string" ? keysFromPath(ks) : ks;
 
-      var numKeys = ks.length;
-
-      if (obj == null && numKeys > 0) return false;
-
-      if (!(ks[0] in obj)) return false;
-
-      if (numKeys === 1) return true;
-
-      return hasPath(obj[_.first(ks)], _.rest(ks));
+      var i = -1, length = ks.length;
+      while (++i < length && _.isObject(obj)) {
+        if (ks[i] in obj) {
+          obj = obj[ks[i]];
+        } else {
+          return false;
+        }
+      }
+      return i === length;
     },
+
+    keysFromPath: keysFromPath,
 
     pickWhen: function(obj, pred) {
       var copy = {};
@@ -1696,73 +1770,80 @@
 
   });
 
-})(this);
+}).call(this);
 
 // Underscore-contrib (underscore.util.existential.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
-
-  // Baseline setup
-  // --------------
-
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
-
-  // Helpers
-  // -------
-
+// Establish the root object, `window` in the browser, or `require` it on the server.
+if (typeof exports === 'object') {
+  _ = module.exports = require('underscore');
+}
   
-  // Mixing in the truthiness
-  // ------------------------
+// Mixing in the truthiness
+// ------------------------
 
-  _.mixin({
-    exists: function(x) { return x != null; },
-    truthy: function(x) { return (x !== false) && _.exists(x); },
-    falsey: function(x) { return !_.truthy(x); },
-    not:    function(b) { return !b; },
-    firstExisting: function() {
-      for (var i = 0; i < arguments.length; i++) {
-        if (arguments[i] != null) return arguments[i];
-      }
+_.mixin({
+  exists: function(x) { return x != null; },
+  truthy: function(x) { return (x !== false) && _.exists(x); },
+  falsey: function(x) { return !_.truthy(x); },
+  not:    function(b) { return !b; },
+  firstExisting: function() {
+    for (var i = 0; i < arguments.length; i++) {
+      if (arguments[i] != null) return arguments[i];
     }
-  });
-
-})(this);
+  }
+});
 
 // Underscore-contrib (underscore.function.arity.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Setup for variadic operators
   // ----------------------------
 
   // Turn a binary math operator into a variadic operator
   function variadicMath(operator) {
-    return function() {
-      return _.reduce(arguments, operator);
-    };
+    return variaderize(function(numbersToOperateOn) {
+      return _.reduce(numbersToOperateOn, operator);
+    });
   }
 
   // Turn a binary comparator into a variadic comparator
   function variadicComparator(comparator) {
-    return function() {
+    return variaderize(function(itemsToCompare) {
       var result;
-      for (var i = 0; i < arguments.length - 1; i++) {
-        result = comparator(arguments[i], arguments[i + 1]);
+
+      for (var i = 0; i < itemsToCompare.length - 1; i++) {
+        result = comparator(itemsToCompare[i], itemsToCompare[i + 1]);
         if (result === false) return result;
       }
-      return result; 
+
+      return result;
+    });
+  }
+  
+  // Converts a unary function that operates on an array into one that also works with a variable number of arguments
+  function variaderize(func) {
+    return function (args) {
+      var allArgs = isArrayLike(args) ? args : arguments;
+      return func(allArgs);
     };
+  }
+
+  function isArrayLike(obj) {
+    return obj != null && typeof obj.length === "number";
   }
 
   // Turn a boolean-returning function into one with the opposite meaning
@@ -1894,19 +1975,21 @@
     bitwiseRight: variadicMath(bitwiseRight),
     bitwiseZ: variadicMath(bitwiseZ)
   });
-})(this);
+}).call(this);
 
 // Underscore-contrib (underscore.util.strings.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -2001,15 +2084,21 @@
     },
 
     // Converts a string to camel case
-    camelCase : function( string ){
-      return  string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    camelCase : function( string, separator ){
+      separator = separator || '-';
+      if (typeof separator != 'string') throw new TypeError('Separator must be a string.');
+      if (separator.length != 1) throw new Error('Separator must be one character.');
+      return  string.replace(new RegExp(separator+'([a-z])', 'g'), function (g) { return g[1].toUpperCase(); });
     },
 
     // Converts camel case to dashed (opposite of _.camelCase)
-    toDash : function( string ){
-      string = string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
+    toDash : function( string, separator ){
+      separator = separator || '-';
+      if (typeof separator != 'string') throw new TypeError('Separator must be a string.');
+      if (separator.length != 1) throw new Error('Separator must be one character.');
+      string = string.replace(/([A-Z])/g, function($1){return separator+$1.toLowerCase();});
       // remove first dash
-      return  ( string.charAt( 0 ) == '-' ) ? string.substr(1) : string;
+      return  ( string.charAt( 0 ) == separator ) ? string.substr(1) : string;
     },
 
     // Creates a query string from a hash
@@ -2024,44 +2113,35 @@
     }
 
   });
-})(this);
+}).call(this);
 
 // Underscore-contrib (underscore.util.trampolines.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+// Establish the root object, `window` in the browser, or `require` it on the server.
+if (typeof exports === 'object') {
+  _ = module.exports = require('underscore');
+}
 
-  // Baseline setup
-  // --------------
+// Mixing in the truthiness
+// ------------------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+_.mixin({
+  done: function(value) {
+    var ret = _(value);
+    ret.stopTrampoline = true;
+    return ret;
+  },
 
-  // Helpers
-  // -------
+  trampoline: function(fun /*, args */) {
+    var result = fun.apply(fun, _.rest(arguments));
 
-  
-  // Mixing in the truthiness
-  // ------------------------
-
-  _.mixin({
-    done: function(value) {
-      var ret = _(value);
-      ret.stopTrampoline = true;
-      return ret;
-    },
-
-    trampoline: function(fun /*, args */) {
-      var result = fun.apply(fun, _.rest(arguments));
-
-      while (_.isFunction(result)) {
-        result = result();
-        if ((result instanceof _) && (result.stopTrampoline)) break;
-      }
-
-      return result.value();
+    while (_.isFunction(result)) {
+      result = result();
+      if ((result instanceof _) && (result.stopTrampoline)) break;
     }
-  });
 
-})(this);
+    return result.value();
+  }
+});
