@@ -6,12 +6,16 @@
 
 #### camelCase
 
-**Signature:** `_.camelCase(string:String)`
+**Signature:** `_.camelCase(string:String[, separator:String])`
 
-Converts a dash-separated string to camel case. Opposite of [toDash](#todash).
+Converts a dash-separated string to camel case. If separator is specified,
+it's used instead of dash. Opposite of [toDash](#todash).
 
 ```javascript
 _.camelCase("ancient-greece");
+// => "ancientGreece"
+
+_.camelCase("ancient_greece", "_");
 // => "ancientGreece"
 ```
 
@@ -72,13 +76,17 @@ _.strContains("Acropolis", "polis");
 
 #### toDash
 
-**Signature:** `_.toDash(string:String)`
+**Signature:** `_.toDash(string:String [, ])`
 
-Converts a camel case string to a dashed string. Opposite of [camelCase](#camelcase).
+Converts a camel case string to a dashed string.  If separator is specified,
+it's used instead of dash. Opposite of [camelCase](#camelcase).
 
 ```javascript
 _.toDash("thisIsSparta");
 // => "this-is-sparta"
+
+_.toDash("thisIsSparta", '_');
+// => "this_is_sparta"
 ```
 
 --------------------------------------------------------------------------------

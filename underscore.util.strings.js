@@ -105,15 +105,21 @@
     },
 
     // Converts a string to camel case
-    camelCase : function( string ){
-      return  string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    camelCase : function( string, separator ){
+      separator = separator || '-';
+      if (typeof separator != 'string') throw new TypeError('Separator must be a string.');
+      if (separator.length != 1) throw new Error('Separator must be one character.');
+      return  string.replace(new RegExp(separator+'([a-z])', 'g'), function (g) { return g[1].toUpperCase(); });
     },
 
     // Converts camel case to dashed (opposite of _.camelCase)
-    toDash : function( string ){
-      string = string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
+    toDash : function( string, separator ){
+      separator = separator || '-';
+      if (typeof separator != 'string') throw new TypeError('Separator must be a string.');
+      if (separator.length != 1) throw new Error('Separator must be one character.');
+      string = string.replace(/([A-Z])/g, function($1){return separator+$1.toLowerCase();});
       // remove first dash
-      return  ( string.charAt( 0 ) == '-' ) ? string.substr(1) : string;
+      return  ( string.charAt( 0 ) == separator ) ? string.substr(1) : string;
     },
 
     // Creates a query string from a hash
