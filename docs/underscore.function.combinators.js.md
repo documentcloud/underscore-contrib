@@ -108,6 +108,36 @@ startsAAndEndsE(names);
 
 --------------------------------------------------------------------------------
 
+#### decorate
+
+**Signature:** `_.decorate(func:BaseCtorFunction, func:DecoratorCtorFunction[, func: DecoratorCtorFunction])`
+
+Useful for utilizing the [decorator pattern](http://en.wikipedia.org/wiki/Decorator_pattern).  Decorate the `BaseCtorFunction` with 
+any number of decorators which layer on responsibilities through proxying and
+building on top of the `BaseCtorFunction` api.
+
+Very similar to `_.compose` except that the arguments are instantiated via `_.newize` and
+are in opposite order, giving access to the more expressive object-oriented syntax.
+
+```javascript
+var Coffee = function( price ) { this.price = price; };
+Coffee.prototype.cost = function() { return this.price; };
+
+var Milk = function( decorated ) { this.decorated = decorated; };
+Milk.prototype.price = 2;
+Milk.prototype.cost = function() { return this.decorated.cost() + this.price; }
+
+var Sugar = function( decorated ) { this.decorated = decorated; };
+Sugar.prototype.price = 1;
+Sugar.prototype.cost = function() { return this.decorated.cost() + this.price; }
+
+var coffeeWithMilkAndSugar = _( Coffee ).decorate( Milk, Sugar )( 3 );
+coffeeWithMilkAndSugar.cost();
+// => 6
+```
+
+--------------------------------------------------------------------------------
+
 #### disjoin
 
 **Signature:** `_.disjoin(pred:Function...)`
@@ -320,6 +350,27 @@ var democritus = {
 
 democritus.describe();
 // => "Democritus: originator of the atomic hypothesis"
+```
+
+--------------------------------------------------------------------------------
+
+#### newize
+
+**Signature:** `_.newize(func:CtorFunction)`
+
+Takes a Constructor function and returns a function that returns a 
+new instance of the Constructor
+
+```javascript
+function Person( attributes ) {
+    this.attributes = attributes;
+}
+
+var newizedPerson = _.newize( Person );
+
+var person = newizedPerson({ firstName: 'John', lastName: 'Smith' });
+// => person instanceof Person === true;
+// => person.attributes = { firstName: 'John', lastName: 'Smith' };
 ```
 
 --------------------------------------------------------------------------------

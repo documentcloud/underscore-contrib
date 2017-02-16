@@ -259,4 +259,21 @@ $(document).ready(function() {
     equal(rect.area(), 6, "returned method passes its receiver (`this`) as first arg to original function");
     equal(rect.extrude(4).z, 4, "all arguments are passed along");
   });
+
+  test("newize", function() {
+    var MyCtor = function(){};
+    var newizedFn = _.newize( MyCtor );
+    equal(newizedFn() instanceof MyCtor, true, "returns new instance of constructor");
+  });
+
+  test("newize", function() {
+    var BaseCtor = function( num ){ this.num = num; };
+    BaseCtor.prototype.count = function() { return this.num; };
+    var DecoratorCtor1 = function( decorated ){ this.decorated = decorated; };
+    DecoratorCtor1.prototype.count = function() { return this.decorated.count() + 1; };
+    var DecoratorCtor2 = function( decorated ){ this.decorated = decorated; };
+    DecoratorCtor2.prototype.count = function() { return this.decorated.count() + 1; };
+    var decoratedFn = _.decorate( BaseCtor, DecoratorCtor1, DecoratorCtor2 )(4);
+    equal(decoratedFn.count(), 6, "returns new instance of constructor");
+  });
 });
