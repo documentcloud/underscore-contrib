@@ -28,10 +28,10 @@
     "url": "http://www.fogus.me"
   },
   "scripts": {
-    "test": "node ./node_modules/grunt-cli/bin/grunt test",
-    "dist": "node ./node_modules/grunt-cli/bin/grunt dist",
-    "tocdoc": "node ./node_modules/grunt-cli/bin/grunt tocdoc",
-    "docco": "node ./node_modules/grunt-cli/bin/grunt docco"
+    "test": "grunt test",
+    "dist": "grunt dist",
+    "tocdoc": "grunt tocdoc",
+    "docco": "grunt docco"
   },
   "homepage": "https://github.com/documentcloud/underscore-contrib"
 }
