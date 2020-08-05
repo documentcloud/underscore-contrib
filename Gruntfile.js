@@ -89,7 +89,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('test', ['jshint', 'qunit:main']);
-  grunt.registerTask('dist', ['concat', 'uglify']);
   grunt.registerTask('default', ['test']);
   grunt.registerTask('dist', ['test', 'concat', 'qunit:concat', 'uglify', 'qunit:min']);
   grunt.registerTask('doc', ['test', 'tocdoc']);
