@@ -17,14 +17,13 @@
 
   // No reason to create regex more than once
   var plusRegex = /\+/g;
-  var spaceRegex = /\%20/g;
   var bracketRegex = /(?:([^\[]+))|(?:\[(.*?)\])/g;
 
   var urlDecode = function(s) {
     return decodeURIComponent(s.replace(plusRegex, '%20'));
   };
   var urlEncode = function(s) {
-    return encodeURIComponent(s).replace(spaceRegex, '+');
+    return encodeURIComponent(s);
   };
 
   var buildParams = function(prefix, val, top) {
