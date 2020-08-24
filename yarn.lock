@@ -1126,6 +1126,11 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
+jquery@1.9:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-1.9.1.tgz#e4cd4835faaefbade535857613c0fc3ff2adaf34"
+  integrity sha1-5M1INfqu+63lNYV2E8D8P/KtrzQ=
+
 js-reporters@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/js-reporters/-/js-reporters-1.2.1.tgz#f88c608e324a3373a95bcc45ad305e5c979c459b"
@@ -1152,6 +1157,11 @@ jshint@~2.10.2:
     minimatch "~3.0.2"
     shelljs "0.3.x"
     strip-json-comments "1.0.x"
+
+jslitmus@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/jslitmus/-/jslitmus-0.1.0.tgz#9fd88ed8684f256412a28a3da968415fd7161064"
+  integrity sha1-n9iO2GhPJWQSooo9qWhBX9cWEGQ=
 
 jsonfile@^6.0.1:
   version "6.0.1"
