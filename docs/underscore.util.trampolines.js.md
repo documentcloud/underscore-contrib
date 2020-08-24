@@ -29,7 +29,7 @@ a naive recursive function, use `_.partial` as illustrated below.
 function isEvenNaive (num) {
     if (num === 0) return true;
     if (num === 1) return false;
-    return isEvenNaive(num - 2);
+    return isEvenNaive(Math.abs(num) - 2);
 }
 
 isEvenNaive(99999);
@@ -38,7 +38,7 @@ isEvenNaive(99999);
 function isEvenInner (num) {
     if (num === 0) return _.done(true);
     if (num === 1) return _.done(false);
-    return function () { return isEvenInner(num - 2); };
+    return function () { return isEvenInner(Math.abs(num) - 2); };
 }
 
 _.trampoline(isEvenInner, 99999);
