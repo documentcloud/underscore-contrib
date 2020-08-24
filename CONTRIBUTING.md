@@ -34,5 +34,5 @@ And hopefully your pull request will be merged by the core team! :-)
 
 [style]:https://github.com/documentcloud/underscore/blob/master/underscore.js
 [node]:http://nodejs.org/
-[yarn]:https://yarnpkg.com
+[yarn]:https://classic.yarnpkg.com/
 [cli]:http://gruntjs.com/getting-started#installing-the-cli
