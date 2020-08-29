@@ -43,6 +43,8 @@ $(document).ready(function() {
     var obj = {'foo&bar': 'baz', 'test': 'total success', 'nested': {'works': 'too'}, 'isn\'t': ['that', 'cool?']};
     assert.equal(_.toQuery(obj), 'foo%26bar=baz&test=total%20success&nested%5Bworks%5D=too&isn\'t%5B%5D=that&isn\'t%5B%5D=cool%3F', 'can convert a hash to a query string');
     assert.equal(_.toQuery(obj), jQuery.param(obj), 'query serialization matchs jQuery.param()');
+    assert.equal(_.toQuery({a: []}), '', 'empty array params produce the empty string');
+    assert.equal(_.toQuery({a: [], b: []}), '', 'multiple empty array params do not lead to spurious ampersands');
   });
 
   QUnit.test('strContains', function(assert) {
