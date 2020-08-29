@@ -33,9 +33,9 @@
         return buildParams(top ? key : prefix + '[]', value, false);
       }).join('&');
     } else if (_.isObject(val)) {
-      return _.map(val, function(value, key) {
+      return _.compact(_.map(val, function(value, key) {
         return buildParams(top ? key : prefix + '[' + key + ']', value, false);
-      }).join('&');
+      })).join('&');
     } else {
       return urlEncode(prefix) + '=' + urlEncode(val);
     }
