@@ -223,7 +223,7 @@ _.selectKeys(philosopherCities, ["Plato", "Plotinus"]);
 
 #### omitPath
 
-**Signature:** `_.omitPath(obj:Object, ks:String|Array);
+**Signature:** `_.omitPath(obj:Object, ks:String|Array)`
 
 Returns a copy of `obj` excluding the value represented by the `ks` path.
 Path may be given as an array or as a dot-separated string.
@@ -231,13 +231,13 @@ If the path contains an array, the value of the path will be removed from all th
 
 ```javascript
 var test = {
-    foo: true, 
-    bar: false, 
-    baz: 42, 
+    foo: true,
+    bar: false,
+    baz: 42,
     dada: {
-        carlos: { 
-            pepe: 9 
-        }, 
+        carlos: {
+            pepe: 9
+        },
         pedro: 'pedro'
     }
 };
