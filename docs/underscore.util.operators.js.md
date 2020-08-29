@@ -6,12 +6,15 @@
 
 #### add
 
-**Signature:** `_.add(value:Number, value:Number[, value:Number...])`
+**Signature:** `_.add(value:Number, value:Number[, value:Number...])`, `_.add(values:Array)`
 
 Returns the sum of the arguments.
 
 ```javascript
 _.add(1, 2, 3, 4);
+// => 10
+
+_.add([1, 2, 3, 4]);
 // => 10
 ```
 
@@ -19,7 +22,7 @@ _.add(1, 2, 3, 4);
 
 #### bitwiseAnd
 
-**Signature:** `_.bitwiseAnd(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.bitwiseAnd(value:Any, value:Any[, value:Any...])`, `_.bitwiseAnd(values:Array)`
 
 Returns the result of using the `&` operator on the arguments.
 
@@ -29,13 +32,16 @@ _.bitwiseAnd(1, 3);
 
 _.bitwiseAnd(1, 3, 2);
 // => 0
+
+_.bitwiseAnd([1, 3, 2]);
+// => 0
 ```
 
 --------------------------------------------------------------------------------
 
 #### bitwiseLeft
 
-**Signature:** `_.bitwiseLeft(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.bitwiseLeft(value:Any, value:Any[, value:Any...])`, `_.bitwiseLeft(values:Array)`
 
 Returns the result of using the `<<` operator on the arguments.
 
@@ -45,13 +51,16 @@ _.bitwiseLeft(1, 3);
 
 _.bitwiseLeft(1, 3, 2);
 // => 32
+
+_.bitwiseLeft([1, 3, 2]);
+// => 32
 ```
 
 --------------------------------------------------------------------------------
 
 #### bitwiseRight
 
-**Signature:** `_.bitwiseRight(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.bitwiseRight(value:Any, value:Any[, value:Any...])`, `_.bitwiseRight(values:Array)`
 
 Returns the result of using the `>>` operator on the arguments.
 
@@ -60,6 +69,9 @@ _.bitwiseRight(3, 1);
 // => 1
 
 _.bitwiseRight(3, 1, 3);
+// => 0
+
+_.bitwiseRight([3, 1, 3]);
 // => 0
 ```
 
@@ -75,7 +87,7 @@ Returns the result of using the `~` operator on the value.
 _.bitwiseNot(1);
 // => -2
 
-_.bitwiseOr(2);
+_.bitwiseNot(2);
 // => -3
 ```
 
@@ -83,7 +95,7 @@ _.bitwiseOr(2);
 
 #### bitwiseOr
 
-**Signature:** `_.bitwiseOr(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.bitwiseOr(value:Any, value:Any[, value:Any...])`, `_.bitwiseOr(values:Array)`
 
 Returns the result of using the `|` operator on the arguments.
 
@@ -93,13 +105,16 @@ _.bitwiseOr(1, 3);
 
 _.bitwiseOr(1, 3, 4);
 // => 7
+
+_.bitwiseOr([1, 3, 4]);
+// => 7
 ```
 
 --------------------------------------------------------------------------------
 
 #### bitwiseXor
 
-**Signature:** `_.bitwiseXor(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.bitwiseXor(value:Any, value:Any[, value:Any...])`,`_.bitwiseXor(values:Array)`
 
 Returns the result of using the `^` operator on the arguments.
 
@@ -109,13 +124,16 @@ _.bitwiseXor(1, 3);
 
 _.bitwiseXor(1, 3, 3);
 // => 1
+
+_.bitwiseXor([1, 3, 3]);
+// => 1
 ```
 
 --------------------------------------------------------------------------------
 
 #### bitwiseZ
 
-**Signature:** `_.bitwiseZ(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.bitwiseZ(value:Any, value:Any[, value:Any...])`, `_.bitwiseZ(values:Array)`
 
 Returns the result of using the `>>>` operator on the arguments.
 
@@ -124,6 +142,9 @@ _.bitwiseZ(72, 32);
 // => 72
 
 _.bitwiseZ(72, 32, 2);
+// => 18
+
+_.bitwiseZ([72, 32, 2]);
 // => 18
 ```
 
@@ -144,7 +165,7 @@ _.dec(2);
 
 #### div
 
-**Signature:** `_.div(value:Number, value:Number[, value:Number...])`
+**Signature:** `_.div(value:Number, value:Number[, value:Number...])`, `_.div(values:Array)`
 
 Returns the quotient of the arguments.
 
@@ -154,13 +175,16 @@ _.div(8, 2);
 
 _.div(8, 2, 2);
 // => 2
+
+_.div([8, 2, 2]);
+// => 2
 ```
 
 --------------------------------------------------------------------------------
 
 #### eq
 
-**Signature:** `_.eq(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.eq(value:Any, value:Any[, value:Any...])`,`_.eq(values:Array)`
 
 Compares the arguments with loose equality (`==`).
 
@@ -176,13 +200,16 @@ _.eq(1, true, "1");
 
 _.eq(1, 1, 15);
 // => false
+
+_.eq([1, 1, 15]);
+// => false
 ```
 
 --------------------------------------------------------------------------------
 
 #### gt
 
-**Signature:** `_.gt(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.gt(value:Any, value:Any[, value:Any...])`, `_.gt(values:Array)`
 
 Checks whether each argument is greater than the previous argument.
 
@@ -196,13 +223,15 @@ _.gt(1, 2, 3);
 _.gt(1, 6, 2);
 // => false
 
+_.gt([1, 6, 2]);
+// => false
 ```
 
 --------------------------------------------------------------------------------
 
 #### gte
 
-**Signature:** `_.gte(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.gte(value:Any, value:Any[, value:Any...])`, `_.gte(values:Array)`
 
 Checks whether each argument is greater than or equal to the previous argument.
 
@@ -214,6 +243,9 @@ _.gte(1, 1, 3);
 // => true
 
 _.gte(1, 6, 2);
+// => false
+
+_.gte([1, 6, 2]);
 // => false
 
 ```
@@ -235,7 +267,7 @@ _.inc(2);
 
 #### lt
 
-**Signature:** `_.lt(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.lt(value:Any, value:Any[, value:Any...])`, `_.lt(values:Array)`
 
 Checks whether each argument is less than the previous argument.
 
@@ -249,13 +281,15 @@ _.lt(2, 1, 0);
 _.lt(2, 1, 12);
 // => false
 
+_.lt([2, 1, 12]);
+// => false
 ```
 
 --------------------------------------------------------------------------------
 
 #### lte
 
-**Signature:** `_.lte(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.lte(value:Any, value:Any[, value:Any...])`, `_.lte(values:Array)`
 
 Checks whether each argument is less than or equal to the previous argument.
 
@@ -269,18 +303,24 @@ _.lte(2, 1, 1);
 _.lte(2, 1, 12);
 // => false
 
+_.lte([2, 1, 12]);
+// => false
+
 ```
 
 --------------------------------------------------------------------------------
 
 #### mul
 
-**Signature:** `_.mul(value:Number, value:Number[, value:Number...])`
+**Signature:** `_.mul(value:Number, value:Number[, value:Number...])`, `_.mul(values:Array)`
 
 Returns the product of the arguments.
 
 ```javascript
 _.mul(1, 2, 3, 4);
+// => 24
+
+_.mul([1, 2, 3, 4]);
 // => 24
 ```
 
@@ -320,7 +360,7 @@ _.neg(-3);
 
 #### neq
 
-**Signature:** `_.neq(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.neq(value:Any, value:Any[, value:Any...])`, `_.neq(values:Array)`
 
 Checks whether each argument is not equal to the previous argument, using loose
 inequality (`!=`).
@@ -333,6 +373,9 @@ _.neq(2, 1, 1);
 // => true
 
 _.neq(1, 1);
+// => false
+
+_.neq([1, 1]);
 // => false
 
 ```
@@ -369,7 +412,7 @@ _.not(null);
 
 #### seq
 
-**Signature:** `_.seq(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.seq(value:Any, value:Any[, value:Any...])`, `_.seq(values:Array)`
 
 Checks whether the arguments are strictly equal (`===`) to each other.
 
@@ -383,13 +426,16 @@ _.seq(2, "2");
 _.seq(2, 2, 2);
 // => true
 
+_.seq([2, 2, 2]);
+// => true
+
 ```
 
 --------------------------------------------------------------------------------
 
 #### sneq
 
-**Signature:** `_.sneq(value:Any, value:Any[, value:Any...])`
+**Signature:** `_.sneq(value:Any, value:Any[, value:Any...])`, `_.sneq(values:Array)`
 
 Checks whether the arguments are strictly not equal (`!==`) to each other.
 
@@ -403,13 +449,16 @@ _.sneq(2, "2");
 _.sneq(2, 2, 2);
 // => false
 
+_.sneq([2, 2, 2]);
+// => false
+
 ```
 
 --------------------------------------------------------------------------------
 
 #### sub
 
-**Signature:** `_.sub(value:Number, value:Number[, value:Number...])`
+**Signature:** `_.sub(value:Number, value:Number[, value:Number...])`, `_.sub(values:Array)`
 
 Returns the difference of the arguments.
 
@@ -418,5 +467,8 @@ _.sub(10, 3);
 // => 7
 
 _.sub(10, 3, 5);
+// => 2
+
+_.sub([10, 3, 5]);
 // => 2
 ``` 

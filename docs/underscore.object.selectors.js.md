@@ -46,7 +46,8 @@ getGeneralOf("rome");
 **Signature:** `_.getPath(obj:Object, ks:String|Array)`
 
 Gets the value at any depth in a nested object based on the path described by
-the keys given. Keys may be given as an array or as a dot-separated string.
+the keys given. Keys may be given as an array of key names or as a single string
+using JavaScript property access notation.
 Returns `undefined` if the path cannot be reached.
 
 ```javascript
@@ -54,7 +55,8 @@ var countries = {
         greece: {
             athens: {
                 playwright:  "Sophocles"
-            }
+            },
+            notableFigures: ["Alexander", "Hippocrates", "Thales"]
         }
     }
 };
@@ -70,6 +72,15 @@ _.getPath(countries, ["greece", "athens", "playwright"]);
 
 _.getPath(countries, ["greece", "sparta", "playwright"]);
 // => undefined
+
+_.getPath(countries, ["greece", "notableFigures", 1]);
+// => "Hippocrates"
+
+_.getPath(countries, "greece.notableFigures[2]");
+// => "Thales"
+
+_.getPath(countries, "greece['notableFigures'][2]")
+// => "Thales"
 ```
 
 --------------------------------------------------------------------------------
@@ -79,14 +90,16 @@ _.getPath(countries, ["greece", "sparta", "playwright"]);
 **Signature:** `_.hasPath(obj:Object, ks:String|Array)`
 
 Returns a boolean indicating whether there is a property at the path described
-by the keys given. Keys may be given as an array or as a dot-separated string.
+by the keys given. Keys may be given as an array of key names or as a single string
+using JavaScript property access notation.
 
 ```javascript
 var countries = {
         greece: {
             athens: {
                 playwright:  "Sophocles"
-            }
+            },
+            notableFigures: ["Alexander", "Hippocrates", "Thales"]
         }
     }
 };
@@ -102,6 +115,31 @@ _.hasPath(countries, ["greece", "athens", "playwright"]);
 
 _.hasPath(countries, ["greece", "sparta", "playwright"]);
 // => false
+
+_.hasPath(countries, ["greece", "notableFigures", 1]);
+// => true
+
+_.hasPath(countries, "greece.notableFigures[2]");
+// => true
+
+_.hasPath(countries, "greece['notableFigures'][2]");
+// => true
+
+_.hasPath(countries, "greece.sparta[2]");
+// => false
+```
+
+--------------------------------------------------------------------------------
+
+#### keysFromPath
+
+**Signature:** `_.keysFromPath(path:String)`
+
+Takes a string in JavaScript object path notation and returns an array of keys.
+
+```javascript
+_.keysFromPath("rome.emperors[0]['first-name']");
+// => ["rome", "emperors", "0", "first-name"]
 ```
 
 --------------------------------------------------------------------------------
@@ -140,7 +178,7 @@ var playwrights = {
     shakespere: "England"
 };
 
-_.omitWhen(obj, function (country) { return country == "England" });
+_.omitWhen(playwrights, function (country) { return country == "England" });
 // => { euripedes: "Greece" }
 ```
 
@@ -160,7 +198,7 @@ var playwrights = {
     shakespere: "England"
 };
 
-_.pickWhen(obj, function (country) { return country == "England" });
+_.pickWhen(playwrights, function (country) { return country == "England" });
 // => { shakespeare: "England" }
 ```
 

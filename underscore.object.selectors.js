@@ -2,13 +2,15 @@
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -17,6 +19,25 @@
   var concat  = Array.prototype.concat;
   var ArrayProto = Array.prototype;
   var slice = ArrayProto.slice;
+
+  // Will take a path like 'element[0][1].subElement["Hey!.What?"]["[hey]"]'
+  // and return ["element", "0", "1", "subElement", "Hey!.What?", "[hey]"]
+  function keysFromPath(path) {
+    // from http://codereview.stackexchange.com/a/63010/8176
+    /**
+     * Repeatedly capture either:
+     * - a bracketed expression, discarding optional matching quotes inside, or
+     * - an unbracketed expression, delimited by a dot or a bracket.
+     */
+    var re = /\[("|')(.+)\1\]|([^.\[\]]+)/g;
+
+    var elements = [];
+    var result;
+    while ((result = re.exec(path)) !== null) {
+      elements.push(result[2] || result[3]);
+    }
+    return elements;
+  }
 
   // Mixing in the object selectors
   // ------------------------------
@@ -56,38 +77,37 @@
     // path described by the keys given. Keys may be given as an array
     // or as a dot-separated string.
     getPath: function getPath (obj, ks) {
-      if (typeof ks == "string") ks = ks.split(".");
+      ks = typeof ks == "string" ? keysFromPath(ks) : ks;
 
-      // If we have reached an undefined property
-      // then stop executing and return undefined
-      if (obj === undefined) return void 0;
+      var i = -1, length = ks.length;
 
-      // If the path array has no more elements, we've reached
-      // the intended property and return its value
-      if (ks.length === 0) return obj;
-
-      // If we still have elements in the path array and the current
-      // value is null, stop executing and return undefined
-      if (obj === null) return void 0;
-
-      return getPath(obj[_.first(ks)], _.rest(ks));
+      // If the obj is null or undefined we have to break as
+      // a TypeError will result trying to access any property
+      // Otherwise keep incrementally access the next property in
+      // ks until complete
+      while (++i < length && obj != null) {
+        obj = obj[ks[i]];
+      }
+      return i === length ? obj : void 0;
     },
 
     // Returns a boolean indicating whether there is a property
     // at the path described by the keys given
     hasPath: function hasPath (obj, ks) {
-      if (typeof ks == "string") ks = ks.split(".");
+      ks = typeof ks == "string" ? keysFromPath(ks) : ks;
 
-      var numKeys = ks.length;
-
-      if (obj == null && numKeys > 0) return false;
-
-      if (!(ks[0] in obj)) return false;
-
-      if (numKeys === 1) return true;
-
-      return hasPath(obj[_.first(ks)], _.rest(ks));
+      var i = -1, length = ks.length;
+      while (++i < length && _.isObject(obj)) {
+        if (ks[i] in obj) {
+          obj = obj[ks[i]];
+        } else {
+          return false;
+        }
+      }
+      return i === length;
     },
+
+    keysFromPath: keysFromPath,
 
     pickWhen: function(obj, pred) {
       var copy = {};
@@ -149,4 +169,4 @@
 
   });
 
-})(this);
+}).call(this);

@@ -2,27 +2,28 @@
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
 
   // No reason to create regex more than once
   var plusRegex = /\+/g;
-  var spaceRegex = /\%20/g;
   var bracketRegex = /(?:([^\[]+))|(?:\[(.*?)\])/g;
 
   var urlDecode = function(s) {
     return decodeURIComponent(s.replace(plusRegex, '%20'));
   };
   var urlEncode = function(s) {
-    return encodeURIComponent(s).replace(spaceRegex, '+');
+    return encodeURIComponent(s);
   };
 
   var buildParams = function(prefix, val, top) {
@@ -126,4 +127,4 @@
     }
 
   });
-})(this);
+}).call(this);

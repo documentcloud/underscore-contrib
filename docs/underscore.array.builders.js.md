@@ -93,7 +93,7 @@ _.chunkAll([0,1,2,3,4], 3);
 Also, `_.chunkAll` takes an optional third argument signifying that paritions should be built from skipped regions:
 
 ```javascript
-_.chunkAll(_.range(1), 2, 4);
+_.chunkAll(_.range(10), 2, 4);
 //=> [[0,1],[4,5],[8,9]]
 ```
 

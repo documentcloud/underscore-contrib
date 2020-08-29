@@ -1,0 +1,12 @@
+{
+	"globals": {
+		"_": true
+	},
+	"es3": true,
+    "indent": 2,
+    "camelcase": true,
+    "eqnull": true,
+    "forin": true,
+    "newcap": true,
+    "-W058": false
+}
