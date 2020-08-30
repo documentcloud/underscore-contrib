@@ -45,6 +45,7 @@ $(document).ready(function() {
     assert.equal(_.toQuery(obj), jQuery.param(obj), 'query serialization matchs jQuery.param()');
     assert.equal(_.toQuery({a: []}), '', 'empty array params produce the empty string');
     assert.equal(_.toQuery({a: [], b: []}), '', 'multiple empty array params do not lead to spurious ampersands');
+    assert.equal(_.toQuery({a: null, b: undefined}), 'a=null&b=undefined', 'respects null and undefined');
   });
 
   QUnit.test('strContains', function(assert) {
