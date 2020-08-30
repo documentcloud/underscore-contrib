@@ -40,6 +40,6 @@ jobs:
           node-modules-${{ matrix.node-version }}-
           node-modules-
     - name: Install dependencies
-      run: yarn
+      run: yarn --ignore-engines
     - name: Run linter, concat, minifier and tests
       run: yarn dist
