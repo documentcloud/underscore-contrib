@@ -26,7 +26,7 @@ _.frequencies(citations);
 
 Returns a new object resulting from merging the passed objects. Objects
 are processed in order, so each will override properties of the same
-name occurring in earlier arguments. 
+name occurring in earlier arguments.
 
 Returns `null` if called without arguments.
 
@@ -148,3 +148,28 @@ obj === imperialObj;
 ```
 
 --------------------------------------------------------------------------------
+
+#### omitPath
+
+**Signature:** `_.omitPath(obj:Object, ks:String|Array)`
+
+Returns a copy of `obj` excluding the value represented by the `ks` path.
+Path may be given as an array or as a dot-separated string.
+If the path contains an array, the value of the path will be removed from all the array elements.
+
+```javascript
+var test = {
+    foo: true,
+    bar: false,
+    baz: 42,
+    dada: {
+        carlos: {
+            pepe: 9
+        },
+        pedro: 'pedro'
+    }
+};
+
+_.omitPath(test, 'dada.carlos.pepe');
+// => {foo: true, bar: false, baz: 42, dada: {carlos: {}, pedro: 'pedro'}}
+```

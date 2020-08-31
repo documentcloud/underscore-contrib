@@ -121,50 +121,6 @@
 
     omitWhen: function(obj, pred) {
       return _.pickWhen(obj, function(e) { return !pred(e); });
-    },
-
-    // Returns an object excluding the value represented by the path
-    omitPath: function(obj, ks){
-      if (typeof ks == "string") ks = ks.split(".");
-
-      // If we have reached an undefined property
-      // then stop executing and return undefined
-      if (obj === undefined) return void 0;
-
-      // If the path array has no more elements, we've reached
-      // the intended property and return its value
-      if (ks.length === 0) return obj;
-
-      // If we still have elements in the path array and the current
-      // value is null, stop executing and return undefined
-      if (obj === null) return void 0;
-
-      var copy = {};
-
-      var deepFunc = function (obj, path){
-        if (!path)
-          path = [];
-        _.each(obj, function(value, key) {
-          if (_.isObject(value)){
-            if (_.difference(ks, _.union(path, key)).length !== 0){
-              if (_.isArray(value)){
-                _.getPath(copy, path)[key] = [];
-              }else{
-                _.getPath(copy, path)[key] = {};
-              }
-              path.push(key);
-              deepFunc(value, path);
-              path.pop(key);
-            }
-          }else{
-            if (_.difference(ks, _.union(path, key)).length !== 0)
-              _.getPath(copy, path)[key] = value;
-          }
-        });
-      };
-      deepFunc(obj);
-
-      return copy;
     }
 
   });

@@ -52,7 +52,7 @@ $(document).ready(function() {
 
     assert.deepEqual(_.setPath(obj, 9, ['a', 'b', 'c']), {a: {b: {c: 9, d: 108}}}, '');
     assert.deepEqual(_.setPath(ary, 9, [1, 1, 0]), ['a', ['b', [9, 'd'], 'e']], '');
-    assert.deepEqual(_.setPath(nest, 9, [1, 'b', 1]), [1, {a: 2, b: [3,9], c: 5}, 6], ''); 
+    assert.deepEqual(_.setPath(nest, 9, [1, 'b', 1]), [1, {a: 2, b: [3,9], c: 5}, 6], '');
 
     assert.deepEqual(_.setPath(obj, 9, 'a'), {a: 9}, '');
     assert.deepEqual(_.setPath(ary, 9, 1), ['a', 9], '');
@@ -69,7 +69,7 @@ $(document).ready(function() {
 
     assert.deepEqual(_.updatePath(obj, _.always(9), ['a', 'b', 'c']), {a: {b: {c: 9, d: 108}}}, '');
     assert.deepEqual(_.updatePath(ary, _.always(9), [1, 1, 0]), ['a', ['b', [9, 'd'], 'e']], '');
-    assert.deepEqual(_.updatePath(nest, _.always(9), [1, 'b', 1]), [1, {a: 2, b: [3,9], c: 5}, 6], ''); 
+    assert.deepEqual(_.updatePath(nest, _.always(9), [1, 'b', 1]), [1, {a: 2, b: [3,9], c: 5}, 6], '');
 
     assert.deepEqual(_.updatePath(obj, _.always(9), 'a'), {a: 9}, '');
     assert.deepEqual(_.updatePath(ary, _.always(9), 1), ['a', 9], '');
@@ -79,4 +79,18 @@ $(document).ready(function() {
     assert.deepEqual(nest, [1, {a: 2, b: [3,4], c: 5}, 6], 'should not modify the original nested structure');
   });
 
+  QUnit.test("omitPath", function(assert){
+    var a = {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro', list: [{file: '..', more: {other: { a: 1, b: 2}}, name: 'aa'}, {file: '..', name: 'bb'}]}};
+
+    assert.deepEqual(_.omitPath(a, 'dada.carlos.pepe'), {foo: true, bar: false, baz: 42, dada: {carlos: {}, pedro: 'pedro', list: [{file: '..', more: {other: { a: 1, b: 2}} , name: 'aa'}, {file: '..', name: 'bb'}]}}, "should return an object without the value that represent the path");
+    assert.deepEqual(_.omitPath(a, 'dada.carlos'), {foo: true, bar: false, baz: 42, dada: {pedro: 'pedro', list: [{file: '..', more: {other: { a: 1, b: 2}} , name: 'aa'}, {file: '..', name: 'bb'}]}}, "should return an object without the value that represent the path");
+    assert.deepEqual(_.omitPath(a, ''), {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro', list: [{file: '..', more: {other: { a: 1, b: 2}} , name: 'aa'}, {file: '..', name: 'bb'}]}}, "should return the whole object because the path is empty");
+
+    assert.deepEqual(_.omitPath(a, 'dada.list.file'), {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro', list: [{name: 'aa', more: {other: { a: 1, b: 2}}}, {name: 'bb'}]}}, "should return an object without the value in each object of the list");
+    assert.deepEqual(_.omitPath(a, 'dada.list.name'), {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro', list: [{file: '..', more: {other: { a: 1, b: 2}}}, {file: '..'}]}}, "should return an object without the value in each object of the list");
+
+    assert.deepEqual(_.omitPath(a, 'dada.list'), {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro'}}, "should return an object without the list");
+
+    assert.deepEqual(_.omitPath(a, 'dada.list.more.other.a'), {foo: true, bar: false, baz: 42, dada: {carlos: { pepe: 9 }, pedro: 'pedro', list: [{file: '..', more: {other: { b: 2}} , name: 'aa'}, {file: '..', name: 'bb'}]}}, "should return an object without the value inside the values of the list");
+  });
 });
