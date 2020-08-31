@@ -29,13 +29,13 @@
   var buildParams = function(prefix, val, top) {
     if (_.isUndefined(top)) top = true;
     if (_.isArray(val)) {
-      return _.map(val, function(value, key) {
+      return _.compact(_.map(val, function(value, key) {
         return buildParams(top ? key : prefix + '[]', value, false);
-      }).join('&');
+      })).join('&');
     } else if (_.isObject(val)) {
-      return _.map(val, function(value, key) {
+      return _.compact(_.map(val, function(value, key) {
         return buildParams(top ? key : prefix + '[' + key + ']', value, false);
-      }).join('&');
+      })).join('&');
     } else {
       return urlEncode(prefix) + '=' + urlEncode(val);
     }
