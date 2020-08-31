@@ -155,7 +155,6 @@ obj === imperialObj;
 
 Returns a copy of `obj` excluding the value represented by the `ks` path.
 Path may be given as an array or as a dot-separated string.
-If the path contains an array, the value of the path will be removed from all the array elements.
 
 ```javascript
 var test = {

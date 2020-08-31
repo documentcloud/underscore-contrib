@@ -135,7 +135,7 @@ $(document).ready(function() {
       }
     }, "should return the whole object because the path is empty");
 
-    assert.deepEqual(_.omitPath(a, 'dada.list.file'), {
+    assert.deepEqual(_.omitPath(a, 'dada.list.0.file'), {
       foo: true,
       bar: false,
       baz: 42,
@@ -144,12 +144,12 @@ $(document).ready(function() {
         pedro: 'pedro',
         list: [
           {name: 'aa', more: {other: { a: 1, b: 2}}},
-          {name: 'bb'}
+          {file: '..', name: 'bb'}
         ]
       }
-    }, "should return an object without the value in each object of the list");
+    }, "should return an object without the value in an element of the list");
 
-    assert.deepEqual(_.omitPath(a, 'dada.list.name'), {
+    assert.deepEqual(_.omitPath(a, 'dada.list.1.name'), {
       foo: true,
       bar: false,
       baz: 42,
@@ -157,7 +157,7 @@ $(document).ready(function() {
         carlos: { pepe: 9 },
         pedro: 'pedro',
         list: [
-          {file: '..', more: {other: { a: 1, b: 2}}},
+          {name: 'aa', file: '..', more: {other: { a: 1, b: 2}}},
           {file: '..'}
         ]
       }
@@ -173,7 +173,7 @@ $(document).ready(function() {
       }
     }, "should return an object without the list");
 
-    assert.deepEqual(_.omitPath(a, 'dada.list.more.other.a'), {
+    assert.deepEqual(_.omitPath(a, 'dada.list.0.more.other.a'), {
       foo: true,
       bar: false,
       baz: 42,
