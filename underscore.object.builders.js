@@ -106,6 +106,16 @@
       return ret;
     },
 
+    // Returns an object excluding the value represented by the path
+    omitPath: function(obj, ks, copy){
+      if (!obj) return copy;
+      if (typeof ks == "string") ks = ks.split(".");
+      if (!copy) copy = obj = _.snapshot(obj);
+      if (ks.length > 1) return _.omitPath(obj[ks[0]], _.tail(ks), copy);
+      delete obj[ks[0]];
+      return copy;
+    },
+
     // Sets the value at any depth in a nested object based on the
     // path described by the keys given.
     setPath: function(obj, value, ks, defaultValue) {
