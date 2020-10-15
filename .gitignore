@@ -8,5 +8,3 @@ examples/*.css
 examples/*.html
 examples/public
 bower_components/*
-dist/
-/index.html
