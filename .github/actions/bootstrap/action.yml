@@ -6,26 +6,28 @@ inputs:
     required: true
     default: 14.x
 runs:
-  - name: Use Node.js ${{ inputs.node-version }}
-    uses: actions/setup-node@v1
-    with:
-      node-version: ${{ inputs.node-version }}
-  - name: Configure yarn cache path
-    run: yarn config set cache-folder ~/.yarn-cache
-  - name: Restore yarn cache
-    uses: actions/cache@v2
-    with:
-      path: ~/.yarn-cache
-      key: yarn-cache-${{ inputs.node-version }}
-      restore-keys: |
-        yarn-cache-
-  - name: Restore node_modules
-    uses: actions/cache@v2
-    with:
-      path: node_modules
-      key: node-modules-${{ inputs.node-version }}-${{ hashFiles('yarn.lock') }}
-      restore-keys: |
-        node-modules-${{ inputs.node-version }}-
-        node-modules-
-  - name: Install dependencies
-    run: yarn
+  using: composite
+  steps:
+    - name: Use Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ inputs.node-version }}
+    - name: Configure yarn cache path
+      run: yarn config set cache-folder ~/.yarn-cache
+    - name: Restore yarn cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.yarn-cache
+        key: yarn-cache-${{ inputs.node-version }}
+        restore-keys: |
+          yarn-cache-
+    - name: Restore node_modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ inputs.node-version }}-${{ hashFiles('yarn.lock') }}
+        restore-keys: |
+          node-modules-${{ inputs.node-version }}-
+          node-modules-
+    - name: Install dependencies
+      run: yarn
