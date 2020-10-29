@@ -6,6 +6,9 @@ name: Continuous Deployment
 on:
   push:
     branches: [prepublish]
+  workflow_run:
+    workflows: [Prepublication staging]
+    types: [completed]
 
 jobs:
   deploy:
