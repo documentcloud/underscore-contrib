@@ -47,10 +47,10 @@ jobs:
       with:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Publish to NPM
-      run: yarn publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    # - name: Publish to NPM
+    #   run: yarn publish
+    #   env:
+    #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     - name: Merge into gh-pages
       uses: devmasx/merge-branch@v1.3.0
       with:
