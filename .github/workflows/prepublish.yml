@@ -7,7 +7,9 @@ name: Prepublication staging
 on:
   pull_request:
     types: [labeled]
-    branches: [release/*]
+    branches:
+      - release/*
+      - hotfix/*
 
 jobs:
   stage:
