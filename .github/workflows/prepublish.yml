@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     # Filtering by branch here instead. Credit due to @MiguelSavignano.
     # https://github.com/devmasx/merge-branch/issues/11
-    if: contains(github.ref, 'refs/release/') || contains(github.ref, 'refs/hotfix/')
+    if: contains(github.event.pull_request.head.ref, 'release/') || contains(github.event.pull_request.head.ref, 'hotfix/')
     steps:
       - uses: actions/checkout@v2
       - name: Merge into prepublish
