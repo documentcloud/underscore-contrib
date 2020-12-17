@@ -7,13 +7,15 @@ name: Prepublication staging
 on:
   pull_request:
     types: [labeled]
-    branches:
-      - release/*
-      - hotfix/*
+    # Would filter by branch here, but GH Actions wrongly decides not to
+    # trigger the workflow if we do this.
 
 jobs:
   stage:
     runs-on: ubuntu-latest
+    # Filtering by branch here instead. Credit due to @MiguelSavignano.
+    # https://github.com/devmasx/merge-branch/issues/11
+    if: contains(github.ref, 'refs/release/') || contains(github.ref, 'refs/hotfix/')
     steps:
       - uses: actions/checkout@v2
       - name: Merge into prepublish
