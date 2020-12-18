@@ -17,6 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: prepublish
     - name: Use Node.js 14.x
       uses: actions/setup-node@v1
       with:
