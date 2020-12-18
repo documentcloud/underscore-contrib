@@ -168,6 +168,22 @@
         return visitor(subResults || leafMemo, value, key, parent);
       };
       return walkImpl(obj, this._traversalStrategy, null, reducer, context, true);
+    },
+
+    // Determine if the array contains a number of repated values
+    containsAtLeast: function(list, count, value) {
+      var filtered = _.filter(list, function(item) {
+        return _.isEqual(item, value);
+      });
+      return _.gte(_.size(filtered), count);
+    },
+
+    // Determine if the array contains a number of repated values
+    containsAtMost: function(list, count, value) {
+      var filtered = _.filter(list, function(item) {
+        return _.isEqual(item, value);
+      });
+      return _.lte(_.size(filtered), count);
     }
   };
 
