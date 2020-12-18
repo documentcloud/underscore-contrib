@@ -1,4 +1,4 @@
-### array.builders 
+### array.builders
 
 > Functions to build arrays. <a href="docs/underscore.array.builders.js.html" class="btn btn-primary btn-xs">View Annotated Source</a>
 
@@ -95,6 +95,50 @@ Also, `_.chunkAll` takes an optional third argument signifying that paritions sh
 ```javascript
 _.chunkAll(_.range(10), 2, 4);
 //=> [[0,1],[4,5],[8,9]]
+```
+
+--------------------------------------------------------------------------------
+
+#### collate
+
+The `_.collate` function provides a way to sort an array according to an arbitrary order.
+
+Signature: `_.collate(toSort:array, customOrder:array)`
+
+```js
+    var order = ['tall', 'medium', 'short'];
+    var people = ['medium', 'short', 'tall', 'tall', 'short', 'medium'];
+    _.collate(people, order);
+    //=> ['tall', 'tall', 'medium', 'medium', 'short', 'short']
+```
+
+You can provide a third argument to `_.collate` to influence how array elements are evaluated while sorting. This argument will be passed through `_.iteratee()` in order to obtain a function that returns the sorting value.
+
+For example, if the third argument is a string, `_.collate` will look for a property with that name on each array element, and that value will be used for sorting.
+
+Signature: `_collate(toSort:array, customOrder:array, sortKey:string)`
+
+```js
+    var order = ['tall', 'medium', 'short'];
+    var people = [ {name:'Danny', height:'short'}, {name:'Arnold', height:'tall'} ];
+    _.collate(people, order, 'height');
+    //=> [ {name:'Arnold', height:'tall'}, {name:'Danny', height:'short'} ];
+```
+
+You may also directly pass a function as the third argument; it will be executed once for each item (with the original list as `this`, and the item as its argument), with its return used as the item's sort value.
+
+Signature: `_collate(toSort:array, customOrder:array, sortKey:function)`
+
+```js
+    var rankedSeverity = ['Critical', 'Major', 'Minor'];
+    var warnings = ['failed login', 'hdd full', 'network outage'];
+    function determineSeverity(msg) {
+        if(msg.indexOf('hdd') >= 0) return 'Critical';
+        if(msg.indexOf('network') >= 0) return 'Major';
+        return 'Minor';
+    }
+    _.collate(warnings, rankedSeverity, determineSeverity);
+    //=> ['hdd full', 'network outage', 'failed login']
 ```
 
 --------------------------------------------------------------------------------
@@ -198,7 +242,7 @@ That is, the array only contains every number from `5` down to `1` because when 
 The `_.keepIndexed` function takes an array and a function and returns a new array filled with the *non-null* return results of the given function on the elements or keys in the given array:
 
 ```javascript
-_.keepIndexed([1,2,3], function(k) { 
+_.keepIndexed([1,2,3], function(k) {
   return i === 1 || i === 2;
 });
 
@@ -208,8 +252,8 @@ _.keepIndexed([1,2,3], function(k) {
 If you return either `null` or `undefined` then the result is dropped from the resulting array:
 
 ```javascript
-_.keepIndexed(['a','b','c'], function(k, v) { 
-  if (k === 1) return v; 
+_.keepIndexed(['a','b','c'], function(k, v) {
+  if (k === 1) return v;
 });
 
 //=> ['b']
@@ -291,7 +335,7 @@ _.splitAt([1,2,3,4,5], 20000);
 //=> [[1,2,3,4,5],[]]
 
 _.splitAt([1,2,3,4,5], -1000);
-//=> [[],[1,2,3,4,5]]    
+//=> [[],[1,2,3,4,5]]
 
 _.splitAt([], 0);
 //=> [[],[]]

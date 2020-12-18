@@ -14,9 +14,10 @@
 
   // Helpers
   // -------
-  
+
   // Create quick reference variables for speed access to core prototypes.
-  var slice   = Array.prototype.slice;
+  var slice   = Array.prototype.slice,
+      sort    = Array.prototype.sort;
 
   var existy = function(x) { return x != null; };
 
@@ -25,7 +26,7 @@
 
   _.mixin({
     // Concatenates one or more arrays given as arguments.  If given objects and
-    // scalars as arguments `cat` will plop them down in place in the result 
+    // scalars as arguments `cat` will plop them down in place in the result
     // array.  If given an `arguments` object, `cat` will treat it like an array
     // and concatenate it likewise.
     cat: function() {
@@ -88,7 +89,7 @@
       if (sz === 0) return array;
       if (sz === 1) return array;
 
-      return slice.call(_.mapcat(array, function(elem) { 
+      return slice.call(_.mapcat(array, function(elem) {
         return _.cons(elem, [inter]);
       }), 0, -1);
     },
@@ -166,7 +167,7 @@
       return ret;
     },
 
-    // Runs its given function on the index of the elements rather than 
+    // Runs its given function on the index of the elements rather than
     // the elements themselves, keeping all of the truthy values in the end.
     keepIndexed: function(array, pred) {
       return _.filter(_.map(_.range(_.size(array)), function(i) {
@@ -184,6 +185,27 @@
       if (typeof obj == 'string')
         throw new TypeError('Strings cannot be reversed by _.reverseOrder');
       return slice.call(obj).reverse();
+    },
+
+    // Returns copy or array sorted according to arbitrary ordering
+    // order must be an array of values; defines the custom sort
+    // key must be a valid argument to _.iteratee
+    collate: function(array, order, key) {
+      if (typeof array.length != "number") throw new TypeError("expected an array-like first argument");
+      if (typeof order.length != "number") throw new TypeError("expected an array-like second argument");
+
+      var original = slice.call(array);
+      var valA, valB;
+      var cb = _.iteratee(key);
+      return sort.call(original, function (a, b) {
+        var rankA = _.indexOf(order, cb(a));
+        var rankB = _.indexOf(order, cb(b));
+
+        if(rankA === -1) return 1;
+        if(rankB === -1) return -1;
+
+        return rankA - rankB;
+      });
     },
 
     // Creates an array with all possible combinations of elements from

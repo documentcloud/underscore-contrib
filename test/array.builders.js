@@ -198,6 +198,30 @@ $(document).ready(function() {
     assert.deepEqual(_.reverseOrder(argObj), [3, 2, 1], 'works with other array-like objects');
   });
 
+  QUnit.test('collate', function(assert) {
+    var properOrder = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+    var itemsBare = ['green', 'yellow', 'violet', 'red', 'indigo', 'orange', 'blue'];
+    var itemsObj = [{'prop':'green'}, {'prop':'yellow'}, {'prop':'violet'}, {'prop':'red'}, {'prop':'indigo'}, {'prop':'orange'}, {'prop':'blue'}];
+    var itemsUnknown = [{index: 0}, {index: 1}, {index: 2}, {index: 3}, {index: 4}, {index: 5}, {index: 6}];
+    var itemsRaw = ['g', 'y', 'v', 'r', 'i', 'o', 'b'];
+    var rawConvertFunc = function(val) {
+      return ({
+        'r': 'red',
+        'o': 'orange',
+        'y': 'yellow',
+        'g': 'green',
+        'b': 'blue',
+        'i': 'indigo',
+        'v': 'violet'
+      })[val];
+    };
+
+    assert.deepEqual(_.collate(itemsBare, properOrder), properOrder, 'returns an array of scalars whose elements are ordered according to provided lexicon');
+    assert.deepEqual(_.collate(itemsObj, properOrder, 'prop'), [{'prop':'red'}, {'prop':'orange'}, {'prop':'yellow'}, {'prop':'green'}, {'prop':'blue'}, {'prop':'indigo'}, {'prop':'violet'}], 'returns an array of objects that are ordered according to provided lexicon');
+    assert.deepEqual(_.collate(itemsRaw, properOrder, rawConvertFunc), ['r', 'o', 'y', 'g', 'b', 'i', 'v'], 'returns an array whose elements are sorted by derived value according to provided lexicon');
+    assert.deepEqual(_.collate(itemsUnknown, properOrder, 'prop'), itemsUnknown, 'does not needlessly swap elements');
+  });
+
   QUnit.test('combinations', function(assert){
     assert.deepEqual(_.combinations([1]),[[1]],'single array will merely be wrapped');
     assert.deepEqual(_.combinations([1],[2],[3]),[[1,2,3]],'arrays with single elements will merely be merged');
@@ -207,5 +231,4 @@ $(document).ready(function() {
 
     assert.deepEqual(_.combinations(["a",["b"]],[[1]]),[["a",[1]],[["b"],[1]]],'initial arrays can contain array elements which are then preserved');
   });
-
 });
