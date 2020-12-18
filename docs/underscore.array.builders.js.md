@@ -1,4 +1,4 @@
-### array.builders 
+### array.builders
 
 > Functions to build arrays. <a href="docs/underscore.array.builders.js.html" class="btn btn-primary btn-xs">View Annotated Source</a>
 
@@ -152,6 +152,20 @@ _.cycle(5, [1,2,3]);
 
 --------------------------------------------------------------------------------
 
+#### insert
+
+Given an array (or array-like object), an index and a value, insert the value at this index in the array. The value that was previously at this index shifts one position up, together with any values that may come after it. `_.insert` modifies the array in place and also returns it. Useful shorthand for `Array.prototype.splice.call(array, index, 0, value)`.
+
+```javascript
+var array = [1, 2, 3];
+var result = _.insert(array, 1, 4);
+//=> [1, 4, 2, 3]
+result === array;
+//=> true
+```
+
+--------------------------------------------------------------------------------
+
 #### interpose
 
 The `_.interpose` function takes an array and an element and returns a new array with the given element inserted betwixt every element in the original array:
@@ -198,7 +212,7 @@ That is, the array only contains every number from `5` down to `1` because when 
 The `_.keepIndexed` function takes an array and a function and returns a new array filled with the *non-null* return results of the given function on the elements or keys in the given array:
 
 ```javascript
-_.keepIndexed([1,2,3], function(k) { 
+_.keepIndexed([1,2,3], function(k) {
   return i === 1 || i === 2;
 });
 
@@ -208,8 +222,8 @@ _.keepIndexed([1,2,3], function(k) {
 If you return either `null` or `undefined` then the result is dropped from the resulting array:
 
 ```javascript
-_.keepIndexed(['a','b','c'], function(k, v) { 
-  if (k === 1) return v; 
+_.keepIndexed(['a','b','c'], function(k, v) {
+  if (k === 1) return v;
 });
 
 //=> ['b']
@@ -291,7 +305,7 @@ _.splitAt([1,2,3,4,5], 20000);
 //=> [[1,2,3,4,5],[]]
 
 _.splitAt([1,2,3,4,5], -1000);
-//=> [[],[1,2,3,4,5]]    
+//=> [[],[1,2,3,4,5]]
 
 _.splitAt([], 0);
 //=> [[],[]]

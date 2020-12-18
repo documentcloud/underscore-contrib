@@ -208,4 +208,13 @@ $(document).ready(function() {
     assert.deepEqual(_.combinations(["a",["b"]],[[1]]),[["a",[1]],[["b"],[1]]],'initial arrays can contain array elements which are then preserved');
   });
 
+  QUnit.test('insert', function(assert){
+    var throwingFn = function() { _.insert({}, 0, 1); };
+    assert.throws(throwingFn, TypeError, 'throws a TypeError when passing an object literal');
+
+    assert.deepEqual(_.insert([], 0, 1), [1],'inserts item in empty array');
+    assert.deepEqual(_.insert([2], 0, 1), [1,2],'inserst item at the corret index');
+    assert.deepEqual(_.insert([1,2], 2, 3), [1,2,3],'inserts item at the end of array if exceeding index');
+    assert.deepEqual(_.insert([1,3], -1, 2), [1,2,3],'inserst item at the correct index if negative index');
+  });
 });
