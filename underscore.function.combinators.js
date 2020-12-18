@@ -1,14 +1,16 @@
-// Underscore-contrib (underscore.function.combinators.js 0.0.1)
+// Underscore-contrib (underscore.function.combinators.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -29,7 +31,22 @@
     };
   };
   
+  var createPredicateApplicator = function (funcToInvoke /*, preds */) {
+    var preds = _(arguments).tail();
+
+    return function (objToCheck) {
+      var array = _(objToCheck).cat();
+
+      return _[funcToInvoke](array, function (e) {
+        return _[funcToInvoke](preds, function (p) {
+          return p(e);
+        });
+      });
+    };
+  };
+
   // n.b. depends on underscore.function.arity.js
+  // n.b. depends on underscore.array.builders.js
     
   // Takes a target function and a mapping function. Returns a function
   // that applies the mapper to its arguments before evaluating the body.
@@ -43,11 +60,8 @@
   // ----------------------------------
 
   _.mixin({
-    // Takes a value and returns a function that always returns
-    // said value.
-    always: function(value) {
-      return function() { return value; };
-    },
+    // Provide "always" alias for backwards compatibility
+    always: _.constant,
 
     // Takes some number of functions, either as an array or variadically
     // and returns a function that takes some value as its first argument 
@@ -65,32 +79,12 @@
     // Composes a bunch of predicates into a single predicate that
     // checks all elements of an array for conformance to all of the
     // original predicates.
-    conjoin: function(/* preds */) {
-      var preds = arguments;
-
-      return function(array) {
-        return _.every(array, function(e) {
-          return _.every(preds, function(p) {
-            return p(e);
-          });
-        });
-      };
-    },
+    conjoin: _.partial(createPredicateApplicator, ('every')),
 
     // Composes a bunch of predicates into a single predicate that
     // checks all elements of an array for conformance to any of the
     // original predicates.
-    disjoin: function(/* preds */) {
-      var preds = arguments;
-
-      return function(array) {
-        return _.some(array, function(e) {
-          return _.some(preds, function(p) {
-            return p(e);
-          });
-        });
-      };
-    },
+    disjoin: _.partial(createPredicateApplicator, 'some'),
 
     // Takes a predicate-like and returns a comparator (-1,0,1).
     comparator: function(fun) {
@@ -107,7 +101,7 @@
     // Returns a function that reverses the sense of a given predicate-like.
     complement: function(pred) {
       return function() {
-        return !pred.apply(null, arguments);
+        return !pred.apply(this, arguments);
       };
     },
 
@@ -117,7 +111,7 @@
     // function
     splat: function(fun) {
       return function(array) {
-        return fun.apply(null, array);
+        return fun.apply(this, array);
       };
     },
 
@@ -183,8 +177,8 @@
       return function(/* args */) {
         var args = arguments;
         return _.map(funs, function(f) {
-          return f.apply(null, args);
-        });
+          return f.apply(this, args);
+        }, this);
       };
     },
 
@@ -204,7 +198,7 @@
             args[i] = defaults[i];
         }
 
-        return fun.apply(null, args);
+        return fun.apply(this, args);
       };
     },
 
@@ -215,7 +209,7 @@
         flipped[0] = arguments[1];
         flipped[1] = arguments[0];
 
-        return fun.apply(null, flipped);
+        return fun.apply(this, flipped);
       };
     },
 
@@ -224,7 +218,7 @@
       return function(/* args */) {
         var reversed = __reverse.call(arguments);
 
-        return fun.apply(null, reversed);
+        return fun.apply(this, reversed);
       };
     },
 
@@ -266,4 +260,4 @@
     return _.bind(fn, obj);
   };
 
-})(this);
+}).call(this);

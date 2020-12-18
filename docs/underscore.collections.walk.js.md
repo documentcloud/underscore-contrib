@@ -11,5 +11,6 @@ Documentation should use [Journo](https://github.com/jashkenas/journo) formats a
       map: function(obj, strategy, visitor, context)
       pluck: function(obj, propertyName)
       pluckRec: function(obj, propertyName)
+      containsAtLeast: function(list, count, value)
+      containsAtMost: function(list, count, value)
       _.walk.collect = _.walk.map;
-

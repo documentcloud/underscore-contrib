@@ -44,13 +44,7 @@ module.exports = function(grunt) {
         "test/*.js"
       ],
       options: {
-        es3: true,       // Enforce ES3 compatibility
-        indent: 2,       // Indent by 2 spaces
-        camelcase: true, // All vars must be camelCase or UPPER_WITH_UNDERSCORES
-        eqnull: true,    // Allow 'x == null' convention
-        forin: true,     // Require `for x in y` to filter with `hasOwnProperty`
-        newcap: true,    // Require constructor names to be capitalized
-        "-W058": false   // Allow 'new Constructor' without parens
+        jshintrc: true
       }
     },
 
@@ -67,7 +61,13 @@ module.exports = function(grunt) {
     tocdoc: {
       api: {
         files: {
-          'index.html': 'docs/*.md'
+          'index.html': ['docs/*.md', 'CHANGELOG.md']
+        },
+        options: {
+          scripts: [
+            'test/vendor/underscore.js',
+            'dist/underscore-contrib.js'
+          ]
         }
       }
     },
@@ -88,8 +88,8 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask("test", ["jshint", "qunit:main"]);
-  grunt.registerTask("dist", ["concat", "uglify"]);
+  grunt.registerTask('test', ['jshint', 'qunit:main']);
   grunt.registerTask('default', ['test']);
   grunt.registerTask('dist', ['test', 'concat', 'qunit:concat', 'uglify', 'qunit:min']);
+  grunt.registerTask('doc', ['test', 'tocdoc']);
 };

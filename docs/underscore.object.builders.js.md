@@ -24,12 +24,26 @@ _.frequencies(citations);
 
 **Signature:** `_.merge(obj1:Object[, obj:Object...])`
 
-Merges two or more objects starting with the left-most and applying the keys
-rightward.
+Returns a new object resulting from merging the passed objects. Objects
+are processed in order, so each will override properties of the same
+name occurring in earlier arguments.
+
+Returns `null` if called without arguments.
 
 ```javascript
-_.merge({ a: "alpha" }, { b: "beta" });
-// => { a: "alpha", b: "beta" }
+var a = {a: "alpha"};
+var b = {b: "beta"};
+
+var threeGreekLetters = _.merge(a, b, {g: "gamma"});
+
+a;
+// => {a: "alpha"}
+
+b;
+// => {b: "beta"}
+
+threeGreekLetters;
+// => { a: "alpha", b: "beta", g: "gamma" }
 ```
 
 --------------------------------------------------------------------------------
@@ -56,9 +70,26 @@ Sets the value of a property at any depth in `obj` based on the path described
 by the `ks` array. If any of the properties in the `ks` path don't exist, they
 will be created with `defaultValue`.
 
+Note that the original object will *not* be mutated. Instead, `obj` will
+be cloned deeply.
+
+
+
 ```javascript
-_.setPath({}, "Plotinus", ["Platonism", "Neoplatonism"], {});
+
+var obj = {};
+
+var plotinusObj = _.setPath(obj, "Plotinus", ["Platonism", "Neoplatonism"], {});
+
+obj;
+// => {}
+
+plotinusObj;
 // => { Platonism: { Neoplatonism: "Plotinus" } }
+
+obj === plotinusObj;
+// => false;
+
 ```
 
 --------------------------------------------------------------------------------
@@ -81,6 +112,8 @@ schools === _.snapshot(schools);
 
 --------------------------------------------------------------------------------
 
+#### updatePath
+
 **Signature:** `_.updatePath(obj:Object, fun:Function, ks:Array, defaultValue:Any)`
 
 Updates the value at any depth in a nested object based on the path described by
@@ -89,12 +122,53 @@ expected to return a replacement value.  If no keys are provided, then the
 object itself is presented to `fun`. If a property in the path is missing, then
 it will be created with `defaultValue`.
 
+Note that the original object will *not* be mutated. Instead, `obj` will
+be cloned deeply.
+
 ```javascript
 var imperialize = function (val) {
-    if (val == "Republic) return "Empire";
+    if (val == "Republic") return "Empire";
     else return val;
 };
 
 _.updatePath({ rome: "Republic" }, imperialize,  ["rome"]);
 // => { rome: "Empire" }
+
+var obj = { earth: { rome: "Republic" } };
+var imperialObj = _.updatePath(obj, imperialize, ["earth", "rome"]);
+
+imperialObj;
+// => { earth: { rome: "Empire" }}
+
+obj;
+// => { earth: { rome: "Republic" }}
+
+obj === imperialObj;
+// => false
+```
+
+--------------------------------------------------------------------------------
+
+#### omitPath
+
+**Signature:** `_.omitPath(obj:Object, ks:String|Array)`
+
+Returns a copy of `obj` excluding the value represented by the `ks` path.
+Path may be given as an array or as a dot-separated string.
+
+```javascript
+var test = {
+    foo: true,
+    bar: false,
+    baz: 42,
+    dada: {
+        carlos: {
+            pepe: 9
+        },
+        pedro: 'pedro'
+    }
+};
+
+_.omitPath(test, 'dada.carlos.pepe');
+// => {foo: true, bar: false, baz: 42, dada: {carlos: {}, pedro: 'pedro'}}
 ```

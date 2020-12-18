@@ -6,332 +6,357 @@ $(document).ready(function() {
   function naturalSmallerThan (x)  { return _.iterators.List(_.range(0, x)); }
 
 
-  module("underscore.function.iterators");
+  QUnit.module("underscore.function.iterators");
 
-  test("List", function() {
+  QUnit.test("List", function(assert) {
     var i = _.iterators.List([1, 2, 3, 4, 5]);
-    equal(i(), 1, "should return the first element of the underlying array");
-    equal(i(), 2, "should return the next element of the underlying array");
-    equal(i(), 3, "should return the next element of the underlying array");
-    equal(i(), 4, "should return the next element of the underlying array");
-    equal(i(), 5, "should return the next element of the underlying array");
-    equal(i(), void 0, "should return undefined when out of elements");
+    assert.equal(i(), 1, "should return the first element of the underlying array");
+    assert.equal(i(), 2, "should return the next element of the underlying array");
+    assert.equal(i(), 3, "should return the next element of the underlying array");
+    assert.equal(i(), 4, "should return the next element of the underlying array");
+    assert.equal(i(), 5, "should return the next element of the underlying array");
+    assert.equal(i(), void 0, "should return undefined when out of elements");
     
     i = _.iterators.List([1, [2, 3, [4]], 5]);
-    equal(i(), 1, "should return the first element of the underlying array");
-    notEqual(i(), 2, "should not do a deep traverse");
-    equal(i(), 5, "should return the next element of the underlying array");
-    equal(i(), void 0, "should return undefined when out of elements");
+    assert.equal(i(), 1, "should return the first element of the underlying array");
+    assert.notEqual(i(), 2, "should not do a deep traverse");
+    assert.equal(i(), 5, "should return the next element of the underlying array");
+    assert.equal(i(), void 0, "should return undefined when out of elements");
     
     i = _.iterators.List([]);
-    equal(i(), void 0, "should return undefined when there are no elements");
+    assert.equal(i(), void 0, "should return undefined when there are no elements");
   
     i = _.iterators.List([[], [[]]]);
-    notEqual(i(), void 0, "should have a values given an empty tree");
+    assert.notEqual(i(), void 0, "should have a values given an empty tree");
   });
 
-  test("Tree", function () {
+  QUnit.test("Tree", function(assert) {
     var i = _.iterators.Tree([]);
-    equal(i(), void 0, "should return undefined for an empty array");
+    assert.equal(i(), void 0, "should return undefined for an empty array");
   
     i = _.iterators.Tree([[], [[]]]);
-    equal(i(), void 0, "should return undefined for an empty tree");
+    assert.equal(i(), void 0, "should return undefined for an empty tree");
   
     i = _.iterators.Tree([1, 2, 3, 4, 5]);
-    equal(i(), 1, "should return the first element of the underlying array");
-    equal(i(), 2, "should return the next element of the underlying array");
-    equal(i(), 3, "should return the next element of the underlying array");
-    equal(i(), 4, "should return the next element of the underlying array");
-    equal(i(), 5, "should return the next element of the underlying array");
-    equal(i(), void 0, "should return undefined when out of elements");
+    assert.equal(i(), 1, "should return the first element of the underlying array");
+    assert.equal(i(), 2, "should return the next element of the underlying array");
+    assert.equal(i(), 3, "should return the next element of the underlying array");
+    assert.equal(i(), 4, "should return the next element of the underlying array");
+    assert.equal(i(), 5, "should return the next element of the underlying array");
+    assert.equal(i(), void 0, "should return undefined when out of elements");
     
     i = _.iterators.Tree([1, [2, 3, [4]], 5]);
-    equal(i(), 1, "should return the first element of the underlying array");
-    equal(i(), 2, "should return the next element of the underlying array");
-    equal(i(), 3, "should return the next element of the underlying array");
-    equal(i(), 4, "should return the next element of the underlying array");
-    equal(i(), 5, "should return the next element of the underlying array");
-    equal(i(), void 0, "should return undefined when out of elements");
+    assert.equal(i(), 1, "should return the first element of the underlying array");
+    assert.equal(i(), 2, "should return the next element of the underlying array");
+    assert.equal(i(), 3, "should return the next element of the underlying array");
+    assert.equal(i(), 4, "should return the next element of the underlying array");
+    assert.equal(i(), 5, "should return the next element of the underlying array");
+    assert.equal(i(), void 0, "should return undefined when out of elements");
   });
   
-  test("Reduce", function () {
+  QUnit.test("Reduce", function(assert) {
     
-    equal( _.iterators.reduce(_.iterators.Tree([1, [2, 3, [4]], 5]), sum, 0), 15, "should fold an iterator with many elements");
+    assert.equal( _.iterators.reduce(_.iterators.Tree([1, [2, 3, [4]], 5]), sum, 0), 15, "should fold an iterator with many elements");
 
-    equal( _.iterators.reduce(_.iterators.Tree([[[4], []]]), sum, 42), 46, "should fold an iterator with one element");
+    assert.equal( _.iterators.reduce(_.iterators.Tree([[[4], []]]), sum, 42), 46, "should fold an iterator with one element");
 
-    equal( _.iterators.reduce(_.iterators.Tree([[], [[]]]), sum, 42), 42, "should fold an empty iterator");
+    assert.equal( _.iterators.reduce(_.iterators.Tree([[], [[]]]), sum, 42), 42, "should fold an empty iterator");
       
-    equal( _.iterators.reduce(_.iterators.Tree([1, [2, 3, [4]], 5]), sum), 15, "should fold an array with two or more elements");
+    assert.equal( _.iterators.reduce(_.iterators.Tree([1, [2, 3, [4]], 5]), sum), 15, "should fold an array with two or more elements");
       
-    equal( _.iterators.reduce(_.iterators.Tree([[[4], []]]), sum), 4, "should fold an array with one element");
+    assert.equal( _.iterators.reduce(_.iterators.Tree([[[4], []]]), sum), 4, "should fold an array with one element");
       
-    equal( _.iterators.reduce(_.iterators.Tree([[[], []]]), sum), void 0, "should fold an array with no elements");
+    assert.equal( _.iterators.reduce(_.iterators.Tree([[[], []]]), sum), void 0, "should fold an array with no elements");
   });
   
-  test("Accumulate", function () {
+  QUnit.test("Accumulate", function(assert) {
     var i = _.iterators.accumulate(_.iterators.Tree([1, [2, 3, [4]], 5]), sum, 0);
-    equal(i(), 1, "should map an iterator with many elements");
-    equal(i(), 3, "should map an iterator with many elements");
-    equal(i(), 6, "should map an iterator with many elements");
-    equal(i(), 10, "should map an iterator with many elements");
-    equal(i(), 15, "should map an iterator with many elements");
-    equal(i(), void 0);
+    assert.equal(i(), 1, "should map an iterator with many elements");
+    assert.equal(i(), 3, "should map an iterator with many elements");
+    assert.equal(i(), 6, "should map an iterator with many elements");
+    assert.equal(i(), 10, "should map an iterator with many elements");
+    assert.equal(i(), 15, "should map an iterator with many elements");
+    assert.equal(i(), void 0);
   
     i = _.iterators.accumulate(_.iterators.Tree([[[4], []]]), sum, 42);
-    equal(i(), 46, "should map an iterator with one element");
-    equal(i(), void 0);
+    assert.equal(i(), 46, "should map an iterator with one element");
+    assert.equal(i(), void 0);
   
     i = _.iterators.accumulate(_.iterators.Tree([[[], []]]), sum, 42);
-    equal(i(), void 0, "should map an empty iterator");
+    assert.equal(i(), void 0, "should map an empty iterator");
       
     i = _.iterators.accumulate(_.iterators.Tree([1, [2, 3, [4]], 5]), sum);
-    equal(i(), 1, "should map an iterator with many elements");
-    equal(i(), 3, "should map an iterator with many elements");
-    equal(i(), 6, "should map an iterator with many elements");
-    equal(i(), 10, "should map an iterator with many elements");
-    equal(i(), 15, "should map an iterator with many elements");
-    equal(i(), void 0);
+    assert.equal(i(), 1, "should map an iterator with many elements");
+    assert.equal(i(), 3, "should map an iterator with many elements");
+    assert.equal(i(), 6, "should map an iterator with many elements");
+    assert.equal(i(), 10, "should map an iterator with many elements");
+    assert.equal(i(), 15, "should map an iterator with many elements");
+    assert.equal(i(), void 0);
   
     i = _.iterators.accumulate(_.iterators.Tree([[[4], []]]), sum);
-    equal(i(), 4, "should map an iterator with one element");
-    equal(i(), void 0);
+    assert.equal(i(), 4, "should map an iterator with one element");
+    assert.equal(i(), void 0);
   
     i = _.iterators.accumulate(_.iterators.Tree([[[], []]]), sum);
-    equal(i(), void 0);
+    assert.equal(i(), void 0);
     
   });
   
-  test("Map", function () {
+  QUnit.test("Map", function(assert) {
     var i = _.iterators.map(_.iterators.Tree([1, [2, 3, [4]], 5]), square);
-    equal(i(), 1, "should map an iterator with many elements");
-    equal(i(), 4, "should map an iterator with many elements");
-    equal(i(), 9, "should map an iterator with many elements");
-    equal(i(), 16, "should map an iterator with many elements");
-    equal(i(), 25, "should map an iterator with many elements");
-    equal(i(), void 0);
+    assert.equal(i(), 1, "should map an iterator with many elements");
+    assert.equal(i(), 4, "should map an iterator with many elements");
+    assert.equal(i(), 9, "should map an iterator with many elements");
+    assert.equal(i(), 16, "should map an iterator with many elements");
+    assert.equal(i(), 25, "should map an iterator with many elements");
+    assert.equal(i(), void 0);
   
     i = _.iterators.map(_.iterators.Tree([[[4], []]]), square);
-    equal(i(), 16, "should map an iterator with one element");
-    equal(i(), void 0);
+    assert.equal(i(), 16, "should map an iterator with one element");
+    assert.equal(i(), void 0);
   
     i = _.iterators.map(_.iterators.Tree([[[], []]]), square);
-    equal(i(), void 0, "should map an empty iterator");
+    assert.equal(i(), void 0, "should map an empty iterator");
   });
 
-  test("mapcat", function () {
+  QUnit.test("mapcat", function(assert) {
     var i = _.iterators.mapcat(_.iterators.Tree([1, [2]]), naturalSmallerThan);
-    equal(i(), 0, "should mapcat an iterator with many elements");
-    equal(i(), 0, "should mapcat an iterator with many elements");
-    equal(i(), 1, "should mapcat an iterator with many elements");
-    equal(i(), void 0);
+    assert.equal(i(), 0, "should mapcat an iterator with many elements");
+    assert.equal(i(), 0, "should mapcat an iterator with many elements");
+    assert.equal(i(), 1, "should mapcat an iterator with many elements");
+    assert.equal(i(), void 0);
 
     i = _.iterators.mapcat(_.iterators.Tree([[[1], []]]), naturalSmallerThan);
-    equal(i(), 0, "should mapcat an iterator with one element");
-    equal(i(), void 0);
+    assert.equal(i(), 0, "should mapcat an iterator with one element");
+    assert.equal(i(), void 0);
 
     i = _.iterators.mapcat(_.iterators.Tree([[[], []]]), naturalSmallerThan);
-    equal(i(), void 0, "should mapcat an empty iterator");
+    assert.equal(i(), void 0, "should mapcat an empty iterator");
   });
 
-  test("filter", function() {
+  QUnit.test("filter", function(assert) {
     var i = _.iterators.filter(_.iterators.Tree([1, [2, 3, [4]], 5]), odd);
-    equal(i(),1);
-    equal(i(),3);
-    equal(i(),5);
-    equal(i(),void 0);
+    assert.equal(i(),1);
+    assert.equal(i(),3);
+    assert.equal(i(),5);
+    assert.equal(i(),void 0);
     
     i = _.iterators.filter(_.iterators.Tree([[[4], []]]), odd);
-    equal(i(),void 0);
+    assert.equal(i(),void 0);
     
     i = _.iterators.filter(_.iterators.Tree([[[], []]]), odd);
-    equal(i(),void 0);
+    assert.equal(i(),void 0);
     
     i = _.iterators.filter(_.iterators.List([2, 4, 6, 8, 10]), odd);
-    equal(i(),void 0);
+    assert.equal(i(),void 0);
   });
 
-  test("slice", function() {
-    expect(0);
-    test("with two parameter", function() {
-      expect(0);
-      test("should return an identity iterator", function() {
+  QUnit.test("slice", function(assert) {
+    assert.expect(0);
+    QUnit.test("with two parameter", function(assert) {
+      assert.expect(0);
+      QUnit.test("should return an identity iterator", function(assert) {
         var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 0);
-        equal(i(),1);
-        equal(i(),2);
-        equal(i(),3);
-        equal(i(),4);
-        equal(i(),5);
-        equal(i(),void 0);
+        assert.equal(i(),1);
+        assert.equal(i(),2);
+        assert.equal(i(),3);
+        assert.equal(i(),4);
+        assert.equal(i(),5);
+        assert.equal(i(),void 0);
       });
-      test("should return a trailing iterator", function() {
+      QUnit.test("should return a trailing iterator", function(assert) {
         var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 1);
-        equal(i(),2);
-        equal(i(),3);
-        equal(i(),4);
-        equal(i(),5);
-        equal(i(),void 0);
+        assert.equal(i(),2);
+        assert.equal(i(),3);
+        assert.equal(i(),4);
+        assert.equal(i(),5);
+        assert.equal(i(),void 0);
       });
-      test("should return an empty iterator when out of range", function() {
+      QUnit.test("should return an empty iterator when out of range", function(assert) {
         var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 5);
-        equal(i(),void 0);
+        assert.equal(i(),void 0);
       });
     });
-    test("with three parameters", function() {
-      expect(0);
-      test("should return an identity iterator", function() {
+    QUnit.test("with three parameters", function(assert) {
+      assert.expect(0);
+      QUnit.test("should return an identity iterator", function(assert) {
         var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 0, 5);
-        equal(i(),1);
-        equal(i(),2);
-        equal(i(),3);
-        equal(i(),4);
-        equal(i(),5);
-        equal(i(),void 0);
+        assert.equal(i(),1);
+        assert.equal(i(),2);
+        assert.equal(i(),3);
+        assert.equal(i(),4);
+        assert.equal(i(),5);
+        assert.equal(i(),void 0);
         i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 0, 99);
-        equal(i(),1);
-        equal(i(),2);
-        equal(i(),3);
-        equal(i(),4);
-        equal(i(),5);
-        equal(i(),void 0);
+        assert.equal(i(),1);
+        assert.equal(i(),2);
+        assert.equal(i(),3);
+        assert.equal(i(),4);
+        assert.equal(i(),5);
+        assert.equal(i(),void 0);
       });
-      test("should return a leading iterator", function() {
+      QUnit.test("should return a leading iterator", function(assert) {
         var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 0, 4);
-        equal(i(),1);
-        equal(i(),2);
-        equal(i(),3);
-        equal(i(),4);
-        equal(i(),void 0);
+        assert.equal(i(),1);
+        assert.equal(i(),2);
+        assert.equal(i(),3);
+        assert.equal(i(),4);
+        assert.equal(i(),void 0);
       });
-      test("should return a trailing iterator", function() {
+      QUnit.test("should return a trailing iterator", function(assert) {
         var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 1, 4);
-        equal(i(),2);
-        equal(i(),3);
-        equal(i(),4);
-        equal(i(),5);
-        equal(i(),void 0);
+        assert.equal(i(),2);
+        assert.equal(i(),3);
+        assert.equal(i(),4);
+        assert.equal(i(),5);
+        assert.equal(i(),void 0);
         i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 1, 99);
-        equal(i(),2);
-        equal(i(),3);
-        equal(i(),4);
-        equal(i(),5);
-        equal(i(),void 0);
+        assert.equal(i(),2);
+        assert.equal(i(),3);
+        assert.equal(i(),4);
+        assert.equal(i(),5);
+        assert.equal(i(),void 0);
       });
-      test("should return an inner iterator", function() {
+      QUnit.test("should return an inner iterator", function(assert) {
         var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 1, 3);
-        equal(i(),2);
-        equal(i(),3);
-        equal(i(),4);
-        equal(i(),void 0);
+        assert.equal(i(),2);
+        assert.equal(i(),3);
+        assert.equal(i(),4);
+        assert.equal(i(),void 0);
       });
-      test("should return an empty iterator when given a zero length", function() {
+      QUnit.test("should return an empty iterator when given a zero length", function(assert) {
         var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 1, 0);
-        equal(i(),void 0);
+        assert.equal(i(),void 0);
       });
-      test("should return an empty iterator when out of range", function() {
+      QUnit.test("should return an empty iterator when out of range", function(assert) {
         var i = _.iterators.slice(_.iterators.List([1, 2, 3, 4, 5]), 5, 1);
-        equal(i(),void 0);
+        assert.equal(i(),void 0);
       });
     });
   });
 
-  test("drop", function() {
-    expect(0);
-    test("should drop the number of items dropped", function() {
+  QUnit.test("drop", function(assert) {
+    assert.expect(0);
+    QUnit.test("should drop the number of items dropped", function(assert) {
       var i = _.iterators.drop(_.iterators.List([1, 2, 3, 4, 5]), 2);
-      equal(i(),3);
-      equal(i(),4);
-      equal(i(),5);
-      equal(i(),void 0);
+      assert.equal(i(),3);
+      assert.equal(i(),4);
+      assert.equal(i(),5);
+      assert.equal(i(),void 0);
     });
-    test("should handle overdropping", function() {
+    QUnit.test("should handle overdropping", function(assert) {
       var i = _.iterators.drop(_.iterators.List([1, 2, 3, 4, 5]), 99);
-      equal(i(),void 0);
+      assert.equal(i(),void 0);
     });
-    test("should handle underdropping", function() {
+    QUnit.test("should handle underdropping", function(assert) {
       var i = _.iterators.drop(_.iterators.List([1, 2, 3, 4, 5]), 0);
-      equal(i(),1);
-      equal(i(),2);
-      equal(i(),3);
-      equal(i(),4);
-      equal(i(),5);
-      equal(i(),void 0);
+      assert.equal(i(),1);
+      assert.equal(i(),2);
+      assert.equal(i(),3);
+      assert.equal(i(),4);
+      assert.equal(i(),5);
+      assert.equal(i(),void 0);
     });
-    test("should default to one", function() {
+    QUnit.test("should default to one", function(assert) {
       var i = _.iterators.drop(_.iterators.List([1, 2, 3, 4, 5]));
-      equal(i(),2);
-      equal(i(),3);
-      equal(i(),4);
-      equal(i(),5);
-      equal(i(),void 0);
+      assert.equal(i(),2);
+      assert.equal(i(),3);
+      assert.equal(i(),4);
+      assert.equal(i(),5);
+      assert.equal(i(),void 0);
     });
   });
   
-  test("accumulateWithReturn", function() {
-    expect(0);
-    test("should pass the state and result in a pair", function() {
+  QUnit.test("accumulateWithReturn", function(assert) {
+    assert.expect(0);
+    QUnit.test("should pass the state and result in a pair", function(assert) {
       var i = _.iterators.accumulateWithReturn(_.iterators.List([1, 2, 3, 4, 5]), function(state, element) {
         return [state + element, 'Total is ' + (state + element)];
       }, 0);
-      equal(i(),'Total is 1');
-      equal(i(),'Total is 3');
-      equal(i(),'Total is 6');
-      equal(i(),'Total is 10');
-      equal(i(),'Total is 15');
+      assert.equal(i(),'Total is 1');
+      assert.equal(i(),'Total is 3');
+      assert.equal(i(),'Total is 6');
+      assert.equal(i(),'Total is 10');
+      assert.equal(i(),'Total is 15');
     });
   });
   
-  test("unfold", function() {
-    expect(0);
-    test("should unfold and include the seed", function() {
+  QUnit.test("unfold", function(assert) {
+    assert.expect(0);
+    QUnit.test("should unfold and include the seed", function(assert) {
       var i = _.iterators.unfold(0, function(n) {
         return n + 1;
       });
-      equal(i(),0);
-      equal(i(),1);
-      equal(i(),2);
+      assert.equal(i(),0);
+      assert.equal(i(),1);
+      assert.equal(i(),2);
     });
-    test("should not unfold without a seed", function() {
+    QUnit.test("should not unfold without a seed", function(assert) {
       var i = _.iterators.unfold(void 0, function(n) {
         return n + 1;
       });
-      equal(i(),void 0);
-      equal(i(),void 0);
-      equal(i(),void 0);
-      equal(i(),void 0);
+      assert.equal(i(),void 0);
+      assert.equal(i(),void 0);
+      assert.equal(i(),void 0);
+      assert.equal(i(),void 0);
     });
   });
   
-  test("unfoldWithReturn", function() {
-    expect(0);
-    test("should unfold and throw off a value", function() {
+  QUnit.test("unfoldWithReturn", function(assert) {
+    assert.expect(0);
+    QUnit.test("should unfold and throw off a value", function(assert) {
       var i = _.iterators.unfoldWithReturn(1, function(n) {
         return [n + 1, n * n];
       });
-      equal(i(),1);
-      equal(i(),4);
-      equal(i(),9);
-      equal(i(),16);
+      assert.equal(i(),1);
+      assert.equal(i(),4);
+      assert.equal(i(),9);
+      assert.equal(i(),16);
     });
-    test("should halt if it returns undefined", function() {
+    QUnit.test("should halt if it returns undefined", function(assert) {
       var i = _.iterators.unfoldWithReturn(1, function(n) {
         return [n + 1, n === 1 ? void 0 : n * n];
       });
-      equal(i(),void 0);
-      equal(i(),void 0);
-      equal(i(),void 0);
-      equal(i(),void 0);
+      assert.equal(i(),void 0);
+      assert.equal(i(),void 0);
+      assert.equal(i(),void 0);
+      assert.equal(i(),void 0);
     });
-    test("should halt if the state becomes undefined", function() {
+    QUnit.test("should halt if the state becomes undefined", function(assert) {
       var i = _.iterators.unfoldWithReturn(1, function(n) {
         return [(n === 3 ? void 0 : n + 1), (n === void 0 ? 100 : n * n)];
       });
-      equal(i(),1);
-      equal(i(),4);
-      equal(i(),9);
-      equal(i(),void 0);
+      assert.equal(i(),1);
+      assert.equal(i(),4);
+      assert.equal(i(),9);
+      assert.equal(i(),void 0);
     });
   });
   
+
+  QUnit.test("cycle", function(assert) {
+    assert.expect(0);
+    QUnit.test("empty array always returns undefined", function(assert){
+      var iter = _.iterators.cycle([]);
+      assert.equal(iter(), void 0);
+      assert.equal(iter(), void 0);
+      assert.equal(iter(), void 0);
+    });
+    QUnit.test("one item array always returns the item", function(assert) {
+      var iter = _.iterators.cycle(['a']);
+      assert.equal(iter(), 'a');
+      assert.equal(iter(), 'a');
+      assert.equal(iter(), 'a');
+    });
+    QUnit.test("multiple item array endlessly loops over the array", function(assert){
+      var letters = ['a', 'b', 'c', 'd', 'e'];
+      var iter = _.iterators.cycle(letters);
+      for(var n = 0; n < 5; n++){
+        for(var j = 0; j < letters.length; j++){
+          assert.equal(iter(), letters[j]);
+        }
+      }
+    });
+  });
 });
 

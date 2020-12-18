@@ -1,14 +1,16 @@
-// Underscore-contrib (underscore.array.selectors.js 0.0.1)
+// Underscore-contrib (underscore.array.selectors.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -44,6 +46,29 @@
     // A function to get at an index into an array
     nth: function(array, index, guard) {
       if ((index != null) && !guard) return array[index];
+    },
+
+    // A function to get values via indices into an array
+    nths: nths = function(array, indices) {
+      if (array == null) return void 0;
+
+      if (isSeq(indices))
+        return _(indices).map(function(i){return array[i];});
+      else
+        return nths(array, slice.call(arguments, 1));
+    },
+    valuesAt: nths,
+
+    // A function to get at "truthily" indexed values
+    // bin refers to "binary" nature of true/false values in binIndices
+    // but can also be thought of as putting array values into either "take" or "don't" bins
+    binPick: function binPick(array, binIndices) {
+      if (array == null) return void 0;
+
+      if (isSeq(binIndices))
+        return _.nths(array, _.range(binIndices.length).filter(function(i){return binIndices[i];}));
+      else
+        return binPick(array, slice.call(arguments, 1));
     },
 
     // Takes all items in an array while a given predicate returns truthy.
@@ -114,4 +139,4 @@
     }
   });
 
-})(this);
+}).call(this);

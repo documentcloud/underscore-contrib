@@ -1,14 +1,16 @@
-// Underscore-contrib (underscore.object.builders.js 0.0.1)
+// Underscore-contrib (underscore.object.builders.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -104,6 +106,16 @@
       return ret;
     },
 
+    // Returns an object excluding the value represented by the path
+    omitPath: function(obj, ks, copy){
+      if (!obj) return copy;
+      if (typeof ks == "string") ks = ks.split(".");
+      if (!copy) copy = obj = _.snapshot(obj);
+      if (ks.length > 1) return _.omitPath(obj[ks[0]], _.tail(ks), copy);
+      delete obj[ks[0]];
+      return copy;
+    },
+
     // Sets the value at any depth in a nested object based on the
     // path described by the keys given.
     setPath: function(obj, value, ks, defaultValue) {
@@ -117,4 +129,4 @@
     frequencies: curry2(_.countBy)(_.identity)
   });
 
-})(this);
+}).call(this);

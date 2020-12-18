@@ -1,14 +1,16 @@
-// Underscore-contrib (underscore.function.arity.js 0.0.1)
+// Underscore-contrib (underscore.function.arity.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -71,6 +73,30 @@
     };
   }());
 
+  // Right curry variants
+  // ---------------------
+  var curryRight = function (func) {
+    return curry.call(this, func, true);
+  };
+
+  var curryRight2 = function (fun) {
+    return enforcesUnary(function (last) {
+      return enforcesUnary(function (first) {
+        return fun.call(this, first, last);
+      });
+    });
+  };
+
+  var curryRight3 = function (fun) {
+    return enforcesUnary(function (last) {
+      return enforcesUnary(function (second) {
+        return enforcesUnary(function (first) {
+          return fun.call(this, first, second, last);
+        });
+      });
+    });
+  };
+
   // Mixing in the arity functions
   // -----------------------------
 
@@ -130,9 +156,8 @@
     curry: curry,
 
     // Flexible right to left curry with strict arity.
-    rCurry: function (func) {
-      return curry.call(this, func, true);
-    },
+    curryRight: curryRight,
+    rCurry: curryRight, // alias for backwards compatibility
 
 
     curry2: function (fun) {
@@ -153,24 +178,13 @@
       });
     },
 
-      // reverse currying for functions taking two arguments.
-    rcurry2: function (fun) {
-      return enforcesUnary(function (last) {
-        return enforcesUnary(function (first) {
-          return fun.call(this, first, last);
-        });
-      });
-    },
+    // reverse currying for functions taking two arguments.
+    curryRight2: curryRight2,
+    rcurry2: curryRight2, // alias for backwards compatibility
 
-    rcurry3: function (fun) {
-      return enforcesUnary(function (last) {
-        return enforcesUnary(function (second) {
-          return enforcesUnary(function (first) {
-            return fun.call(this, first, second, last);
-          });
-        });
-      });
-    },
+    curryRight3: curryRight3,
+    rcurry3: curryRight3, // alias for backwards compatibility
+
     // Dynamic decorator to enforce function arity and defeat varargs.
     enforce: enforce
   });
@@ -197,4 +211,4 @@
     };
   })();
 
-})(this);
+}).call(this);

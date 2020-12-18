@@ -1,14 +1,16 @@
-// Underscore-contrib (underscore.collections.walk.js 0.0.1)
+// Underscore-contrib (underscore.collections.walk.js 0.3.0)
 // (c) 2013 Patrick Dubroy
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -166,6 +168,22 @@
         return visitor(subResults || leafMemo, value, key, parent);
       };
       return walkImpl(obj, this._traversalStrategy, null, reducer, context, true);
+    },
+
+    // Determine if the array contains a number of repated values
+    containsAtLeast: function(list, count, value) {
+      var filtered = _.filter(list, function(item) {
+        return _.isEqual(item, value);
+      });
+      return _.gte(_.size(filtered), count);
+    },
+
+    // Determine if the array contains a number of repated values
+    containsAtMost: function(list, count, value) {
+      var filtered = _.filter(list, function(item) {
+        return _.isEqual(item, value);
+      });
+      return _.lte(_.size(filtered), count);
     }
   };
 
@@ -193,4 +211,4 @@
   // Use `_.walk` as a namespace to hold versions of the walk functions which
   // use the default traversal strategy.
   _.extend(_.walk, _.walk());
-})(this);
+}).call(this);

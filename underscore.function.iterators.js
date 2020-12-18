@@ -1,14 +1,16 @@
-// Underscore-contrib (underscore.function.iterators.js 0.0.1)
+// Underscore-contrib (underscore.function.iterators.js 0.3.0)
 // (c) 2013 Michael Fogus and DocumentCloud Inc.
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root, undefined) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
@@ -216,6 +218,14 @@
     };
   }
   
+  function cycle(array) {
+    var index = 0,
+        length = array.length;
+    return function() {
+      return array[index++ % length];
+    };
+  }
+
   function Tree (array) {
     var index, myself, state;
     index = 0;
@@ -328,7 +338,8 @@
     constant: K,
     K: K,
     numbers: numbers,
-    range: range
+    range: range,
+    cycle: cycle
   };
 
-})(this, void 0);
+}).call(this, void 0);

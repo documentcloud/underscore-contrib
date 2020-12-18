@@ -126,10 +126,10 @@ ceasar();
 
 **Signature:** `_.iterators.List(array:Array)`
 
-Returns an iterater that when invoked will iterate over the contents of `array`.
+Returns an iterator that when invoked will iterate over the contents of `array`.
 
 ```javascript
-var triumvirIter = _.iterators.List(["Ceasar", "Pompey", "Crassus"];
+var triumvirIter = _.iterators.List(["Ceasar", "Pompey", "Crassus"]);
 
 triumvirIter();
 // => "Ceasar"
@@ -220,7 +220,7 @@ twoAndUp();
 
 #### iterators.range
 
-**Signature:** `_.iterators.range([from:Number, to:Number, by:Number]);
+**Signature:** `_.iterators.range([from:Number, to:Number, by:Number])`
 
 Returns an iterator whose values consist of numbers beginning with `from`, ending with `to`, in steps of size `by`.
 

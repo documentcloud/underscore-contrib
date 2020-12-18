@@ -1,4 +1,4 @@
-# Underscore-contrib
+# Underscore-contrib (0.3.0)
 
 > The brass buckles on Underscore's utility belt - a contributors' library for [Underscore](http://underscorejs.org/).
 
@@ -23,19 +23,40 @@ various reasons, don't belong in Underscore proper. In particular, it aims to be
 
 ### Use
 
-First, you’ll need Underscore. Then you can grab the relevant underscore-contrib libraries and simply add
-something
-like the following to your pages:
+#### In the Browser
 
-    <script type="text/javascript" src="underscore.js"></script>
-    <script type="text/javascript" src="underscore.object.builders.js"></script>
+First, you'll need Underscore **version 1.6.0 or higher**. Then you can grab the relevant underscore-contrib sub-libraries and simply add something like
+the following to your pages:
 
-At the moment there are no cross-contrib dependencies (i.e. each library can stand by itself), but that may
-change in the future.
+```html
+<script type="text/javascript" src="underscore.js"></script>
+<script type="text/javascript" src="underscore.object.builders.js"></script>
+```
+
+At the moment there are no cross-contrib dependencies (i.e. each sub-library
+can stand by itself), but that may change in the future.
+
+#### In Node.js
+
+Using contrib in Node is very simple. Just install it with npm:
+
+```
+npm install underscore-contrib --save
+```
+
+Then require it within your project like so:
+
+```javascript
+var _ = require('underscore-contrib');
+```
+
+The `_` variable will be a copy of Underscore with contrib's methods already
+mixed in.
 
 ### License
 
-_.contrib is open sourced under the [MIT license](https://github.com/documentcloud/underscore-contrib/blob/master/LICENSE). 
+_.contrib is open sourced under the [MIT license](https://github.com/documentcloud/underscore-contrib/blob/master/LICENSE).
+
 ## Sub-libraries
 
 The _.contrib library currently contains a number of related capabilities, aggregated into the following files.

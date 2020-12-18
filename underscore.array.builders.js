@@ -1,21 +1,22 @@
-// Underscore-contrib (underscore.array.builders.js 0.0.1)
+// Underscore-contrib (underscore.array.builders.js 0.3.0)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // Underscore-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function() {
 
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  // Establish the root object, `window` in the browser, or `require` it on the server.
+  if (typeof exports === 'object') {
+    _ = module.exports = require('underscore');
+  }
 
   // Helpers
   // -------
-  
+
   // Create quick reference variables for speed access to core prototypes.
   var slice   = Array.prototype.slice,
-      concat  = Array.prototype.concat,
       sort    = Array.prototype.sort;
 
   var existy = function(x) { return x != null; };
@@ -25,18 +26,11 @@
 
   _.mixin({
     // Concatenates one or more arrays given as arguments.  If given objects and
-    // scalars as arguments `cat` will plop them down in place in the result 
+    // scalars as arguments `cat` will plop them down in place in the result
     // array.  If given an `arguments` object, `cat` will treat it like an array
     // and concatenate it likewise.
     cat: function() {
-      return _.reduce(arguments, function(acc, elem) {
-        if (_.isArguments(elem)) {
-          return concat.call(acc, slice.call(elem));
-        }
-        else {
-          return concat.call(acc, elem);
-        }
-      }, []);
+      return _.flatten(arguments, true);
     },
 
     // 'Constructs' an array by putting an element at its front
@@ -84,7 +78,7 @@
 
     // Maps a function over an array and concatenates all of the results.
     mapcat: function(array, fun) {
-      return _.cat.apply(null, _.map(array, fun));
+      return _.flatten(_.map(array, fun), true);
     },
 
     // Returns an array with some item between each element
@@ -95,7 +89,7 @@
       if (sz === 0) return array;
       if (sz === 1) return array;
 
-      return slice.call(_.mapcat(array, function(elem) { 
+      return slice.call(_.mapcat(array, function(elem) {
         return _.cons(elem, [inter]);
       }), 0, -1);
     },
@@ -173,7 +167,7 @@
       return ret;
     },
 
-    // Runs its given function on the index of the elements rather than 
+    // Runs its given function on the index of the elements rather than
     // the elements themselves, keeping all of the truthy values in the end.
     keepIndexed: function(array, pred) {
       return _.filter(_.map(_.range(_.size(array)), function(i) {
@@ -187,21 +181,19 @@
     // built-in `Array.prototype.reverse` method, this does not mutate the
     // original object. Note: attempting to use this method on a string will
     // result in a `TypeError`, as it cannot properly reverse unicode strings.
-
     reverseOrder: function(obj) {
       if (typeof obj == 'string')
         throw new TypeError('Strings cannot be reversed by _.reverseOrder');
       return slice.call(obj).reverse();
     },
-    
-    
+
     // Returns copy or array sorted according to arbitrary ordering
     // order must be an array of values; defines the custom sort
-    // key must be one of: missing/null, a string, or a function; 
+    // key must be one of: missing/null, a string, or a function;
     collate: function(array, order, key) {
       if (typeof array.length != "number") throw new TypeError("expected an array-like first argument");
       if (typeof order.length != "number") throw new TypeError("expected an array-like second argument");
-      
+
       var original = slice.call(array);
       var valA, valB;
       return sort.call(original, function (a, b) {
@@ -215,16 +207,29 @@
           valA = a;
           valB = b;
         }
-        
+
         var rankA = _.indexOf(order, valA);
         var rankB = _.indexOf(order, valB);
-        
+
         if(rankA === -1) return 1;
         if(rankB === -1) return -1;
-        
+
         return rankA - rankB;
       });
+    },
+
+    // Creates an array with all possible combinations of elements from
+    // the given arrays
+    combinations: function(){
+      return _.reduce(slice.call(arguments, 1),function(ret,newarr){
+        return _.reduce(ret,function(memo,oldi){
+          return memo.concat(_.map(newarr,function(newi){
+            return oldi.concat([newi]);
+          }));
+        },[]);
+      },_.map(arguments[0],function(i){return [i];}));
     }
+
   });
 
-})(this);
+}).call(this);
