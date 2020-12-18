@@ -198,11 +198,11 @@
         },[]);
       },_.map(arguments[0],function(i){return [i];}));
     },
-    
+
     // Inserts an item in an array at the specific index mutating the original
     // array and returning it.
     insert: function(array, index, item){
-      if (!_.isArray(array)) throw new TypeError('Expected an array as the first argument');
+      if (!_.isNumber(array.length)) throw new TypeError('Expected an array-like object as the first argument');
       splice.call(array, index, 0, item);
       return array;
     }
