@@ -1,0 +1,71 @@
+# This workflow is like CI, but also builds the documentation and deploys to NPM
+# and gh-pages.
+
+name: Continuous Deployment
+
+on:
+  push:
+    branches: [prepublish]
+  workflow_run:
+    workflows: [Prepublication staging]
+    types: [completed]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: prepublish
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - name: Configure yarn cache path
+      run: yarn config set cache-folder ~/.yarn-cache
+    - name: Restore yarn cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.yarn-cache
+        key: yarn-cache-14.x
+        restore-keys: |
+          yarn-cache-
+    - name: Restore node_modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-14.x-${{ hashFiles('yarn.lock') }}
+        restore-keys: |
+          node-modules-14.x-
+          node-modules-
+    - name: Install dependencies
+      run: yarn
+    - name: Build dist files and docs and run the tests
+      run: yarn grunt dist docco tocdoc
+    - name: Commit the build output
+      uses: EndBug/add-and-commit@v5
+      with:
+        add: dist/ index.html
+        message: Autocommit build output (continuous deployment)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish to NPM
+      run: yarn publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: Merge into gh-pages
+      uses: devmasx/merge-branch@v1.3.0
+      with:
+        type: now
+        target_branch: gh-pages
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+    - name: Tag the release
+      uses: Klemensas/action-autotag@stable
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        tag_prefix: v

@@ -17,26 +17,25 @@
 
   // No reason to create regex more than once
   var plusRegex = /\+/g;
-  var spaceRegex = /\%20/g;
   var bracketRegex = /(?:([^\[]+))|(?:\[(.*?)\])/g;
 
   var urlDecode = function(s) {
     return decodeURIComponent(s.replace(plusRegex, '%20'));
   };
   var urlEncode = function(s) {
-    return encodeURIComponent(s).replace(spaceRegex, '+');
+    return encodeURIComponent(s);
   };
 
   var buildParams = function(prefix, val, top) {
     if (_.isUndefined(top)) top = true;
     if (_.isArray(val)) {
-      return _.map(val, function(value, key) {
+      return _.compact(_.map(val, function(value, key) {
         return buildParams(top ? key : prefix + '[]', value, false);
-      }).join('&');
+      })).join('&');
     } else if (_.isObject(val)) {
-      return _.map(val, function(value, key) {
+      return _.compact(_.map(val, function(value, key) {
         return buildParams(top ? key : prefix + '[' + key + ']', value, false);
-      }).join('&');
+      })).join('&');
     } else {
       return urlEncode(prefix) + '=' + urlEncode(val);
     }

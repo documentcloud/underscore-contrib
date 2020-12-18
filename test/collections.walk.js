@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  module("underscore.collections.walk");
+  QUnit.module("underscore.collections.walk");
 
   var getSimpleTestTree = function() {
     return {
@@ -25,7 +25,7 @@ $(document).ready(function() {
     return ["a", "a", "a", "a", "b", "c", "d", "e" ];
   };
 
-  test("basic", function() {
+  QUnit.test("basic", function(assert) {
     // Updates the value of `node` to be the sum of the values of its subtrees.
     // Ignores leaf nodes.
     var visitor = function(node) {
@@ -35,106 +35,106 @@ $(document).ready(function() {
 
     var tree = getSimpleTestTree();
     _.walk.postorder(tree, visitor);
-    equal(tree.val, 16, 'should visit subtrees first');
-
+    assert.equal(tree.val, 16, 'should visit subtrees first');
+    
     tree = getSimpleTestTree();
     _.walk.preorder(tree, visitor);
-    equal(tree.val, 5, 'should visit subtrees after the node itself');
+    assert.equal(tree.val, 5, 'should visit subtrees after the node itself');
   });
-
-  test("circularRefs", function() {
+  
+  QUnit.test("circularRefs", function(assert) {
     var tree = getSimpleTestTree();
     tree.l.l.r = tree;
-    throws(function() { _.walk.preorder(tree, _.identity); }, TypeError, 'preorder throws an exception');
-    throws(function() { _.walk.postrder(tree, _.identity); }, TypeError, 'postorder throws an exception');
+    assert.throws(function() { _.walk.preorder(tree, _.identity); }, TypeError, 'preorder throws an exception');
+    assert.throws(function() { _.walk.postrder(tree, _.identity); }, TypeError, 'postorder throws an exception');
 
     tree = getSimpleTestTree();
     tree.r.l = tree.r;
-    throws(function() { _.walk.preorder(tree, _.identity); }, TypeError, 'exception for a self-referencing node');
+    assert.throws(function() { _.walk.preorder(tree, _.identity); }, TypeError, 'exception for a self-referencing node');
   });
 
-  test("simpleMap", function() {
+  QUnit.test("simpleMap", function(assert) {
     var visitor = function(node, key, parent) {
       if (_.has(node, 'val')) return node.val;
       if (key !== 'val') throw new Error('Leaf node with incorrect key');
       return this.leafChar || '-';
     };
     var visited = _.walk.map(getSimpleTestTree(), _.walk.preorder, visitor).join('');
-    equal(visited, '0-1-2-3-4-5-6-', 'pre-order map');
+    assert.equal(visited, '0-1-2-3-4-5-6-', 'pre-order map');
 
     visited = _.walk.map(getSimpleTestTree(), _.walk.postorder, visitor).join('');
-    equal(visited, '---2-31--5-640', 'post-order map');
+    assert.equal(visited, '---2-31--5-640', 'post-order map');
 
     var context = { leafChar: '*' };
     visited = _.walk.map(getSimpleTestTree(), _.walk.preorder, visitor, context).join('');
-    equal(visited, '0*1*2*3*4*5*6*', 'pre-order with context');
+    assert.equal(visited, '0*1*2*3*4*5*6*', 'pre-order with context');
 
     visited = _.walk.map(getSimpleTestTree(), _.walk.postorder, visitor, context).join('');
-    equal(visited, '***2*31**5*640', 'post-order with context');
+    assert.equal(visited, '***2*31**5*640', 'post-order with context');
 
     if (document.querySelector) {
       var root = document.querySelector('#map-test');
       var ids = _.walk.map(root, _.walk.preorder, function(el) { return el.id; });
-      deepEqual(ids, ['map-test', 'id1', 'id2'], 'preorder map with DOM elements');
+      assert.deepEqual(ids, ['map-test', 'id1', 'id2'], 'preorder map with DOM elements');
 
       ids = _.walk.map(root, _.walk.postorder, function(el) { return el.id; });
-      deepEqual(ids, ['id1', 'id2', 'map-test'], 'postorder map with DOM elements');
+      assert.deepEqual(ids, ['id1', 'id2', 'map-test'], 'postorder map with DOM elements');
     }
   });
 
-  test("mixedMap", function() {
+  QUnit.test("mixedMap", function(assert) {
     var visitor = function(node, key, parent) {
       return _.isString(node) ? node.toLowerCase() : null;
     };
 
     var tree = getMixedTestTree();
     var preorderResult = _.walk.map(tree, _.walk.preorder, visitor);
-    equal(preorderResult.length, 19, 'all nodes are visited');
-    deepEqual(_.reject(preorderResult, _.isNull),
+    assert.equal(preorderResult.length, 19, 'all nodes are visited');
+    assert.deepEqual(_.reject(preorderResult, _.isNull),
         ['munich', 'muenchen', 'san francisco', 'sf', 'san fran', 'toronto', 'to', 't-dot'],
         'pre-order map on a mixed tree');
 
     var postorderResult = _.walk.map(tree, _.walk.postorder, visitor);
-    deepEqual(preorderResult.sort(), postorderResult.sort(), 'post-order map on a mixed tree');
+    assert.deepEqual(preorderResult.sort(), postorderResult.sort(), 'post-order map on a mixed tree');
 
     tree = [['foo'], tree];
     var result = _.walk.map(tree, _.walk.postorder, visitor);
-    deepEqual(_.difference(result, postorderResult), ['foo'], 'map on list of trees');
+    assert.deepEqual(_.difference(result, postorderResult), ['foo'], 'map on list of trees');
   });
 
-  test("pluck", function() {
+  QUnit.test("pluck", function(assert) {
     var tree = getSimpleTestTree();
     tree.val = { val: 'z' };
 
     var plucked = _.walk.pluckRec(tree, 'val');
-    equal(plucked.shift(), tree.val);
-    equal(plucked.join(''), 'z123456', 'pluckRec is recursive');
+    assert.equal(plucked.shift(), tree.val);
+    assert.equal(plucked.join(''), 'z123456', 'pluckRec is recursive');
 
     plucked = _.walk.pluck(tree, 'val');
-    equal(plucked.shift(), tree.val);
-    equal(plucked.join(''), '123456', 'regular pluck is not recursive');
+    assert.equal(plucked.shift(), tree.val);
+    assert.equal(plucked.join(''), '123456', 'regular pluck is not recursive');
 
     tree.l.r.foo = 42;
-    equal(_.walk.pluck(tree, 'foo'), 42, 'pluck a value from deep in the tree');
+    assert.equal(_.walk.pluck(tree, 'foo'), 42, 'pluck a value from deep in the tree');
 
     tree = getMixedTestTree();
-    deepEqual(_.walk.pluck(tree, 'city'), ['Munich', 'San Francisco', 'Toronto'], 'pluck from a mixed tree');
+    assert.deepEqual(_.walk.pluck(tree, 'city'), ['Munich', 'San Francisco', 'Toronto'], 'pluck from a mixed tree');
     tree = [tree, { city: 'Loserville', population: 'you' }];
-    deepEqual(_.walk.pluck(tree, 'population'), [1378000, 812826, 2615000, 'you'], 'pluck from a list of trees');
+    assert.deepEqual(_.walk.pluck(tree, 'population'), [1378000, 812826, 2615000, 'you'], 'pluck from a list of trees');
   });
 
-  test("reduce", function() {
+  QUnit.test("reduce", function(assert) {
     var add = function(a, b) { return a + b; };
     var leafMemo = [];
     var sum = function(memo, node) {
       if (_.isObject(node))
         return _.reduce(memo, add, 0);
 
-      strictEqual(memo, leafMemo);
+      assert.strictEqual(memo, leafMemo);
       return node;
     };
     var tree = getSimpleTestTree();
-    equal(_.walk.reduce(tree, sum, leafMemo), 21);
+    assert.equal(_.walk.reduce(tree, sum, leafMemo), 21);
 
     // A more useful example: transforming a tree.
 
@@ -147,11 +147,11 @@ $(document).ready(function() {
     var toString =  function(node) { return _.has(node, 'val') ? '-' : node; };
 
     tree = _.walk.reduce(getSimpleTestTree(), mirror);
-    equal(_.walk.reduce(tree, sum, leafMemo), 21);
-    equal(_.walk.map(tree, _.walk.preorder, toString).join(''), '-0-4-6-5-1-3-2', 'pre-order map');
+    assert.equal(_.walk.reduce(tree, sum, leafMemo), 21);
+    assert.equal(_.walk.map(tree, _.walk.preorder, toString).join(''), '-0-4-6-5-1-3-2', 'pre-order map');
   });
 
-  test("find", function() {
+  QUnit.test("find", function(assert) {
     var tree = getSimpleTestTree();
 
     // Returns a visitor function that will succeed when a node with the given
@@ -165,40 +165,40 @@ $(document).ready(function() {
       };
     };
 
-    equal(_.walk.find(tree, findValue(0)).val, 0);
-    equal(_.walk.find(tree, findValue(6)).val, 6);
-    deepEqual(_.walk.find(tree, findValue(99)), undefined);
+    assert.equal(_.walk.find(tree, findValue(0)).val, 0);
+    assert.equal(_.walk.find(tree, findValue(6)).val, 6);
+    assert.deepEqual(_.walk.find(tree, findValue(99)), undefined);
   });
 
-  test("filter", function() {
+  QUnit.test("filter", function(assert) {
     var tree = getSimpleTestTree();
     tree.r.val = '.oOo.';  // Remove one of the numbers.
     var isEvenNumber = function(x) {
       return _.isNumber(x) && x % 2 === 0;
     };
 
-    equal(_.walk.filter(tree, _.walk.preorder, _.isObject).length, 7, 'filter objects');
-    equal(_.walk.filter(tree, _.walk.preorder, _.isNumber).length, 6, 'filter numbers');
-    equal(_.walk.filter(tree, _.walk.postorder, _.isNumber).length, 6, 'postorder filter numbers');
-    equal(_.walk.filter(tree, _.walk.preorder, isEvenNumber).length, 3, 'filter even numbers');
+    assert.equal(_.walk.filter(tree, _.walk.preorder, _.isObject).length, 7, 'filter objects');
+    assert.equal(_.walk.filter(tree, _.walk.preorder, _.isNumber).length, 6, 'filter numbers');
+    assert.equal(_.walk.filter(tree, _.walk.postorder, _.isNumber).length, 6, 'postorder filter numbers');
+    assert.equal(_.walk.filter(tree, _.walk.preorder, isEvenNumber).length, 3, 'filter even numbers');
 
     // With the identity function, only the value '0' should be omitted.
-    equal(_.walk.filter(tree, _.walk.preorder, _.identity).length, 13, 'filter on identity function');
+    assert.equal(_.walk.filter(tree, _.walk.preorder, _.identity).length, 13, 'filter on identity function');
   });
 
-  test("reject", function() {
+  QUnit.test("reject", function(assert) {
     var tree = getSimpleTestTree();
     tree.r.val = '.oOo.';  // Remove one of the numbers.
 
-    equal(_.walk.reject(tree, _.walk.preorder, _.isObject).length, 7, 'reject objects');
-    equal(_.walk.reject(tree, _.walk.preorder, _.isNumber).length, 8, 'reject numbers');
-    equal(_.walk.reject(tree, _.walk.postorder, _.isNumber).length, 8, 'postorder reject numbers');
+    assert.equal(_.walk.reject(tree, _.walk.preorder, _.isObject).length, 7, 'reject objects');
+    assert.equal(_.walk.reject(tree, _.walk.preorder, _.isNumber).length, 8, 'reject numbers');
+    assert.equal(_.walk.reject(tree, _.walk.postorder, _.isNumber).length, 8, 'postorder reject numbers');
 
     // With the identity function, only the value '0' should be kept.
-    equal(_.walk.reject(tree, _.walk.preorder, _.identity).length, 1, 'reject with identity function');
+    assert.equal(_.walk.reject(tree, _.walk.preorder, _.identity).length, 1, 'reject with identity function');
   });
 
-  test("customTraversal", function() {
+  QUnit.test("customTraversal", function(assert) {
     var tree = getSimpleTestTree();
 
     // Set up a walker that will not traverse the 'val' properties.
@@ -208,14 +208,14 @@ $(document).ready(function() {
     var visitor = function(node) {
       if (!_.isObject(node)) throw new Error("Leaf value visited when it shouldn't be");
     };
-    equal(walker.pluck(tree, 'val').length, 7, 'pluck with custom traversal');
-    equal(walker.pluckRec(tree, 'val').length, 7, 'pluckRec with custom traversal');
+    assert.equal(walker.pluck(tree, 'val').length, 7, 'pluck with custom traversal');
+    assert.equal(walker.pluckRec(tree, 'val').length, 7, 'pluckRec with custom traversal');
 
-    equal(walker.map(tree, _.walk.postorder, _.identity).length, 7, 'traversal strategy is dynamically scoped');
+    assert.equal(walker.map(tree, _.walk.postorder, _.identity).length, 7, 'traversal strategy is dynamically scoped');
 
     // Check that the default walker is unaffected.
-    equal(_.walk.map(tree, _.walk.postorder, _.identity).length, 14, 'default map still works');
-    equal(_.walk.pluckRec(tree, 'val').join(''), '0123456', 'default pluckRec still works');
+    assert.equal(_.walk.map(tree, _.walk.postorder, _.identity).length, 14, 'default map still works');
+    assert.equal(_.walk.pluckRec(tree, 'val').join(''), '0123456', 'default pluckRec still works');
   });
 
   test("containsAtLeast", function(){
