@@ -17,6 +17,7 @@
   
   // Create quick reference variables for speed access to core prototypes.
   var slice   = Array.prototype.slice;
+  var splice  = Array.prototype.splice;
 
   var existy = function(x) { return x != null; };
 
@@ -196,6 +197,14 @@
           }));
         },[]);
       },_.map(arguments[0],function(i){return [i];}));
+    },
+    
+    // Inserts an item in an array at the specific index mutating the original
+    // array and returning it.
+    insert: function(array, index, item){
+      if (!_.isArray(array)) throw new TypeError('Expected an array as the first argument');
+      splice.call(array, index, 0, item);
+      return array;
     }
 
   });
