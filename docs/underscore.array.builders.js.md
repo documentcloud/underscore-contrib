@@ -1,4 +1,4 @@
-### array.builders 
+### array.builders
 
 > Functions to build arrays. <a href="docs/underscore.array.builders.js.html" class="btn btn-primary btn-xs">View Annotated Source</a>
 
@@ -198,7 +198,7 @@ That is, the array only contains every number from `5` down to `1` because when 
 The `_.keepIndexed` function takes an array and a function and returns a new array filled with the *non-null* return results of the given function on the elements or keys in the given array:
 
 ```javascript
-_.keepIndexed([1,2,3], function(k) { 
+_.keepIndexed([1,2,3], function(k) {
   return i === 1 || i === 2;
 });
 
@@ -208,8 +208,8 @@ _.keepIndexed([1,2,3], function(k) {
 If you return either `null` or `undefined` then the result is dropped from the resulting array:
 
 ```javascript
-_.keepIndexed(['a','b','c'], function(k, v) { 
-  if (k === 1) return v; 
+_.keepIndexed(['a','b','c'], function(k, v) {
+  if (k === 1) return v;
 });
 
 //=> ['b']
@@ -291,7 +291,7 @@ _.splitAt([1,2,3,4,5], 20000);
 //=> [[1,2,3,4,5],[]]
 
 _.splitAt([1,2,3,4,5], -1000);
-//=> [[],[1,2,3,4,5]]    
+//=> [[],[1,2,3,4,5]]
 
 _.splitAt([], 0);
 //=> [[],[]]
