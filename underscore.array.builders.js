@@ -189,27 +189,17 @@
 
     // Returns copy or array sorted according to arbitrary ordering
     // order must be an array of values; defines the custom sort
-    // key must be one of: missing/null, a string, or a function;
+    // key must be a valid argument to _.iteratee
     collate: function(array, order, key) {
       if (typeof array.length != "number") throw new TypeError("expected an array-like first argument");
       if (typeof order.length != "number") throw new TypeError("expected an array-like second argument");
 
       var original = slice.call(array);
       var valA, valB;
+      var cb = _.iteratee(key);
       return sort.call(original, function (a, b) {
-        if(_.isFunction(key)) {
-          valA = key.call(original, a);
-          valB = key.call(original, b);
-        } else if(existy(key)) {
-          valA = a[key];
-          valB = b[key];
-        } else {
-          valA = a;
-          valB = b;
-        }
-
-        var rankA = _.indexOf(order, valA);
-        var rankB = _.indexOf(order, valB);
+        var rankA = _.indexOf(order, cb(a));
+        var rankB = _.indexOf(order, cb(b));
 
         if(rankA === -1) return 1;
         if(rankB === -1) return -1;

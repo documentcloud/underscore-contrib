@@ -112,9 +112,9 @@ Signature: `_.collate(toSort:array, customOrder:array)`
     //=> ['tall', 'tall', 'medium', 'medium', 'short', 'short']
 ```
 
-You can provide a third argument to `_.collate` to influence how array elements are evaluated while sorting.
+You can provide a third argument to `_.collate` to influence how array elements are evaluated while sorting. This argument will be passed through `_.iteratee()` in order to obtain a function that returns the sorting value.
 
-If the third argument is a string, `_.collate` will look for a property with that name on each array element, and that value will be used for sorting.
+For example, if the third argument is a string, `_.collate` will look for a property with that name on each array element, and that value will be used for sorting.
 
 Signature: `_collate(toSort:array, customOrder:array, sortKey:string)`
 
@@ -125,7 +125,7 @@ Signature: `_collate(toSort:array, customOrder:array, sortKey:string)`
     //=> [ {name:'Arnold', height:'tall'}, {name:'Danny', height:'short'} ];
 ```
 
-You may also pass a function as the third argument; it will be executed once for each item (with the original list as `this`, and the item as its argument), with its return used as the item's sort value.
+You may also directly pass a function as the third argument; it will be executed once for each item (with the original list as `this`, and the item as its argument), with its return used as the item's sort value.
 
 Signature: `_collate(toSort:array, customOrder:array, sortKey:function)`
 
