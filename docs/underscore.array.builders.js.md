@@ -152,6 +152,20 @@ _.cycle(5, [1,2,3]);
 
 --------------------------------------------------------------------------------
 
+#### insert
+
+Given an array, an index and a value, insert the value at this index in the array. The value that was previously at this index shifts one position up, together with any values that may come after it. `_.insert` modifies the array in place and also returns it. Useful shorthand for `Array.prototype.splice.call(array, index, 0, value)`.
+
+```javascript
+var array = [1, 2, 3];
+var result = _.insert(array, 1, 4);
+//=> [1, 4, 2, 3]
+result === array;
+//=> true
+```
+
+--------------------------------------------------------------------------------
+
 #### interpose
 
 The `_.interpose` function takes an array and an element and returns a new array with the given element inserted betwixt every element in the original array:
