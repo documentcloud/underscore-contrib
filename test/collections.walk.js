@@ -36,12 +36,12 @@ $(document).ready(function() {
     var tree = getSimpleTestTree();
     _.walk.postorder(tree, visitor);
     assert.equal(tree.val, 16, 'should visit subtrees first');
-    
+
     tree = getSimpleTestTree();
     _.walk.preorder(tree, visitor);
     assert.equal(tree.val, 5, 'should visit subtrees after the node itself');
   });
-  
+
   QUnit.test("circularRefs", function(assert) {
     var tree = getSimpleTestTree();
     tree.l.l.r = tree;
@@ -218,19 +218,19 @@ $(document).ready(function() {
     assert.equal(_.walk.pluckRec(tree, 'val').join(''), '0123456', 'default pluckRec still works');
   });
 
-  test("containsAtLeast", function(){
+  QUnit.test("containsAtLeast", function(assert){
     var array = getArrayValues();
 
-    equal(_.walk.containsAtLeast(array, 3, "a"), true, "list contains at least 3 items");
-    equal(_.walk.containsAtLeast(array, 1, "b"), true, "list contains at least 1 items");
-    equal(_.walk.containsAtLeast(array, 1, "f"), false, "list doesn't contain item for that value");
+    assert.equal(_.walk.containsAtLeast(array, 3, "a"), true, "list contains at least 3 items");
+    assert.equal(_.walk.containsAtLeast(array, 1, "b"), true, "list contains at least 1 items");
+    assert.equal(_.walk.containsAtLeast(array, 1, "f"), false, "list doesn't contain item for that value");
   });
 
-  test("containsAtMost", function(){
+  QUnit.test("containsAtMost", function(assert){
     var array = getArrayValues();
 
-    equal(_.walk.containsAtMost(array, 4, "a"), true, "list contains at most 4 items");
-    equal(_.walk.containsAtMost(array, 1, "b"), true, "list contains at most 1 value");
-    equal(_.walk.containsAtMost(array, 1, "f"), true, "list contains at most 1 value");
+    assert.equal(_.walk.containsAtMost(array, 4, "a"), true, "list contains at most 4 items");
+    assert.equal(_.walk.containsAtMost(array, 1, "b"), true, "list contains at most 1 value");
+    assert.equal(_.walk.containsAtMost(array, 1, "f"), true, "list contains at most 1 value");
   });
 });
