@@ -14,7 +14,7 @@
 
   // Helpers
   // -------
-  
+
   // Create quick reference variables for speed access to core prototypes.
   var slice   = Array.prototype.slice;
   var splice  = Array.prototype.splice;
@@ -26,7 +26,7 @@
 
   _.mixin({
     // Concatenates one or more arrays given as arguments.  If given objects and
-    // scalars as arguments `cat` will plop them down in place in the result 
+    // scalars as arguments `cat` will plop them down in place in the result
     // array.  If given an `arguments` object, `cat` will treat it like an array
     // and concatenate it likewise.
     cat: function() {
@@ -89,7 +89,7 @@
       if (sz === 0) return array;
       if (sz === 1) return array;
 
-      return slice.call(_.mapcat(array, function(elem) { 
+      return slice.call(_.mapcat(array, function(elem) {
         return _.cons(elem, [inter]);
       }), 0, -1);
     },
@@ -167,7 +167,7 @@
       return ret;
     },
 
-    // Runs its given function on the index of the elements rather than 
+    // Runs its given function on the index of the elements rather than
     // the elements themselves, keeping all of the truthy values in the end.
     keepIndexed: function(array, pred) {
       return _.filter(_.map(_.range(_.size(array)), function(i) {
