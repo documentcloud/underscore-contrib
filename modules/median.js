@@ -1,5 +1,5 @@
-import map from './map.js'
-import isEmpty from './isEmpty';
+import map from 'underscore/modules/map.js'
+import isEmpty from 'underscore/modules/isEmpty';
 
 // https://en.wikipedia.org/wiki/Median
 // Calulation of median is done using the following method.

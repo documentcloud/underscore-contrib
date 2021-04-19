@@ -1,4 +1,5 @@
-import cb from './_cb.js';
+import 'underscore/modules/iteratee.js';
+import _ from 'underscore/modules/underscore.js';
 import mean from './mean.js';
 
 // Return the variance of the numeric elements of the collection,

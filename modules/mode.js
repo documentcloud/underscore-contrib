@@ -1,7 +1,7 @@
-import isEmpty from './isEmpty';
-import groupBy from './groupBy.js';
-import max from './max.js';
-import first from './first.js';
+import isEmpty from 'underscore/modules/isEmpty';
+import groupBy from 'underscore/modules/groupBy.js';
+import max from 'underscore/modules/max.js';
+import first from 'underscore/modules/first.js';
 
 // Return the element (or element-based computation) that appears most frequently in the collection.
 // https://en.wikipedia.org/wiki/Mode_(statistics)

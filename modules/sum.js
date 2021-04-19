@@ -1,7 +1,8 @@
-import isArrayLike from './_isArrayLike.js';
-import values from './values.js';
-import cb from './_cb.js';
-import find from './find.js';
+import isArrayLike from 'underscore/modules/_isArrayLike.js';
+import values from 'underscore/modules/values.js';
+import 'underscore/modules/iteratee.js';
+import _ from 'underscore/modules/underscore.js';
+import find from 'underscore/modules/find.js';
 
 // Return the sum of elements (or element-based computation).
 export default function sum(collection, iteratee, context) {
@@ -12,7 +13,7 @@ export default function sum(collection, iteratee, context) {
       result += collection[i];
     }
   } else {
-    iteratee = cb(iteratee, context);
+    iteratee = _.iteratee(iteratee, context);
     find(collection, function(v, index, list) {
       result += iteratee(v, index, list);;
     });

@@ -1,4 +1,4 @@
-import size from './size.js';
+import size from 'underscore/modules/size.js';
 import sum from './sum.js';
 
 // Compute the average of the numbers obtained from the collection

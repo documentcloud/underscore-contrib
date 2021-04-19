@@ -1,5 +1,5 @@
-import isEmpty from './isEmpty';
-import sortBy from './sortBy.js';
+import isEmpty from 'underscore/modules/isEmpty';
+import sortBy from 'underscore/modules/sortBy.js';
 
 // Return the percentile value of the numeric elements from the collection
 //Ex : 50th,75th,99th etc.

@@ -1,5 +1,5 @@
-import max from './max.js';
-import min from './min.js';
+import max from 'underscore/modules/max.js';
+import min from 'underscore/modules/min.js';
 
 export default function statRange(collection, iteratee, context){
     return max(collection, iteratee, context) - min(collection, iteratee, context);

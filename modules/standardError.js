@@ -1,5 +1,5 @@
 import variance from './variance.js';
-import size from './size.js';
+import size from 'underscore/modules/size.js';
 
 // Return the standard error of the mean based on element-based computation.
 // https://en.wikipedia.org/wiki/Standard_error
