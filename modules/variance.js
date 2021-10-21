@@ -9,7 +9,7 @@ export default function variance(collection, iteratee, context) {
   if (typeof iteratee == 'number' && collection != null && typeof collection[0] != 'object') { 
     iteratee = null;
   }
-  iteratee = cb(iteratee, context);
+  iteratee = iteratee(iteratee, context);
 
   var computed = [];
   var avg = mean(collection, function(value, key, collection) {
