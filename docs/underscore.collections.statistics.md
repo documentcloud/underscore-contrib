@@ -4,9 +4,11 @@
 
 #### mean
 
-Signature: `_.mean(... arrays:Array ...)`
+Signature: `_.mean(... array:Array ...)`
 
 The `_.mean` function finds out the average value from the array of numbers.
+
+Link for reference <a href="https://en.wikipedia.org/wiki/Mean" target="_blank" class="btn btn-primary btn-xs">Mean</a>
 
 ```javascript
 
@@ -23,15 +25,18 @@ _.mean(null)
 
 #### median
 
-Signature: `_.median(... arrays:Array ...)`
+Signature: `_.median(... array:Array ...)`
 
 The `_.median` function finds out the middle value from the array of numbers.
 
 Calulation of median is done using the following method.
 
-If the array has odd numbers then median is the middle element.
+If the array is odd length then median is the middle element.
 
-If the array has even numbers then average of middle two numbers is the median value.
+If the array is even numbers then average of middle two numbers is the median value.
+
+Link for reference <a href="https://en.wikipedia.org/wiki/Median" target="_blank" class="btn btn-primary btn-xs">Median</a>
+
 ```javascript
 
 _.median([]);
@@ -47,9 +52,9 @@ _.median([1, 2, 3, 4])
 
 #### sum
 
-Signature: `_.sum(... arrays:Array ...)`
+Signature: `_.sum(... array:Array ...)`
 
-The `_.sum` function calculates the sum of the given arrays.
+The `_.sum` function calculates the sum of the given array.
 
 ```javascript
 
@@ -62,9 +67,11 @@ _.sum([0, 1, 2, 3, 4]);
 
 #### variance
 
-Signature: `_.variance(... arrays:Array ...)`
+Signature: `_.variance(... array:Array ...)`
 
 The `_.variance` function return the variance of the numeric elements of the collection.
+
+Link for reference <a href="https://en.wikipedia.org/wiki/Variance" target="_blank" class="btn btn-primary btn-xs">Variance</a>
 
 ```javascript
 
@@ -77,9 +84,11 @@ _.variance([0, 1, 2, 3, 4]);
 
 #### standardDeviation
 
-Signature: `_.standardDeviation(... arrays:Array ...)`
+Signature: `_.standardDeviation(... array:Array ...)`
 
 The `_.standardDeviation` function return the standard deviation of the numeric elements of the collection.
+
+Link for reference <a href="https://en.wikipedia.org/wiki/Standard_deviation" target="_blank" class="btn btn-primary btn-xs">Standard Deviation</a>
 
 ```javascript
 
@@ -92,9 +101,11 @@ _.standardDeviation([1, 2, 3, 4]);
 
 #### standardError
 
-Signature: `_.standardError(... arrays:Array ...)`
+Signature: `_.standardError(... array:Array ...)`
 
 The `_.standardError` function return the standard error of the numeric elements of the collection.
+
+Link for reference <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank" class="btn btn-primary btn-xs">Standard Error</a>
 
 ```javascript
 
@@ -107,9 +118,11 @@ _.standardError([1, 2, 3, 4]);
 
 #### mode
 
-Signature: `_.mode(... arrays:Array ...)`
+Signature: `_.mode(... array:Array ...)`
 
 The `_.mode` function return the element (or element-based computation) that appears most frequently in the collection.
+
+Link for reference <a href="https://en.wikipedia.org/wiki/Mode_(statistics)" target="_blank" class="btn btn-primary btn-xs">Mode</a>
 
 ```javascript
 
@@ -122,9 +135,11 @@ _.mode([1, 1, 3, 4]);
 
 #### statRange
 
-Signature: `_.statRange(... arrays:Array ...)`
+Signature: `_.statRange(... array:Array ...)`
 
 The `_.statRange` function return the difference of the max and min value of the elements in the array.
+
+Link for reference <a href="https://en.wikipedia.org/wiki/Range_(statistics)" target="_blank" class="btn btn-primary btn-xs">Range</a>
 
 ```javascript
 
@@ -137,9 +152,12 @@ _.statRange([1, 1, 3, 4]);
 
 #### percentile
 
-Signature: `_.percentile(... arrays:Array ...,percentileval:number)`
+Signature: `_.percentile(... array:Array ...,percentileVal:number)`
 
 The `_.percentile` function return the percentile value of the numeric elements from the collection like 50th,75th,99th etc.
+
+Link for reference <a href="https://en.wikipedia.org/wiki/Percentile" target="_blank" class="btn btn-primary btn-xs">Percentile</a>
+
 
 ```javascript
 
