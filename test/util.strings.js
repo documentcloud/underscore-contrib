@@ -30,6 +30,18 @@ $(document).ready(function() {
     assert.equal(_.implode(['H','o','m','e','r']), 'Homer', 'Should implode an array of characters into a single string.');
   });
 
+  QUnit.test('isTrueish', function(assert) {
+    assert.equal(_.isTrueish(), false, 'should return false');
+    assert.equal(_.isTrueish(undefined), false, 'should return false');
+    assert.equal(_.isTrueish(null), false, 'should return false');
+    assert.equal(_.isTrueish(true), true, 'should return true');
+    assert.equal(_.isTrueish(false), false, 'should return false');
+    assert.equal(_.isTrueish('true'), true, 'should return true');
+    assert.equal(_.isTrueish('false'), false, 'should return false');
+    assert.equal(_.isTrueish('True'), true, 'should return true');
+    assert.equal(_.isTrueish('FaLsE'), false, 'should return false');
+  });
+
   QUnit.test('camelCase', function(assert) {
     assert.equal(_.camelCase('punic-wars'), 'punicWars', 'Should convert a dashed-format string to camelCase.');
   });
