@@ -239,6 +239,21 @@ $(document).ready(function() {
     assert.equal(_.isDecreasing.apply(null, decNM), false, 'should identify when its arguments monotonically decrease');
   });
 
+  QUnit.test('isTrueish', function(assert) {
+    assert.equal(_.isTrueish(), false, 'should return false');
+    assert.equal(_.isTrueish(undefined), false, 'should return false');
+    assert.equal(_.isTrueish(null), false, 'should return false');
+    assert.equal(_.isTrueish(true), true, 'should return true');
+    assert.equal(_.isTrueish(false), false, 'should return false');
+    assert.equal(_.isTrueish(1), true, 'should return true');
+    assert.equal(_.isTrueish(0), false, 'should return false');
+    assert.equal(_.isTrueish('}'), false, 'should return false');
+    assert.equal(_.isTrueish('true'), true, 'should return true');
+    assert.equal(_.isTrueish('false'), false, 'should return false');
+    assert.equal(_.isTrueish('True'), true, 'should return true');
+    assert.equal(_.isTrueish('FaLsE'), false, 'should return false');
+  });
+
   QUnit.test("isValidDate", function(assert) {
     assert.equal(_.isValidDate(new Date), true, 'should recognize a fresh Date instance as valid');
     assert.equal(!_.isValidDate(new Date("bad date")), true, 'should recognize a Date constructed with gibberish');

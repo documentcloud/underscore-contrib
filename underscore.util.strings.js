@@ -103,14 +103,6 @@
       return a.join('');
     },
 
-    // Checks whether a string is "trueish"
-    isTrueish: function(v) {
-      if(_.isBoolean(v)) {
-          return v;
-      }
-      return !!JSON.parse((v || "false").toLowerCase());
-    },
-
     // Converts a string to camel case
     camelCase : function( string ){
       return  string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });

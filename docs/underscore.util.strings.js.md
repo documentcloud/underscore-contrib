@@ -57,28 +57,6 @@ _.implode(["H", "o", "m", "e", "r"]);
 
 --------------------------------------------------------------------------------
 
-#### isTrueish
-
-**Signature:** `_.isTrueish(value:String)`
-
-Checks whether an optional string parses to `true` with JSON. Lowercases variable before checking to ensure strings like `"True"` evaluate properly.
-
-```javascript
-_.isTrueish();
-// => false
-
-_.isTrueish(true);
-// => true
-
-_.isTrueish('true');
-// => true
-
-_.isTrueish('FaLsE');
-// => false
-```
-
---------------------------------------------------------------------------------
-
 #### strContains
 
 **Signature:** `_.strContains(str:String, search:String)`
