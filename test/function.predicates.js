@@ -247,6 +247,7 @@ $(document).ready(function() {
     assert.equal(_.isTrueish(false), false, 'should return false');
     assert.equal(_.isTrueish(1), true, 'should return true');
     assert.equal(_.isTrueish(0), false, 'should return false');
+    assert.equal(_.isTrueish({}), false, 'should return false');
     assert.equal(_.isTrueish('}'), false, 'should return false');
     assert.equal(_.isTrueish('true'), true, 'should return true');
     assert.equal(_.isTrueish('false'), false, 'should return false');
