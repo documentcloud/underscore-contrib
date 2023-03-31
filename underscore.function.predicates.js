@@ -108,6 +108,6 @@ _.mixin({
   // Checks whether a string is "trueish"
   isTrueish: function(v) {
     v = '' + v;
-    return !!+v || v.toLowerCase() === 'true';
+    return !!(+v) || v.toLowerCase() === 'true';
   }
 });
