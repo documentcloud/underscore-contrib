@@ -103,5 +103,11 @@ _.mixin({
     }
 
     return true;
+  },
+
+  // Checks whether a string is "trueish"
+  isTrueish: function(v) {
+    v = '' + v;
+    return !!(+v) || v.toLowerCase() === 'true';
   }
 });
