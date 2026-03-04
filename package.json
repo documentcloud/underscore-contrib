@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "main": "index.js",
   "dependencies": {
-    "underscore": "1.10.2"
+    "underscore": "1.13.8"
   },
   "devDependencies": {
     "grunt": "^1.5.3",
