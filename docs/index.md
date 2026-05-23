@@ -55,7 +55,7 @@ mixed in.
 
 ### License
 
-_.contrib is open sourced under the [MIT license](https://github.com/documentcloud/underscore-contrib/blob/master/LICENSE).
+`_.contrib` is open sourced under the [MIT license](https://github.com/documentcloud/underscore-contrib/blob/master/LICENSE).
 
 ## Sub-libraries
 
